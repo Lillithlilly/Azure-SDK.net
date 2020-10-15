@@ -145,8 +145,8 @@ The second way of doing this is using safe-batching. With safe-batching, you can
 
 ```C# Snippet:ServiceBusSendAndReceiveSafeBatch
 ServiceBusMessageBatch messageBatch = await sender.CreateMessageBatchAsync();
-messageBatch.TryAddMessage(new ServiceBusMessage(Encoding.UTF8.GetBytes("First")));
-messageBatch.TryAddMessage(new ServiceBusMessage(Encoding.UTF8.GetBytes("Second")));
+messageBatch.TryAddMessage(new ServiceBusMessage("First"));
+messageBatch.TryAddMessage(new ServiceBusMessage("Second"));
 
 // send the message batch
 await sender.SendMessagesAsync(messageBatch);
@@ -166,7 +166,7 @@ await using var client = new ServiceBusClient(connectionString);
 ServiceBusSender sender = client.CreateSender(queueName);
 
 // create a message that we can send
-ServiceBusMessage message = new ServiceBusMessage(Encoding.UTF8.GetBytes("Hello world!"));
+ServiceBusMessage message = new ServiceBusMessage("Hello world!");
 
 // send the message
 await sender.SendMessageAsync(message);
@@ -241,8 +241,8 @@ ServiceBusSender sender = client.CreateSender(queueName);
 
 // create a message batch that we can send
 ServiceBusMessageBatch messageBatch = await sender.CreateMessageBatchAsync();
-messageBatch.TryAddMessage(new ServiceBusMessage(Encoding.UTF8.GetBytes("First")));
-messageBatch.TryAddMessage(new ServiceBusMessage(Encoding.UTF8.GetBytes("Second")));
+messageBatch.TryAddMessage(new ServiceBusMessage("First"));
+messageBatch.TryAddMessage(new ServiceBusMessage("Second"));
 
 // send the message batch
 await sender.SendMessagesAsync(messageBatch);
