@@ -22,8 +22,9 @@ namespace Azure.Learn.Computation
         /// client
         /// </summary>
         /// <param name="connectionString"></param>
-        public ComputationClient(string connectionString)
+        public ComputationClient(string connectionString) : this(connectionString, new ComputationClientOptions())
         {
+            connectionString = null;
         }
 
         /// <summary>
@@ -33,28 +34,21 @@ namespace Azure.Learn.Computation
         /// <param name="options"></param>
         public ComputationClient(string connectionString, ComputationClientOptions options)
         {
+            connectionString = null;
+            options = null;
         }
 
         /// <summary>
         /// client
         /// </summary>
-        /// <param name="uri"></param>
+        /// <param name="endpoint"></param>
         /// <param name="credential"></param>
         /// <param name="options"></param>
-        public ComputationClient(Uri uri, TokenCredential credential, ComputationClientOptions options = default)
+        public ComputationClient(Uri endpoint, TokenCredential credential, ComputationClientOptions options = default)
         {
+            endpoint = null;
+            credential = null;
+            options = new ComputationClientOptions();
         }
-
-        //public virtual Task<Response<ConfigurationSetting>> AddAsync(ConfigurationSetting setting, CancellationToken cancellationToken = default);
-        //public virtual Response<ConfigurationSetting> Add(ConfigurationSetting setting, CancellationToken cancellationToken = default);
-
-        //public virtual Task<Response<ConfigurationSetting>> SetAsync(ConfigurationSetting setting, CancellationToken cancellationToken = default);
-        //public virtual Response<ConfigurationSetting> Set(ConfigurationSetting setting, CancellationToken cancellationToken = default);
-
-        //public virtual Task<Response<ConfigurationSetting>> GetAsync(string key, SettingFilter filter = default, CancellationToken cancellationToken = default);
-        //public virtual Response<ConfigurationSetting> Get(string key, SettingFilter filter = default, CancellationToken cancellationToken = default);
-
-        //public virtual Task<Response<ConfigurationSetting>> DeleteAsync(string key, SettingFilter filter = default, CancellationToken cancellationToken = default);
-        //public virtual Response<ConfigurationSetting> Delete(string key, SettingFilter filter = default, CancellationToken cancellationToken = default);
     }
 }

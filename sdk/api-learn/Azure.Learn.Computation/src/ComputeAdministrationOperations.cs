@@ -28,6 +28,7 @@ namespace Azure.Learn.Computation
         /// <param name="computeNodeName"></param>
         public ComputeAdministrationOperations(string computeNodeName)
         {
+            computeNodeName = null;
         }
 
         /// <summary>

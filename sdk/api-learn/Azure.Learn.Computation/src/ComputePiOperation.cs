@@ -20,7 +20,8 @@ namespace Azure.Learn.Computation
         /// <param name="client"></param>
         public ComputePiOperation(string id, ComputePiOperationClient client)
         {
-            throw new NotImplementedException();
+            this.Id = id;
+            client = null;
         }
 
         /// <summary>
