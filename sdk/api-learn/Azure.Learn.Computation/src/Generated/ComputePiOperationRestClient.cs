@@ -13,20 +13,20 @@ using Azure.Core.Pipeline;
 
 namespace Azure.Learn.Computation
 {
-    internal partial class ComputationRestClient
+    internal partial class ComputePiOperationRestClient
     {
         private string nodeName;
         private Uri endpoint;
         private ClientDiagnostics _clientDiagnostics;
         private HttpPipeline _pipeline;
 
-        /// <summary> Initializes a new instance of ComputationRestClient. </summary>
+        /// <summary> Initializes a new instance of ComputePiOperationRestClient. </summary>
         /// <param name="clientDiagnostics"> The handler for diagnostic messaging in the client. </param>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
         /// <param name="nodeName"> The String to use. </param>
         /// <param name="endpoint"> server parameter. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="nodeName"/> is null. </exception>
-        public ComputationRestClient(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, string nodeName, Uri endpoint = null)
+        public ComputePiOperationRestClient(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, string nodeName, Uri endpoint = null)
         {
             if (nodeName == null)
             {
@@ -40,7 +40,7 @@ namespace Azure.Learn.Computation
             _pipeline = pipeline;
         }
 
-        internal HttpMessage CreateComputePiRequest(int? precision)
+        internal HttpMessage CreatePostRequest(int? precision)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -60,11 +60,11 @@ namespace Azure.Learn.Computation
 
         /// <param name="precision"> The Integer to use. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public async Task<ResponseWithHeaders<ComputationComputePiHeaders>> ComputePiAsync(int? precision = null, CancellationToken cancellationToken = default)
+        public async Task<ResponseWithHeaders<ComputePiOperationPostHeaders>> PostAsync(int? precision = null, CancellationToken cancellationToken = default)
         {
-            using var message = CreateComputePiRequest(precision);
+            using var message = CreatePostRequest(precision);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
-            var headers = new ComputationComputePiHeaders(message.Response);
+            var headers = new ComputePiOperationPostHeaders(message.Response);
             switch (message.Response.Status)
             {
                 case 202:
@@ -76,11 +76,11 @@ namespace Azure.Learn.Computation
 
         /// <param name="precision"> The Integer to use. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public ResponseWithHeaders<ComputationComputePiHeaders> ComputePi(int? precision = null, CancellationToken cancellationToken = default)
+        public ResponseWithHeaders<ComputePiOperationPostHeaders> Post(int? precision = null, CancellationToken cancellationToken = default)
         {
-            using var message = CreateComputePiRequest(precision);
+            using var message = CreatePostRequest(precision);
             _pipeline.Send(message, cancellationToken);
-            var headers = new ComputationComputePiHeaders(message.Response);
+            var headers = new ComputePiOperationPostHeaders(message.Response);
             switch (message.Response.Status)
             {
                 case 202:

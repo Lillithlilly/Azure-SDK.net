@@ -8,12 +8,13 @@
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
+using Azure.Learn.Computation.Models;
 
-namespace Azure.Learn.Computation.Models
+namespace Azure.Learn.Computation
 {
-    public partial class PageOfComputeNodes
+    internal partial class ComputeNodes
     {
-        internal static PageOfComputeNodes DeserializePageOfComputeNodes(JsonElement element)
+        internal static ComputeNodes DeserializeComputeNodes(JsonElement element)
         {
             IReadOnlyList<ComputeNode> value = default;
             Optional<string> nextLink = default;
@@ -35,7 +36,7 @@ namespace Azure.Learn.Computation.Models
                     continue;
                 }
             }
-            return new PageOfComputeNodes(value, nextLink.Value);
+            return new ComputeNodes(value, nextLink.Value);
         }
     }
 }

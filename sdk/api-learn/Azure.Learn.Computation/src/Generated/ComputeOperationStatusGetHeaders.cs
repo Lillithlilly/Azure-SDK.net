@@ -10,10 +10,10 @@ using Azure.Core;
 
 namespace Azure.Learn.Computation
 {
-    internal class ServiceComputationHeaders
+    internal class ComputeOperationStatusGetHeaders
     {
         private readonly Response _response;
-        public ServiceComputationHeaders(Response response)
+        public ComputeOperationStatusGetHeaders(Response response)
         {
             _response = response;
         }

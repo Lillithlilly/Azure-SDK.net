@@ -10,10 +10,10 @@ using Azure.Core;
 
 namespace Azure.Learn.Computation
 {
-    internal class ComputationComputePiHeaders
+    internal class ComputePiOperationPostHeaders
     {
         private readonly Response _response;
-        public ComputationComputePiHeaders(Response response)
+        public ComputePiOperationPostHeaders(Response response)
         {
             _response = response;
         }

@@ -7,27 +7,22 @@
 
 using System;
 
-namespace Azure.Learn.Computation.Models
+namespace Azure.Learn.Computation
 {
     /// <summary> The Operation. </summary>
-    public partial class Operation
+    public readonly partial struct ComputeOperation
     {
-        /// <summary> Initializes a new instance of Operation. </summary>
-        internal Operation()
-        {
-        }
-
-        /// <summary> Initializes a new instance of Operation. </summary>
+        /// <summary> Initializes a new instance of ComputeOperation. </summary>
         /// <param name="createdDateTime"> Date and time (UTC) when the operation was submitted. </param>
         /// <param name="percentComplete"> The completion state of the operation. </param>
         /// <param name="status"> The current status of the operation. </param>
-        /// <param name="value"> The computed value. </param>
-        internal Operation(DateTimeOffset? createdDateTime, float? percentComplete, OperationStatus? status, float? value)
+        /// <param name="computedValue"> The computed value. </param>
+        internal ComputeOperation(DateTimeOffset? createdDateTime, float? percentComplete, ComputeOperationStatus? status, float? computedValue)
         {
             CreatedDateTime = createdDateTime;
             PercentComplete = percentComplete;
             Status = status;
-            Value = value;
+            ComputedValue = computedValue;
         }
 
         /// <summary> Date and time (UTC) when the operation was submitted. </summary>
@@ -35,8 +30,6 @@ namespace Azure.Learn.Computation.Models
         /// <summary> The completion state of the operation. </summary>
         public float? PercentComplete { get; }
         /// <summary> The current status of the operation. </summary>
-        public OperationStatus? Status { get; }
-        /// <summary> The computed value. </summary>
-        public float? Value { get; }
+        public ComputeOperationStatus? Status { get; }
     }
 }

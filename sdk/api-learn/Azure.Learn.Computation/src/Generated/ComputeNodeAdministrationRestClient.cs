@@ -52,11 +52,12 @@ namespace Azure.Learn.Computation
             uri.Reset(endpoint);
             uri.AppendPath("/ComputeNodes", false);
             request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
             return message;
         }
 
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public async Task<Response<PageOfComputeNodes>> ListAsync(CancellationToken cancellationToken = default)
+        public async Task<Response<ComputeNodes>> ListAsync(CancellationToken cancellationToken = default)
         {
             using var message = CreateListRequest();
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
@@ -64,9 +65,9 @@ namespace Azure.Learn.Computation
             {
                 case 200:
                     {
-                        PageOfComputeNodes value = default;
+                        ComputeNodes value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = PageOfComputeNodes.DeserializePageOfComputeNodes(document.RootElement);
+                        value = ComputeNodes.DeserializeComputeNodes(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -75,7 +76,7 @@ namespace Azure.Learn.Computation
         }
 
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public Response<PageOfComputeNodes> List(CancellationToken cancellationToken = default)
+        public Response<ComputeNodes> List(CancellationToken cancellationToken = default)
         {
             using var message = CreateListRequest();
             _pipeline.Send(message, cancellationToken);
@@ -83,9 +84,9 @@ namespace Azure.Learn.Computation
             {
                 case 200:
                     {
-                        PageOfComputeNodes value = default;
+                        ComputeNodes value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = PageOfComputeNodes.DeserializePageOfComputeNodes(document.RootElement);
+                        value = ComputeNodes.DeserializeComputeNodes(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -108,6 +109,7 @@ namespace Azure.Learn.Computation
                 request.Headers.Add("if-match", ifMatch);
             }
             request.Headers.Add("Content-Type", "application/json");
+            request.Headers.Add("Accept", "application/json");
             if (computeNode != null)
             {
                 var content = new Utf8JsonRequestContent();
@@ -171,6 +173,7 @@ namespace Azure.Learn.Computation
             uri.AppendPath("/ComputeNodes/", false);
             uri.AppendPath(nodeName, true);
             request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
             return message;
         }
 
@@ -221,13 +224,14 @@ namespace Azure.Learn.Computation
             uri.Reset(endpoint);
             uri.AppendRawNextLink(nextLink, false);
             request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
             return message;
         }
 
         /// <param name="nextLink"> The URL to the next page of results. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/> is null. </exception>
-        public async Task<Response<PageOfComputeNodes>> ListNextPageAsync(string nextLink, CancellationToken cancellationToken = default)
+        public async Task<Response<ComputeNodes>> ListNextPageAsync(string nextLink, CancellationToken cancellationToken = default)
         {
             if (nextLink == null)
             {
@@ -240,9 +244,9 @@ namespace Azure.Learn.Computation
             {
                 case 200:
                     {
-                        PageOfComputeNodes value = default;
+                        ComputeNodes value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = PageOfComputeNodes.DeserializePageOfComputeNodes(document.RootElement);
+                        value = ComputeNodes.DeserializeComputeNodes(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -253,7 +257,7 @@ namespace Azure.Learn.Computation
         /// <param name="nextLink"> The URL to the next page of results. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/> is null. </exception>
-        public Response<PageOfComputeNodes> ListNextPage(string nextLink, CancellationToken cancellationToken = default)
+        public Response<ComputeNodes> ListNextPage(string nextLink, CancellationToken cancellationToken = default)
         {
             if (nextLink == null)
             {
@@ -266,9 +270,9 @@ namespace Azure.Learn.Computation
             {
                 case 200:
                     {
-                        PageOfComputeNodes value = default;
+                        ComputeNodes value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = PageOfComputeNodes.DeserializePageOfComputeNodes(document.RootElement);
+                        value = ComputeNodes.DeserializeComputeNodes(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:

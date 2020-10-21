@@ -32,11 +32,6 @@
             }
         },
         "/ComputeNodes/{nodeName}": {
-            "parameters": [
-                {
-                    "$ref": "#/parameters/NodeName"
-                }
-            ],
             "put": {
                 "operationId": "ComputeNodeAdministration_Create",
                 "tags": [ "Administration" ],
@@ -86,7 +81,12 @@
                         }
                     }
                 }
-            }
+            },
+            "parameters": [
+                {
+                    "$ref": "#/parameters/NodeName"
+                }
+            ]
         },
         "/ComputeNodes/{nodeName}/computePi": {
             "parameters": [
@@ -95,7 +95,7 @@
                 }
             ],
             "post": {
-                "operationId": "Computation_ComputePi",
+                "operationId": "ComputePiOperation_Post",
                 "tags": [ "Computation" ],
                 "parameters": [
                     {
@@ -130,6 +130,7 @@
                 }
             ],
             "get": {
+                "operationId": "ComputeOperationStatus_Get",
                 "tags": [ "Computation" ],
                 "responses": {
                     "200": {
