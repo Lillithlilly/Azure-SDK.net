@@ -1,0 +1,26 @@
+﻿[
+    {
+        "$dtId": "Building16",
+        "$metadata": {
+            "$model": "dtmi:com:samples:Building;1"
+        },
+        "AverageTemperature": 20,
+        "TemperatureUnit": "Celsius"
+    },
+    {
+        "$dtId": "Building17",
+        "$metadata": {
+            "$model": "dtmi:com:samples:Building;1"
+        },
+        "AverageTemperature": 68,
+        "TemperatureUnit": "Celsius"
+    },
+    {
+        "$dtId": "Building18",
+        "$metadata": {
+            "$model": "dtmi:com:samples:Building;1"
+        },
+        "AverageTemperature": 106,
+        "TemperatureUnit": "Celsius"
+    }
+]

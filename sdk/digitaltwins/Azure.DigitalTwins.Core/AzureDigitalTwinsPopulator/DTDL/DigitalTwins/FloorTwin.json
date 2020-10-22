@@ -1,0 +1,65 @@
+﻿[
+    {
+        "$dtId": "Building16Floor1",
+        "$metadata": {
+            "$model": "dtmi:com:samples:Floor;1"
+        },
+        "AverageTemperature": 75
+    },
+    {
+        "$dtId": "Building16Floor2",
+        "$metadata": {
+            "$model": "dtmi:com:samples:Floor;1"
+        },
+        "AverageTemperature": 75
+    },
+    {
+        "$dtId": "Building16Floor3",
+        "$metadata": {
+            "$model": "dtmi:com:samples:Floor;1"
+        },
+        "AverageTemperature": 75
+    },
+    {
+        "$dtId": "Building17Floor1",
+        "$metadata": {
+            "$model": "dtmi:com:samples:Floor;1"
+        },
+        "AverageTemperature": 75
+    },
+    {
+        "$dtId": "Building17Floor2",
+        "$metadata": {
+            "$model": "dtmi:com:samples:Floor;1"
+        },
+        "AverageTemperature": 75
+    },
+    {
+        "$dtId": "Building17Floor3",
+        "$metadata": {
+            "$model": "dtmi:com:samples:Floor;1"
+        },
+        "AverageTemperature": 75
+    },
+    {
+        "$dtId": "Building18Floor1",
+        "$metadata": {
+            "$model": "dtmi:com:samples:Floor;1"
+        },
+        "AverageTemperature": 75
+    },
+    {
+        "$dtId": "Building18Floor2",
+        "$metadata": {
+            "$model": "dtmi:com:samples:Floor;1"
+        },
+        "AverageTemperature": 75
+    },
+    {
+        "$dtId": "Building18Floor3",
+        "$metadata": {
+            "$model": "dtmi:com:samples:Floor;1"
+        },
+        "AverageTemperature": 75
+    }
+]
