@@ -5,6 +5,7 @@ using System;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Storage.Blobs;
 using Microsoft.Azure.WebJobs.Extensions.Storage.Blobs.Config;
+using Microsoft.Azure.WebJobs.Extensions.Storage.Blobs.Listeners;
 using Microsoft.Azure.WebJobs.Extensions.Storage.Blobs.Triggers;
 using Microsoft.Azure.WebJobs.Extensions.Storage.Common;
 using Microsoft.Azure.WebJobs.Extensions.Storage.Common.Listeners;
@@ -41,6 +42,7 @@ namespace Microsoft.Extensions.Hosting
 
             builder.Services.TryAddSingleton<BlobServiceClientProvider>();
             builder.Services.TryAddSingleton<QueueServiceClientProvider>();
+            builder.Services.TryAddSingleton<IHttpRequestProcessor, HttpRequestProcessor>();
 
             builder.Services.TryAddSingleton<IContextSetter<IBlobWrittenWatcher>>((p) => new ContextAccessor<IBlobWrittenWatcher>());
             builder.Services.TryAddSingleton((p) => p.GetService<IContextSetter<IBlobWrittenWatcher>>() as IContextGetter<IBlobWrittenWatcher>);

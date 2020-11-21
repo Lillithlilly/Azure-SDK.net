@@ -18,6 +18,7 @@ using Microsoft.Azure.WebJobs.Extensions.Storage.Common.Protocols;
 using Microsoft.Azure.WebJobs.Host.Executors;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace Microsoft.Azure.WebJobs.Extensions.Storage.Blobs.Listeners
 {
@@ -99,7 +100,7 @@ namespace Microsoft.Azure.WebJobs.Extensions.Storage.Blobs.Listeners
             string possibleETag = blobProperties.ETag.ToString();
 
             // If the blob still exists but the ETag is different, delete the message but do a fast path notification.
-            if (!string.Equals(message.ETag, possibleETag, StringComparison.Ordinal))
+            if (!string.Equals(message.ETag, possibleETag, StringComparison.Ordinal) && _blobWrittenWatcher != null)
             {
                 _blobWrittenWatcher.Notify(new Extensions.Storage.Blobs.BlobWithContainer<BlobBaseClient>(container, blob));
                 return successResult;

@@ -123,91 +123,48 @@ namespace Microsoft.Azure.WebJobs.Extensions.EventGrid
                 return new HttpResponseMessage(HttpStatusCode.NotFound) { Content = new StringContent($"cannot find function: '{functionName}'") };
             }
 
-            IEnumerable<string> eventTypeHeaders = null;
-            string eventTypeHeader = null;
-            if (req.Headers.TryGetValues("aeg-event-type", out eventTypeHeaders))
-            {
-                eventTypeHeader = eventTypeHeaders.First();
-            }
+            return await HttpRequestProcessor.ProcessAsync(req, functionName, _logger, ProcessEventsAsync, CancellationToken.None).ConfigureAwait(false);
+        }
 
-            if (String.Equals(eventTypeHeader, "SubscriptionValidation", StringComparison.OrdinalIgnoreCase))
-            {
-                string jsonArray = await req.Content.ReadAsStringAsync().ConfigureAwait(false);
-                SubscriptionValidationEvent validationEvent = null;
-                List<JObject> events = JsonConvert.DeserializeObject<List<JObject>>(jsonArray);
-                // TODO remove unnecessary serialization
-                validationEvent = ((JObject)events[0]["data"]).ToObject<SubscriptionValidationEvent>();
-                SubscriptionValidationResponse validationResponse = new SubscriptionValidationResponse { ValidationResponse = validationEvent.ValidationCode };
-                var returnMessage = new HttpResponseMessage(HttpStatusCode.OK);
-                returnMessage.Content = new StringContent(JsonConvert.SerializeObject(validationResponse));
-                _logger.LogInformation($"perform handshake with eventGrid for function: {functionName}");
-                return returnMessage;
-            }
-            else if (String.Equals(eventTypeHeader, "Notification", StringComparison.OrdinalIgnoreCase))
-            {
-                JArray events = null;
-                string requestContent = await req.Content.ReadAsStringAsync().ConfigureAwait(false);
-                var token = JToken.Parse(requestContent);
-                if (token.Type == JTokenType.Array)
-                {
-                    // eventgrid schema
-                    events = (JArray)token;
-                }
-                else if (token.Type == JTokenType.Object)
-                {
-                    // cloudevent schema
-                    events = new JArray
-                    {
-                        token
-                    };
-                }
+        private async Task<HttpResponseMessage> ProcessEventsAsync(JArray events, string functionName, CancellationToken cancellationToken)
+        {
+            List<Task<FunctionResult>> executions = new List<Task<FunctionResult>>();
 
-                List<Task<FunctionResult>> executions = new List<Task<FunctionResult>>();
-
-                // Single Dispatch
-                if (_listeners[functionName].SingleDispatch)
+            // Single Dispatch
+            if (_listeners[functionName].SingleDispatch)
+            {
+                foreach (var ev in events)
                 {
-                    foreach (var ev in events)
-                    {
-                        // assume each event is a JObject
-                        TriggeredFunctionData triggerData = new TriggeredFunctionData
-                        {
-                            TriggerValue = ev
-                        };
-                        executions.Add(_listeners[functionName].Executor.TryExecuteAsync(triggerData, CancellationToken.None));
-                    }
-                    await Task.WhenAll(executions).ConfigureAwait(false);
-                }
-                // Batch Dispatch
-                else
-                {
+                    // assume each event is a JObject
                     TriggeredFunctionData triggerData = new TriggeredFunctionData
                     {
-                        TriggerValue = events
+                        TriggerValue = ev
                     };
                     executions.Add(_listeners[functionName].Executor.TryExecuteAsync(triggerData, CancellationToken.None));
                 }
-
-                // FIXME without internal queuing, we are going to process all events in parallel
-                // and return 500 if there's at least one failure...which will cause EventGrid to resend the entire payload
-                foreach (var execution in executions)
-                {
-                    if (!execution.Result.Succeeded)
-                    {
-                        return new HttpResponseMessage(HttpStatusCode.InternalServerError) { Content = new StringContent(execution.Result.Exception.Message) };
-                    }
-                }
-
-                return new HttpResponseMessage(HttpStatusCode.Accepted);
+                await Task.WhenAll(executions).ConfigureAwait(false);
             }
-            else if (String.Equals(eventTypeHeader, "Unsubscribe", StringComparison.OrdinalIgnoreCase))
+            // Batch Dispatch
+            else
             {
-                // TODO disable function?
-                return new HttpResponseMessage(HttpStatusCode.Accepted);
+                TriggeredFunctionData triggerData = new TriggeredFunctionData
+                {
+                    TriggerValue = events
+                };
+                executions.Add(_listeners[functionName].Executor.TryExecuteAsync(triggerData, CancellationToken.None));
             }
 
-            return new HttpResponseMessage(HttpStatusCode.BadRequest);
+            // FIXME without internal queuing, we are going to process all events in parallel
+            // and return 500 if there's at least one failure...which will cause EventGrid to resend the entire payload
+            foreach (var execution in executions)
+            {
+                if (!execution.Result.Succeeded)
+                {
+                    return new HttpResponseMessage(HttpStatusCode.InternalServerError) { Content = new StringContent(execution.Result.Exception.Message) };
+                }
+            }
 
+            return new HttpResponseMessage(HttpStatusCode.Accepted);
         }
 
         private class JTokenToPocoConverter<T> : IConverter<JToken, T>

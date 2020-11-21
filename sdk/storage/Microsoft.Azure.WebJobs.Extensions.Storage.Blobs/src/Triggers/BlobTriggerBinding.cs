@@ -44,6 +44,7 @@ namespace Microsoft.Azure.WebJobs.Extensions.Storage.Blobs.Triggers
         private readonly IAsyncObjectToTypeConverter<BlobBaseClient> _converter;
         private readonly IReadOnlyDictionary<string, Type> _bindingDataContract;
         private readonly IHostSingletonManager _singletonManager;
+        private readonly bool _useEventGrid;
 
         public BlobTriggerBinding(ParameterInfo parameter,
             BlobServiceClient hostBlobServiceClient,
@@ -51,6 +52,7 @@ namespace Microsoft.Azure.WebJobs.Extensions.Storage.Blobs.Triggers
             BlobServiceClient dataBlobServiceClient,
             QueueServiceClient dataQueueServiceClient,
             IBlobPathSource path,
+            bool useEventGrid,
             IHostIdProvider hostIdProvider,
             BlobsOptions blobsOptions,
             IWebJobsExceptionHandler exceptionHandler,
@@ -68,6 +70,7 @@ namespace Microsoft.Azure.WebJobs.Extensions.Storage.Blobs.Triggers
 
             _accountName = _dataBlobServiceClient.AccountName;
             _path = path ?? throw new ArgumentNullException(nameof(path));
+            _useEventGrid = useEventGrid;
             _hostIdProvider = hostIdProvider ?? throw new ArgumentNullException(nameof(hostIdProvider));
             _blobsOptions = blobsOptions ?? throw new ArgumentNullException(nameof(blobsOptions));
             _exceptionHandler = exceptionHandler ?? throw new ArgumentNullException(nameof(exceptionHandler));
@@ -186,7 +189,7 @@ namespace Microsoft.Azure.WebJobs.Extensions.Storage.Blobs.Triggers
             var factory = new BlobListenerFactory(_hostIdProvider, _blobsOptions, _exceptionHandler,
                 _blobWrittenWatcherSetter, _messageEnqueuedWatcherSetter, _sharedContextProvider, _loggerFactory,
                 context.Descriptor, _hostBlobServiceClient, _hostQueueServiceClient, _dataBlobServiceClient, _dataQueueServiceClient,
-                container, _path, context.Executor, _singletonManager);
+                container, _path, _useEventGrid, context.Executor, _singletonManager);
 
             return factory.CreateAsync(context.CancellationToken);
         }

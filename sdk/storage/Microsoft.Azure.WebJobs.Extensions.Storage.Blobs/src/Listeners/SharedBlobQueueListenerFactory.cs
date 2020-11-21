@@ -49,7 +49,7 @@ namespace Microsoft.Azure.WebJobs.Extensions.Storage.Blobs.Listeners
             _blobsOptions = blobsOptions ?? throw new ArgumentNullException(nameof(blobsOptions));
             _exceptionHandler = exceptionHandler ?? throw new ArgumentNullException(nameof(exceptionHandler));
             _loggerFactory = loggerFactory;
-            _blobWrittenWatcher = blobWrittenWatcher ?? throw new ArgumentNullException(nameof(blobWrittenWatcher));
+            _blobWrittenWatcher = blobWrittenWatcher;
             _functionDescriptor = functionDescriptor;
         }
 

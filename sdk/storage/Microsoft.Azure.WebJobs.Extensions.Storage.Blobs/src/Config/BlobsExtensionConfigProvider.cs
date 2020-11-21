@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Azure.Storage.Blobs;
@@ -12,6 +13,7 @@ using Azure.Storage.Blobs.Models;
 using Azure.Storage.Blobs.Specialized;
 using Microsoft.Azure.WebJobs.Description;
 using Microsoft.Azure.WebJobs.Extensions.Storage.Blobs.Bindings;
+using Microsoft.Azure.WebJobs.Extensions.Storage.Blobs.Listeners;
 using Microsoft.Azure.WebJobs.Extensions.Storage.Blobs.Triggers;
 using Microsoft.Azure.WebJobs.Extensions.Storage.Common;
 using Microsoft.Azure.WebJobs.Host.Bindings;
@@ -22,26 +24,30 @@ namespace Microsoft.Azure.WebJobs.Extensions.Storage.Blobs.Config
     [Extension("AzureStorageBlobs", "Blobs")]
     internal class BlobsExtensionConfigProvider : IExtensionConfigProvider,
         IConverter<BlobAttribute, BlobContainerClient>,
-        IConverter<BlobAttribute, BlobsExtensionConfigProvider.MultiBlobContext>
+        IConverter<BlobAttribute, BlobsExtensionConfigProvider.MultiBlobContext>,
+        IAsyncConverter<HttpRequestMessage, HttpResponseMessage>
     {
         private readonly BlobTriggerAttributeBindingProvider _triggerBinder;
         private BlobServiceClientProvider _blobServiceClientProvider;
         private IContextGetter<IBlobWrittenWatcher> _blobWrittenWatcherGetter;
         private readonly INameResolver _nameResolver;
         private IConverterManager _converterManager;
+        private readonly IHttpRequestProcessor _httpEndpointManager;
 
         public BlobsExtensionConfigProvider(
             BlobServiceClientProvider blobServiceClientProvider,
             BlobTriggerAttributeBindingProvider triggerBinder,
             IContextGetter<IBlobWrittenWatcher> contextAccessor,
             INameResolver nameResolver,
-            IConverterManager converterManager)
+            IConverterManager converterManager,
+            IHttpRequestProcessor httpEndpointManager)
         {
             _blobServiceClientProvider = blobServiceClientProvider;
             _triggerBinder = triggerBinder;
             _blobWrittenWatcherGetter = contextAccessor;
             _nameResolver = nameResolver;
             _converterManager = converterManager;
+            _httpEndpointManager = httpEndpointManager;
         }
 
         public void Initialize(ExtensionConfigContext context)
@@ -52,6 +58,8 @@ namespace Microsoft.Azure.WebJobs.Extensions.Storage.Blobs.Config
 
         private void InitilizeBlobBindings(ExtensionConfigContext context)
         {
+            _httpEndpointManager.RegisterHttpEnpoint(context);
+
             var rule = context.AddBindingRule<BlobAttribute>();
 
             // Bind to multiple blobs (either via a container; an IEnumerable<T>)
@@ -108,6 +116,11 @@ namespace Microsoft.Azure.WebJobs.Extensions.Storage.Blobs.Config
             BlobAttribute blobAttribute)
         {
             return GetContainer(blobAttribute);
+        }
+
+        public async Task<HttpResponseMessage> ConvertAsync(HttpRequestMessage input, CancellationToken cancellationToken)
+        {
+            return await _httpEndpointManager.ProcessHttpRequestAsync(input, cancellationToken).ConfigureAwait(false);
         }
 
         #endregion
