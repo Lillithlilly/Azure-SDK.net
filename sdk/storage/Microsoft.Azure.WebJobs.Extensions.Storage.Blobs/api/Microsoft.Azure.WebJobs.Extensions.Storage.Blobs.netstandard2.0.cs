@@ -22,6 +22,7 @@ namespace Microsoft.Azure.WebJobs
         public BlobTriggerAttribute(string blobPath) { }
         public string BlobPath { get { throw null; } }
         public string Connection { get { throw null; } set { } }
+        public bool UseEventGrid { get { throw null; } set { } }
     }
 }
 namespace Microsoft.Azure.WebJobs.Extensions.Storage
