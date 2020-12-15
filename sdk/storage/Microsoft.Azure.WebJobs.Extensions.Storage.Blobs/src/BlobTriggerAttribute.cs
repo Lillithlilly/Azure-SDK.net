@@ -39,6 +39,9 @@ namespace Microsoft.Azure.WebJobs
     {
         private readonly string _blobPath;
 
+        // AnalyticsScan is default kind as it does not require additional actions to set up a blob trigger
+        private BlobTriggerKind _blobTriggerKind = BlobTriggerKind.AnalyticsScan;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="BlobTriggerAttribute"/> class.
         /// </summary>
@@ -70,6 +73,10 @@ namespace Microsoft.Azure.WebJobs
         /// <summary>
         /// Returns a bool value that indicates whether EventGrid is used.
         /// </summary>
-        public bool UseEventGrid { get; set; }
+        public BlobTriggerKind Kind
+        {
+            get { return _blobTriggerKind; }
+            set { _blobTriggerKind = value; }
+        }
     }
 }

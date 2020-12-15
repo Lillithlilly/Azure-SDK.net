@@ -351,7 +351,7 @@ namespace Microsoft.Azure.WebJobs.Extensions.Storage.Blobs.Listeners
         private BlobQueueTriggerExecutor CreateProductUnderTest(
              IBlobCausalityReader causalityReader, IBlobWrittenWatcher blobWrittenWatcher)
         {
-            return new BlobQueueTriggerExecutor(causalityReader, blobWrittenWatcher, _logger);
+            return new BlobQueueTriggerExecutor(causalityReader, BlobTriggerKind.AnalyticsScan, blobWrittenWatcher, _logger);
         }
 
         private static IBlobCausalityReader CreateStubCausalityReader()

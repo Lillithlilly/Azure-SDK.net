@@ -42,7 +42,7 @@ namespace Microsoft.Extensions.Hosting
 
             builder.Services.TryAddSingleton<BlobServiceClientProvider>();
             builder.Services.TryAddSingleton<QueueServiceClientProvider>();
-            builder.Services.TryAddSingleton<IHttpRequestProcessor, HttpRequestProcessor>();
+            builder.Services.TryAddSingleton<BlobTriggerQueueWriterFactory>();
 
             builder.Services.TryAddSingleton<IContextSetter<IBlobWrittenWatcher>>((p) => new ContextAccessor<IBlobWrittenWatcher>());
             builder.Services.TryAddSingleton((p) => p.GetService<IContextSetter<IBlobWrittenWatcher>>() as IContextGetter<IBlobWrittenWatcher>);

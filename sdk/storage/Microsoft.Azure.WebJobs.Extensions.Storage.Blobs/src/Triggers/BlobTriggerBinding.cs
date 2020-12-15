@@ -38,13 +38,14 @@ namespace Microsoft.Azure.WebJobs.Extensions.Storage.Blobs.Triggers
         private readonly BlobsOptions _blobsOptions;
         private readonly IWebJobsExceptionHandler _exceptionHandler;
         private readonly IContextSetter<IBlobWrittenWatcher> _blobWrittenWatcherSetter;
-        private readonly SharedQueueWatcher _messageEnqueuedWatcherSetter;
+        //private readonly SharedQueueWatcher _messageEnqueuedWatcherSetter;
+        private readonly BlobTriggerQueueWriterFactory _blobTriggerQueueWriterFactory;
         private readonly ISharedContextProvider _sharedContextProvider;
         private readonly ILoggerFactory _loggerFactory;
         private readonly IAsyncObjectToTypeConverter<BlobBaseClient> _converter;
         private readonly IReadOnlyDictionary<string, Type> _bindingDataContract;
         private readonly IHostSingletonManager _singletonManager;
-        private readonly bool _useEventGrid;
+        private readonly BlobTriggerKind _blobTriggerKind;
 
         public BlobTriggerBinding(ParameterInfo parameter,
             BlobServiceClient hostBlobServiceClient,
@@ -52,12 +53,12 @@ namespace Microsoft.Azure.WebJobs.Extensions.Storage.Blobs.Triggers
             BlobServiceClient dataBlobServiceClient,
             QueueServiceClient dataQueueServiceClient,
             IBlobPathSource path,
-            bool useEventGrid,
+            BlobTriggerKind blobTriggerKind,
             IHostIdProvider hostIdProvider,
             BlobsOptions blobsOptions,
             IWebJobsExceptionHandler exceptionHandler,
             IContextSetter<IBlobWrittenWatcher> blobWrittenWatcherSetter,
-            SharedQueueWatcher messageEnqueuedWatcherSetter,
+            BlobTriggerQueueWriterFactory blobTriggerQueueWriterFactory,
             ISharedContextProvider sharedContextProvider,
             IHostSingletonManager singletonManager,
             ILoggerFactory loggerFactory)
@@ -70,12 +71,12 @@ namespace Microsoft.Azure.WebJobs.Extensions.Storage.Blobs.Triggers
 
             _accountName = _dataBlobServiceClient.AccountName;
             _path = path ?? throw new ArgumentNullException(nameof(path));
-            _useEventGrid = useEventGrid;
+            _blobTriggerKind = blobTriggerKind;
             _hostIdProvider = hostIdProvider ?? throw new ArgumentNullException(nameof(hostIdProvider));
             _blobsOptions = blobsOptions ?? throw new ArgumentNullException(nameof(blobsOptions));
             _exceptionHandler = exceptionHandler ?? throw new ArgumentNullException(nameof(exceptionHandler));
             _blobWrittenWatcherSetter = blobWrittenWatcherSetter ?? throw new ArgumentNullException(nameof(blobWrittenWatcherSetter));
-            _messageEnqueuedWatcherSetter = messageEnqueuedWatcherSetter ?? throw new ArgumentNullException(nameof(messageEnqueuedWatcherSetter));
+            _blobTriggerQueueWriterFactory = blobTriggerQueueWriterFactory ?? throw new ArgumentNullException(nameof(blobTriggerQueueWriterFactory));
             _sharedContextProvider = sharedContextProvider ?? throw new ArgumentNullException(nameof(sharedContextProvider));
             _singletonManager = singletonManager ?? throw new ArgumentNullException(nameof(singletonManager));
             _loggerFactory = loggerFactory;
@@ -187,9 +188,9 @@ namespace Microsoft.Azure.WebJobs.Extensions.Storage.Blobs.Triggers
             var container = _dataBlobServiceClient.GetBlobContainerClient(_path.ContainerNamePattern);
 
             var factory = new BlobListenerFactory(_hostIdProvider, _blobsOptions, _exceptionHandler,
-                _blobWrittenWatcherSetter, _messageEnqueuedWatcherSetter, _sharedContextProvider, _loggerFactory,
+                _blobWrittenWatcherSetter, _blobTriggerQueueWriterFactory, _sharedContextProvider, _loggerFactory,
                 context.Descriptor, _hostBlobServiceClient, _hostQueueServiceClient, _dataBlobServiceClient, _dataQueueServiceClient,
-                container, _path, _useEventGrid, context.Executor, _singletonManager);
+                container, _path, _blobTriggerKind, context.Executor, _singletonManager);
 
             return factory.CreateAsync(context.CancellationToken);
         }
