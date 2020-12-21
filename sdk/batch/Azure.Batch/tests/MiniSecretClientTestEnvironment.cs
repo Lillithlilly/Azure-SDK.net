@@ -7,7 +7,7 @@ namespace Azure.Batch.Tests
 {
     public class MiniSecretClientTestEnvironment : TestEnvironment
     {
-        public MiniSecretClientTestEnvironment() : base("template")
+        public MiniSecretClientTestEnvironment() : base()
         {
         }
 
