@@ -1313,7 +1313,131 @@
           }
         }
       }
-    }
+    },
+    "/timeseries/instances/$batch?overload=getInstancesByIds": {
+      "post": {
+        "tags": [
+          "TimeSeriesInstances"
+        ],
+        "operationId": "TimeSeriesInstances_GetInstancesByIds",
+        "description": "Get Time Series instances for the provided Time Series Ids.",
+        "x-ms-examples": {
+          "InstancesBatchGetByIds": {
+            "$ref": "./examples/InstancesBatchGetByIds.json"
+          }
+        },
+        "parameters": [
+          {
+            "$ref": "#/parameters/ApiVersion"
+          },
+          {
+            "name": "parameters",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/InstancesBatchGetByIdsRequest"
+            },
+            "description": "Time series get instances by Ids request body."
+          },
+          {
+            "$ref": "#/parameters/ClientRequestId"
+          },
+          {
+            "$ref": "#/parameters/ClientSessionId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation.",
+            "schema": {
+              "$ref": "#/definitions/InstancesBatchResponse"
+            },
+            "headers": {
+              "x-ms-request-id": {
+                "x-ms-client-name": "serverRequestId",
+                "type": "string",
+                "description": "Server-generated request ID. Can be used to contact support to investigate a request."
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/TsiError"
+            },
+            "headers": {
+              "x-ms-request-id": {
+                "x-ms-client-name": "serverRequestId",
+                "type": "string",
+                "description": "Server-generated request ID. Can be used to contact support to investigate a request."
+              }
+            }
+          }
+        }
+      }
+    },
+    "/timeseries/instances/$batch?overload=getInstancesByNames": {
+      "post": {
+        "tags": [
+          "TimeSeriesInstances"
+        ],
+        "operationId": "TimeSeriesInstances_GetInstancesByNames",
+        "description": "Get Time Series instances for the provided Time Series names.",
+        "x-ms-examples": {
+          "InstancesBatchGetByNames": {
+            "$ref": "./examples/InstancesBatchGetByNames.json"
+          }
+        },
+        "parameters": [
+          {
+            "$ref": "#/parameters/ApiVersion"
+          },
+          {
+            "name": "parameters",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/InstancesBatchGetByNamesRequest"
+            },
+            "description": "Time series get instances by names request body."
+          },
+          {
+            "$ref": "#/parameters/ClientRequestId"
+          },
+          {
+            "$ref": "#/parameters/ClientSessionId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation.",
+            "schema": {
+              "$ref": "#/definitions/InstancesBatchResponse"
+            },
+            "headers": {
+              "x-ms-request-id": {
+                "x-ms-client-name": "serverRequestId",
+                "type": "string",
+                "description": "Server-generated request ID. Can be used to contact support to investigate a request."
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/TsiError"
+            },
+            "headers": {
+              "x-ms-request-id": {
+                "x-ms-client-name": "serverRequestId",
+                "type": "string",
+                "description": "Server-generated request ID. Can be used to contact support to investigate a request."
+              }
+            }
+          }
+        }
+      }
+    }    
   },
   "definitions": {
     "AvailabilityResponse": {
@@ -1896,6 +2020,26 @@
         }
       }
     },
+    "InstancesBatchGetByIdsRequest": {
+      "description": "Request to get instances by Time Series Ids.",
+      "type": "object",
+      "properties": {
+        "get": {
+          "description": "Time series IDs of time series instances to return.",
+          "$ref": "#/definitions/InstancesRequestBatchByIds"
+        }
+      }
+    },
+    "InstancesBatchGetByNamesRequest": {
+      "description": "Request to get instances by Time Series names.",
+      "type": "object",
+      "properties": {
+        "get": {
+          "description": "Time series names of time series instances to return.",
+          "$ref": "#/definitions/InstancesRequestBatchByNames"
+        }
+      }
+    },
     "InstancesRequestBatchGetOrDelete": {
       "description": "Request to get or delete instances by time series IDs or time series names. Exactly one of \"timeSeriesIds\" or \"names\" must be set.",
       "type": "object",
@@ -1909,6 +2053,32 @@
         },
         "names": {
           "description": "List of names of the time series instances to return or delete.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "InstancesRequestBatchByIds": {
+      "description": "Batch request by time series IDs.",
+      "type": "object",
+      "properties": {
+        "timeSeriesIds": {
+          "description": "List of time series IDs.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TimeSeriesId"
+          }
+        }
+      }
+    },
+    "InstancesRequestBatchByNames": {
+      "description": "Batch request by time series names",
+      "type": "object",
+      "properties": {
+        "names": {
+          "description": "List of Time Series names.",
           "type": "array",
           "items": {
             "type": "string"
