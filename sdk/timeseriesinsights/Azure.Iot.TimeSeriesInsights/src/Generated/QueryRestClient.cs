@@ -289,7 +289,7 @@ namespace Azure.Iot.TimeSeriesInsights
             }
         }
 
-        internal HttpMessage CreateGetEventsRequest(GetEvents parameters, string storeType, string continuationToken, string clientSessionId)
+        internal HttpMessage CreateGetEventsRequest(QueryGetEventsRequest parameters, string storeType, string continuationToken, string clientSessionId)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -327,7 +327,7 @@ namespace Azure.Iot.TimeSeriesInsights
         /// <param name="clientSessionId"> Optional client session ID. Service records this value. Allows the service to trace a group of related operations across services, and allows the customer to contact support regarding a particular group of requests. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="parameters"/> is null. </exception>
-        public async Task<Response<QueryResultPage>> GetEventsAsync(GetEvents parameters, string storeType = null, string continuationToken = null, string clientSessionId = null, CancellationToken cancellationToken = default)
+        public async Task<Response<QueryResultPage>> GetEventsAsync(QueryGetEventsRequest parameters, string storeType = null, string continuationToken = null, string clientSessionId = null, CancellationToken cancellationToken = default)
         {
             if (parameters == null)
             {
@@ -357,7 +357,7 @@ namespace Azure.Iot.TimeSeriesInsights
         /// <param name="clientSessionId"> Optional client session ID. Service records this value. Allows the service to trace a group of related operations across services, and allows the customer to contact support regarding a particular group of requests. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="parameters"/> is null. </exception>
-        public Response<QueryResultPage> GetEvents(GetEvents parameters, string storeType = null, string continuationToken = null, string clientSessionId = null, CancellationToken cancellationToken = default)
+        public Response<QueryResultPage> GetEvents(QueryGetEventsRequest parameters, string storeType = null, string continuationToken = null, string clientSessionId = null, CancellationToken cancellationToken = default)
         {
             if (parameters == null)
             {
@@ -380,7 +380,7 @@ namespace Azure.Iot.TimeSeriesInsights
             }
         }
 
-        internal HttpMessage CreateGetSeriesRequest(GetSeries parameters, string storeType, string continuationToken, string clientSessionId)
+        internal HttpMessage CreateGetSeriesRequest(QueryGetSeriesRequest parameters, string storeType, string continuationToken, string clientSessionId)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -418,7 +418,7 @@ namespace Azure.Iot.TimeSeriesInsights
         /// <param name="clientSessionId"> Optional client session ID. Service records this value. Allows the service to trace a group of related operations across services, and allows the customer to contact support regarding a particular group of requests. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="parameters"/> is null. </exception>
-        public async Task<Response<QueryResultPage>> GetSeriesAsync(GetSeries parameters, string storeType = null, string continuationToken = null, string clientSessionId = null, CancellationToken cancellationToken = default)
+        public async Task<Response<QueryResultPage>> GetSeriesAsync(QueryGetSeriesRequest parameters, string storeType = null, string continuationToken = null, string clientSessionId = null, CancellationToken cancellationToken = default)
         {
             if (parameters == null)
             {
@@ -448,7 +448,7 @@ namespace Azure.Iot.TimeSeriesInsights
         /// <param name="clientSessionId"> Optional client session ID. Service records this value. Allows the service to trace a group of related operations across services, and allows the customer to contact support regarding a particular group of requests. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="parameters"/> is null. </exception>
-        public Response<QueryResultPage> GetSeries(GetSeries parameters, string storeType = null, string continuationToken = null, string clientSessionId = null, CancellationToken cancellationToken = default)
+        public Response<QueryResultPage> GetSeries(QueryGetSeriesRequest parameters, string storeType = null, string continuationToken = null, string clientSessionId = null, CancellationToken cancellationToken = default)
         {
             if (parameters == null)
             {
@@ -471,7 +471,7 @@ namespace Azure.Iot.TimeSeriesInsights
             }
         }
 
-        internal HttpMessage CreateGetAggregateSeriesRequest(AggregateSeries parameters, string storeType, string continuationToken, string clientSessionId)
+        internal HttpMessage CreateGetAggregateSeriesRequest(QueryGetAggregatedSeriesRequest parameters, string storeType, string continuationToken, string clientSessionId)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -509,7 +509,7 @@ namespace Azure.Iot.TimeSeriesInsights
         /// <param name="clientSessionId"> Optional client session ID. Service records this value. Allows the service to trace a group of related operations across services, and allows the customer to contact support regarding a particular group of requests. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="parameters"/> is null. </exception>
-        public async Task<Response<QueryResultPage>> GetAggregateSeriesAsync(AggregateSeries parameters, string storeType = null, string continuationToken = null, string clientSessionId = null, CancellationToken cancellationToken = default)
+        public async Task<Response<QueryResultPage>> GetAggregateSeriesAsync(QueryGetAggregatedSeriesRequest parameters, string storeType = null, string continuationToken = null, string clientSessionId = null, CancellationToken cancellationToken = default)
         {
             if (parameters == null)
             {
@@ -539,7 +539,7 @@ namespace Azure.Iot.TimeSeriesInsights
         /// <param name="clientSessionId"> Optional client session ID. Service records this value. Allows the service to trace a group of related operations across services, and allows the customer to contact support regarding a particular group of requests. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="parameters"/> is null. </exception>
-        public Response<QueryResultPage> GetAggregateSeries(AggregateSeries parameters, string storeType = null, string continuationToken = null, string clientSessionId = null, CancellationToken cancellationToken = default)
+        public Response<QueryResultPage> GetAggregateSeries(QueryGetAggregatedSeriesRequest parameters, string storeType = null, string continuationToken = null, string clientSessionId = null, CancellationToken cancellationToken = default)
         {
             if (parameters == null)
             {

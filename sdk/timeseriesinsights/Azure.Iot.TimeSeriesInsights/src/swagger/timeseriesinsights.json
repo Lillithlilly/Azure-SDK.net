@@ -1086,7 +1086,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/GetEvents"
+              "$ref": "#/definitions/QueryGetEventsRequest"
             },
             "description": "Time series query request body."
           },
@@ -1184,7 +1184,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/GetSeries"
+              "$ref": "#/definitions/QueryGetSeriesRequest"
             },
             "description": "Time series query request body."
           },
@@ -1273,7 +1273,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/AggregateSeries"
+              "$ref": "#/definitions/QueryGetAggregatedSeriesRequest"
             },
             "description": "Time series query request body."
           },
@@ -1391,6 +1391,36 @@
           "description": "Get Series query. Allows to retrieve time series of calculated variable values from events for a given Time Series ID and search span.",
           "$ref": "#/definitions/GetSeries"
         },
+        "aggregateSeries": {
+          "description": "Aggregate Series query. Allows to calculate an aggregated time series from events for a given Time Series ID and search span.",
+          "$ref": "#/definitions/AggregateSeries"
+        }
+      }
+    },
+    "QueryGetEventsRequest": {
+      "type": "object",
+      "description": "Request to execute a get raw events operation on a time series environment.",
+      "properties": {
+        "getEvents": {
+          "description": "Get Events query. Allows to retrieve raw events for a given Time Series ID and search span.",
+          "$ref": "#/definitions/GetEvents"
+        }
+      }
+    },
+    "QueryGetSeriesRequest": {
+      "type": "object",
+      "description": "Request to execute a get series operation on a time series environment.",
+      "properties": {
+        "getSeries": {
+          "description": "Get Series query. Allows to retrieve time series of calculated variable values from events for a given Time Series ID and search span.",
+          "$ref": "#/definitions/GetSeries"
+        }
+      }
+    },
+    "QueryGetAggregatedSeriesRequest": {
+      "type": "object",
+      "description": "Request to execute a get aggregated series operation on a time series environment.",
+      "properties": {
         "aggregateSeries": {
           "description": "Aggregate Series query. Allows to calculate an aggregated time series from events for a given Time Series ID and search span.",
           "$ref": "#/definitions/AggregateSeries"
