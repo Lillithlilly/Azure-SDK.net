@@ -32,7 +32,7 @@ namespace Microsoft.Azure.Batch.Protocol.Models
         /// Initializes a new instance of the BatchPoolIdentity class.
         /// </summary>
         /// <param name="type">The type of identity used for the Batch Pool.
-        /// Possible values include: 'UserAssigned', 'None'</param>
+        /// Possible values include: 'userAssigned', 'none'</param>
         /// <param name="userAssignedIdentities">The list of user identities
         /// associated with the Batch pool. The user identity dictionary key
         /// references will be ARM resource ids in the form:
@@ -51,7 +51,7 @@ namespace Microsoft.Azure.Batch.Protocol.Models
 
         /// <summary>
         /// Gets or sets the type of identity used for the Batch Pool. Possible
-        /// values include: 'UserAssigned', 'None'
+        /// values include: 'userAssigned', 'none'
         /// </summary>
         [JsonProperty(PropertyName = "type")]
         public PoolIdentityType Type { get; set; }

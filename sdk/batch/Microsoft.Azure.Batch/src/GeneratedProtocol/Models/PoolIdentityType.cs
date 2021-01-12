@@ -24,13 +24,13 @@ namespace Microsoft.Azure.Batch.Protocol.Models
         /// <summary>
         /// Batch pool has user assigned identities with it.
         /// </summary>
-        [EnumMember(Value = "UserAssigned")]
+        [EnumMember(Value = "userAssigned")]
         UserAssigned,
         /// <summary>
         /// Batch pool has no identity associated with it. Setting `None` in
         /// update pool will remove existing identities.
         /// </summary>
-        [EnumMember(Value = "None")]
+        [EnumMember(Value = "none")]
         None
     }
     internal static class PoolIdentityTypeEnumExtension
@@ -45,9 +45,9 @@ namespace Microsoft.Azure.Batch.Protocol.Models
             switch( value )
             {
                 case PoolIdentityType.UserAssigned:
-                    return "UserAssigned";
+                    return "userAssigned";
                 case PoolIdentityType.None:
-                    return "None";
+                    return "none";
             }
             return null;
         }
@@ -56,9 +56,9 @@ namespace Microsoft.Azure.Batch.Protocol.Models
         {
             switch( value )
             {
-                case "UserAssigned":
+                case "userAssigned":
                     return PoolIdentityType.UserAssigned;
-                case "None":
+                case "none":
                     return PoolIdentityType.None;
             }
             return null;

@@ -33,7 +33,8 @@ namespace Microsoft.Azure.Batch.Protocol.Models
         /// virtual machine extension.</param>
         /// <param name="vmExtension">The name of the extension handler
         /// publisher.</param>
-        /// <param name="instanceView">The type of the extensions.</param>
+        /// <param name="instanceView">The virtual machine extension instance
+        /// view.</param>
         public NodeVMExtension(string provisioningState = default(string), VMExtension vmExtension = default(VMExtension), VMExtensionInstanceView instanceView = default(VMExtensionInstanceView))
         {
             ProvisioningState = provisioningState;
@@ -61,7 +62,7 @@ namespace Microsoft.Azure.Batch.Protocol.Models
         public VMExtension VmExtension { get; set; }
 
         /// <summary>
-        /// Gets or sets the type of the extensions.
+        /// Gets or sets the virtual machine extension instance view.
         /// </summary>
         [JsonProperty(PropertyName = "instanceView")]
         public VMExtensionInstanceView InstanceView { get; set; }
