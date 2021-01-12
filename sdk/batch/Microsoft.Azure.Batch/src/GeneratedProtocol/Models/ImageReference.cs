@@ -14,10 +14,10 @@ namespace Microsoft.Azure.Batch.Protocol.Models
     using System.Linq;
 
     /// <summary>
-    /// A reference to an Azure Virtual Machines Marketplace Image or a
-    /// bring-your-own Shared Image Gallery Image. To get the list of all Azure
-    /// Marketplace Image references verified by Azure Batch, see the 'List
-    /// Supported Images' operation.
+    /// A reference to an Azure Virtual Machines Marketplace Image or a Shared
+    /// Image Gallery Image. To get the list of all Azure Marketplace Image
+    /// references verified by Azure Batch, see the 'List Supported Images'
+    /// operation.
     /// </summary>
     public partial class ImageReference
     {

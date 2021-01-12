@@ -76,7 +76,7 @@ namespace Microsoft.Azure.Batch.Protocol.Models
         /// <param name="constraints">Constraints that apply to the Job Manager
         /// Task.</param>
         /// <param name="requiredSlots">The number of scheduling slots that the
-        /// Task required to run.</param>
+        /// Task requires to run.</param>
         /// <param name="killJobOnCompletion">Whether completion of the Job
         /// Manager Task signifies completion of the entire Job.</param>
         /// <param name="userIdentity">The user identity under which the Job
@@ -90,7 +90,7 @@ namespace Microsoft.Azure.Batch.Protocol.Models
         /// authentication token that the Task can use to perform Batch service
         /// operations.</param>
         /// <param name="allowLowPriorityNode">Whether the Job Manager Task may
-        /// run on a low-priority Compute Node.</param>
+        /// run on a low priority Compute Node.</param>
         public JobManagerTask(string id, string commandLine, string displayName = default(string), TaskContainerSettings containerSettings = default(TaskContainerSettings), IList<ResourceFile> resourceFiles = default(IList<ResourceFile>), IList<OutputFile> outputFiles = default(IList<OutputFile>), IList<EnvironmentSetting> environmentSettings = default(IList<EnvironmentSetting>), TaskConstraints constraints = default(TaskConstraints), int? requiredSlots = default(int?), bool? killJobOnCompletion = default(bool?), UserIdentity userIdentity = default(UserIdentity), bool? runExclusive = default(bool?), IList<ApplicationPackageReference> applicationPackageReferences = default(IList<ApplicationPackageReference>), AuthenticationTokenSettings authenticationTokenSettings = default(AuthenticationTokenSettings), bool? allowLowPriorityNode = default(bool?))
         {
             Id = id;
@@ -216,7 +216,7 @@ namespace Microsoft.Azure.Batch.Protocol.Models
         public TaskConstraints Constraints { get; set; }
 
         /// <summary>
-        /// Gets or sets the number of scheduling slots that the Task required
+        /// Gets or sets the number of scheduling slots that the Task requires
         /// to run.
         /// </summary>
         /// <remarks>
@@ -309,7 +309,7 @@ namespace Microsoft.Azure.Batch.Protocol.Models
         public AuthenticationTokenSettings AuthenticationTokenSettings { get; set; }
 
         /// <summary>
-        /// Gets or sets whether the Job Manager Task may run on a low-priority
+        /// Gets or sets whether the Job Manager Task may run on a low priority
         /// Compute Node.
         /// </summary>
         /// <remarks>

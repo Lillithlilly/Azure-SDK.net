@@ -429,6 +429,20 @@
             "Type": "IList<Models.MountConfiguration>",
             "Name": "MountConfiguration"
           }
+        },
+        {
+          "Key": {
+            "Type": "BatchPoolIdentity",
+            "Name": "Identity",
+            "SummaryComment": "The type of identity used for the Batch Pool.",
+            "RemarksComment": "The type of identity used for the Batch Pool.",
+            "BoundAccess": "read",
+            "UnboundAccess": "read"
+          },
+          "Value": {
+            "Type": "Models.BatchPoolIdentity",
+            "Name": "Identity"
+          }
         }
       ]
     }
