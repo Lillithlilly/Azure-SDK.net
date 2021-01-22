@@ -1,6 +1,10 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
 using Azure.Core;
@@ -122,6 +126,80 @@ namespace Azure.Iot.TimeSeriesInsights
         public virtual Response<ModelSettingsResponse> Get(string clientSessionId = null, CancellationToken cancellationToken = default)
         {
             return _modelSettingsRestClient.Get(clientSessionId, cancellationToken);
+        }
+
+        /// <summary>
+        /// Querying for raw events with current swagger.
+        /// </summary>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        public virtual AsyncPageable<QueryResultItem> ExecuteQuery(QueryRequest parameters)
+        {
+            async Task<Page<QueryResultItem>> FirstPageFunc(int? pageSizeHint)
+            {
+                Response<QueryResultPage> response = await _queryRestClient.ExecuteAsync(parameters).ConfigureAwait(false);
+
+                List<QueryResultItem> pageResults = ExtractPagedResults(response);
+
+                return Page.FromValues<QueryResultItem>(pageResults, response.Value.ContinuationToken, response.GetRawResponse());
+            }
+
+            async Task<Page<QueryResultItem>> NextPageFunc(string nextLink, int? pageSizeHint)
+            {
+                Response<QueryResultPage> response = await _queryRestClient.ExecuteAsync(parameters).ConfigureAwait(false);
+
+                List<QueryResultItem> pageResults = ExtractPagedResults(response);
+
+                return Page.FromValues<QueryResultItem>(pageResults, response.Value.ContinuationToken, response.GetRawResponse());
+            }
+
+            return PageableHelpers.CreateAsyncEnumerable(FirstPageFunc, NextPageFunc);
+        }
+
+        /// <summary>
+        /// Foo
+        /// </summary>
+        /// <returns></returns>
+        public virtual AsyncPageable<QueryResultItem> GetRawEvents(QueryGetEventsRequest parameters)
+        {
+            async Task<Page<QueryResultItem>> FirstPageFunc(int? pageSizeHint)
+            {
+                Response<QueryResultPage> response = await _queryRestClient.GetEventsAsync(parameters).ConfigureAwait(false);
+
+                List<QueryResultItem> pageResults = ExtractPagedResults(response);
+
+                return Page.FromValues<QueryResultItem>(pageResults, response.Value.ContinuationToken, response.GetRawResponse());
+            }
+
+            async Task<Page<QueryResultItem>> NextPageFunc(string nextLink, int? pageSizeHint)
+            {
+                Response<QueryResultPage> response = await _queryRestClient.GetEventsAsync(parameters,null,nextLink).ConfigureAwait(false);
+
+                List<QueryResultItem> pageResults = ExtractPagedResults(response);
+
+                return Page.FromValues<QueryResultItem>(pageResults, response.Value.ContinuationToken, response.GetRawResponse());
+            }
+
+            return PageableHelpers.CreateAsyncEnumerable(FirstPageFunc, NextPageFunc);
+        }
+
+        private static List<QueryResultItem> ExtractPagedResults(Response<QueryResultPage> response)
+        {
+            var pageResults = new List<QueryResultItem>();
+            for (int i = 0; i < response.Value.Timestamps.Count; i++)
+            {
+                List<QueryResultProperty> properties = new List<QueryResultProperty>();
+                foreach (var property in response.Value.Properties)
+                {
+                    var queryResultProperty = new QueryResultProperty();
+                    queryResultProperty.EventProperty = new EventProperty(property.Name, property.Type);
+                    queryResultProperty.PropertyValue = property.Values[i];
+                    properties.Add(queryResultProperty);
+                }
+                pageResults.Add(new QueryResultItem(response.Value.Timestamps[i].ToString("d", CultureInfo.InvariantCulture), properties));
+            }
+
+            return pageResults;
         }
 
         /// <summary>

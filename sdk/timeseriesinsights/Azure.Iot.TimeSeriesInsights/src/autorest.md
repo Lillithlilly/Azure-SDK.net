@@ -19,5 +19,5 @@ Run `generate.ps1` in this directory to generate the code.
 #input-file: https://raw.githubusercontent.com/Azure/azure-rest-api-specs/9a6510d0597a55d39ab1edcf22abab4631cbc0d3/specification/timeseriesinsights/data-plane/Microsoft.TimeSeriesInsights/stable/2020-07-31/timeseriesinsights.json
 
 # It is highly recommended that you generate the REST layer from the official source. However, in this case we are using a local file because there are a couple of minor issues fixed in the local swagger. These fixes should be made on the official source.
-input-file: $(this-folder)/swagger/timeseriesinsights.json
+input-file: https://raw.githubusercontent.com/Azure/azure-rest-api-specs/0d947682af8d4549f06b749db8be63e7ace4a05c/specification/timeseriesinsights/data-plane/Microsoft.TimeSeriesInsights/stable/2020-07-31/timeseriesinsights.json
 ```
