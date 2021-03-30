@@ -36,7 +36,7 @@ namespace Microsoft.Azure.Management.Quantum.Tests
                 HttpMockServer.Mode = HttpRecorderMode.None;
                 QuantumManagementHelper.RegisterSubscriptionForResource("Microsoft.Quantum");
                 QuantumManagementHelper.RegisterSubscriptionForResource("Microsoft.Storage");
-                this.CreateResources();
+                //this.CreateResources();
 
                 //set mode back to record
                 HttpMockServer.Mode = HttpRecorderMode.Record;

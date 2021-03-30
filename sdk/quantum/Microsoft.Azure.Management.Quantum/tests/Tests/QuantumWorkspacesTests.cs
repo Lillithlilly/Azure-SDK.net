@@ -1,15 +1,78 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
+using Microsoft.Azure.Management.Quantum.Models;
 using Microsoft.Rest.ClientRuntime.Azure.TestFramework;
+using System;
+using System.Linq;
 using System.Collections.Generic;
-using Xunit;
+using System.Diagnostics;
 using System.Threading;
+using Xunit;
 
 namespace Microsoft.Azure.Management.Quantum.Tests
 {
     public class WorkspaceOperationTests : QuantumManagementTestBase
     {
+        [Fact()]
+        public void TestCreateWorkspace()
+        {
+            if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable("QUANTUM_WORKSPACE_NAME")))
+                return;
+
+            TestInitialize();
+
+            string workspaceName = Environment.GetEnvironmentVariable("QUANTUM_WORKSPACE_NAME")
+                                    ?? TestUtilities.GenerateName("aqws");
+            string location = Environment.GetEnvironmentVariable("LOCATION")
+                                    ?? CommonData.Location;
+            string resourceGroup = Environment.GetEnvironmentVariable("RESOURCE_GROUP")
+                                    ?? CommonData.ResourceGroupName;
+            string storageAccount = Environment.GetEnvironmentVariable("STORAGE_ACCOUNT")
+                                    ?? CommonData.StorageAccountId;
+
+            var offerings = QuantumClient.Offerings.List(location);
+            var provider = offerings.First((p) => p.Name.Contains("Microsoft"));
+            var providerSku = provider.Properties.Skus.First();
+
+            var createParams = new QuantumWorkspace
+            {
+                Location = location,
+                Identity = new QuantumWorkspaceIdentity
+                {
+                    Type = ResourceIdentityType.SystemAssigned
+                },
+                Providers = new List<Provider>()
+                {
+                    new Provider()
+                    {
+                        ProviderId = provider.Id,
+                        ProviderSku = providerSku.Id
+                    }
+                },
+                StorageAccount = storageAccount,
+            };
+
+            var workspaceCreate = QuantumClient.Workspaces.CreateOrUpdate(resourceGroup, workspaceName, createParams);
+            Assert.Equal(CommonTestFixture.WorkspaceType, workspaceCreate.Type);
+            Assert.Equal(workspaceName, workspaceCreate.Name);
+            Assert.Equal(location, workspaceCreate.Location);
+            for (int i = 0; i < 600; i++)
+            {
+                var workspaceGet = QuantumClient.Workspaces.Get(resourceGroup, workspaceName);
+                if (workspaceGet.ProvisioningState.Equals("Succeeded"))
+                {
+                    Assert.Equal(CommonTestFixture.WorkspaceType, workspaceGet.Type);
+                    Assert.Equal(workspaceName, workspaceGet.Name);
+                    Assert.Equal(location, workspaceGet.Location);
+                    break;
+                }
+
+                Thread.Sleep(5000);
+                Assert.True(i < 600, "Quantum Workspace is not in succeeded state even after 5 min.");
+            }
+        }
+
         [Fact]
         public void TestWorkspaceLifeCycle()
         {
