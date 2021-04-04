@@ -49,15 +49,24 @@ class ControlPlaneNetClient : ControlPlaneBaseClient
 
         Push-Location $TestProjectRoot
         try {
-            dotnet remove package Microsoft.Azure.Management.Quantum
             if (![string]::IsNullOrEmpty($PackageVersion)){
-                dotnet add package Microsoft.Azure.Management.Quantum --version=$PackageVersion --prerelease
-            }
-            elseif ($AllowPreRelease) {
-                dotnet add package Microsoft.Azure.Management.Quantum --prerelease
-            }
+                dotnet remove reference "..\src\Microsoft.Azure.Management.Quantum.csproj"
+                dotnet remove package Microsoft.Azure.Management.Quantum
+                if ([string]::Equals("latest", $PackageVersion)) {
+                    if ($AllowPreRelease) {
+                        dotnet add package Microsoft.Azure.Management.Quantum --prerelease
+                    }
+                    else {
+                        dotnet add package Microsoft.Azure.Management.Quantum
+                    }    
+                }
+                else {
+                    dotnet add package Microsoft.Azure.Management.Quantum --version=$PackageVersion
+                }
+            } 
             else {
-                dotnet add package Microsoft.Azure.Management.Quantum
+                dotnet remove package Microsoft.Azure.Management.Quantum
+                dotnet add reference "..\src\Microsoft.Azure.Management.Quantum.csproj"
             }
         }
         finally {
