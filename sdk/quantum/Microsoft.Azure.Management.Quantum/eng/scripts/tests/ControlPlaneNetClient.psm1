@@ -55,18 +55,22 @@ class ControlPlaneNetClient : ControlPlaneBaseClient
                 if ([string]::Equals("latest", $PackageVersion)) {
                     if ($AllowPreRelease) {
                         dotnet add package Microsoft.Azure.Management.Quantum --prerelease
+                        if ($LASTEXITCODE -ne 0) { throw "Error adding latest prerelease package version" } 
                     }
                     else {
                         dotnet add package Microsoft.Azure.Management.Quantum
+                        if ($LASTEXITCODE -ne 0) { throw "Error adding latest package version" } 
                     }    
                 }
                 else {
                     dotnet add package Microsoft.Azure.Management.Quantum --version=$PackageVersion
+                    if ($LASTEXITCODE -ne 0) { throw "Error adding package version $PackageVersion" } 
                 }
             } 
             else {
                 dotnet remove package Microsoft.Azure.Management.Quantum
                 dotnet add reference "..\src\Microsoft.Azure.Management.Quantum.csproj"
+                if ($LASTEXITCODE -ne 0) { throw "Error adding project reference" } 
             }
         }
         finally {
@@ -105,6 +109,7 @@ class ControlPlaneNetClient : ControlPlaneBaseClient
         Push-Location $TestProjectRoot
         try {
             dotnet test --filter "FullyQualifiedName=Microsoft.Azure.Management.Quantum.Tests.WorkspaceOperationTests.TestCreateWorkspace"            
+            if ($LASTEXITCODE -ne 0) { throw "At least one test has failed." } 
         }
         finally {
             Pop-Location
