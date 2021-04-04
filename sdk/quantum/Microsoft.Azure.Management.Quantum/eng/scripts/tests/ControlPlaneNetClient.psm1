@@ -16,6 +16,13 @@ class ControlPlaneBaseClient
         }
     }
 
+    Prepare(
+        [string]$PackageVersion
+        ,[bool]$AllowPreRelease = $true)
+    {
+        throw("Must Override Method")        
+    }
+
     CreateWorkspace(
         [string]$SubscriptionId
         ,[string]$ResourceGroup
@@ -34,6 +41,30 @@ class ControlPlaneBaseClient
 
 class ControlPlaneNetClient : ControlPlaneBaseClient
 {
+    Prepare(
+        [string]$PackageVersion
+        ,[bool]$AllowPreRelease = $true)
+    {
+        $TestProjectRoot = Join-Path $PSScriptRoot "../../../tests/" -Resolve
+
+        Push-Location $TestProjectRoot
+        try {
+            dotnet remove package Microsoft.Azure.Management.Quantum
+            if (![string]::IsNullOrEmpty($PackageVersion)){
+                dotnet add package Microsoft.Azure.Management.Quantum --version=$PackageVersion --prerelease
+            }
+            elseif ($AllowPreRelease) {
+                dotnet add package Microsoft.Azure.Management.Quantum --prerelease
+            }
+            else {
+                dotnet add package Microsoft.Azure.Management.Quantum
+            }
+        }
+        finally {
+            Pop-Location
+        }
+    }
+
     CreateWorkspace(
         [string]$SubscriptionId
         ,[string]$ResourceGroup
@@ -44,6 +75,9 @@ class ControlPlaneNetClient : ControlPlaneBaseClient
         $env:AZURE_TEST_MODE = "Record"
         Write-Verbose "Setting Azure SDK Test Mode to: $env:AZURE_TEST_MODE"
 
+        $env:QUANTUM_E2E_TESTS = "1"
+        Write-Verbose "Setting QUANTUM_E2E_TESTS to: $env:QUANTUM_E2E_TESTS"
+        
         Write-Verbose "Creating workspace via ControlPlane .NET Client"
         Write-Verbose "  SubscriptionId: $SubscriptionId"
         Write-Verbose "  ResourceGroup: $ResourceGroup"
