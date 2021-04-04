@@ -20,7 +20,7 @@ namespace Microsoft.Azure.Management.Quantum.Tests
 
         internal QuantumManagementHelper QuantumManagementHelper { get; private set; }
 
-        internal virtual void TestInitialize([System.Runtime.CompilerServices.CallerMemberName] string methodName = "testframework_failed")
+        internal virtual void TestInitialize(bool createResources = true, [System.Runtime.CompilerServices.CallerMemberName] string methodName = "testframework_failed")
         {
             Context = QuantumMockContext.Start(this.GetType(), methodName);
 
@@ -36,7 +36,10 @@ namespace Microsoft.Azure.Management.Quantum.Tests
                 HttpMockServer.Mode = HttpRecorderMode.None;
                 QuantumManagementHelper.RegisterSubscriptionForResource("Microsoft.Quantum");
                 QuantumManagementHelper.RegisterSubscriptionForResource("Microsoft.Storage");
-                //this.CreateResources();
+                if (createResources)
+                {
+                    this.CreateResources();
+                }
 
                 //set mode back to record
                 HttpMockServer.Mode = HttpRecorderMode.Record;

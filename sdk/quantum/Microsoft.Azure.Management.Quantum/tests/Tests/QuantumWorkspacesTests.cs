@@ -14,26 +14,22 @@ namespace Microsoft.Azure.Management.Quantum.Tests
 {
     public class WorkspaceOperationTests : QuantumManagementTestBase
     {
-        [Fact()]
-        public void TestCreateWorkspace()
+        private QuantumWorkspace CreateAndAssertWorkspace(string workspaceName, string location, string resourceGroup, string storageAccount, string providerId = null, string providerSkuId = null)
         {
-            if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable("QUANTUM_WORKSPACE_NAME")))
-                return;
-
-            TestInitialize();
-
-            string workspaceName = Environment.GetEnvironmentVariable("QUANTUM_WORKSPACE_NAME")
-                                    ?? TestUtilities.GenerateName("aqws");
-            string location = Environment.GetEnvironmentVariable("LOCATION")
-                                    ?? CommonData.Location;
-            string resourceGroup = Environment.GetEnvironmentVariable("RESOURCE_GROUP")
-                                    ?? CommonData.ResourceGroupName;
-            string storageAccount = Environment.GetEnvironmentVariable("STORAGE_ACCOUNT")
-                                    ?? CommonData.StorageAccountId;
-
             var offerings = QuantumClient.Offerings.List(location);
-            var provider = offerings.First((p) => p.Name.Contains("Microsoft"));
-            var providerSku = provider.Properties.Skus.First();
+            var provider = offerings.First(
+                    (p) =>
+                    (!String.IsNullOrEmpty(providerId) && String.Equals(providerId, p.Id))
+                    || (String.IsNullOrEmpty(providerId) && p.Name.Contains("Microsoft"))
+                );
+            Assert.NotNull(provider);
+
+            var providerSku = provider.Properties.Skus.First(
+                    (sku) =>
+                    (!String.IsNullOrEmpty(providerSkuId) && String.Equals(providerSkuId, sku.Id))
+                    || (String.IsNullOrEmpty(providerSkuId))
+                );
+            Assert.NotNull(providerSku);
 
             var createParams = new QuantumWorkspace
             {
@@ -65,12 +61,46 @@ namespace Microsoft.Azure.Management.Quantum.Tests
                     Assert.Equal(CommonTestFixture.WorkspaceType, workspaceGet.Type);
                     Assert.Equal(workspaceName, workspaceGet.Name);
                     Assert.Equal(location, workspaceGet.Location);
-                    break;
+                    return workspaceGet;
                 }
 
                 Thread.Sleep(5000);
                 Assert.True(i < 600, "Quantum Workspace is not in succeeded state even after 5 min.");
             }
+
+            return null;
+        }
+
+        /// <summary>
+        /// This test case will only run when QUANTUM_E2E_TESTS environment variable is set
+        /// and it will use the following environment variables to create the workspace:
+        /// - QUANTUM_WORKSPACE_NAME
+        /// - LOCATION
+        /// - RESOURCE_GROUP
+        /// - STORAGE_ACCOUNT
+        /// </summary>
+        [Fact()]
+        public void TestCreateWorkspace()
+        {
+            if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable("QUANTUM_E2E_TESTS")))
+            {
+                Assert.True(true);
+                return;
+            }
+
+            TestInitialize(createResources: false);
+
+            string workspaceName = Environment.GetEnvironmentVariable("QUANTUM_WORKSPACE_NAME");
+            string location = Environment.GetEnvironmentVariable("LOCATION");
+            string resourceGroup = Environment.GetEnvironmentVariable("RESOURCE_GROUP");
+            string storageAccount = Environment.GetEnvironmentVariable("STORAGE_ACCOUNT");
+
+            Assert.NotEmpty(workspaceName);
+            Assert.NotEmpty(location);
+            Assert.NotEmpty(resourceGroup);
+            Assert.NotEmpty(storageAccount);
+
+            CreateAndAssertWorkspace(workspaceName, location, resourceGroup, storageAccount);
         }
 
         [Fact]
@@ -80,30 +110,12 @@ namespace Microsoft.Azure.Management.Quantum.Tests
 
             // create workspace
             string workspaceName = TestUtilities.GenerateName("aqws");
-            var createParams = CommonData.PrepareWorkspaceCreateParams();
-            var workspaceCreate = QuantumClient.Workspaces.CreateOrUpdate(CommonData.ResourceGroupName, workspaceName, createParams);
-            Assert.Equal(CommonTestFixture.WorkspaceType, workspaceCreate.Type);
-            Assert.Equal(workspaceName, workspaceCreate.Name);
-            Assert.Equal(CommonData.Location, workspaceCreate.Location);
-            for (int i = 0; i < 60; i++)
-            {
-                var workspaceGet = QuantumClient.Workspaces.Get(CommonData.ResourceGroupName, workspaceName);
-                if (workspaceGet.ProvisioningState.Equals("Succeeded"))
-                {
-                    Assert.Equal(CommonTestFixture.WorkspaceType, workspaceGet.Type);
-                    Assert.Equal(workspaceName, workspaceGet.Name);
-                    Assert.Equal(CommonData.Location, workspaceGet.Location);
-                    break;
-                }
-
-                Thread.Sleep(30000);
-                Assert.True(i < 60, "Quantum Workspace is not in succeeded state even after 30 min.");
-            }
+            var workspace =  CreateAndAssertWorkspace(workspaceName, CommonData.Location, CommonData.ResourceGroupName, CommonData.StorageAccountId);
 
             // update workspace
             Dictionary<string, string> tagsToUpdate = new Dictionary<string, string> { { "TestTag", "TestUpdate" } };
-            createParams.Tags = tagsToUpdate;
-            var workspaceUpdate = QuantumClient.Workspaces.CreateOrUpdate(CommonData.ResourceGroupName, workspaceName, createParams);
+            workspace.Tags = tagsToUpdate;
+            var workspaceUpdate = QuantumClient.Workspaces.CreateOrUpdate(CommonData.ResourceGroupName, workspaceName, workspace);
             Assert.NotNull(workspaceUpdate.Tags);
             Assert.Equal("TestUpdate", workspaceUpdate.Tags["TestTag"]);
 
