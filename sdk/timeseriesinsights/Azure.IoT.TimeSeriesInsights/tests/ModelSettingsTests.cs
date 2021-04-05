@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using Azure.Core.TestFramework;
-using Azure.IoT.TimeSeriesInsights.Models;
 using FluentAssertions;
 using NUnit.Framework;
 
@@ -61,7 +60,8 @@ namespace Azure.IoT.TimeSeriesInsights.Tests
                 try
                 {
                     Response<TimeSeriesOperationError[]> deleteTypesResponse = await client
-                        .DeleteTimeSeriesTypesbyIdAsync(new string[] { typeId })
+                        .Types
+                        .DeleteByIdAsync(new string[] { typeId })
                         .ConfigureAwait(false);
 
                     // Assert that the response array does not have any error object set
@@ -108,8 +108,9 @@ namespace Azure.IoT.TimeSeriesInsights.Tests
             timeSeriesTypes.Add(type);
 
             Response<TimeSeriesOperationError[]> createTypesResult = await client
-               .CreateOrReplaceTimeSeriesTypesAsync(timeSeriesTypes)
-               .ConfigureAwait(false);
+                .Types
+                .CreateOrReplaceAsync(timeSeriesTypes)
+                .ConfigureAwait(false);
 
             createTypesResult.Value.Should().OnlyContain((errorResult) => errorResult == null);
 
