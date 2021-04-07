@@ -1,5 +1,11 @@
 # Release History
 
+## 1.12.1 (2021-04-07)
+
+### Key Bug Fixes
+
+- Updated dependency versions.
+
 ## 1.12.0 (2021-04-06)
 
 ### Added
