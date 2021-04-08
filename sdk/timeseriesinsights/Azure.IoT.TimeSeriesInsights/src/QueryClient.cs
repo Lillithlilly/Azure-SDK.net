@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Azure.Core;
@@ -41,8 +42,8 @@ namespace Azure.IoT.TimeSeriesInsights
         /// <param name="endTime">End timestamp of the time range. Events that match this timestamp are excluded.</param>
         /// <param name="options">Optional parameters to use when querying for events.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
-        /// <returns>The pageable list <see cref="AsyncPageable{QueryResultPage}"/> of query result frames.</returns>
-        public virtual AsyncPageable<QueryResultPage> GetEventsAsync(
+        /// <returns>The pageable list <see cref="AsyncPageable{TimeSeriesPoint}"/> of Time Series points.</returns>
+        public virtual AsyncPageable<TimeSeriesPoint> GetEventsAsync(
             TimeSeriesId timeSeriesId,
             DateTimeOffset startTime,
             DateTimeOffset endTime,
@@ -62,7 +63,7 @@ namespace Azure.IoT.TimeSeriesInsights
 
                 BuildEventsRequestOptions(options, queryRequest);
 
-                return QueryInternalAsync(queryRequest, options?.StoreType?.ToString(), cancellationToken);
+                return QueryInternalAsync(queryRequest, nameof(GetEvents), options?.StoreType?.ToString(), cancellationToken);
             }
             catch (Exception ex)
             {
@@ -79,8 +80,8 @@ namespace Azure.IoT.TimeSeriesInsights
         /// <param name="endTime">End timestamp of the time range. Events that match this timestamp are excluded.</param>
         /// <param name="options">Optional parameters to use when querying for events.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
-        /// <returns>The pageable list <see cref="AsyncPageable{QueryResultPage}"/> of query result frames.</returns>
-        public virtual Pageable<QueryResultPage> GetEvents(
+        /// <returns>The pageable list <see cref="Pageable{TimeSeriesPoint}"/> of Time Series points.</returns>
+        public virtual Pageable<TimeSeriesPoint> GetEvents(
             TimeSeriesId timeSeriesId,
             DateTimeOffset startTime,
             DateTimeOffset endTime,
@@ -100,7 +101,7 @@ namespace Azure.IoT.TimeSeriesInsights
 
                 BuildEventsRequestOptions(options, queryRequest);
 
-                return QueryInternal(queryRequest, options?.StoreType?.ToString(), cancellationToken);
+                return QueryInternal(queryRequest, nameof(GetEvents), options?.StoreType?.ToString(), cancellationToken);
             }
             catch (Exception ex)
             {
@@ -117,9 +118,8 @@ namespace Azure.IoT.TimeSeriesInsights
         /// <param name="endTime">End timestamp of the time range. Events that match this timestamp are excluded. If null is provided, <c>DateTimeOffset.UtcNow</c> is used.</param>
         /// <param name="options">Optional parameters to use when querying for events.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
-        /// <returns>The pageable list <see cref="AsyncPageable{QueryResultPage}"/> of query result frames. Each frame is an array of
-        /// timestamps along with their associated properties.</returns>
-        public virtual AsyncPageable<QueryResultPage> GetEventsAsync(
+        /// <returns>The pageable list <see cref="AsyncPageable{TimeSeriesPoint}"/> of Time Series points.</returns>
+        public virtual AsyncPageable<TimeSeriesPoint> GetEventsAsync(
             TimeSeriesId timeSeriesId,
             TimeSpan timeSpan,
             DateTimeOffset? endTime = null,
@@ -141,7 +141,7 @@ namespace Azure.IoT.TimeSeriesInsights
 
                 BuildEventsRequestOptions(options, queryRequest);
 
-                return QueryInternalAsync(queryRequest, options?.StoreType?.ToString(), cancellationToken);
+                return QueryInternalAsync(queryRequest, nameof(GetEvents), options?.StoreType?.ToString(), cancellationToken);
             }
             catch (Exception ex)
             {
@@ -158,8 +158,8 @@ namespace Azure.IoT.TimeSeriesInsights
         /// <param name="endTime">End timestamp of the time range. Events that match this timestamp are excluded. If null is provided, <c>DateTimeOffset.UtcNow</c> is used.</param>
         /// <param name="options">Optional parameters to use when querying for events.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
-        /// <returns>The pageable list <see cref="AsyncPageable{QueryResultPage}"/> of query result frames.</returns>
-        public virtual Pageable<QueryResultPage> GetEvents(
+        /// <returns>The pageable list <see cref="Pageable{TimeSeriesPoint}"/> of Time Series points.</returns>
+        public virtual Pageable<TimeSeriesPoint> GetEvents(
             TimeSeriesId timeSeriesId,
             TimeSpan timeSpan,
             DateTimeOffset? endTime = null,
@@ -181,7 +181,7 @@ namespace Azure.IoT.TimeSeriesInsights
 
                 BuildEventsRequestOptions(options, queryRequest);
 
-                return QueryInternal(queryRequest, options?.StoreType?.ToString(), cancellationToken);
+                return QueryInternal(queryRequest, nameof(GetEvents), options?.StoreType?.ToString(), cancellationToken);
             }
             catch (Exception ex)
             {
@@ -198,8 +198,8 @@ namespace Azure.IoT.TimeSeriesInsights
         /// <param name="endTime">End timestamp of the time range. Events that match this timestamp are excluded.</param>
         /// <param name="options">Optional parameters to use when querying for series events.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
-        /// <returns>The pageable list <see cref="AsyncPageable{QueryResultPage}"/> of query result frames.</returns>
-        public virtual AsyncPageable<QueryResultPage> GetSeriesAsync(
+        /// <returns>The pageable list <see cref="AsyncPageable{TimeSeriesPoint}"/> of Time Series points.</returns>
+        public virtual AsyncPageable<TimeSeriesPoint> GetSeriesAsync(
             TimeSeriesId timeSeriesId,
             DateTimeOffset startTime,
             DateTimeOffset endTime,
@@ -219,7 +219,7 @@ namespace Azure.IoT.TimeSeriesInsights
 
                 BuildSeriesRequestOptions(options, queryRequest);
 
-                return QueryInternalAsync(queryRequest, options?.StoreType?.ToString(), cancellationToken);
+                return QueryInternalAsync(queryRequest, nameof(GetSeries), options?.StoreType?.ToString(), cancellationToken);
             }
             catch (Exception ex)
             {
@@ -236,8 +236,8 @@ namespace Azure.IoT.TimeSeriesInsights
         /// <param name="endTime">End timestamp of the time range. Events that match this timestamp are excluded.</param>
         /// <param name="options">Optional parameters to use when querying for series events.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
-        /// <returns>The pageable list <see cref="AsyncPageable{QueryResultPage}"/> of query result frames.</returns>
-        public virtual Pageable<QueryResultPage> GetSeries(
+        /// <returns>The pageable list <see cref="Pageable{TimeSeriesPoint}"/> of Time Series points.</returns>
+        public virtual Pageable<TimeSeriesPoint> GetSeries(
             TimeSeriesId timeSeriesId,
             DateTimeOffset startTime,
             DateTimeOffset endTime,
@@ -257,7 +257,7 @@ namespace Azure.IoT.TimeSeriesInsights
 
                 BuildSeriesRequestOptions(options, queryRequest);
 
-                return QueryInternal(queryRequest, options?.StoreType?.ToString(), cancellationToken);
+                return QueryInternal(queryRequest, nameof(GetSeries), options?.StoreType?.ToString(), cancellationToken);
             }
             catch (Exception ex)
             {
@@ -274,8 +274,8 @@ namespace Azure.IoT.TimeSeriesInsights
         /// <param name="endTime">End timestamp of the time range. Events that match this timestamp are excluded. If null is provided, <c>DateTimeOffset.UtcNow</c> is used.</param>
         /// <param name="options">Optional parameters to use when querying for series events.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
-        /// <returns>The pageable list <see cref="AsyncPageable{QueryResultPage}"/> of query result frames.</returns>
-        public virtual AsyncPageable<QueryResultPage> GetSeriesAsync(
+        /// <returns>The pageable list <see cref="AsyncPageable{TimeSeriesPoint}"/> of Time Series points.</returns>
+        public virtual AsyncPageable<TimeSeriesPoint> GetSeriesAsync(
             TimeSeriesId timeSeriesId,
             TimeSpan timeSpan,
             DateTimeOffset? endTime = null,
@@ -297,7 +297,7 @@ namespace Azure.IoT.TimeSeriesInsights
 
                 BuildSeriesRequestOptions(options, queryRequest);
 
-                return QueryInternalAsync(queryRequest, options?.StoreType?.ToString(), cancellationToken);
+                return QueryInternalAsync(queryRequest, nameof(GetSeries), options?.StoreType?.ToString(), cancellationToken);
             }
             catch (Exception ex)
             {
@@ -314,8 +314,8 @@ namespace Azure.IoT.TimeSeriesInsights
         /// <param name="endTime">End timestamp of the time range. Events that match this timestamp are excluded. If null is provided, <c>DateTimeOffset.UtcNow</c> is used.</param>
         /// <param name="options">Optional parameters to use when querying for series events.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
-        /// <returns>The pageable list <see cref="AsyncPageable{QueryResultPage}"/> of query result frames.</returns>
-        public virtual Pageable<QueryResultPage> GetSeries(
+        /// <returns>The pageable list <see cref="Pageable{TimeSeriesPoint}"/> of Time Series points.</returns>
+        public virtual Pageable<TimeSeriesPoint> GetSeries(
             TimeSeriesId timeSeriesId,
             TimeSpan timeSpan,
             DateTimeOffset? endTime = null,
@@ -337,7 +337,7 @@ namespace Azure.IoT.TimeSeriesInsights
 
                 BuildSeriesRequestOptions(options, queryRequest);
 
-                return QueryInternal(queryRequest, options?.StoreType?.ToString(), cancellationToken);
+                return QueryInternal(queryRequest, nameof(GetSeries), options?.StoreType?.ToString(), cancellationToken);
             }
             catch (Exception ex)
             {
@@ -346,13 +346,15 @@ namespace Azure.IoT.TimeSeriesInsights
             }
         }
 
-        private AsyncPageable<QueryResultPage> QueryInternalAsync(
+        private AsyncPageable<TimeSeriesPoint> QueryInternalAsync(
                     QueryRequest queryRequest,
-                    string storeType, CancellationToken cancellationToken)
+                    string diagnosticScopeName,
+                    string storeType,
+                    CancellationToken cancellationToken)
         {
-            async Task<Page<QueryResultPage>> FirstPageFunc(int? pageSizeHint)
+            async Task<Page<TimeSeriesPoint>> FirstPageFunc(int? pageSizeHint)
             {
-                using DiagnosticScope scope = _clientDiagnostics.CreateScope($"{nameof(TimeSeriesInsightsClient)}.{nameof(GetEvents)}");
+                using DiagnosticScope scope = _clientDiagnostics.CreateScope($"{nameof(TimeSeriesInsightsClient)}.{diagnosticScopeName}");
                 scope.Start();
                 try
                 {
@@ -360,12 +362,9 @@ namespace Azure.IoT.TimeSeriesInsights
                         .ExecuteAsync(queryRequest, storeType, null, null, cancellationToken)
                         .ConfigureAwait(false);
 
-                    var frame = new QueryResultPage[]
-                    {
-                            response.Value
-                    };
+                    TimeSeriesPoint[] points = createQueryResponse(response.Value);
 
-                    return Page.FromValues(frame, response.Value.ContinuationToken, response.GetRawResponse());
+                    return Page.FromValues(points, response.Value.ContinuationToken, response.GetRawResponse());
                 }
                 catch (Exception ex)
                 {
@@ -374,9 +373,9 @@ namespace Azure.IoT.TimeSeriesInsights
                 }
             }
 
-            async Task<Page<QueryResultPage>> NextPageFunc(string nextLink, int? pageSizeHint)
+            async Task<Page<TimeSeriesPoint>> NextPageFunc(string nextLink, int? pageSizeHint)
             {
-                using DiagnosticScope scope = _clientDiagnostics.CreateScope($"{nameof(TimeSeriesInsightsClient)}.{nameof(GetEvents)}");
+                using DiagnosticScope scope = _clientDiagnostics.CreateScope($"{nameof(TimeSeriesInsightsClient)}.{diagnosticScopeName}");
                 scope.Start();
                 try
                 {
@@ -384,12 +383,9 @@ namespace Azure.IoT.TimeSeriesInsights
                         .ExecuteAsync(queryRequest, storeType, nextLink, null, cancellationToken)
                         .ConfigureAwait(false);
 
-                    var frame = new QueryResultPage[]
-                    {
-                            response.Value
-                    };
+                    TimeSeriesPoint[] points = createQueryResponse(response.Value);
 
-                    return Page.FromValues(frame, response.Value.ContinuationToken, response.GetRawResponse());
+                    return Page.FromValues(points, response.Value.ContinuationToken, response.GetRawResponse());
                 }
                 catch (Exception ex)
                 {
@@ -401,26 +397,24 @@ namespace Azure.IoT.TimeSeriesInsights
             return PageableHelpers.CreateAsyncEnumerable(FirstPageFunc, NextPageFunc);
         }
 
-        private Pageable<QueryResultPage> QueryInternal(
+        private Pageable<TimeSeriesPoint> QueryInternal(
             QueryRequest queryRequest,
+            string diagnosticScopeName,
             string storeType,
             CancellationToken cancellationToken)
         {
-            Page<QueryResultPage> FirstPageFunc(int? pageSizeHint)
+            Page<TimeSeriesPoint> FirstPageFunc(int? pageSizeHint)
             {
-                using DiagnosticScope scope = _clientDiagnostics.CreateScope($"{nameof(TimeSeriesInsightsClient)}.{nameof(QueryInternal)}");
+                using DiagnosticScope scope = _clientDiagnostics.CreateScope($"{nameof(TimeSeriesInsightsClient)}.{diagnosticScopeName}");
                 scope.Start();
                 try
                 {
                     Response<QueryResultPage> response = _queryRestClient
                         .Execute(queryRequest, storeType, null, null, cancellationToken);
 
-                    var frame = new QueryResultPage[]
-                    {
-                            response.Value
-                    };
+                    TimeSeriesPoint[] points = createQueryResponse(response.Value);
 
-                    return Page.FromValues(frame, response.Value.ContinuationToken, response.GetRawResponse());
+                    return Page.FromValues(points, response.Value.ContinuationToken, response.GetRawResponse());
                 }
                 catch (Exception ex)
                 {
@@ -429,21 +423,18 @@ namespace Azure.IoT.TimeSeriesInsights
                 }
             }
 
-            Page<QueryResultPage> NextPageFunc(string nextLink, int? pageSizeHint)
+            Page<TimeSeriesPoint> NextPageFunc(string nextLink, int? pageSizeHint)
             {
-                using DiagnosticScope scope = _clientDiagnostics.CreateScope($"{nameof(TimeSeriesInsightsClient)}.{nameof(QueryInternal)}");
+                using DiagnosticScope scope = _clientDiagnostics.CreateScope($"{nameof(TimeSeriesInsightsClient)}.{diagnosticScopeName}");
                 scope.Start();
                 try
                 {
                     Response<QueryResultPage> response = _queryRestClient
                         .Execute(queryRequest, storeType, nextLink, null, cancellationToken);
 
-                    var frame = new QueryResultPage[]
-                    {
-                            response.Value
-                    };
+                    TimeSeriesPoint[] points = createQueryResponse(response.Value);
 
-                    return Page.FromValues(frame, response.Value.ContinuationToken, response.GetRawResponse());
+                    return Page.FromValues(points, response.Value.ContinuationToken, response.GetRawResponse());
                 }
                 catch (Exception ex)
                 {
@@ -503,6 +494,27 @@ namespace Azure.IoT.TimeSeriesInsights
 
                 queryRequest.GetSeries.Take = options.MaximumNumberOfEvents;
             }
+        }
+
+        private static TimeSeriesPoint[] createQueryResponse(QueryResultPage value)
+        {
+            var result = new List<TimeSeriesPoint>();
+
+            for (int i = 0; i < value.Timestamps.Count; i++)
+            {
+                DateTimeOffset timestamp = value.Timestamps[i];
+                var point = new TimeSeriesPoint(timestamp);
+
+                foreach (PropertyValues property in value.Properties)
+                {
+                    var eventProperty = new EventProperty(property.Name, property.Type);
+                    point.Values[eventProperty] = property.Values[i];
+                }
+
+                result.Add(point);
+            }
+
+            return result.ToArray();
         }
     }
 }
