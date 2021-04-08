@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Azure.Core;
@@ -346,6 +347,237 @@ namespace Azure.IoT.TimeSeriesInsights
             }
         }
 
+        /// <summary>
+        /// Retrieve aggregated time series from events for a given Time Series Id asynchronously.
+        /// </summary>
+        /// <param name="timeSeriesId">The Time Series Id to retrieve series events for.</param>
+        /// <param name="startTime">Start timestamp of the time range. Events that have this timestamp are included.</param>
+        /// <param name="endTime">End timestamp of the time range. Events that match this timestamp are excluded.</param>
+        /// <param name="interval">Interval size used to group events by.</param>
+        /// <param name="options">Optional parameters to use when querying for aggregated series events.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>The pageable list <see cref="Pageable{TimeSeriesPoint}"/> of Time Series points.</returns>
+        public virtual AsyncPageable<TimeSeriesPoint> QueryAggregateSeriesAsync(
+            TimeSeriesId timeSeriesId,
+            DateTimeOffset startTime,
+            DateTimeOffset endTime,
+            TimeSpan interval,
+            QueryAggregateSeriesRequestOptions options = null,
+            CancellationToken cancellationToken = default)
+        {
+            using DiagnosticScope scope = _clientDiagnostics.CreateScope($"{nameof(TimeSeriesInsightsClient)}.{nameof(QueryAggregateSeries)}");
+            scope.Start();
+
+            try
+            {
+                var searchSpan = new DateTimeRange(startTime, endTime);
+                var queryRequest = new QueryRequest
+                {
+                    AggregateSeries = new AggregateSeries(timeSeriesId, searchSpan, interval)
+                };
+
+                BuildAggregateSeriesRequestOptions(options, queryRequest);
+
+                return QueryInternalAsync(queryRequest,nameof(QueryAggregateSeries), options?.StoreType?.ToString(), cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                scope.Failed(ex);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Retrieve aggregated time series from events for a given Time Series Id synchronously.
+        /// </summary>
+        /// <param name="timeSeriesId">The Time Series Id to retrieve series events for.</param>
+        /// <param name="startTime">Start timestamp of the time range. Events that have this timestamp are included.</param>
+        /// <param name="endTime">End timestamp of the time range. Events that match this timestamp are excluded.</param>
+        /// <param name="interval">Interval size used to group events by.</param>
+        /// <param name="options">Optional parameters to use when querying for aggregated series events.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>The pageable list <see cref="Pageable{TimeSeriesPoint}"/> of Time Series points.</returns>
+        public virtual Pageable<TimeSeriesPoint> QueryAggregateSeries(
+            TimeSeriesId timeSeriesId,
+            DateTimeOffset startTime,
+            DateTimeOffset endTime,
+            TimeSpan interval,
+            QueryAggregateSeriesRequestOptions options = null,
+            CancellationToken cancellationToken = default)
+        {
+            using DiagnosticScope scope = _clientDiagnostics.CreateScope($"{nameof(TimeSeriesInsightsClient)}.{nameof(QueryAggregateSeries)}");
+            scope.Start();
+
+            try
+            {
+                var searchSpan = new DateTimeRange(startTime, endTime);
+                var queryRequest = new QueryRequest
+                {
+                    AggregateSeries = new AggregateSeries(timeSeriesId, searchSpan, interval)
+                };
+
+                BuildAggregateSeriesRequestOptions(options, queryRequest);
+
+                return QueryInternal(queryRequest, nameof(QueryAggregateSeries), options?.StoreType?.ToString(), cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                scope.Failed(ex);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Retrieve aggregated time series from events for a given Time Series Id over a specified time interval asynchronously.
+        /// </summary>
+        /// <param name="timeSeriesId">The Time Series Id to retrieve series events for.</param>
+        /// <param name="interval">Interval size used to group events by.</param>
+        /// <param name="timeSpan">The time interval over which to query data.</param>
+        /// <param name="endTime">End timestamp of the time range. Events that match this timestamp are excluded. If null is provided, <c>DateTimeOffset.UtcNow</c> is used.</param>
+        /// <param name="options">Optional parameters to use when querying for aggregated series events.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>The pageable list <see cref="Pageable{TimeSeriesPoint}"/> of Time Series points.</returns>
+        public virtual AsyncPageable<TimeSeriesPoint> QueryAggregateSeriesAsync(
+            TimeSeriesId timeSeriesId,
+            TimeSpan interval,
+            TimeSpan timeSpan,
+            DateTimeOffset? endTime = null,
+            QueryAggregateSeriesRequestOptions options = null,
+            CancellationToken cancellationToken = default)
+        {
+            using DiagnosticScope scope = _clientDiagnostics.CreateScope($"{nameof(TimeSeriesInsightsClient)}.{nameof(QueryAggregateSeries)}");
+            scope.Start();
+
+            try
+            {
+                DateTimeOffset rangeEndTime = endTime ?? DateTimeOffset.UtcNow;
+                DateTimeOffset rangeStartTime = rangeEndTime - timeSpan;
+                var searchSpan = new DateTimeRange(rangeStartTime, rangeEndTime);
+                var queryRequest = new QueryRequest
+                {
+                    AggregateSeries = new AggregateSeries(timeSeriesId, searchSpan, interval)
+                };
+
+                BuildAggregateSeriesRequestOptions(options, queryRequest);
+
+                return QueryInternalAsync(queryRequest, nameof(QueryAggregateSeries), options?.StoreType?.ToString(), cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                scope.Failed(ex);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Retrieve aggregated time series from events for a given Time Series Id over a specified time interval synchronously.
+        /// </summary>
+        /// <param name="timeSeriesId">The Time Series Id to retrieve series events for.</param>
+        /// <param name="interval">Interval size used to group events by.</param>
+        /// <param name="timeSpan">The time interval over which to query data.</param>
+        /// <param name="endTime">End timestamp of the time range. Events that match this timestamp are excluded. If null is provided, <c>DateTimeOffset.UtcNow</c> is used.</param>
+        /// <param name="options">Optional parameters to use when querying for aggregated series events.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>The pageable list <see cref="Pageable{TimeSeriesPoint}"/> of Time Series points.</returns>
+        public virtual Pageable<TimeSeriesPoint> QueryAggregateSeries(
+            TimeSeriesId timeSeriesId,
+            TimeSpan interval,
+            TimeSpan timeSpan,
+            DateTimeOffset? endTime = null,
+            QueryAggregateSeriesRequestOptions options = null,
+            CancellationToken cancellationToken = default)
+        {
+            using DiagnosticScope scope = _clientDiagnostics.CreateScope($"{nameof(TimeSeriesInsightsClient)}.{nameof(QueryAggregateSeries)}");
+            scope.Start();
+
+            try
+            {
+                DateTimeOffset rangeEndTime = endTime ?? DateTimeOffset.UtcNow;
+                DateTimeOffset rangeStartTime = rangeEndTime - timeSpan;
+                var searchSpan = new DateTimeRange(rangeStartTime, rangeEndTime);
+                var queryRequest = new QueryRequest
+                {
+                    AggregateSeries = new AggregateSeries(timeSeriesId, searchSpan, interval)
+                };
+
+                BuildAggregateSeriesRequestOptions(options, queryRequest);
+
+                return QueryInternal(queryRequest, nameof(QueryAggregateSeries), options?.StoreType?.ToString(), cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                scope.Failed(ex);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// asdf.
+        /// </summary>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <param name="options"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        public virtual async Task<Response<EventProperty[]>> GetEventSchemaAsync(
+            DateTimeOffset startTime,
+            DateTimeOffset endTime,
+            EventSchemaRequestOptions options = null,
+            CancellationToken cancellationToken = default)
+        {
+            using DiagnosticScope scope = _clientDiagnostics.CreateScope($"{nameof(TimeSeriesInsightsClient)}.{nameof(GetEventSchema)}");
+            scope.Start();
+
+            try
+            {
+                var searchSpan = new DateTimeRange(startTime, endTime);
+                var eventSchemaRequest = new GetEventSchemaRequest(searchSpan);
+                Response<EventSchema> getEventSchemaResponse = await _queryRestClient
+                    .GetEventSchemaAsync(eventSchemaRequest, options?.StoreType?.ToString(), null, cancellationToken)
+                    .ConfigureAwait(false);
+
+                return Response.FromValue(getEventSchemaResponse.Value.Properties.ToArray(), getEventSchemaResponse.GetRawResponse());
+            }
+            catch (Exception ex)
+            {
+                scope.Failed(ex);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// asf.
+        /// </summary>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <param name="options"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        public virtual Response<EventProperty[]> GetEventSchema(
+            DateTimeOffset startTime,
+            DateTimeOffset endTime,
+            EventSchemaRequestOptions options = null,
+            CancellationToken cancellationToken = default)
+        {
+            using DiagnosticScope scope = _clientDiagnostics.CreateScope($"{nameof(TimeSeriesInsightsClient)}.{nameof(GetEventSchema)}");
+            scope.Start();
+
+            try
+            {
+                var searchSpan = new DateTimeRange(startTime, endTime);
+                var eventSchemaRequest = new GetEventSchemaRequest(searchSpan);
+                Response<EventSchema> getEventSchemaResponse = _queryRestClient
+                    .GetEventSchema(eventSchemaRequest, options?.StoreType?.ToString(), null, cancellationToken);
+
+                return Response.FromValue(getEventSchemaResponse.Value.Properties.ToArray(), getEventSchemaResponse.GetRawResponse());
+            }
+            catch (Exception ex)
+            {
+                scope.Failed(ex);
+                throw;
+            }
+        }
+
         private AsyncPageable<TimeSeriesPoint> QueryInternalAsync(
                     QueryRequest queryRequest,
                     string diagnosticScopeName,
@@ -515,6 +747,33 @@ namespace Azure.IoT.TimeSeriesInsights
             }
 
             return result.ToArray();
+        }
+
+        private static void BuildAggregateSeriesRequestOptions(QueryAggregateSeriesRequestOptions options, QueryRequest queryRequest)
+        {
+            if (options != null)
+            {
+                if (options.Filter != null)
+                {
+                    queryRequest.AggregateSeries.Filter = new TimeSeriesExpression(options.Filter);
+                }
+
+                if (options.ProjectedVariables != null)
+                {
+                    foreach (string projectedVariable in options.ProjectedVariables)
+                    {
+                        queryRequest.AggregateSeries.ProjectedVariables.Add(projectedVariable);
+                    }
+                }
+
+                if (options.InlineVariables != null)
+                {
+                    foreach (string inlineVariableKey in options.InlineVariables.Keys)
+                    {
+                        queryRequest.AggregateSeries.InlineVariables[inlineVariableKey] = options.InlineVariables[inlineVariableKey];
+                    }
+                }
+            }
         }
     }
 }
