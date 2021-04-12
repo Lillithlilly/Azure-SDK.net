@@ -1,0 +1,39 @@
+jobs:
+  - job: UpdateDocMsCIConfig
+    pool:
+      vmImage: 'ubuntu-18.04'
+    variables:
+      DocsLocation: $(Pipeline.Workspace)/docs
+    steps:
+      - template: /eng/common/pipelines/templates/steps/sparse-checkout.yml
+        parameters:
+          Paths:
+            - ci-configs
+            - eng
+          Repositories:
+            - Name: Azure/azure-docs-sdk-dotnet
+              Commitish: onboarding
+              WorkingDirectory: $(DocsLocation)
+            - Name: $(Build.Repository.Name)
+              Commitish: $(Build.SourceVersion)
+              WorkingDirectory: $(System.DefaultWorkingDirectory)
+
+      - task: PowerShell@2
+        displayName: 'Update Docs.MS CI Targeted Packages'
+        inputs:
+          targetType: filePath
+          filePath: eng/scripts/update-docs-ci.ps1
+          arguments: >
+            -DocRepoLocation $(DocsLocation)
+            -Configs "{'targets':[{'path_to_config':'bundlepackages/azure-dotnet-preview.csv','Mode':'Preview'},{'path_to_config':'bundlepackages/azure-dotnet.csv','mode':'Latest'}]}"
+          pwsh: true
+
+      - template: /eng/common/pipelines/templates/steps/git-push-changes.yml
+        parameters:
+          BaseRepoBranch: 'a-test-branch'
+          BaseRepoOwner: 'MicrosoftDocs'
+          CommitMsg: "Update targeting packages based on release csv."
+          TargetRepoName: 'azure-docs-sdk-dotnet'
+          TargetRepoOwner: 'Azure'
+          WorkingDirectory: $(DocsLocation)
+          ScriptDirectory: $(Build.SourcesDirectory)/eng/common/scripts

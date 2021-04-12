@@ -185,48 +185,155 @@ function Get-dotnet-GithubIoDocIndex()
   GenerateDocfxTocContent -tocContent $tocContent -lang $LanguageDisplayName
 }
 
-# details on CSV schema can be found here
+# Details on CSV schema:
 # https://review.docs.microsoft.com/en-us/help/onboard/admin/reference/dotnet/documenting-nuget?branch=master#set-up-the-ci-job
-function Update-dotnet-CIConfig($pkgs, $ciRepo, $locationInDocRepo, $monikerId=$null)
+function Get-DocsCiConfig($configPath) {
+  Write-Host "Loading csv from $configPath"
+  $output = @()
+  foreach ($row in Get-Content $configPath) { 
+      $fields = $row.Split(',')
+
+      $rawProperties = ''
+      $packageProperties = @{}
+      if ($fields[1] -match '\[(.*)\]') { 
+          $rawProperties = $Matches[1] 
+          foreach ($propertyExpression in $rawProperties.Split(';')) {
+              $propertyParts = $propertyExpression.Split('=')
+              $packageProperties[$propertyParts[0]] = $propertyParts[1]
+          }
+      }
+
+      $packageName = '' 
+      if ($fields[1] -match '(\[.*\])?(.*)') { 
+          $packageName = $Matches[2] 
+      } else { 
+          Write-Error "Could not find package id in row: $row" 
+      }
+
+      $output += [PSCustomObject]@{
+          Id = $fields[0];
+          Name = $packageName;
+          Properties = $packageProperties;
+          Versions = ($fields | Select-Object -Skip 2)
+      }
+  }
+
+  return $output
+}
+
+function Get-DocsCiLine ($item) { 
+  $line = ''
+  if ($item.Properties.Count) {
+      $packageProperties = $item.Properties.Keys `
+          | ForEach-Object { "$($_)=$($item.Properties[$_])" }
+          | Join-String -Separator ';'
+      $line = "$($item.Id),[$packageProperties]$($item.Name)"
+  } else { 
+      $line = "$($item.Id),$($item.Name)"
+  }
+
+  if ($item.Versions) { 
+      $line += $item.Versions | Join-String -Separator ',' -OutputPrefix ','
+  }
+
+  return $line
+}
+
+function Update-dotnet-CIConfig($ciRepo, $locationInDocRepo)
 {
-  $csvLoc = (Join-Path -Path $ciRepo -ChildPath $locationInDocRepo)
-  
-  if (-not (Test-Path $csvLoc)) {
-    Write-Error "Unable to locate package csv at location $csvLoc, exiting."
-    exit(1)
+  $publishedPackages = Get-CSVMetadata `
+      | Where-Object { $_.New -eq 'true' -and $_.Hide -ne 'true' }
+
+  # Update "Latest" packages
+  $latestConfig = $locationInDocRepo `
+    | Where-Object { $_.Mode -eq 'Latest' } `
+    | Select-Object -First 1 
+  $latestConfigPath = Join-Path $ciRepo $latestConfig.path_to_config -Resolve
+  Write-Host "Updating latest configuration: $latestConfigPath"
+  $latestPackages = Get-DocsCiConfig -configPath $latestConfigPath
+
+  $latestPackageHash = @{} 
+  foreach ($package in $latestPackages) { 
+      # It's OK to have duplicate packages onboarded. This algortihm requires that
+      # the package is onboarded at least once in the onboarding csv file
+      $latestPackageHash[$package.Name] = $true 
   }
 
-  $allCSVRows = Get-Content $csvLoc
-  $visibleInCI = @{}
+  $gaPackages = $publishedPackages | Where-Object { $_.VersionGA.Trim() -ne '' }
+  foreach ($package in $gaPackages) { 
+      if ($latestPackageHash.ContainsKey($package.Package)) { 
+          # Onboarded packages already contains this package, skip
+          Write-Host "Skipping already onboarded package: $($package.Package)"
+          continue
+      }
 
-  # first pull what's already available
-  for ($i=0; $i -lt $allCSVRows.Length; $i++) {
-    $pkgDef = $allCSVRows[$i]
-
-    # get rid of the modifiers to get just the package id
-    $id = $pkgDef.split(",")[1] -replace "\[.*?\]", ""
-
-    $visibleInCI[$id] = $i
+      Write-Host "Adding latest package: $($package.Package)"
+      $latestPackages += [PSCustomObject]@{
+          Id = $package.Package.ToLower().Replace('.', '');
+          Name = $package.Package;
+          Properties = @{ tfm = 'netstandard2.0'; };
+          Versions = @()
+      }
   }
 
-  foreach ($releasingPkg in $pkgs) {
-    $installModifiers = "tfm=netstandard2.0"
-    if ($releasingPkg.IsPrerelease) {
-      $installModifiers += ";isPrerelease=true"
-    }
-    $lineId = $releasingPkg.PackageId.Replace(".","").ToLower()
+  $latestPackages `
+    | ForEach-Object { Get-DocsCiLine $_ } `
+    | Set-Content $latestConfigPath
 
-    if ($visibleInCI.ContainsKey($releasingPkg.PackageId)) {
-      $packagesIndex = $visibleInCI[$releasingPkg.PackageId]
-      $allCSVRows[$packagesIndex] = "$($lineId),[$installModifiers]$($releasingPkg.PackageId)"
-    }
-    else {
-      $newItem = "$($lineId),[$installModifiers]$($releasingPkg.PackageId)"
-      $allCSVRows += ($newItem)
+
+  # Update "Preview" packages
+  $previewConfig = $previewConfig = $locationInDocRepo `
+    | Where-Object { $_.Mode -eq 'Preview' } `
+    | Select-Object -First 1 
+  $previewConfigPath = Join-Path $ciRepo $previewConfig.path_to_config -Resolve
+  Write-Host "Updating preview configuration: $previewConfigPath"
+  $previewPackages = Get-DocsCiConfig -configPath $previewConfigPath
+
+  $outputPackages = @()
+  foreach ($package in $previewPackages) { 
+      $matchingMetadataPackages = $publishedPackages `
+        | Where-Object { $_.Package -eq $package.Name }
+      
+      # If this package does not match any published packages keep it in the list
+      if (-not $matchingMetadataPackages) {
+          Write-Host "Retaining non-tracked preview package: $($package.Name)"
+          $outputPackages += $package
+          continue
+      }
+
+      # If there is a preview version of the package
+      if ($matchingMetadataPackages | Where-Object { $_.VersionPreview.Trim() -ne '' }) {
+          Write-Host "Keeping tracked preview package: $($package.Name)"
+          $outputPackages += $package 
+      } else { 
+        Write-Host "Removing superseded package: $($package.Name)"
+      }
+  }
+
+  $outputPackagesHash = @{}
+  foreach ($package in $outputPackages) { 
+      $outputPackagesHash[$package.Name] = $true
+  }
+
+  $remainingPreviewPackages = $publishedPackages `
+      | Where-Object { 
+          $_.VersionPreview.Trim() -ne '' `
+          -and (-not $outputPackagesHash.ContainsKey($_.Package))
+      }
+
+  foreach ($package in $remainingPreviewPackages) {
+    Write-Host "Adding tracked preview package: $($package.Package)"
+    $outputPackages += [PSCustomObject]@{
+        Id = $package.Package.ToLower().Replace('.', '');
+        Name = $package.Package;
+        Properties = @{ tfm = 'netstandard2.0'; isPrerelease = 'true' };
+        Versions = @()
     }
   }
 
-  Set-Content -Path $csvLoc -Value $allCSVRows
+  $outputPackages `
+    | ForEach-Object { Get-DocsCiLine $_ } `
+    | Set-Content $previewConfigPath
 }
 
 # function is used to auto generate API View
