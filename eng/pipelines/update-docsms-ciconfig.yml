@@ -8,7 +8,7 @@ jobs:
       - template: /eng/common/pipelines/templates/steps/sparse-checkout.yml
         parameters:
           Paths:
-            - ci-configs
+            - bundlepackages
             - eng
           Repositories:
             - Name: Azure/azure-docs-sdk-dotnet
