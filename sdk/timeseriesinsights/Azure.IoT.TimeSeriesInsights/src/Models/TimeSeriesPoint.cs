@@ -36,7 +36,7 @@ namespace Azure.IoT.TimeSeriesInsights
         /// <summary>
         /// Get the property names associated with this point.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The list of property names.</returns>
         public string[] GetPropertyNames()
         {
             ICollection<EventProperty> keys = Values.Keys;
@@ -46,14 +46,14 @@ namespace Azure.IoT.TimeSeriesInsights
         /// <summary>
         /// Get the value of the point for a specific property.
         /// </summary>
-        /// <param name="property"></param>
-        /// <returns></returns>
-        public object GetValue(string property)
+        /// <param name="propertyName">Name of the property to look up the value for.</param>
+        /// <returns>The value of the property.</returns>
+        public object GetValue(string propertyName)
         {
-            Argument.AssertNotNullOrEmpty(property, nameof(property));
+            Argument.AssertNotNullOrEmpty(propertyName, nameof(propertyName));
 
             ICollection<EventProperty> keys = Values.Keys.ToList();
-            EventProperty eventProperty = keys.First((key) => key.Name == property);
+            EventProperty eventProperty = keys.First((key) => key.Name == propertyName);
 
             return Values[eventProperty];
         }

@@ -512,13 +512,16 @@ namespace Azure.IoT.TimeSeriesInsights
         }
 
         /// <summary>
-        /// asdf.
+        /// Retrieve Time Series Insights environment event schema for a given search span asynchronously.
         /// </summary>
-        /// <param name="startTime"></param>
-        /// <param name="endTime"></param>
-        /// <param name="options"></param>
+        /// <param name="startTime">Start timestamp of the time range. Events that have this timestamp are included.</param>
+        /// <param name="endTime">End timestamp of the time range. Events that match this timestamp are excluded.</param>
+        /// <param name="options">Optional parameters to use when retrieving the environment event schema.</param>
         /// <param name="cancellationToken"></param>
-        /// <returns></returns>
+        /// <returns>List of event properties for the Time Series Insights environment.</returns>
+        /// <remarks>
+        /// Event schema is a set of property definitions. Event schema may not contain all persisted properties when there are too many properties.
+        /// </remarks>
         public virtual async Task<Response<EventProperty[]>> GetEventSchemaAsync(
             DateTimeOffset startTime,
             DateTimeOffset endTime,
@@ -546,13 +549,16 @@ namespace Azure.IoT.TimeSeriesInsights
         }
 
         /// <summary>
-        /// asf.
+        /// Retrieve Time Series Insights environment event schema for a given search span synchronously.
         /// </summary>
-        /// <param name="startTime"></param>
-        /// <param name="endTime"></param>
-        /// <param name="options"></param>
+        /// <param name="startTime">Start timestamp of the time range. Events that have this timestamp are included.</param>
+        /// <param name="endTime">End timestamp of the time range. Events that match this timestamp are excluded.</param>
+        /// <param name="options">Optional parameters to use when retrieving the environment event schema.</param>
         /// <param name="cancellationToken"></param>
-        /// <returns></returns>
+        /// <returns>List of event properties for the Time Series Insights environment.</returns>
+        /// <remarks>
+        /// Event schema is a set of property definitions. Event schema may not contain all persisted properties when there are too many properties.
+        /// </remarks>
         public virtual Response<EventProperty[]> GetEventSchema(
             DateTimeOffset startTime,
             DateTimeOffset endTime,
