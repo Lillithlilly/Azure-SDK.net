@@ -320,6 +320,7 @@ namespace Storage.Tests
                 {
                     string containerName = TestUtilities.GenerateName("container");
                     BlobContainer blobContainer = storageMgmtClient.BlobContainers.Create(rgName, accountName, containerName, new BlobContainer());
+
                     Assert.Null(blobContainer.Metadata);
                     Assert.Null(blobContainer.PublicAccess);
 
@@ -1336,5 +1337,68 @@ namespace Storage.Tests
                 }
             }
         }
+
+
+        //// version level worm
+        //[Fact]
+        //public void BlobContainersVLW()
+        //{
+        //    var handler = new RecordedDelegatingHandler { StatusCodeToReturn = HttpStatusCode.OK };
+
+        //    using (MockContext context = MockContext.Start(this.GetType()))
+        //    {
+        //        var resourcesClient = StorageManagementTestUtilities.GetResourceManagementClient(context, handler);
+        //        var storageMgmtClient = StorageManagementTestUtilities.GetStorageManagementClient(context, handler);
+
+        //        // Create resource group
+        //        var rgName = StorageManagementTestUtilities.CreateResourceGroup(resourcesClient);
+
+        //        // Create storage account
+        //        string accountName = TestUtilities.GenerateName("sto");
+        //        var parameters = new StorageAccountCreateParameters
+        //        {
+        //            Location = "eastus2euap",
+        //            Kind = Kind.StorageV2,
+        //            Sku = new Sku { Name = SkuName.StandardLRS }
+        //        };
+        //        var account = storageMgmtClient.StorageAccounts.Create(rgName, accountName, parameters);
+        //        StorageManagementTestUtilities.VerifyAccountProperties(account, false);
+
+        //        // implement case
+        //        try
+        //        {
+        //            //enable Blob Versioning
+        //            BlobServiceProperties properties = storageMgmtClient.BlobServices.GetServiceProperties(rgName, accountName);
+        //            properties.IsVersioningEnabled = true;
+        //            storageMgmtClient.BlobServices.SetServiceProperties(rgName, accountName, properties);
+        //            properties = storageMgmtClient.BlobServices.GetServiceProperties(rgName, accountName);
+        //            Assert.True(properties.IsVersioningEnabled);
+
+        //            // 
+        //            string containerName = TestUtilities.GenerateName("container");
+        //            BlobContainer blobContainer = storageMgmtClient.BlobContainers.Create(rgName, accountName, containerName, 
+        //                new BlobContainer(immutableStorageWithVersioning: new ImmutableStorageWithVersioning(true)));
+        //            Assert.True(blobContainer.ImmutableStorageWithVersioning.Enabled);
+
+        //            // update container to enalbed VLW
+        //            string containerName2 = TestUtilities.GenerateName("container2");
+        //            BlobContainer blobContainer2 = storageMgmtClient.BlobContainers.Create(rgName, accountName, containerName2,
+        //                new BlobContainer());
+        //            Task t = storageMgmtClient.BlobContainers.ObjectLevelWormAsync(rgName, accountName, containerName2);
+        //            if (HttpMockServer.Mode == HttpRecorderMode.Record)
+        //            {
+        //                t.Wait();
+        //            }
+        //            blobContainer2 = storageMgmtClient.BlobContainers.Get(rgName, accountName, containerName2);
+        //            Assert.True(blobContainer2.ImmutableStorageWithVersioning.Enabled);
+        //        }
+        //        finally
+        //        {
+        //            // clean up
+        //            storageMgmtClient.StorageAccounts.Delete(rgName, accountName);
+        //            resourcesClient.ResourceGroups.Delete(rgName);
+        //        }
+        //    }
+        //}
     }
 }

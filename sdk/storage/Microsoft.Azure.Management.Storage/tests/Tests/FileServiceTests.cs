@@ -212,31 +212,29 @@ namespace Storage.Tests
 
                     // create 2 share snapshots
                     FileShare shareSnapshot1 = storageMgmtClient.FileShares.Create(rgName, accountName, shareName,
-                                                        new FileShare(),
-                                                        PutSharesExpand.Snapshots);
+                                                        new FileShare(), "snapshots");
                     Assert.NotNull(shareSnapshot1.SnapshotTime);
                     FileShare shareSnapshot2 = storageMgmtClient.FileShares.Create(rgName, accountName, shareName,
-                                                        new FileShare(),
-                                                        PutSharesExpand.Snapshots);
+                                                        new FileShare(), "snapshots");
                     Assert.NotNull(shareSnapshot2.SnapshotTime);
 
                     // Get single share snapsshot
-                    FileShare shareSnapshot = storageMgmtClient.FileShares.Get(rgName, accountName, shareName, GetShareExpand.Stats, shareSnapshot1.SnapshotTime.Value.ToUniversalTime().ToString("o"));
+                    FileShare shareSnapshot = storageMgmtClient.FileShares.Get(rgName, accountName, shareName, "stats", shareSnapshot1.SnapshotTime.Value.ToUniversalTime().ToString("o"));
                     Assert.Equal(shareSnapshot.SnapshotTime, shareSnapshot1.SnapshotTime);
 
                     // List share with snapshot
-                    IPage<FileShareItem> fileShares = storageMgmtClient.FileShares.List(rgName, accountName, expand: ListSharesExpand.Snapshots);
+                    IPage<FileShareItem> fileShares = storageMgmtClient.FileShares.List(rgName, accountName, expand: "snapshots");
                     Assert.Equal(3, fileShares.Count());
 
                     // Delete share snapshot
                     storageMgmtClient.FileShares.Delete(rgName, accountName, shareName2, shareSnapshot2.SnapshotTime.Value.ToUniversalTime().ToString("o"));
 
                     // List share with snapshot
-                    fileShares = storageMgmtClient.FileShares.List(rgName, accountName, expand: ListSharesExpand.Snapshots);
+                    fileShares = storageMgmtClient.FileShares.List(rgName, accountName, expand: "snapshots");
                     //Assert.Equal(2, fileShares.Count());
 
                     // List share with deleted
-                    fileShares = storageMgmtClient.FileShares.List(rgName, accountName, expand: ListSharesExpand.Deleted);
+                    fileShares = storageMgmtClient.FileShares.List(rgName, accountName, expand: "deleted");
                     Assert.Equal(2, fileShares.Count());
                 }
                 finally
@@ -474,7 +472,7 @@ namespace Storage.Tests
 
                     //List with includeDeleted
                     string deletedShareVersion = null;
-                    shares = storageMgmtClient.FileShares.List(rgName, accountName, expand: ListSharesExpand.Deleted);
+                    shares = storageMgmtClient.FileShares.List(rgName, accountName, expand: "deleted");
                     Assert.Equal(2, shares.Count());
                     foreach(FileShareItem share in shares)
                     {
@@ -487,7 +485,7 @@ namespace Storage.Tests
                     }
 
                     //Get not deleted share
-                    share2 = storageMgmtClient.FileShares.Get(rgName, accountName, shareName2, expand: GetShareExpand.Stats);
+                    share2 = storageMgmtClient.FileShares.Get(rgName, accountName, shareName2, expand: "stats");
                     Assert.NotNull(share2.ShareQuota);
                     Assert.NotNull(share2.ShareUsageBytes);
 
@@ -514,7 +512,7 @@ namespace Storage.Tests
                     Assert.Equal(2, shares.Count());
 
                     //List with includeDeleted
-                    shares = storageMgmtClient.FileShares.List(rgName, accountName, expand: ListSharesExpand.Deleted);
+                    shares = storageMgmtClient.FileShares.List(rgName, accountName, expand: "deleted");
                     Assert.Equal(2, shares.Count());
                     }
                     finally
