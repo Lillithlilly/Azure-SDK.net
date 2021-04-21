@@ -31,7 +31,7 @@ jobs:
       - template: /eng/common/pipelines/templates/steps/git-push-changes.yml
         parameters:
           BaseRepoBranch: 'a-test-branch'
-          BaseRepoOwner: 'MicrosoftDocs'
+          BaseRepoOwner: 'Azure'
           CommitMsg: "Update targeting packages based on release csv."
           TargetRepoName: 'azure-docs-sdk-dotnet'
           TargetRepoOwner: 'Azure'
