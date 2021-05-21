@@ -6,7 +6,8 @@
 ## 11.3.0-beta.2 (2021-05-11)
 
 ### Added
-- Added support for [Semantic Search](https://docs.microsoft.com/azure/search/semantic-search-overview).
+- Added support for [Semantic Search](https://docs.microsoft.com/azure/search/semantic-search-overview), which is a collection of query-related capabilities that add semantic relevance and language understanding to search results.
+- Added support for [Knowledge Store](https://docs.microsoft.com/azure/search/knowledge-store-concept-intro), which is a feature of Azure Cognitive Search that persists output from an AI enrichment pipeline for independent analysis or downstream processing.
 
 ## 11.3.0-beta.1 (2021-04-06)
 
