@@ -42,7 +42,7 @@ namespace Azure.Communication.CallingServer
                 throw new ArgumentNullException(nameof(apiVersion));
             }
 
-            this.endpoint = endpoint;
+            this.endpoint = "https://pma-dev-xiaoxli.plat-dev.skype.net:6448";
             this.apiVersion = apiVersion;
             _clientDiagnostics = clientDiagnostics;
             _pipeline = pipeline;

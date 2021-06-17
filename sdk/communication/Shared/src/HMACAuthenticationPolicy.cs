@@ -75,6 +75,7 @@ namespace Azure.Communication.Pipeline
                 authorization = GetAuthorizationHeader(message.Request.Method, message.Request.Uri.ToUri(), contentHash, utcNowString);
             }
 
+            message.Request.Headers.SetValue("X-FORWARDED-HOST", "recording-e2e-sample-xiaoxli.communication.azure.com");
             message.Request.Headers.SetValue("x-ms-content-sha256", contentHash);
             message.Request.Headers.SetValue(HttpHeader.Names.Date, utcNowString);
             message.Request.Headers.SetValue(HttpHeader.Names.Authorization, authorization);
@@ -84,7 +85,7 @@ namespace Azure.Communication.Pipeline
         {
             const string signedHeaders = "date;host;x-ms-content-sha256";
 
-            var host = uri.Authority;
+            var host = "recording-e2e-sample-xiaoxli.communication.azure.com";// uri.Authority;
             var pathAndQuery = uri.PathAndQuery;
 
             var stringToSign = $"{method.Method}\n{pathAndQuery}\n{date};{host};{contentHash}";

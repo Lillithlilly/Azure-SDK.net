@@ -55,11 +55,11 @@ namespace Azure.Communication.CallingServer
         private CallingServerClient(string endpoint, HttpPipeline httpPipeline, CallingServerClientOptions options)
         {
             _pipeline = httpPipeline;
-            _resourceEndpoint = endpoint;
+            _resourceEndpoint = "https://pma-dev-xiaoxli.plat-dev.skype.net:6448" ?? endpoint;
             _clientDiagnostics = new ClientDiagnostics(options);
             _contentDownloader = new(this);
-            CallConnectionRestClient = new CallConnectionsRestClient(_clientDiagnostics, httpPipeline, endpoint, options.ApiVersion);
-            ServerCallRestClient = new ServerCallsRestClient(_clientDiagnostics, httpPipeline, endpoint, options.ApiVersion);
+            CallConnectionRestClient = new CallConnectionsRestClient(_clientDiagnostics, httpPipeline, "https://pma-dev-xiaoxli.plat-dev.skype.net:6448", options.ApiVersion);
+            ServerCallRestClient = new ServerCallsRestClient(_clientDiagnostics, httpPipeline, "https://pma-dev-xiaoxli.plat-dev.skype.net:6448", options.ApiVersion);
         }
 
         #endregion
