@@ -14,23 +14,27 @@ namespace Azure.Communication.Pipeline
 {
     internal class HMACAuthenticationPolicy : HttpPipelinePolicy
     {
-        private readonly String DATE_HEADER_NAME = "x-ms-date";
+        private readonly string DATE_HEADER_NAME = "x-ms-date";
         private readonly AzureKeyCredential _keyCredential;
+        private readonly string authority;
 
-		public HMACAuthenticationPolicy(AzureKeyCredential keyCredential)
-			=> _keyCredential = keyCredential;
+        public HMACAuthenticationPolicy(AzureKeyCredential keyCredential, string authority = null)
+        {
+            _keyCredential = keyCredential;
+            this.authority = authority;
+        }
 
         public override void Process(HttpMessage message, ReadOnlyMemory<HttpPipelinePolicy> pipeline)
         {
             var contentHash = CreateContentHash(message);
-            AddHeaders(message, contentHash);
+            AddHeaders(message, contentHash, authority);
             ProcessNext(message, pipeline);
         }
 
         public override async ValueTask ProcessAsync(HttpMessage message, ReadOnlyMemory<HttpPipelinePolicy> pipeline)
         {
             var contentHash = await CreateContentHashAsync(message).ConfigureAwait(false);
-            AddHeaders(message, contentHash);
+            AddHeaders(message, contentHash, authority);
             await ProcessNextAsync(message, pipeline).ConfigureAwait(false);
         }
 
@@ -61,19 +65,31 @@ namespace Azure.Communication.Pipeline
             return Convert.ToBase64String(alg.Hash!);
         }
 
-        private void AddHeaders(HttpMessage message, string contentHash)
+        private void AddHeaders(HttpMessage message, string contentHash, string authority = null)
         {
             var utcNowString = DateTimeOffset.UtcNow.ToString("r", CultureInfo.InvariantCulture);
             string authorization;
 
             message.TryGetProperty("uriToSignRequestWith", out var uriToSignWith);
-            if (uriToSignWith != null && uriToSignWith.GetType() == typeof(Uri))
+            if (this.authority != default)
+            {
+                var hackUri = new UriBuilder(message.Request.Uri.ToUri());
+                hackUri.Host = authority;
+                hackUri.Port = -1;
+                authorization = GetAuthorizationHeader(message.Request.Method, hackUri.Uri, contentHash, utcNowString);
+            }
+            else if (uriToSignWith?.GetType() == typeof(Uri))
             {
                 authorization = GetAuthorizationHeader(message.Request.Method, (Uri)uriToSignWith, contentHash, utcNowString);
             }
             else
             {
                 authorization = GetAuthorizationHeader(message.Request.Method, message.Request.Uri.ToUri(), contentHash, utcNowString);
+            }
+
+            if (this.authority != default)
+            {
+                message.Request.Headers.SetValue("X-FORWARDED-HOST", authority); // Target
             }
 
             message.Request.Headers.SetValue("x-ms-content-sha256", contentHash);

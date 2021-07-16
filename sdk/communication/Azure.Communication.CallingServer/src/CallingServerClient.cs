@@ -29,27 +29,35 @@ namespace Azure.Communication.CallingServer
         #region public constructors
         /// <summary> Initializes a new instance of <see cref="CallingServerClient"/>.</summary>
         /// <param name="connectionString">Connection string acquired from the Azure Communication Services resource.</param>
-        public CallingServerClient(string connectionString)
+        /// <param name="hackedTarget"></param>
+#pragma warning disable AZC0007 // DO provide a minimal constructor that takes only the parameters required to connect to the service.
+        public CallingServerClient(string connectionString, string hackedTarget = null)
+#pragma warning restore AZC0007 // DO provide a minimal constructor that takes only the parameters required to connect to the service.
             : this(
-                  ConnectionString.Parse(Argument.CheckNotNullOrEmpty(connectionString, nameof(connectionString))),
-                  new CallingServerClientOptions())
+                  CallingServerClient.HackConnectionString(connectionString, hackedTarget),
+                  new CallingServerClientOptions(),
+                  CallingServerClient.GetAuthority(connectionString, hackedTarget))
         { }
 
         /// <summary> Initializes a new instance of <see cref="CallingServerClient"/>.</summary>
         /// <param name="connectionString">Connection string acquired from the Azure Communication Services resource.</param>
         /// <param name="options">Client option exposing <see cref="ClientOptions.Diagnostics"/>, <see cref="ClientOptions.Retry"/>, <see cref="ClientOptions.Transport"/>, etc.</param>
-        public CallingServerClient(string connectionString, CallingServerClientOptions options)
+        /// <param name="hackedTarget"></param>
+#pragma warning disable AZC0007 // DO provide a minimal constructor that takes only the parameters required to connect to the service.
+        public CallingServerClient(string connectionString, CallingServerClientOptions options, string hackedTarget = null)
+#pragma warning restore AZC0007 // DO provide a minimal constructor that takes only the parameters required to connect to the service.
             : this(
-                  ConnectionString.Parse(Argument.CheckNotNullOrEmpty(connectionString, nameof(connectionString))),
-                  Argument.CheckNotNull(options, nameof(options)))
+                  CallingServerClient.HackConnectionString(connectionString, hackedTarget),
+                  Argument.CheckNotNull(options, nameof(options)),
+                  CallingServerClient.GetAuthority(connectionString, hackedTarget))
         { }
 
         #endregion
 
         #region private constructors
 
-        private CallingServerClient(ConnectionString connectionString, CallingServerClientOptions options)
-            : this(connectionString.GetRequired("endpoint"), options.BuildHttpPipeline(connectionString), options)
+        private CallingServerClient(ConnectionString connectionString, CallingServerClientOptions options, string hackedTarget = null)
+            : this(connectionString.GetRequired("endpoint"), options.BuildHttpPipeline(connectionString, hackedTarget), options)
         { }
 
         private CallingServerClient(string endpoint, HttpPipeline httpPipeline, CallingServerClientOptions options)
@@ -471,6 +479,24 @@ namespace Azure.Communication.CallingServer
             using Stream destination = File.Create(destinationPath);
             return await _contentDownloader.StagedDownloadAsync(sourceEndpoint, destination, transferOptions,
                 async: true, cancellationToken: cancellationToken).ConfigureAwait(false);
+        }
+
+        private static ConnectionString HackConnectionString(string connectionString, string hackedTarget)
+        {
+            var cs = ConnectionString.Parse(connectionString);
+            if (!String.IsNullOrEmpty(hackedTarget))
+            {
+                cs.Replace("endpoint", hackedTarget);
+            }
+
+            return cs;
+        }
+
+        private static string GetAuthority(string connectionString, string hackedTarget)
+        {
+            var cs = ConnectionString.Parse(connectionString);
+            var endpoint = cs.GetSegmentValueOrDefault("endpoint", default);
+            return string.IsNullOrEmpty(hackedTarget) ? default : (new Uri(endpoint)).Authority;
         }
     }
 }
