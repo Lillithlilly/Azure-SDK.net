@@ -18,7 +18,9 @@ namespace Azure.Communication.Pipeline
         private readonly AzureKeyCredential _keyCredential;
         private readonly string authority;
 
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
         public HMACAuthenticationPolicy(AzureKeyCredential keyCredential, string authority = null)
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
         {
             _keyCredential = keyCredential;
             this.authority = authority;
@@ -65,7 +67,9 @@ namespace Azure.Communication.Pipeline
             return Convert.ToBase64String(alg.Hash!);
         }
 
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
         private void AddHeaders(HttpMessage message, string contentHash, string authority = null)
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
         {
             var utcNowString = DateTimeOffset.UtcNow.ToString("r", CultureInfo.InvariantCulture);
             string authorization;
