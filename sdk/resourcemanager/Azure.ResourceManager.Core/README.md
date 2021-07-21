@@ -1,20 +1,33 @@
-# Azure ResourceManager Core client library for .NET
+# Resource Management using Azure .NET SDK 
 
-This package follows the [new Azure SDK guidelines](https://azure.github.io/azure-sdk/general_introduction.html), which provide core capabilities that are shared amongst all Azure SDKs, including:
+The .NET SDK's management (or "management plane") libraries, the names of which all begin with `Azure.ResourceManager` (for example: `Azure.ResourceManager.Compute`), help you create, provision and otherwise manage Azure resources from .NET code. All Azure services have corresponding management libraries.
 
-- The intuitive Azure Identity library.
+With the management libraries, you can write configuration and deployment programs to perform the same tasks that you can through the Azure portal, Azure CLI, or other resource management tools. 
+
+Those `Azure.ResourceManager.*`package follows the [new Azure SDK guidelines](https://azure.github.io/azure-sdk/general_introduction.html), which provide core capabilities that are shared amongst all Azure SDKs, including:
+
+- The intuitive Azure Identity library that provides authentication modules
+- User-friendly API design that resembles the Azure resource hierachy 
 - An HTTP pipeline with custom policies.
 - Error handling.
-- Distributed tracing.
+- Distributed tracing
+
+> [!NOTE]
+> *Azure.ResourceManager.** packages are currently in Public Preview and may be subject to breaking changes in the future.
 
 ## Getting started 
 
 ### Install the package
 
-Install the Azure Resources management core library for .NET with [NuGet](https://www.nuget.org/):
+Install the Azure Resources management libraries for .NET with [NuGet](https://www.nuget.org/).
+
+For example:
 
 ```PowerShell
 Install-Package Azure.ResourceManager.Core -Version 1.0.0-beta.1
+Install-Package Azure.ResourceManager.Compute -Version 1.0.0-beta.1
+Install-Package Azure.ResourceManager.Network -Version 1.0.0-beta.1
+Install-Package Azure.ResourceManager.Resources -Version 1.0.0-beta.1
 ```
 
 ### Prerequisites
@@ -290,23 +303,3 @@ For more detailed examples, take a look at [samples](https://github.com/Azure/az
 
 ### Additional Documentation
 For more information on Azure SDK, please refer to [this website](https://azure.github.io/azure-sdk/).
-
-## Contributing
-
-For details on contributing to this repository, see the [contributing
-guide](https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/resourcemanager/Azure.ResourceManager.Core/docs/CONTRIBUTING.md).
-
-This project welcomes contributions and suggestions. Most contributions
-require you to agree to a Contributor License Agreement (CLA) declaring
-that you have the right to, and actually do, grant us the rights to use
-your contribution. For details, visit <https://cla.microsoft.com>.
-
-When you submit a pull request, a CLA-bot will automatically determine
-whether you need to provide a CLA and decorate the PR appropriately
-(e.g., label, comment). Simply follow the instructions provided by the
-bot. You will only need to do this once across all repositories using
-our CLA.
-
-This project has adopted the Microsoft Open Source Code of Conduct. For
-more information see the Code of Conduct FAQ or contact
-<opencode@microsoft.com> with any additional questions or comments.
