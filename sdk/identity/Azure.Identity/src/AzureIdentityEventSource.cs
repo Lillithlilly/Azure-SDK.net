@@ -11,7 +11,7 @@ using Azure.Core.Diagnostics;
 namespace Azure.Identity
 {
     [EventSource(Name = EventSourceName)]
-    internal sealed class AzureIdentityEventSource : EventSource
+    internal sealed class AzureIdentityEventSource : AzureEventSource
     {
         private const string EventSourceName = "Azure-Identity";
 
@@ -27,8 +27,9 @@ namespace Azure.Identity
         private const int MsalLogErrorEvent = 10;
         private const int InteractiveAuthenticationThreadPoolExecutionEvent = 11;
         private const int InteractiveAuthenticationInlineExecutionEvent = 12;
+        private const int DefaultAzureCredentialCredentialSelectedEvent = 13;
 
-        private AzureIdentityEventSource() : base(EventSourceName, EventSourceSettings.Default, AzureEventSourceListener.TraitName, AzureEventSourceListener.TraitValue) { }
+        private AzureIdentityEventSource() : base(EventSourceName) { }
 
         public static AzureIdentityEventSource Singleton { get; } = new AzureIdentityEventSource();
 
@@ -176,8 +177,6 @@ namespace Azure.Identity
                     case Microsoft.Identity.Client.LogLevel.Verbose when IsEnabled(EventLevel.Verbose, EventKeywords.All):
                         LogMsalVerbose(message);
                         break;
-                    default:
-                        break;
                 }
             }
         }
@@ -222,6 +221,12 @@ namespace Azure.Identity
         public void InteractiveAuthenticationExecutingInline()
         {
             WriteEvent(InteractiveAuthenticationInlineExecutionEvent);
+        }
+
+        [Event(DefaultAzureCredentialCredentialSelectedEvent, Level = EventLevel.Informational, Message = "DefaultAzureCredential credential selected: {0}")]
+        public void DefaultAzureCredentialCredentialSelected(string credentialType)
+        {
+            WriteEvent(DefaultAzureCredentialCredentialSelectedEvent, credentialType);
         }
     }
 }
