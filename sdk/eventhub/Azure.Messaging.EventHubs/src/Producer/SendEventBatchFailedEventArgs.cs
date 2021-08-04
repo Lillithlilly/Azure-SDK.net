@@ -10,12 +10,12 @@ namespace Azure.Messaging.EventHubs.Producer
     /// This class allows the producer to pass contextual information to the application
     /// when a set of events fails to publish to the Event Hub.
     /// </summary>
-    public class SendFailedEventArgs : EventArgs
+    public class SendEventBatchFailedEventArgs : EventArgs
     {
         /// <summary>
         /// The set of events that were in the batch that failed to publish.
         /// </summary>
-        public IEnumerable<EventData> Events { get; set; }
+        public IEnumerable<EventData> EventBatch { get; set; }
 
         /// <summary>
         /// The exception that occurred when trying to publish the batch.

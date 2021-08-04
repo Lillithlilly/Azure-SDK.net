@@ -28,18 +28,17 @@ namespace Azure.Messaging.EventHubs.Producer
         /// </summary>
         ///
         /// <value>
-        /// The default limit is 2500 queued events.
+        /// The default limit is 2500 queued events. Once this limit is reached more events can be added to the queue but
+        /// the producer must wait until there is room, which is made by batches being published in the background.
         /// </value>
-        public int MaximumQueuedEventCount { get; set; }
+        public int MaximumQueuedEventLimit { get; set; }
 
         /// <summary>
-        /// Indicates whether events should be published using idempotent semantics.  This allows Event Hubs to
-        /// detect publishing attempts during retries that would result in duplication and is likely to reduce the occurrence of duplicate events.
-        ///
+        /// Indicates whether events should be published using idempotent semantics. This means that we will attempt to avoid duplication when
+        /// sending events. Duplicates are still possible but the chance of them occuring is much lower when idempotent retries are enabled.
         /// Idempotent retries do have a minor impact on throughput and restrict the number of concurrent publishing operations that
-        /// can be performed for each partition.
-        ///
-        /// Idempotent retries may not be enabled when the value of <see cref="MaximumConcurrentSendsPerPartition"/> is larger than 1.
+        /// can be performed for each partition, meaning that Idempotent retries may not be enabled when the value of
+        /// <see cref="MaximumConcurrentSendsPerPartition"/> is larger than 1.
         ///</summary>
         /// <value>
         /// By default, idempotent retries are disabled.
@@ -81,29 +80,14 @@ namespace Azure.Messaging.EventHubs.Producer
         public StreamingProducerOptions()
         {
             MaximumWaitTime = TimeSpan.FromMilliseconds(250);
-            MaximumQueuedEventCount = 200;
+            MaximumQueuedEventLimit = 2500;
             EnableIdempotentRetries = false;
             MaximumConcurrentSendsPerPartition = 1;
         }
 
         internal new StreamingProducerOptions Clone()
         {
-            var baseOptions = base.Clone();
-            var copiedOptions = new StreamingProducerOptions
-            {
-                MaximumWaitTime = MaximumWaitTime,
-                MaximumQueuedEventCount = MaximumQueuedEventCount,
-                EnableIdempotentRetries = EnableIdempotentRetries,
-                MaximumConcurrentSendsPerPartition = MaximumConcurrentSendsPerPartition,
-                EnableIdempotentPartitions = EnableIdempotentPartitions,
-            };
-
-            foreach (var pair in PartitionOptions)
-            {
-                copiedOptions.PartitionOptions.Add(pair.Key, pair.Value.Clone());
-            }
-
-            return copiedOptions;
+            throw new NotImplementedException();
         }
     }
 }

@@ -31,61 +31,24 @@ namespace Azure.Messaging.EventHubs.Producer
     /// <para>
     /// The <see cref="StreamingProducer"/> is safe to cache and use as a singleton for the lifetime of an
     /// application. This is the recommended approach, since the client is responsible for efficient network,
-    /// CPU, and memory use. Calling <see cref="CloseAsync(CancellationToken)"/> or <see cref="DisposeAsync"/>
+    /// CPU, and memory use. Calling <see cref="CloseAsync(bool, CancellationToken)"/> or <see cref="DisposeAsync"/>
     /// is required so that resources can be cleaned up after use.
     /// </para>
     /// </remarks>
     public class StreamingProducer : IAsyncDisposable
     {
-        private EventHubProducerClient _producer;
-        private StreamingProducerOptions _options;
-
-        private bool _isStarted;
-        private bool _isClosed;
-
-        private event Func<SendSucceededEventArgs, Task> _sendSucceeded;
-        private event Func<SendFailedEventArgs, Task> _sendFailed;
-
         /// <summary>
         /// A handler for event batches that have been published successfully. Control is passed to this method after events have successfully
-        /// been published to the Event Hub, along with an instance of <see cref="SendSucceededEventArgs"/> containing the <see cref="EventData"/>
+        /// been published to the Event Hub, along with an instance of <see cref="SendEventBatchSuccessEventArgs"/> containing the <see cref="EventData"/>
         /// instances that were published and the Id of which partition it was published to.
         /// </summary>
-        public event Func<SendSucceededEventArgs, Task> SendSucceededAsync
-        {
-            add
-            {
-                Argument.AssertNotNull(value, nameof(SendSucceededAsync));
-
-                if (_sendSucceeded != default)
-                {
-                    throw new NotSupportedException(Resources.HandlerHasAlreadyBeenAssigned);
-                }
-                _sendSucceeded = value;
-            }
-
-            remove
-            {
-                Argument.AssertNotNull(value, nameof(SendSucceededAsync));
-
-                if (_isStarted)
-                {
-                    throw new ArgumentException("Handlers cannot be changed after the streaming producer has started publishing.");
-                }
-
-                if (_sendSucceeded != value)
-                {
-                    throw new ArgumentException(Resources.HandlerHasNotBeenAssigned);
-                }
-                _sendSucceeded = default;
-            }
-        }
+        public event Func<SendEventBatchSuccessEventArgs, Task> SendEventBatchSuccessAsync;
 
         /// <summary>
         /// A handler for event batches that have failed to successfully publish. If a transient failure occured during publishing,
         /// this method will only be called after applying the retry policy. However, control is passed to this method on the event that a batch
         /// has failed to be published to the Event Hub for any reason, transient or permanent, along with an instance of
-        /// <see cref="SendFailedEventArgs"/> containing the <see cref="EventData"/> instances that failed to publish as well as the Id of the partition
+        /// <see cref="SendEventBatchFailedEventArgs"/> containing the <see cref="EventData"/> instances that failed to publish as well as the Id of the partition
         /// that it could not be published to, and the exception that caused the failure.
         /// </summary>
         /// <remarks>
@@ -93,51 +56,23 @@ namespace Azure.Messaging.EventHubs.Producer
         /// application creates a more generous custom <see cref="RetryPolicy"/> to better deal with transient failures, especially when event ordering
         /// is important.
         /// </remarks>
-        public event Func<SendFailedEventArgs, Task> SendFailedAsync
-        {
-            add
-            {
-                Argument.AssertNotNull(value, nameof(SendFailedAsync));
-
-                if (_sendFailed != default)
-                {
-                    throw new NotSupportedException(Resources.HandlerHasAlreadyBeenAssigned);
-                }
-                _sendFailed = value;
-            }
-
-            remove
-            {
-                Argument.AssertNotNull(value, nameof(SendFailedAsync));
-
-                if (_isStarted)
-                {
-                    throw new ArgumentException("Handlers cannot be changed after the streaming producer has started publishing.");
-                }
-
-                if (_sendFailed != value)
-                {
-                    throw new ArgumentException(Resources.HandlerHasNotBeenAssigned);
-                }
-                _sendFailed = default;
-            }
-        }
+        public event Func<SendEventBatchFailedEventArgs, Task> SendEventBatchFailedAsync;
 
         /// <summary>
         /// The fully qualified Event Hubs namespace that this producer is currently associated with, which will likely be similar
         /// to <c>{yournamespace}.servicebus.windows.net</c>.
         /// </summary>
-        public string FullyQualifiedNamespace => _producer.FullyQualifiedNamespace;
+        public string FullyQualifiedNamespace { get; set; }
 
         /// <summary>
         /// The name of the Event Hub that this producer is connected to, specific to the Event Hubs namespace that contains it.
         /// </summary>
-        public string EventHubName => _producer.EventHubName;
+        public string EventHubName { get; set; }
 
         /// <summary>
         /// A unique name to identify the streaming producer.
         /// </summary>
-        public string Identifier => _producer.Identifier;
+        public string Identifier { get; set; }
 
         /// <summary>
         /// The total number of events that are currently in the queue waiting to be published, across all partitions.
@@ -147,16 +82,16 @@ namespace Azure.Messaging.EventHubs.Producer
         /// <summary>
         /// <c>true</c> if the streaming producer has been closed <c>false</c> otherwise.
         /// </summary>
-        public bool IsClosed => _isClosed;
+        public bool IsClosed { get; set; }
 
-        /// <summary>
-        /// Returns the number of events present in the queue waiting to be sent for a given partition.
-        /// </summary>
-        /// <param name="partition">The id of the partition.</param>
-        public int GetPartitionQueuedEventCount(string partition)
-        {
-            throw new NotImplementedException();
-        }
+        // <summary>
+        // Returns the number of events present in the queue waiting to be sent for a given partition.
+        // </summary>
+        // <param name="partition">The id of the partition.</param>
+        //public int GetPartitionQueuedEventCount(string partition)
+        //{
+        //TODO
+        //}
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StreamingProducer" /> class.
@@ -167,7 +102,7 @@ namespace Azure.Messaging.EventHubs.Producer
         /// <param name="clientOptions">A set of <see cref="StreamingProducerOptions"/> to apply when configuring the streaming producer.</param>
         public StreamingProducer(string connectionString, string eventHubName = default, StreamingProducerOptions clientOptions = default) : this(clientOptions)
         {
-            _producer = new EventHubProducerClient(connectionString, eventHubName, clientOptions);
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -179,7 +114,7 @@ namespace Azure.Messaging.EventHubs.Producer
         /// <param name="clientOptions">A set of <see cref="StreamingProducerOptions"/> to apply when configuring the streaming producer.</param>
         public StreamingProducer(string fullyQualifiedNamespace, string eventHubName, AzureNamedKeyCredential credential, StreamingProducerOptions clientOptions = default) : this(clientOptions)
         {
-            _producer = new EventHubProducerClient(fullyQualifiedNamespace, eventHubName, credential, clientOptions);
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -191,7 +126,7 @@ namespace Azure.Messaging.EventHubs.Producer
         /// <param name="clientOptions">A set of <see cref="StreamingProducerOptions"/> to apply when configuring the streaming producer.</param>
         public StreamingProducer(string fullyQualifiedNamespace, string eventHubName, AzureSasCredential credential, StreamingProducerOptions clientOptions = default) : this(clientOptions)
         {
-            _producer = new EventHubProducerClient(fullyQualifiedNamespace, eventHubName, credential, clientOptions);
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -203,7 +138,7 @@ namespace Azure.Messaging.EventHubs.Producer
         /// <param name="clientOptions">A set of <see cref="StreamingProducerOptions"/> to apply when configuring the streaming producer.</param>
         public StreamingProducer(string fullyQualifiedNamespace, string eventHubName, TokenCredential credential, StreamingProducerOptions clientOptions = default) : this(clientOptions)
         {
-            _producer = new EventHubProducerClient(fullyQualifiedNamespace, eventHubName, credential, clientOptions);
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -213,7 +148,7 @@ namespace Azure.Messaging.EventHubs.Producer
         /// <param name="clientOptions">A set of <see cref="StreamingProducerOptions"/> to apply when configuring the streaming producer.</param>
         public StreamingProducer(EventHubConnection connection, StreamingProducerOptions clientOptions = default): this(clientOptions)
         {
-            _producer = new EventHubProducerClient(connection, clientOptions);
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -222,19 +157,37 @@ namespace Azure.Messaging.EventHubs.Producer
         /// <param name="options"></param>
         private StreamingProducer(StreamingProducerOptions options)
         {
-            if (options != null)
-            {
-                _options = options.Clone();
-            }
-            else
-            {
-                _options = new StreamingProducerOptions();
-            }
+            throw new NotImplementedException();
         }
 
         /// <summary>
-        /// Enqueues an <see cref="EventData"/> instance to be published to the Event Hub. This method waits until the queue has
-        /// space for the given event, it does not wait until the event is published.
+        /// Enqueues an <see cref="EventData"/> instance so that the <see cref="StreamingProducer"/> can publish it in the future as part of a batch.
+        /// If there is no space in the queue when the call is made, it will wait for space to become available and ensure the <paramref name="eventData"/>
+        /// has been enqueued.
+        /// </summary>
+        /// <param name="eventData">The event data to be published.</param>
+        /// <param name="cancellationToken">An optional <see cref="CancellationToken"/> instance to signal the request to cancel the
+        /// operation.</param>
+        /// <remarks>
+        /// <para>
+        /// Upon the first call to queue, the send success and failures handlers cannot be changed.
+        /// </para>
+        ///
+        /// <para>
+        /// When this call returns, the <paramref name="eventData" /> has been accepted into the queue, but it may not have been published yet.
+        /// It will be published at some point in the future as the queue is processed. After attempting to publish, the appropriate handler will be called, either <see cref="SendEventBatchSuccessAsync"/>
+        /// if the events are sent successfully, or <see cref="SendEventBatchFailedAsync"/> if the events fail to send.
+        /// </para>
+        /// </remarks>
+        public Task EnqueueEventAsync(EventData eventData, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Enqueues an <see cref="EventData"/> instance so that the <see cref="StreamingProducer"/> can publish it in the future as part of a batch.
+        /// If there is no space in the queue when the call is made, it will wait for space to become available and ensure the <paramref name="eventData"/>
+        /// has been enqueued.
         /// </summary>
         /// <param name="eventData">The event data to be published.</param>
         /// <param name="cancellationToken">An optional <see cref="CancellationToken"/> instance to signal the request to cancel the
@@ -246,19 +199,79 @@ namespace Azure.Messaging.EventHubs.Producer
         /// </para>
         ///
         /// <para>
-        /// When this call returns, the event will have been added to the queue, but may not have been published yet. Publishing the event
-        /// occurs in the background. After attempting to publish, the appropriate handler will be called, either <see cref="SendSucceededAsync"/>
-        /// if the events are sent successfully, or <see cref="SendFailedAsync"/> if the events fail to send.
+        /// When this call returns, the <paramref name="eventData" /> has been accepted into the queue, but it may not have been published yet.
+        /// It will be published at some point in the future as the queue is processed. After attempting to publish, the appropriate handler will be called, either <see cref="SendEventBatchSuccessAsync"/>
+        /// if the events are sent successfully, or <see cref="SendEventBatchFailedAsync"/> if the events fail to send.
         /// </para>
         /// </remarks>
-        public Task EnqueueEventAsync(EventData eventData, SendEventOptions options = default, CancellationToken cancellationToken = default)
+        public Task EnqueueEventAsync(EventData eventData, EnqueueEventOptions options, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
 
         /// <summary>
-        /// Enqueues an <see cref="EventData"/> instance to be published to the Event Hub. This method does not wait until the queue has
-        /// space for the given event and instead returns if there is not room. It does not wait until the event is published.
+        /// Enqueues an <see cref="EventData"/> instance so that the <see cref="StreamingProducer"/> can publish it in the future as part of a batch.
+        /// If there is no space in the queue when the call is made, it will wait for space to become available and ensure the <paramref name="eventData"/>
+        /// has been enqueued.
+        /// </summary>
+        /// <param name="eventData">An <see cref="IEnumerable{T}"/> of event data instances to be published.</param>
+        /// <param name="cancellationToken">An optional <see cref="CancellationToken"/> instance to signal the request to cancel the
+        /// operation.</param>
+        /// <param name="options">An optional set of options to consider when publishing this event.</param>
+        /// <remarks>
+        /// <para>
+        /// Upon the first call to queue, the send success and failures handlers cannot be changed.
+        /// </para>
+        ///
+        /// <para>
+        /// The set of events in the <see cref="IEnumerable{T}"/> have no guarantees about which batches each individual <see cref="EventData"/>
+        /// instance gets put in. In other words, the group of events listed here are not necessarily batched together.
+        /// </para>
+        ///
+        /// <para>
+        /// When this call returns, the <paramref name="eventData" /> has been accepted into the queue, but it may not have been published yet.
+        /// It will be published at some point in the future as the queue is processed. After attempting to publish, the appropriate handler will be called, either <see cref="SendEventBatchSuccessAsync"/>
+        /// if the events are sent successfully, or <see cref="SendEventBatchFailedAsync"/> if the events fail to send.
+        /// </para>
+        /// </remarks>
+        public Task EnqueueEventAsync(IEnumerable<EventData> eventData, EnqueueEventOptions options, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Enqueues an <see cref="EventData"/> instance so that the <see cref="StreamingProducer"/> can publish it in the future as part of a batch.
+        /// If there is no space in the queue when the call is made, it will wait for space to become available and ensure the <paramref name="eventData"/>
+        /// has been enqueued.
+        /// </summary>
+        /// <param name="eventData">An <see cref="IEnumerable{T}"/> of event data instances to be published.</param>
+        /// <param name="cancellationToken">An optional <see cref="CancellationToken"/> instance to signal the request to cancel the
+        /// operation.</param>
+        /// <remarks>
+        /// <para>
+        /// Upon the first call to queue, the send success and failures handlers cannot be changed.
+        /// </para>
+        ///
+        /// <para>
+        /// The set of events in the <see cref="IEnumerable{T}"/> have no guarantees about which batches each individual <see cref="EventData"/>
+        /// instance get put in. In other words, the group of events listed here are not necessarily batched together.
+        /// </para>
+        ///
+        /// <para>
+        /// When this call returns, the <paramref name="eventData" /> has been accepted into the queue, but it may not have been published yet.
+        /// It will be published at some point in the future as the queue is processed. After attempting to publish, the appropriate handler will be called, either <see cref="SendEventBatchSuccessAsync"/>
+        /// if the events are sent successfully, or <see cref="SendEventBatchFailedAsync"/> if the events fail to send.
+        /// </para>
+        /// </remarks>
+        public Task EnqueueEventAsync(IEnumerable<EventData> eventData, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Enqueues an <see cref="EventData"/> instance so that the <see cref="StreamingProducer"/> can publish it in the future as part of a batch.
+        /// This method will not wait until the queue has space for the given event and instead returns immediately, If there is no space available in the
+        /// queue, the <see cref="EventData"/> instance will not be enqueued.
         /// </summary>
         /// <param name="eventData">The event data to be published.</param>
         /// <param name="cancellationToken">An optional <see cref="CancellationToken" /> instance to signal the request to cancel the operation.</param>
@@ -270,22 +283,22 @@ namespace Azure.Messaging.EventHubs.Producer
         ///
         /// <para>
         /// When this call returns, the event may have been added to the queue, but may not have been published yet. Publishing the event
-        /// occurs in the background. After attempting to publish, the appropriate handler will be called, either <see cref="SendSucceededAsync"/>
-        /// if the events are sent successfully, or <see cref="SendFailedAsync"/> if the events fail to send.
+        /// occurs in the background. After attempting to publish, the appropriate handler will be called, either <see cref="SendEventBatchSuccessAsync"/>
+        /// if the events are sent successfully, or <see cref="SendEventBatchFailedAsync"/> if the events fail to send.
         /// </para>
         /// </remarks>
         /// <returns><c>true</c> if queuing the event was successful <c>false</c> if the queue was full and the event could not be enqueued.</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "AZC0102:Do not use GetAwaiter().GetResult().", Justification = "<Pending>")]
-        public virtual bool TryEnqueueEvent(EventData eventData, SendEventOptions options = default, CancellationToken cancellationToken = default)
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "AZC0102:Do not use GetAwaiter().GetResult().", Justification = "This needs to be used here.")]
+        public virtual bool TryEnqueueEventWithoutWaiting(EventData eventData, EnqueueEventOptions options = default, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
 
         /// <summary>
         /// This method flushes the queue by attempting to publish all events that are currently in the queue. Each attempt to publish applies the retry policy
-        /// when necessary, and on successful or failed publishing, the appropriate <see cref="SendSucceededAsync"/> or <see cref="SendFailedAsync"/> handler
+        /// when necessary, and on successful or failed publishing, the appropriate <see cref="SendEventBatchSuccessAsync"/> or <see cref="SendEventBatchFailedAsync"/> handler
         /// will be called. Upon completion of this method, all events will have been removed from the queues and either published or dealt with according
-        /// to the <see cref="SendFailedAsync"/> handler.
+        /// to the <see cref="SendEventBatchFailedAsync"/> handler.
         /// </summary>
         /// <param name="cancellationToken">An optional <see cref="CancellationToken" /> instance to signal the request to cancel the operation.</param>
         public virtual Task FlushAsync(CancellationToken cancellationToken = default)
@@ -300,9 +313,12 @@ namespace Azure.Messaging.EventHubs.Producer
         /// <remarks>
         /// Calling this method will also call <see cref="FlushAsync(CancellationToken)"/>, which will attempt to publish any events that are still pending,
         /// and finish any active sending.
+        ///
+        /// This method is identical to <see cref="DisposeAsync"/> and either can be used to flush and clean up resources.
         /// </remarks>
+        /// <param name="clearQueuedEvents"></param>
         /// <param name="cancellationToken">An optional <see cref="CancellationToken" /> instance to signal the request to cancel the operation.</param>
-        public virtual ValueTask CloseAsync(CancellationToken cancellationToken = default)
+        public virtual ValueTask CloseAsync(bool clearQueuedEvents = false, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
@@ -323,16 +339,17 @@ namespace Azure.Messaging.EventHubs.Producer
         /// <remarks>
         /// Calling this method will also call <see cref="FlushAsync(CancellationToken)"/>, which will attempt to publish any events that are still pending,
         /// and finish any active sending.
+        ///
+        /// This method is identical to <see cref="CloseAsync(bool, CancellationToken)"/> and either can be used to flush and clean up resources.
         /// </remarks>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CA1816:Dispose methods should call SuppressFinalize", Justification = "<Pending>")]
         public ValueTask DisposeAsync()
         {
-            // TODO: only filled to satisfy the analyzers
-            GC.SuppressFinalize(this);
-            return _producer.DisposeAsync();
+            throw new NotImplementedException();
         }
 
         /// <summary>
-        /// This method is called upon the successful publishing of a batch of events. It calls the <see cref="SendSucceededAsync"/> event handler.
+        /// This method is called upon the successful publishing of a batch of events. It calls the <see cref="SendEventBatchSuccessAsync"/> event handler.
         /// </summary>
         /// <param name="events">An <see cref="IEnumerable{EventData}"/> instance holding all of the <see cref="EventData"/> instances within the
         /// batch that was successfully published.</param>
@@ -344,7 +361,7 @@ namespace Azure.Messaging.EventHubs.Producer
 
         /// <summary>
         /// This method is called upon the failed publishing of a batch of events, after applying the retry policy if there was a transient failure.
-        /// It calls the <see cref="SendFailedAsync"/> event handler.
+        /// It calls the <see cref="SendEventBatchFailedAsync"/> event handler.
         /// </summary>
         /// <param name="events">An <see cref="IEnumerable{EventData}"/> instance holding all of the <see cref="EventData"/> instances within the
         /// batch that was successfully published.</param>
