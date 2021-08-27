@@ -6,9 +6,14 @@ Run `dotnet build /t:GenerateCode` to generate code.
 > see https://aka.ms/autorest
 
 ``` yaml
-tag: package-artifacts-2019-06-01-preview
+#tag: package-artifacts-2019-06-01-preview
+tag: package-artifacts-2020-12-01
+#tag: package-artifacts-2021-06-01-preview
 require:
-    - https://github.com/Azure/azure-rest-api-specs/blob/fc5e2fbcfc3f585d38bdb1c513ce1ad2c570cf3d/specification/synapse/data-plane/readme.md
+#    - https://github.com/Azure/azure-rest-api-specs/blob/fc5e2fbcfc3f585d38bdb1c513ce1ad2c570cf3d/specification/synapse/data-plane/readme.md
+#    - https://github.com/Azure/azure-rest-api-specs/blob/01f98f0f3f1e9ba27db8c0d0bcc5ee3f267fd162/specification/synapse/data-plane/readme.md
+#    - https://github.com/Azure/azure-rest-api-specs/blob/3257aacc47c2a03b7964cbb5c6a07ec9f2f232ee/specification/synapse/data-plane/readme.md
+ - C:\src\swagger_azure-rest-api-specs\specification\synapse\data-plane\readme.md
 namespace: Azure.Analytics.Synapse.Artifacts
 public-clients: true
 security: AADToken
@@ -75,4 +80,12 @@ directive:
         $[path]["x-csharp-usage"] = "converter";
       }
     }
+```
+
+### Make expression object types into strings
+``` yaml
+directive:
+  from: swagger-document
+  where: $.definitions.DatasetCompression
+  transform: $.type = "string"
 ```
