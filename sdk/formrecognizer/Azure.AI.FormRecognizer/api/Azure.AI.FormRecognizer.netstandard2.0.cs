@@ -229,6 +229,7 @@ namespace Azure.AI.FormRecognizer.DocumentAnalysis
     public partial class AccountProperties
     {
         internal AccountProperties() { }
+// [Paul] Need more specific names: DocumentModelCount
         public int Count { get { throw null; } }
         public int Limit { get { throw null; } }
     }
@@ -259,10 +260,11 @@ namespace Azure.AI.FormRecognizer.DocumentAnalysis
     {
         public AnalyzeDocumentOptions() { }
         public string Locale { get { throw null; } set { } }
+// [Paul] Assume this will be updated to just a plain string.
         public System.Collections.Generic.IList<string> Pages { get { throw null; } }
     }
     public partial class AnalyzeResult
-    {
+    {        
         internal AnalyzeResult() { }
         public string Content { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.AI.FormRecognizer.DocumentAnalysis.AnalyzedDocument> Documents { get { throw null; } }
@@ -276,6 +278,7 @@ namespace Azure.AI.FormRecognizer.DocumentAnalysis
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct BoundingBox
     {
+// [Paul] Curious, why do we have _dummy* here?
         private readonly object _dummy;
         private readonly int _dummyPrimitive;
         public System.Drawing.PointF this[int index] { get { throw null; } }
@@ -310,6 +313,7 @@ namespace Azure.AI.FormRecognizer.DocumentAnalysis
     }
     public partial class CopyAuthorization
     {
+// [Paul] This appears to be missing targetResourceId and accessToken.  Is it intentional?
         internal CopyAuthorization() { }
         public System.DateTimeOffset ExpirationDateTime { get { throw null; } }
         public string TargetModelId { get { throw null; } }
@@ -354,16 +358,19 @@ namespace Azure.AI.FormRecognizer.DocumentAnalysis
     {
         public DocumentAnalysisClientOptions(Azure.AI.FormRecognizer.DocumentAnalysis.DocumentAnalysisClientOptions.ServiceVersion version = Azure.AI.FormRecognizer.DocumentAnalysis.DocumentAnalysisClientOptions.ServiceVersion.V2021_09_30_preview) { }
         public Azure.AI.FormRecognizer.DocumentAnalysis.DocumentAnalysisClientOptions.ServiceVersion Version { get { throw null; } }
+// [Paul] Want to verify that guidelines asks for service version to be a deeply nested enum.
         public enum ServiceVersion
         {
             V2021_09_30_preview = 1,
         }
     }
+// [Paul] Do we want to share error class between analysis and adminstration?
     public partial class DocumentAnalysisError
     {
         internal DocumentAnalysisError() { }
         public string Code { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.AI.FormRecognizer.DocumentAnalysis.DocumentAnalysisError> Details { get { throw null; } }
+// [Paul] I really want to change the casing to be InnerError.  But REST API guidelines use lower-case.
         public Azure.AI.FormRecognizer.DocumentAnalysis.DocumentAnalysisInnerError Innererror { get { throw null; } }
         public string Message { get { throw null; } }
         public string Target { get { throw null; } }
@@ -389,10 +396,12 @@ namespace Azure.AI.FormRecognizer.DocumentAnalysis
     {
         internal DocumentField() { }
         public System.Collections.Generic.IReadOnlyList<Azure.AI.FormRecognizer.DocumentAnalysis.BoundingRegion> BoundingRegions { get { throw null; } }
+// [Paul] I really want to make this required.  Unfortunately, it will be a while until the service can compute confidence for array/object fields.
         public float? Confidence { get { throw null; } }
         public string Content { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.AI.FormRecognizer.DocumentAnalysis.DocumentSpan> Spans { get { throw null; } }
         public Azure.AI.FormRecognizer.DocumentAnalysis.DocumentFieldType ValueType { get { throw null; } }
+// [Paul] Hoping to reduce the number of such casts in preview.2.
         public string AsCountryRegion() { throw null; }
         public string AsCurrency() { throw null; }
         public System.DateTime AsDate() { throw null; }
@@ -408,11 +417,13 @@ namespace Azure.AI.FormRecognizer.DocumentAnalysis
     }
     public partial class DocumentFieldSchema
     {
+// [Paul] Do you feel it is worth defining DocumentObjectFieldSchema and DocumentArrayFieldSchema since Items only apply to array and Properties only to object?
         internal DocumentFieldSchema() { }
         public string Description { get { throw null; } }
         public string Example { get { throw null; } }
         public Azure.AI.FormRecognizer.DocumentAnalysis.DocumentFieldSchema Items { get { throw null; } }
         public System.Collections.Generic.IReadOnlyDictionary<string, Azure.AI.FormRecognizer.DocumentAnalysis.DocumentFieldSchema> Properties { get { throw null; } }
+// [Paul] Type is required.
         public Azure.AI.FormRecognizer.DocumentAnalysis.DocumentFieldType? Type { get { throw null; } }
     }
     public enum DocumentFieldType
@@ -467,6 +478,7 @@ namespace Azure.AI.FormRecognizer.DocumentAnalysis
         public virtual System.Threading.Tasks.Task<Azure.Response> DeleteModelAsync(string modelId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.AI.FormRecognizer.DocumentAnalysis.AccountProperties> GetAccountProperties(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.AI.FormRecognizer.DocumentAnalysis.AccountProperties>> GetAccountPropertiesAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+// [Paul] A bit of inconistency.  In most methods, description is specified in Options but not here.  Personally, I prefer description to be promoted to method parameter.
         public virtual Azure.Response<Azure.AI.FormRecognizer.DocumentAnalysis.CopyAuthorization> GetCopyAuthorization(string modelId = null, string modelDescription = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.AI.FormRecognizer.DocumentAnalysis.CopyAuthorization>> GetCopyAuthorizationAsync(string modelId = null, string modelDescription = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.AI.FormRecognizer.DocumentAnalysis.DocumentModel> GetModel(string modelId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
@@ -477,10 +489,14 @@ namespace Azure.AI.FormRecognizer.DocumentAnalysis
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.AI.FormRecognizer.DocumentAnalysis.ModelOperation>> GetOperationAsync(string operationId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Pageable<Azure.AI.FormRecognizer.DocumentAnalysis.ModelOperationInfo> GetOperations(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.AsyncPageable<Azure.AI.FormRecognizer.DocumentAnalysis.ModelOperationInfo> GetOperationsAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+// [Paul] Why does BuildModel and ComposeModel use BuildModelOperation, but CopyModel does?
         public virtual Azure.AI.FormRecognizer.DocumentAnalysis.BuildModelOperation StartBuildModel(System.Uri trainingFilesUri, string modelId = null, Azure.AI.FormRecognizer.DocumentAnalysis.BuildModelOptions buildModelOptions = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.AI.FormRecognizer.DocumentAnalysis.BuildModelOperation> StartBuildModelAsync(System.Uri trainingFilesUri, string modelId = null, Azure.AI.FormRecognizer.DocumentAnalysis.BuildModelOptions buildModelOptions = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+// [Paul] The name of CopyTo is intentional.  We will likely implement CopyFrom before GA.
         public virtual Azure.AI.FormRecognizer.DocumentAnalysis.CopyModelOperation StartCopyModel(string modelId, Azure.AI.FormRecognizer.DocumentAnalysis.CopyAuthorization target, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.AI.FormRecognizer.DocumentAnalysis.CopyModelOperation> StartCopyModelAsync(string modelId, Azure.AI.FormRecognizer.DocumentAnalysis.CopyAuthorization target, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+// [Paul] Any reason not to use name ComposeModel to match REST API and DocumentOperationKind?
+// [Paul] Recommend renaming modelIds to componentModelIds for clarity.
         public virtual Azure.AI.FormRecognizer.DocumentAnalysis.BuildModelOperation StartCreateComposedModel(System.Collections.Generic.IEnumerable<string> modelIds, string modelId = null, string modelDescription = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.AI.FormRecognizer.DocumentAnalysis.BuildModelOperation> StartCreateComposedModelAsync(System.Collections.Generic.IEnumerable<string> modelIds, string modelId = null, string modelDescription = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
     }
@@ -539,6 +555,8 @@ namespace Azure.AI.FormRecognizer.DocumentAnalysis
         public Azure.AI.FormRecognizer.DocumentAnalysis.DocumentSpan Span { get { throw null; } }
         public Azure.AI.FormRecognizer.DocumentAnalysis.SelectionMarkState State { get { throw null; } }
     }
+// [Paul] Strange.  Swagger specified modelAsString=true.
+//        That said, SignatureType will probably be replaced with string or boolean.
     public enum DocumentSignatureType
     {
         Signed = 0,
@@ -571,8 +589,10 @@ namespace Azure.AI.FormRecognizer.DocumentAnalysis
         internal DocumentTableCell() { }
         public System.Collections.Generic.IReadOnlyList<Azure.AI.FormRecognizer.DocumentAnalysis.BoundingRegion> BoundingRegions { get { throw null; } }
         public int ColumnIndex { get { throw null; } }
+// [Paul] Required.  Defaults to 1.  Same with RowSpan.
         public int? ColumnSpan { get { throw null; } }
         public string Content { get { throw null; } }
+// [Paul] Required.  Defaults to Content.
         public Azure.AI.FormRecognizer.DocumentAnalysis.DocumentTableCellKind? Kind { get { throw null; } }
         public int RowIndex { get { throw null; } }
         public int? RowSpan { get { throw null; } }
@@ -622,9 +642,11 @@ namespace Azure.AI.FormRecognizer.DocumentAnalysis
     {
         internal ModelOperationInfo() { }
         public System.DateTimeOffset CreatedOn { get { throw null; } }
+// [Paul] Kind is required.
         public Azure.AI.FormRecognizer.DocumentAnalysis.DocumentOperationKind? Kind { get { throw null; } }
         public System.DateTimeOffset LastUpdatedOn { get { throw null; } }
         public string OperationId { get { throw null; } }
+// [Paul] As previously discussed, can make PercentCompleted required, defaulting to 100 if succeeded, 0 if otherwise        
         public int? PercentCompleted { get { throw null; } }
         public string ResourceLocation { get { throw null; } }
         public Azure.AI.FormRecognizer.DocumentAnalysis.DocumentOperationStatus Status { get { throw null; } }
