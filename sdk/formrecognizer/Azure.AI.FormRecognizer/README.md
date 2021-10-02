@@ -1,10 +1,11 @@
-# Azure Cognitive Services Form Recognizer client library for .NET
-Azure Cognitive Services Form Recognizer is a cloud service that uses machine learning to analyze text and structured data from your documents. It includes the following main features:
+<!-- [Paul] Technically, FR is now under Applied AI.  Recommend removing Cognitive Services to align with public doc.  https://azure.microsoft.com/en-us/services/form-recognizer/ -->
+# Azure Form Recognizer client library for .NET
+Azure Form Recognizer is a cloud service that uses machine learning to analyze text and structured data from your documents. It includes the following main features:
 
-- Layout - Extract text, table structures, and selection marks, along with their bounding region coordinates, from documents.
-- Document - Analyze entities, key-value pairs, tables, and selection marks from documents using the general prebuilt document model.
-- Prebuilt - Analyze data from certain types of common documents (such as receipts, invoices, business cards, or identity documents) using pre-trained models.
-- Custom - Build custom models to analyze text, field values, selection marks, and table data from documents. Custom models are trained with your own data, so they're tailored to your documents.
+- Layout - Extract text, selection marks, and table structures, along with their bounding region coordinates, from documents.
+- Document - Analyze key-value pairs and entities in addition to general layout from documents.
+- Prebuilt - Analyze data from certain types of common documents (such as receipts, invoices, business cards, or identity documents) using prebuilt models.
+- Custom - Build custom models to analyze text, field values, selection marks, and tabular data from documents. Custom models are trained with your own data, so they're tailored to your documents.
 
 [Source code][formreco_client_src] | [Package (NuGet)][formreco_nuget_package] | [API reference documentation][formreco_refdocs] | [Product documentation][formreco_docs] | [Samples][formreco_samples]
 
@@ -134,13 +135,13 @@ var client = new DocumentAnalysisClient(new Uri(endpoint), new DefaultAzureCrede
 
 |Model ID|Features
 |-|-
-|"prebuilt-layout"| Text extraction, selection marks, tables
-|"prebuilt-document"| Text extraction, selection marks, tables, key-value pairs and entities
-|"prebuilt-invoices"| Text extraction, selection marks, tables, and pre-trained fields and values pertaining to invoices
-|"prebuilt-businessCard"| Text extraction and pre-trained fields and values pertaining to business cards
-|"prebuilt-idDocument"| Text extraction and pre-trained fields and values pertaining to driver licenses and international passports
-|"prebuilt-receipt"| Text extraction and pre-trained fields and values pertaining to sales receipts
-|"{custom-model-id}"| Text extraction, selection marks, tables, labeled fields and values from your custom documents
+|`prebuilt-layout`| Text extraction, selection marks, tables
+|`prebuilt-document`| Text extraction, selection marks, tables, key-value pairs and entities
+|`prebuilt-invoices`| Text extraction, selection marks, tables, and pre-trained fields and values pertaining to invoices
+|`prebuilt-businessCard`| Text extraction and pre-trained fields and values pertaining to business cards
+|`prebuilt-idDocument`| Text extraction and pre-trained fields and values pertaining to driver licenses and international passports
+|`prebuilt-receipt`| Text extraction and pre-trained fields and values pertaining to sales receipts
+|`{custom-model-id}`| Text extraction, selection marks, tables, labeled fields and values from your custom documents
 
 More information about analyzing documents, including supported features, locales, and which types of documents are supported can be found in the [service documentation][formreco_models].
 
@@ -269,8 +270,9 @@ for (int i = 0; i < result.Tables.Count; i++)
 
 For more information and samples see [here][extract_layout].
 
-### Use the Prebuilt Document Model
-Analyze entities, key-value pairs, tables, and selection marks from documents using the general prebuilt document model.
+### Use the General Document Model
+<!-- [Paul] See https://github.com/laujan/azure-docs-pr/blob/oct-fr-release/articles/applied-ai-services/form-recognizer/general-document.md for service documentation on general document. -->
+Analyze key-value pairs, entities, tables, and selection marks from documents using the general document model.
 
 ```C# Snippet:FormRecognizerAnalyzePrebuiltDocumentFromUriAsync
 string fileUri = "<fileUri>";
@@ -280,20 +282,6 @@ AnalyzeDocumentOperation operation = await client.StartAnalyzeDocumentFromUriAsy
 await operation.WaitForCompletionAsync();
 
 AnalyzeResult result = operation.Value;
-
-Console.WriteLine("Detected entities:");
-
-foreach (DocumentEntity entity in result.Entities)
-{
-    if (entity.SubCategory == null)
-    {
-        Console.WriteLine($"  Found entity '{entity.Content}' with category '{entity.Category}'.");
-    }
-    else
-    {
-        Console.WriteLine($"  Found entity '{entity.Content}' with category '{entity.Category}' and sub-category '{entity.SubCategory}'.");
-    }
-}
 
 Console.WriteLine("Detected key-value pairs:");
 
@@ -306,6 +294,20 @@ foreach (DocumentKeyValuePair kvp in result.KeyValuePairs)
     else
     {
         Console.WriteLine($"  Found key-value pair: '{kvp.Key.Content}' and '{kvp.Value.Content}'");
+    }
+}
+
+Console.WriteLine("Detected entities:");
+
+foreach (DocumentEntity entity in result.Entities)
+{
+    if (entity.SubCategory == null)
+    {
+        Console.WriteLine($"  Found entity '{entity.Content}' with category '{entity.Category}'.");
+    }
+    else
+    {
+        Console.WriteLine($"  Found entity '{entity.Content}' with category '{entity.Category}' and sub-category '{entity.SubCategory}'.");
     }
 }
 
@@ -435,6 +437,7 @@ for (int i = 0; i < result.Documents.Count; i++)
 
     if (document.Fields.TryGetValue("VendorName", out DocumentField vendorNameField))
     {
+// [Paul] The check for ValueType is unnecessary as it is part of the schema definition of the field.
         if (vendorNameField.ValueType == DocumentFieldType.String)
         {
             string vendorName = vendorNameField.AsString();
