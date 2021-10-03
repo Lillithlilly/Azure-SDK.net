@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29911.84
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31719.47
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Azure.Search.Documents", "Azure.Search.Documents\src\Azure.Search.Documents.csproj", "{2A86F29E-CF98-4A24-8658-2C709973C42B}"
 EndProject
@@ -22,6 +22,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Azure.Search.Documents.Perf", "Azure.Search.Documents\perf\Azure.Search.Documents.Perf\Azure.Search.Documents.Perf.csproj", "{CA130CB5-4B52-4B86-8208-C4DD7F1DED69}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Azure.Test.Perf", "..\..\common\Perf\Azure.Test.Perf\Azure.Test.Perf.csproj", "{9969AF35-D032-4555-B129-C014B2621FFF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrimTest", "TrimTest\TrimTest.csproj", "{6A2AC265-97FC-4AF6-9516-177FAD7133D3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +71,10 @@ Global
 		{9969AF35-D032-4555-B129-C014B2621FFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9969AF35-D032-4555-B129-C014B2621FFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9969AF35-D032-4555-B129-C014B2621FFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A2AC265-97FC-4AF6-9516-177FAD7133D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A2AC265-97FC-4AF6-9516-177FAD7133D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A2AC265-97FC-4AF6-9516-177FAD7133D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A2AC265-97FC-4AF6-9516-177FAD7133D3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
