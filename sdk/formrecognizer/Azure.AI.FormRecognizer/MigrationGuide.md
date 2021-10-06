@@ -10,9 +10,9 @@ Familiarity with `Azure.AI.FormRecognizer (3.1.x and below)` package is assumed.
     - [Terminology](#terminology)
     - [Client usage](#client-usage)
     - [Analyzing documents](#analyzing-documents)
-    - [Analyzing a document with a custom model](#analyzing-a-document-with-a-custom-model)
     - [Training a custom model](#training-a-custom-model)
-    - [Manage models](#manage-models)
+    - [Analyzing a document with a custom model](#analyzing-a-document-with-a-custom-model)
+    - [Managing models](#manage-models)
 - [Additional samples](#additional-samples)
 
 ## Migration benefits
@@ -22,7 +22,7 @@ A natural question to ask when considering whether to adopt a new version of the
 There are many benefits to using the new design of the `Azure.AI.FormRecognizer (4.0.x)` library. This new version of the library introduces two new clients `DocumentAnalysisClient` and the `DocumentModelAdministrationClient` with unified methods for analyzing documents and provides support for the new features added by the service in API version `2021-09-30-preview` and later.
 
 New features provided by the `DocumentAnalysisClient` include:
-- One consolidated method for analyzing document layout, a general prebuilt document model type, along with the same prebuilt models that were included previously (receipts, invoices, business cards, identity documents), and custom models.
+- One consolidated method for analyzing document layout, a general document model type, along with the same prebuilt models that were included previously (receipts, invoices, business cards, ID documents), and custom models.
 - Models introduced in the latest version of the library, such as `AnalyzeResult`, remove hierarchical dependencies between document elements and move them to a more top level and easily accessible position.
 - The Form Recognizer service has further improved how to define where elements are located on documents by moving towards `BoundingRegion` definitions allowing for cross-page elements.
 - Document element fields are returned with more information, such as content and spans. 
@@ -46,10 +46,7 @@ Please refer to the [README][readme] for more information on these new clients.
 ## Important changes
 
 ### Terminology
-Some terminology has changed to reflect the enhanced capabilities of the newest Form Recognizer service APIs. While the service is still called "Form Recognizer," it is capable of much more than simple recognition,
-and is not limited to documents that are "forms".
-
-As a result, we've made the following broad changes to the terminology used throughout the SDK:
+Some terminology has changed to reflect the enhanced capabilities of the newest Form Recognizer service APIs. While the service is still called "Form Recognizer", it is capable of much more than simple recognition and is not limited to documents that are "forms". As a result, we've made the following broad changes to the terminology used throughout the SDK:
 
 - The word `Document` has broadly replaced the word `Form`. The service supports a wide variety of documents and data-extraction scenarios, not merely limited to `forms`.
 - The word `Analyze` has broadly replaced the word `Recognize`. The document analysis operation executes a data extraction pipeline that supports more than just recognition.
@@ -62,7 +59,7 @@ We continue to support API key and AAD authentication methods when creating the 
 
 - In `4.0.x`, we have added `DocumentAnalysisClient` and `DocumentModelAdministrationClient` which support API version `2021-09-30-preview` and later.
 - `FormRecognizerClient` and `FormTrainingClient` will continue to work targetting API version `2.1` and `2.0`. 
-- In `DocumentAnalysisClient` all prebuilt model methods along with custom model, layout, and a prebuilt document analysis model are unified into two methods called
+- In `DocumentAnalysisClient` all prebuilt model methods along with custom model, layout, and a prebuilt general document analysis model are unified into two methods called
 `StartAnalyzeDocument` and `StartAnalyzeDocumentFromUri`.
 - In `FormRecognizerClient` there are two methods (a stream and Uri method) for each of the prebuilt models supported by the service. This results in two methods for business card, receipt, identity document, and invoice models, along with a pair of methods for recognizing custom documents and for recognizing content/layout. 
 
@@ -91,7 +88,7 @@ var documentModelAdministrationClient = new DocumentModelAdministrationClient(ne
 Differences between the versions:
 - `StartAnalyzeDocument` and `StartAnalyzeDocumentFromUri` accept a string with the desired model ID for analysis. The model ID can be any of the prebuilt model IDs or a custom model ID.
 - Along with more consolidated analysis methods in the `DocumentAnalysisClient`, the return types have also been improved and remove the hierarchical dependencies between elements. An instance of the `AnalyzeResult` model is now returned which showcases important document elements, such as key-value pairs, entities, tables, and document fields and values, among others, at the top level of the returned model. This can be contrasted with `RecognizedForm` which included more hierarchical relationships, for instance tables were an element of a `FormPage` and not a top-level element.
-- In the new version of the library, the functionality of `StartRecognizeContent` has been added as a prebuilt model and can be called in library version `Azure.AI.FormRecognizer (4.0.x)` with `StartAnalyzeDocument` by passing in the `prebuilt-layout` model ID. Similarly, to get general prebuilt document information, such as key-value pairs, entities, and text layout, the `prebuilt-document` model ID can be used with `StartAnalyzeDocument`.
+- In the new version of the library, the functionality of `StartRecognizeContent` has been added as a prebuilt model and can be called in library version `Azure.AI.FormRecognizer (4.0.x)` with `StartAnalyzeDocument` by passing in the `prebuilt-layout` model ID. Similarly, to get general document information, such as key-value pairs, entities, and text layout, the `prebuilt-document` model ID can be used with `StartAnalyzeDocument`.
 - When calling `StartAnalyzeDocument` and `StartAnalyzeDocumentFromUri` the returned type is an `AnalyzeResult` object, while the various methods used with `FormRecognizerClient` return a list of `RecognizedForm`.
 - The optional `IncludeFieldElements` parameter is not supported with the `DocumentAnalysisClient`. Text details are automatically included with API version `2021-09-30-preview` and later.
 - The optional `ReadingOrder` parameter does not exist on `StartAnalyzeDocument` and `StartAnalyzeDocumentFromUri`. The service uses `natural` reading order to return data.
@@ -456,7 +453,7 @@ for (int i = 0; i < result.Tables.Count; i++)
 }
 ```
 
-Analyzing general prebuilt document types with `4.0.x`:
+Analyzing general document types with `4.0.x`:
 
 > NOTE: Analyzing a document with the `prebuilt-document` model replaces training without labels in version `3.1.x` of the library.
 
@@ -733,7 +730,7 @@ foreach (KeyValuePair<string, DocTypeInfo> docType in model.DocTypes)
 }
 ```
 
-### Manage models
+### Managing models
 
 Differences between the versions:
 - When using API version `2021-09-30-preview` and later models no longer include submodels, instead a model can analyze different document types.
