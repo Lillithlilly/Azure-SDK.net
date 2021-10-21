@@ -121,7 +121,9 @@ namespace Azure.Storage.Queues.Tests
         {
             QueueClientOptions options = GetOptions();
             options.GeoRedundantSecondaryUri = new Uri(config.QueueServiceSecondaryEndpoint);
-            options.Retry.MaxRetries = 4;
+            options.Retry.MaxRetries = 10;
+            options.Retry.MaxDelay = TimeSpan.FromSeconds(10);
+            options.Retry.NetworkTimeout = TimeSpan.FromSeconds(30);
             testExceptionPolicy = new TestExceptionPolicy(numberOfReadFailuresToSimulate, options.GeoRedundantSecondaryUri, simulate404, enabledRequestMethods);
             options.AddPolicy(testExceptionPolicy, HttpPipelinePosition.PerRetry);
             return options;

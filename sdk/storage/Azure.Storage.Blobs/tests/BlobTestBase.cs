@@ -152,7 +152,9 @@ namespace Azure.Storage.Test.Shared
         {
             BlobClientOptions options = BlobsClientBuilder.GetOptions();
             options.GeoRedundantSecondaryUri = new Uri(config.BlobServiceSecondaryEndpoint);
-            options.Retry.MaxRetries = 4;
+            options.Retry.MaxRetries = 10;
+            options.Retry.MaxDelay = TimeSpan.FromSeconds(10);
+            options.Retry.NetworkTimeout = TimeSpan.FromSeconds(30);
             testExceptionPolicy = new TestExceptionPolicy(numberOfReadFailuresToSimulate, options.GeoRedundantSecondaryUri, simulate404, trackedRequestMethods);
             options.AddPolicy(testExceptionPolicy, HttpPipelinePosition.PerRetry);
             return options;
