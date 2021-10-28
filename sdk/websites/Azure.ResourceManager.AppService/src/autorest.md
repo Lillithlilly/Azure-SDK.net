@@ -16,60 +16,60 @@ clear-output-folder: true
 skip-csproj: true
 modelerfour:
   lenient-model-deduplication: true
-operation-group-to-resource-type:
-  # BackupItem: Microsoft.Compute/cloudServices/roles
-  ResourceHealthMetadata: Microsoft.Web/sites/resourceHealthMetadata
-  Recommendations: Microsoft.Web/sites/recommendations
-  Provider: Microsoft.Web
-  Global: Microsoft.Web/deletedSites
-  DeletedWebApps: Microsoft.Web/locations/deletedSites
-  DomainRegistrationProvider: Microsoft.DomainRegistration/operations
-  TopLevelDomains: Microsoft.DomainRegistration/topLevelDomains
-  CertificateRegistrationProvider: Microsoft.CertificateRegistration/operations
-  CertificateOrdersDiagnostics: Microsoft.CertificateRegistration/certificateOrders/detectors
-  Diagnostics: Microsoft.Web/sites/diagnostics
-  DiagnosticCategory: Microsoft.Web/sites/slot/diagnostics
-  Slots: Microsoft.Web/sites/slots
-  Site: Microsoft.Web/sites
+# operation-group-to-resource-type:
+#   # BackupItem: Microsoft.Compute/cloudServices/roles
+#   ResourceHealthMetadata: Microsoft.Web/sites/resourceHealthMetadata
+#   Recommendations: Microsoft.Web/sites/recommendations
+#   Provider: Microsoft.Web
+#   Global: Microsoft.Web/deletedSites
+#   DeletedWebApps: Microsoft.Web/locations/deletedSites
+#   DomainRegistrationProvider: Microsoft.DomainRegistration/operations
+#   TopLevelDomains: Microsoft.DomainRegistration/topLevelDomains
+#   CertificateRegistrationProvider: Microsoft.CertificateRegistration/operations
+#   CertificateOrdersDiagnostics: Microsoft.CertificateRegistration/certificateOrders/detectors
+#   Diagnostics: Microsoft.Web/sites/diagnostics
+#   DiagnosticCategory: Microsoft.Web/sites/slot/diagnostics
+#   Slots: Microsoft.Web/sites/slots
+#   Site: Microsoft.Web/sites
 
-operation-group-to-resource:
-  Recommendations: RecommendationRule
-  ResourceHealthMetadata: ResourceHealthMetadata
-  BackupItems: BackupItem
-  Provider: NonResource
-  Global: NonResource
-  DeletedWebApps: NonResource
-  DomainRegistrationProvider: NonResource
-  TopLevelDomains: NonResource
-  CertificateRegistrationProvider: NonResource
-  CertificateOrdersDiagnostics: NonResource
-  Diagnostics: DiagnosticCategory
-  DiagnosticCategory: DiagnosticCategory
-  Slots: Site
-  Site: Site
+# operation-group-to-resource:
+#   Recommendations: RecommendationRule
+#   ResourceHealthMetadata: ResourceHealthMetadata
+#   BackupItems: BackupItem
+#   Provider: NonResource
+#   Global: NonResource
+#   DeletedWebApps: NonResource
+#   DomainRegistrationProvider: NonResource
+#   TopLevelDomains: NonResource
+#   CertificateRegistrationProvider: NonResource
+#   CertificateOrdersDiagnostics: NonResource
+#   Diagnostics: DiagnosticCategory
+#   DiagnosticCategory: DiagnosticCategory
+#   Slots: Site
+#   Site: Site
 
-operation-group-to-parent:
-  Recommendations: subscriptions
-  ResourceHealthMetadata: subscriptions
-  Provider: subscriptions
-  DeletedWebApps: subscriptions
-  DomainRegistrationProvider: subscriptions
-  TopLevelDomains: subscriptions
-  CertificateRegistrationProvider: subscriptions
-  CertificateOrdersDiagnostics: subscriptions 
-  Diagnostics: Microsoft.Web/sites
-  DiagnosticCategory: Microsoft.Web/sites/slot
-  Slots: Microsoft.Web/sites
-  Site: resourceGroups
+# operation-group-to-parent:
+#   Recommendations: subscriptions
+#   ResourceHealthMetadata: subscriptions
+#   Provider: subscriptions
+#   DeletedWebApps: subscriptions
+#   DomainRegistrationProvider: subscriptions
+#   TopLevelDomains: subscriptions
+#   CertificateRegistrationProvider: subscriptions
+#   CertificateOrdersDiagnostics: subscriptions 
+#   Diagnostics: Microsoft.Web/sites
+#   DiagnosticCategory: Microsoft.Web/sites/slot
+#   Slots: Microsoft.Web/sites
+#   Site: resourceGroups
 
-operation-group-is-extension:
-- Diagnostics
-- DiagnosticCategory
-- Slots
-- Site
+# operation-group-is-extension:
+# - Diagnostics
+# - DiagnosticCategory
+# - Slots
+# - Site
 
-operation-groups-to-omit:
-- WebApps
+# operation-groups-to-omit:
+# - WebApps
 # directive:
 #   ## first we need to unify all the paths by changing `virtualmachines` to `virtualMachines` so that every path could have consistent casing
 #   - from: swagger-document
@@ -149,3 +149,31 @@ operation-groups-to-omit:
 #     where: $.paths['/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/cloudServices/{cloudServiceName}/start'].post.operationId
 #     transform: return 'CloudServices_PowerOn';
 # ```
+output-folder: ./Generated
+show-request-path: true
+request-path-is-non-resource:
+- /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/staticSites/{name}/builds/{environmentName}/config/appsettings
+- /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/staticSites/{name}/builds/{environmentName}/config/functionappsettings
+- /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/staticSites/{name}/config/appsettings
+- /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/staticSites/{name}/config/functionappsettings
+- /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/appsettings
+- /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/authsettings
+- /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/authsettingsV2
+- /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/authsettingsV2
+- /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/authsettings
+- /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/azurestorageaccounts
+- /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/backup
+- /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/connectionstrings
+- /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/metadata
+- /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/pushsettings
+- /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/appsettings
+- /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/migrate
+- /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/azurestorageaccounts
+- /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/backup
+- /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/connectionstrings
+- /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/metadata
+- /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/pushsettings
+
+request-path-to-resource-name:
+  /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/siteextensions/{siteExtensionId}: Something
+  /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}: SiteSlot
