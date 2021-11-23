@@ -52,6 +52,17 @@ namespace Azure.Communication.CallingServer
             return new CreateAudioRoutingGroupResult(audioRoutingGroupId);
         }
 
+        /// <summary> Initializes a new instance of OperationResponse. </summary>
+        /// <param name="operationId"> The operation id. </param>
+        /// <param name="status"> The status of the operation. </param>
+        /// <param name="operationContext"> The operation context provided by client. </param>
+        /// <param name="resultInfo"> The result info for the operation. </param>
+        /// <returns> A new <see cref="CallingServer.OperationResponse"/> instance for mocking. </returns>
+        public static OperationResponse OperationResponse(string operationId = null, CallingOperationStatus status = default, string operationContext = null, CallingOperationResultDetails resultInfo = null)
+        {
+            return new OperationResponse(operationId, status, operationContext, resultInfo);
+        }
+
         /// <summary> Initializes a new instance of AddParticipantResult. </summary>
         /// <param name="participantId"> The id of the added participant. </param>
         /// <returns> A new <see cref="CallingServer.AddParticipantResult"/> instance for mocking. </returns>

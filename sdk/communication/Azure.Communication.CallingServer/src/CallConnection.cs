@@ -303,21 +303,21 @@ namespace Azure.Communication.CallingServer
         /// <param name="targetParticipant"> The target participant. </param>
         /// <param name="targetCallConnectionId"> The target call connection id to transfer to. </param>
         /// <param name="userToUserInformation">The user to user information payload. </param>
+        /// <param name="alternateCallerId">The alternate caller id of the transferor.</param>
         /// <param name="cancellationToken"> The cancellation token. </param>
         /// <exception cref="RequestFailedException">The server returned an error. See <see cref="Exception.Message"/> for details returned from the server.</exception>
-        public virtual async Task<Response> TransferCallAsync(CommunicationIdentifier targetParticipant, string targetCallConnectionId, string userToUserInformation, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<TransferCallResult>> TransferCallAsync(CommunicationIdentifier targetParticipant, string targetCallConnectionId, string userToUserInformation, string alternateCallerId = null, CancellationToken cancellationToken = default)
         {
             using DiagnosticScope scope = _clientDiagnostics.CreateScope($"{nameof(CallConnection)}.{nameof(TransferCallAsync)}");
             scope.Start();
             try
             {
-                Argument.AssertNotNull(targetParticipant, nameof(targetParticipant));
-
                 return await RestClient.TransferAsync(
                     callConnectionId: CallConnectionId,
-                    targetParticipant: CommunicationIdentifierSerializer.Serialize(targetParticipant),
+                    targetParticipant: targetParticipant != null ? CommunicationIdentifierSerializer.Serialize(targetParticipant) : null,
                     targetCallConnectionId: targetCallConnectionId,
                     userToUserInformation: userToUserInformation,
+                    alternateCallerId: string.IsNullOrEmpty(alternateCallerId) ? null : new PhoneNumberIdentifierModel(alternateCallerId),
                     cancellationToken: cancellationToken
                     ).ConfigureAwait(false);
             }
@@ -332,21 +332,21 @@ namespace Azure.Communication.CallingServer
         /// <param name="targetParticipant"> The target participant. </param>
         /// <param name="targetCallConnectionId"> The target call connection id to transfer to. </param>
         /// <param name="userToUserInformation">The user to user information payload. </param>
+        /// <param name="alternateCallerId">The alternate caller id of the transferor. </param>
         /// <param name="cancellationToken"> The cancellation token. </param>
         /// <exception cref="RequestFailedException">The server returned an error. See <see cref="Exception.Message"/> for details returned from the server.</exception>
-        public virtual Response TransferCall(CommunicationIdentifier targetParticipant, string targetCallConnectionId, string userToUserInformation, CancellationToken cancellationToken = default)
+        public virtual Response<TransferCallResult> TransferCall(CommunicationIdentifier targetParticipant, string targetCallConnectionId, string userToUserInformation, string alternateCallerId = null, CancellationToken cancellationToken = default)
         {
             using DiagnosticScope scope = _clientDiagnostics.CreateScope($"{nameof(CallConnection)}.{nameof(TransferCall)}");
             scope.Start();
             try
             {
-                Argument.AssertNotNull(targetParticipant, nameof(targetParticipant));
-
                 return RestClient.Transfer(
                     callConnectionId: CallConnectionId,
-                    targetParticipant: CommunicationIdentifierSerializer.Serialize(targetParticipant),
+                    targetParticipant: targetParticipant != null ? CommunicationIdentifierSerializer.Serialize(targetParticipant) : null,
                     targetCallConnectionId: targetCallConnectionId,
                     userToUserInformation: userToUserInformation,
+                    alternateCallerId: string.IsNullOrEmpty(alternateCallerId) ? null : new PhoneNumberIdentifierModel(alternateCallerId),
                     cancellationToken: cancellationToken
                     );
             }
@@ -1034,6 +1034,56 @@ namespace Azure.Communication.CallingServer
                                         audioRoutingGroupId: audioRoutingGroupId,
                                         cancellationToken: cancellationToken
                                         );
+            }
+            catch (Exception ex)
+            {
+                scope.Failed(ex);
+                throw;
+            }
+        }
+
+        /// <summary> Get call connection properties. </summary>
+        /// <param name="cancellationToken"> The cancellation token. </param>
+        /// <exception cref="RequestFailedException">The server returned an error. See <see cref="Exception.Message"/> for details returned from the server.</exception>
+        /// <returns>The <see cref="CallConnectionProperties"/>.</returns>
+        public virtual Response<CallConnectionProperties> GetConnectionStatus(CancellationToken cancellationToken = default)
+        {
+            using DiagnosticScope scope = _clientDiagnostics.CreateScope($"{nameof(CallConnection)}.{nameof(AddParticipant)}");
+            scope.Start();
+            try
+            {
+                Response<CallConnectionPropertiesInternal> callConnectionPropertiesInternal = RestClient.ConnectionStatus(
+                        callConnectionId: CallConnectionId,
+                        cancellationToken: cancellationToken
+                        );
+
+                return Response.FromValue(new CallConnectionProperties(callConnectionPropertiesInternal.Value), callConnectionPropertiesInternal.GetRawResponse());
+            }
+            catch (Exception ex)
+            {
+                scope.Failed(ex);
+                throw;
+            }
+        }
+
+        /// <summary> Get call connection properties. </summary>
+        /// <param name="operationId">The operation id.</param>
+        /// <param name="cancellationToken"> The cancellation token. </param>
+        /// <exception cref="RequestFailedException">The server returned an error. See <see cref="Exception.Message"/> for details returned from the server.</exception>
+        /// <returns>The <see cref="CallConnectionProperties"/>.</returns>
+        public virtual Response<OperationResponse> GetOperationStatus(string operationId, CancellationToken cancellationToken = default)
+        {
+            using DiagnosticScope scope = _clientDiagnostics.CreateScope($"{nameof(CallConnection)}.{nameof(AddParticipant)}");
+            scope.Start();
+            try
+            {
+                Response<OperationResponse> callConnectionPropertiesInternal = RestClient.GetOperation(
+                        callConnectionId: CallConnectionId,
+                        operationId: operationId,
+                        cancellationToken: cancellationToken
+                        );
+
+                return Response.FromValue(callConnectionPropertiesInternal, callConnectionPropertiesInternal.GetRawResponse());
             }
             catch (Exception ex)
             {

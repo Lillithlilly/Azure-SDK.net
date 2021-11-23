@@ -81,7 +81,6 @@ namespace Azure.Communication.CallingServer.Tests
             var callConnection = CreateMockCallConnection(200, CancelAllMediaOperaionsResponsePayload, callConnectionId: callConnectionId);
 
             var result = await callConnection.CancelAllMediaOperationsAsync().ConfigureAwait(false);
-            VerifyCancelAllMediaOperationsResult(result);
         }
 
         [TestCaseSource(nameof(TestData_CallConnectionId))]
@@ -90,7 +89,6 @@ namespace Azure.Communication.CallingServer.Tests
             var callConnection = CreateMockCallConnection(200, CancelAllMediaOperaionsResponsePayload, callConnectionId: callConnectionId);
 
             var result = callConnection.CancelAllMediaOperations();
-            VerifyCancelAllMediaOperationsResult(result);
         }
 
         [TestCaseSource(nameof(TestData_CallConnectionId))]
@@ -529,7 +527,7 @@ namespace Azure.Communication.CallingServer.Tests
             var callConnection = CreateMockCallConnection(202, AddParticipantResultPayload);
 
             var response = await callConnection.TransferCallAsync(participant, targetCallConnectionId, userToUserInformation).ConfigureAwait(false);
-            Assert.AreEqual((int)HttpStatusCode.Accepted, response.Status);
+            Assert.AreEqual((int)HttpStatusCode.Accepted, response.Value.Status);
         }
 
         [TestCaseSource(nameof(TestData_TransferCall))]
@@ -538,7 +536,7 @@ namespace Azure.Communication.CallingServer.Tests
             var callConnection = CreateMockCallConnection(202, AddParticipantResultPayload);
 
             var response = callConnection.TransferCall(participant, targetCallConnectionId, userToUserInformation);
-            Assert.AreEqual((int)HttpStatusCode.Accepted, response.Status);
+            Assert.AreEqual((int)HttpStatusCode.Accepted, response.Value.Status);
         }
 
         [TestCaseSource(nameof(TestData_TransferCall))]
@@ -607,19 +605,10 @@ namespace Azure.Communication.CallingServer.Tests
             Assert.AreEqual(ex?.Status, 404);
         }
 
-        private void VerifyCancelAllMediaOperationsResult(CancelAllMediaOperationsResult result)
-        {
-            Assert.AreEqual("dummyId", result.OperationId);
-            Assert.AreEqual(OperationStatus.Completed, result.Status);
-            Assert.AreEqual("dummyOperationContext", result.OperationContext);
-            Assert.AreEqual(200, result.ResultInfo.Code);
-            Assert.AreEqual("dummyMessage", result.ResultInfo.Message);
-        }
-
         private void VerifyPlayAudioResult(PlayAudioResult result)
         {
             Assert.AreEqual("dummyId", result.OperationId);
-            Assert.AreEqual(OperationStatus.Running, result.Status);
+            Assert.AreEqual(CallingOperationStatus.Running, result.Status);
             Assert.AreEqual("dummyOperationContext", result.OperationContext);
             Assert.AreEqual(200, result.ResultInfo.Code);
             Assert.AreEqual("dummyMessage", result.ResultInfo.Message);

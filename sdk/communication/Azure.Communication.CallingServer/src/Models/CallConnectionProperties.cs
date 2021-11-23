@@ -23,7 +23,7 @@ namespace Azure.Communication.CallingServer
             CallbackUri = new Uri(callConnectionPropertiesInternal.CallbackUri);
             RequestedMediaTypes = callConnectionPropertiesInternal.RequestedMediaTypes;
             RequestedCallEvents = callConnectionPropertiesInternal.RequestedCallEvents;
-            CallLocator = CallLocatorModelSerializer.Deserialize(callConnectionPropertiesInternal.CallLocator);
+            CallLocator = callConnectionPropertiesInternal.CallLocator == null ? null : CallLocatorModelSerializer.Deserialize(callConnectionPropertiesInternal.CallLocator);
         }
 
         /// <summary> The call connection id. </summary>

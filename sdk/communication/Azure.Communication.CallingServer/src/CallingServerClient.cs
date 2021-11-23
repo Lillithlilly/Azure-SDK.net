@@ -1166,6 +1166,63 @@ namespace Azure.Communication.CallingServer
 
         /// Redirect an incoming call to the target identities.
         /// <param name="incomingCallContext"> The incoming call context </param>
+        /// <param name="callbackUri"> The callback Uri to receive status notifications. </param>
+        /// <param name="cancellationToken"> The cancellation token. </param>
+        /// <exception cref="RequestFailedException">The server returned an error. See <see cref="Exception.Message"/> for details returned from the server.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="incomingCallContext"/> is null.</exception>
+        public virtual async Task<Response<AnswerCallResult>> AnswerCallAsync(string incomingCallContext, Uri callbackUri, CancellationToken cancellationToken = default)
+        {
+            using DiagnosticScope scope = _clientDiagnostics.CreateScope($"{nameof(CallingServerClient)}.{nameof(RedirectCallAsync)}");
+            scope.Start();
+            try
+            {
+                Argument.AssertNotNull(incomingCallContext, nameof(incomingCallContext));
+
+                return await ServerCallRestClient.AnswerCallAsync(
+                    incomingCallContext: incomingCallContext,
+                    callbackUri: callbackUri?.AbsoluteUri,
+                    requestedMediaTypes: new[] { CallMediaType.Audio },
+                    requestedCallEvents: new[] { CallingEventSubscriptionType.ParticipantsUpdated },
+                    cancellationToken: cancellationToken
+                    ).ConfigureAwait(false);
+            }
+            catch (Exception ex)
+            {
+                scope.Failed(ex);
+                throw;
+            }
+        }
+
+        /// Redirect an incoming call to the target identities.
+        /// <param name="incomingCallContext"> The incoming call context </param>
+        /// <param name="callbackUri"> The callback Uri to receive status notifications. </param>
+        /// <param name="cancellationToken"> The cancellation token. </param>
+        /// <exception cref="RequestFailedException">The server returned an error. See <see cref="Exception.Message"/> for details returned from the server.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="incomingCallContext"/> is null.</exception>
+        public virtual Response<AnswerCallResult> AnswerCall(string incomingCallContext, Uri callbackUri, CancellationToken cancellationToken = default)
+        {
+            using DiagnosticScope scope = _clientDiagnostics.CreateScope($"{nameof(CallingServerClient)}.{nameof(RedirectCallAsync)}");
+            scope.Start();
+            try
+            {
+                Argument.AssertNotNull(incomingCallContext, nameof(incomingCallContext));
+
+                return ServerCallRestClient.AnswerCall(
+                    incomingCallContext: incomingCallContext,
+                    callbackUri: callbackUri?.AbsoluteUri,
+                    requestedMediaTypes: new[] { CallMediaType.Audio },
+                    requestedCallEvents: new[] { CallingEventSubscriptionType.ParticipantsUpdated },
+                    cancellationToken: cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                scope.Failed(ex);
+                throw;
+            }
+        }
+
+        /// Redirect an incoming call to the target identities.
+        /// <param name="incomingCallContext"> The incoming call context </param>
         /// <param name="targets"> The target identities. </param>
         /// <param name="timeoutInSeconds"> The timeout in seconds. </param>
         /// <param name="callbackUri"> The callback Uri to receive status notifications. </param>

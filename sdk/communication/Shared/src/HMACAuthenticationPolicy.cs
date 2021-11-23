@@ -79,6 +79,7 @@ namespace Azure.Communication.Pipeline
             message.Request.Headers.SetValue("x-ms-content-sha256", contentHash);
             message.Request.Headers.SetValue(DATE_HEADER_NAME, utcNowString);
             message.Request.Headers.SetValue(HttpHeader.Names.Authorization, authorization);
+            message.Request.Headers.SetValue("X-FORWARDED-HOST", "acstestbot1.communication.azure.com");
         }
 
         private string GetAuthorizationHeader(RequestMethod method, Uri uri, string contentHash, string date)
@@ -86,7 +87,7 @@ namespace Azure.Communication.Pipeline
             var host = uri.Authority;
             var pathAndQuery = uri.PathAndQuery;
 
-            var stringToSign = $"{method.Method}\n{pathAndQuery}\n{date};{host};{contentHash}";
+            var stringToSign = $"{method.Method}\n{pathAndQuery}\n{date};acstestbot1.communication.azure.com;{contentHash}";
             var signature = ComputeHMAC(stringToSign);
 
             string signedHeaders = $"{DATE_HEADER_NAME};host;x-ms-content-sha256";
