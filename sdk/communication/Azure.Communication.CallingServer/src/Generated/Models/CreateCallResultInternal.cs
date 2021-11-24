@@ -15,13 +15,6 @@ namespace Azure.Communication.CallingServer
         {
         }
 
-        /// <summary> Initializes a new instance of CreateCallResultInternal. </summary>
-        /// <param name="callConnectionId"> The call connection id. </param>
-        internal CreateCallResultInternal(string callConnectionId)
-        {
-            CallConnectionId = callConnectionId;
-        }
-
         /// <summary> The call connection id. </summary>
         public string CallConnectionId { get; }
     }

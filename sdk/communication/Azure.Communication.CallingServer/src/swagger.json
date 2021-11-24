@@ -63,11 +63,6 @@
                     "500": {
                         "$ref": "#/responses/500"
                     }
-                },
-                "x-ms-examples": {
-                    "Get audio routing groups from a call.": {
-                        "$ref": "./examples/CallConnections_GetAudioRoutingGroups.json"
-                    }
                 }
             },
             "delete": {
@@ -113,11 +108,6 @@
                     },
                     "500": {
                         "$ref": "#/responses/500"
-                    }
-                },
-                "x-ms-examples": {
-                    "Delete audio routing group from a call.": {
-                        "$ref": "./examples/CallConnections_DeleteAudioRoutingGroup.json"
                     }
                 }
             },
@@ -174,11 +164,6 @@
                     "500": {
                         "$ref": "#/responses/500"
                     }
-                },
-                "x-ms-examples": {
-                    "Update audio routing group.": {
-                        "$ref": "./examples/CallConnections_UpdateAudioRoutingGroup.json"
-                    }
                 }
             }
         },
@@ -205,10 +190,24 @@
                     }
                 ],
                 "responses": {
-                    "201": {
+                    "202": {
                         "description": "Returns the create call response.",
                         "schema": {
                             "$ref": "#/definitions/CreateCallResult"
+                        },
+                        "headers": {
+                            "Location": {
+                                "description": "The location.",
+                                "type": "string"
+                            },
+                            "Operation-Location": {
+                                "description": "URL to query for status of the operation.",
+                                "type": "string"
+                            },
+                            "operation-id": {
+                                "description": "The operation id.",
+                                "type": "string"
+                            }
                         }
                     },
                     "400": {
@@ -224,10 +223,9 @@
                         "$ref": "#/responses/500"
                     }
                 },
-                "x-ms-examples": {
-                    "Create a new call.": {
-                        "$ref": "./examples/CallConnections_CreateCall.json"
-                    }
+                "x-ms-long-running-operation": true,
+                "x-ms-long-running-operation-options": {
+                    "final-state-via": "location"
                 }
             }
         },
@@ -272,11 +270,6 @@
                     "500": {
                         "$ref": "#/responses/500"
                     }
-                },
-                "x-ms-examples": {
-                    "Get call connection.": {
-                        "$ref": "./examples/CallConnections_GetCall.json"
-                    }
                 }
             },
             "delete": {
@@ -316,11 +309,6 @@
                     },
                     "500": {
                         "$ref": "#/responses/500"
-                    }
-                },
-                "x-ms-examples": {
-                    "Delete the call.": {
-                        "$ref": "./examples/CallConnections_DeleteCall.json"
                     }
                 }
             }
@@ -364,11 +352,6 @@
                     "500": {
                         "$ref": "#/responses/500"
                     }
-                },
-                "x-ms-examples": {
-                    "Hangup the call.": {
-                        "$ref": "./examples/CallConnections_HangupCall.json"
-                    }
                 }
             }
         },
@@ -406,6 +389,12 @@
                         "description": "Returns the play audio response.",
                         "schema": {
                             "$ref": "#/definitions/PlayAudioResult"
+                        },
+                        "headers": {
+                            "Location": {
+                                "description": "The location.",
+                                "type": "string"
+                            }
                         }
                     },
                     "400": {
@@ -424,11 +413,7 @@
                         "$ref": "#/responses/500"
                     }
                 },
-                "x-ms-examples": {
-                    "Play audio in the call.": {
-                        "$ref": "./examples/CallConnections_PlayAudio.json"
-                    }
-                }
+                "x-ms-long-running-operation": true
             }
         },
         "/calling/callConnections/{callConnectionId}/:cancelAllMediaOperations": {
@@ -469,11 +454,6 @@
                     },
                     "500": {
                         "$ref": "#/responses/500"
-                    }
-                },
-                "x-ms-examples": {
-                    "Cancel all media operations.": {
-                        "$ref": "./examples/CallConnections_CancelAllMediaOperations.json"
                     }
                 }
             }
@@ -516,11 +496,6 @@
                     },
                     "500": {
                         "$ref": "#/responses/500"
-                    }
-                },
-                "x-ms-examples": {
-                    "Keep the call alive.": {
-                        "$ref": "./examples/CallConnections_KeepAlive.json"
                     }
                 }
             }
@@ -576,11 +551,6 @@
                     "500": {
                         "$ref": "#/responses/500"
                     }
-                },
-                "x-ms-examples": {
-                    "Transfer the call to a participant or to another call.": {
-                        "$ref": "./examples/CallConnections_Transfer.json"
-                    }
                 }
             }
         },
@@ -634,10 +604,114 @@
                     "500": {
                         "$ref": "#/responses/500"
                     }
-                },
-                "x-ms-examples": {
-                    "Create audio routing group in a call.": {
-                        "$ref": "./examples/CallConnections_CreateAudioRoutingGroup.json"
+                }
+            }
+        },
+        "/calling/callConnections/{callConnectionId}/:status": {
+            "get": {
+                "tags": [
+                    "CallConnection"
+                ],
+                "summary": "Get the current status of the call.",
+                "description": "Get the current status of the call.",
+                "operationId": "CallConnections_ConnectionStatus",
+                "parameters": [
+                    {
+                        "name": "callConnectionId",
+                        "in": "path",
+                        "description": "The call connection id.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "$ref": "#/parameters/ApiVersionParameter"
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "Returns the get call response.",
+                        "schema": {
+                            "$ref": "#/definitions/CallConnectionProperties"
+                        }
+                    },
+                    "200": {
+                        "description": "Returns the get call response.",
+                        "schema": {
+                            "$ref": "#/definitions/CallConnectionProperties"
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/responses/400"
+                    },
+                    "401": {
+                        "$ref": "#/responses/401"
+                    },
+                    "403": {
+                        "$ref": "#/responses/403"
+                    },
+                    "404": {
+                        "$ref": "#/responses/404"
+                    },
+                    "500": {
+                        "$ref": "#/responses/500"
+                    }
+                }
+            }
+        },
+        "/calling/callConnections/{callConnectionId}/operations/{operationId}": {
+            "get": {
+                "tags": [
+                    "CallConnection"
+                ],
+                "summary": "Get the operation status",
+                "description": "Get the operation status",
+                "operationId": "CallConnections_GetOperation",
+                "parameters": [
+                    {
+                        "name": "callConnectionId",
+                        "in": "path",
+                        "description": "The call connection id.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "operationId",
+                        "in": "path",
+                        "description": "The operation id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "$ref": "#/parameters/ApiVersionParameter"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns the get operation response.",
+                        "schema": {
+                            "$ref": "#/definitions/OperationResponse"
+                        }
+                    },
+                    "202": {
+                        "description": "Returns the get operation response.",
+                        "schema": {
+                            "$ref": "#/definitions/OperationResponse"
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/responses/400"
+                    },
+                    "401": {
+                        "$ref": "#/responses/401"
+                    },
+                    "403": {
+                        "$ref": "#/responses/403"
+                    },
+                    "404": {
+                        "$ref": "#/responses/404"
+                    },
+                    "500": {
+                        "$ref": "#/responses/500"
                     }
                 }
             }
@@ -688,11 +762,6 @@
                     "500": {
                         "$ref": "#/responses/500"
                     }
-                },
-                "x-ms-examples": {
-                    "Get participants from a server call.": {
-                        "$ref": "./examples/ServerCalls_GetParticipants.json"
-                    }
                 }
             }
         },
@@ -740,11 +809,6 @@
                     "500": {
                         "$ref": "#/responses/500"
                     }
-                },
-                "x-ms-examples": {
-                    "Add a participant to the call.": {
-                        "$ref": "./examples/ServerCalls_AddParticipant.json"
-                    }
                 }
             }
         },
@@ -788,11 +852,6 @@
                     },
                     "500": {
                         "$ref": "#/responses/500"
-                    }
-                },
-                "x-ms-examples": {
-                    "Remove participant from the call using identifier.": {
-                        "$ref": "./examples/ServerCalls_RemoveParticipant.json"
                     }
                 }
             }
@@ -844,11 +903,6 @@
                     "500": {
                         "$ref": "#/responses/500"
                     }
-                },
-                "x-ms-examples": {
-                    "Get participant from the call using identifier.": {
-                        "$ref": "./examples/ServerCalls_GetParticipant.json"
-                    }
                 }
             }
         },
@@ -896,11 +950,6 @@
                     "500": {
                         "$ref": "#/responses/500"
                     }
-                },
-                "x-ms-examples": {
-                    "Play audio to a participant.": {
-                        "$ref": "./examples/ServerCalls_ParticipantPlayAudio.json"
-                    }
                 }
             }
         },
@@ -944,11 +993,6 @@
                     },
                     "500": {
                         "$ref": "#/responses/500"
-                    }
-                },
-                "x-ms-examples": {
-                    "cancel media operation for a participant.": {
-                        "$ref": "./examples/ServerCalls_CancelParticipantMediaOperation.json"
                     }
                 }
             }
@@ -996,11 +1040,6 @@
                     },
                     "500": {
                         "$ref": "#/responses/500"
-                    }
-                },
-                "x-ms-examples": {
-                    "Get participants from a call.": {
-                        "$ref": "./examples/CallConnections_GetParticipants.json"
                     }
                 }
             },
@@ -1054,11 +1093,6 @@
                     "500": {
                         "$ref": "#/responses/500"
                     }
-                },
-                "x-ms-examples": {
-                    "Add a participant to the call.": {
-                        "$ref": "./examples/CallConnections_AddParticipant.json"
-                    }
                 }
             }
         },
@@ -1109,11 +1143,6 @@
                     },
                     "500": {
                         "$ref": "#/responses/500"
-                    }
-                },
-                "x-ms-examples": {
-                    "Remove participant from the call using identifier.": {
-                        "$ref": "./examples/CallConnections_RemoveParticipant.json"
                     }
                 }
             }
@@ -1172,11 +1201,6 @@
                     "500": {
                         "$ref": "#/responses/500"
                     }
-                },
-                "x-ms-examples": {
-                    "Get participant from the call using identifier.": {
-                        "$ref": "./examples/CallConnections_GetParticipant.json"
-                    }
                 }
             }
         },
@@ -1231,11 +1255,6 @@
                     "500": {
                         "$ref": "#/responses/500"
                     }
-                },
-                "x-ms-examples": {
-                    "Play audio to a participant.": {
-                        "$ref": "./examples/CallConnections_ParticipantPlayAudio.json"
-                    }
                 }
             }
         },
@@ -1286,11 +1305,6 @@
                     },
                     "500": {
                         "$ref": "#/responses/500"
-                    }
-                },
-                "x-ms-examples": {
-                    "Cancel media operation for a participant.": {
-                        "$ref": "./examples/CallConnections_CancelParticipantMediaOperation.json"
                     }
                 }
             }
@@ -1343,11 +1357,6 @@
                     "500": {
                         "$ref": "#/responses/500"
                     }
-                },
-                "x-ms-examples": {
-                    "Mute participant in the call": {
-                        "$ref": "./examples/CallConnections_MuteParticipant.json"
-                    }
                 }
             }
         },
@@ -1398,11 +1407,6 @@
                     },
                     "500": {
                         "$ref": "#/responses/500"
-                    }
-                },
-                "x-ms-examples": {
-                    "Unmute participant in the call": {
-                        "$ref": "./examples/CallConnections_UnmuteParticipant.json"
                     }
                 }
             }
@@ -1455,11 +1459,6 @@
                     "500": {
                         "$ref": "#/responses/500"
                     }
-                },
-                "x-ms-examples": {
-                    "Hold meeting audio of a participant in the call.": {
-                        "$ref": "./examples/CallConnections_HoldParticipantMeetingAudio.json"
-                    }
                 }
             }
         },
@@ -1511,11 +1510,6 @@
                     "500": {
                         "$ref": "#/responses/500"
                     }
-                },
-                "x-ms-examples": {
-                    "Resume meeting audio of a participant in the call.": {
-                        "$ref": "./examples/CallConnections_ResumeParticipantMeetingAudio.json"
-                    }
                 }
             }
         },
@@ -1563,11 +1557,6 @@
                         "$ref": "#/responses/500"
                     }
                 },
-                "x-ms-examples": {
-                    "Start recording the call.": {
-                        "$ref": "./examples/ServerCalls_StartRecording.json"
-                    }
-                }
             }
         },
         "/calling/recordings/{recordingId}": {
@@ -1611,11 +1600,6 @@
                     "500": {
                         "$ref": "#/responses/500"
                     }
-                },
-                "x-ms-examples": {
-                    "Get call recording properties.": {
-                        "$ref": "./examples/ServerCalls_GetRecordingProperties.json"
-                    }
                 }
             },
             "delete": {
@@ -1654,11 +1638,6 @@
                     },
                     "500": {
                         "$ref": "#/responses/500"
-                    }
-                },
-                "x-ms-examples": {
-                    "Stop recording the call.": {
-                        "$ref": "./examples/ServerCalls_StopRecording.json"
                     }
                 }
             }
@@ -1701,11 +1680,6 @@
                     "500": {
                         "$ref": "#/responses/500"
                     }
-                },
-                "x-ms-examples": {
-                    "Pause recording the call.": {
-                        "$ref": "./examples/ServerCalls_PauseRecording.json"
-                    }
                 }
             }
         },
@@ -1746,11 +1720,6 @@
                     },
                     "500": {
                         "$ref": "#/responses/500"
-                    }
-                },
-                "x-ms-examples": {
-                    "Resume recording the call.": {
-                        "$ref": "./examples/ServerCalls_ResumeRecording.json"
                     }
                 }
             }
@@ -1795,11 +1764,6 @@
                     },
                     "500": {
                         "$ref": "#/responses/500"
-                    }
-                },
-                "x-ms-examples": {
-                    "Join a call.": {
-                        "$ref": "./examples/ServerCalls_JoinCall.json"
                     }
                 }
             }
@@ -1848,11 +1812,6 @@
                     "500": {
                         "$ref": "#/responses/500"
                     }
-                },
-                "x-ms-examples": {
-                    "Play audio in the call.": {
-                        "$ref": "./examples/ServerCalls_PlayAudio.json"
-                    }
                 }
             }
         },
@@ -1897,11 +1856,6 @@
                     "500": {
                         "$ref": "#/responses/500"
                     }
-                },
-                "x-ms-examples": {
-                    "cancel media operation.": {
-                        "$ref": "./examples/ServerCalls_CancelMediaOperation.json"
-                    }
                 }
             }
         },
@@ -1928,7 +1882,7 @@
                     }
                 ],
                 "responses": {
-                    "201": {
+                    "202": {
                         "description": "Returns the answer call response.",
                         "schema": {
                             "$ref": "#/definitions/AnswerCallResult"
@@ -1948,11 +1902,6 @@
                     },
                     "500": {
                         "$ref": "#/responses/500"
-                    }
-                },
-                "x-ms-examples": {
-                    "Answer the call.": {
-                        "$ref": "./examples/ServerCalls_AnswerCall.json"
                     }
                 }
             }
@@ -1998,11 +1947,6 @@
                     "500": {
                         "$ref": "#/responses/500"
                     }
-                },
-                "x-ms-examples": {
-                    "Reject the call.": {
-                        "$ref": "./examples/ServerCalls_RejectCall.json"
-                    }
                 }
             }
         },
@@ -2047,11 +1991,6 @@
                     "500": {
                         "$ref": "#/responses/500"
                     }
-                },
-                "x-ms-examples": {
-                    "Redirect the call.": {
-                        "$ref": "./examples/ServerCalls_RedirectCall.json"
-                    }
                 }
             }
         }
@@ -2086,19 +2025,19 @@
             }
         },
         "CommunicationIdentifier": {
-            "$ref": "../../../Common/stable/2021-03-07/common.json#/definitions/CommunicationIdentifierModel"
+            "$ref": "https://raw.githubusercontent.com/navali-msft/azure-rest-api-specs/66ad59ddc6baf7ee0d38467c5b6eb343b4759730/specification/communication/data-plane/Common/stable/2021-03-07/common.json#/definitions/CommunicationIdentifierModel"
         },
         "CommunicationUserIdentifier": {
-            "$ref": "../../../Common/stable/2021-03-07/common.json#/definitions/CommunicationUserIdentifierModel"
+            "$ref": "https://raw.githubusercontent.com/navali-msft/azure-rest-api-specs/66ad59ddc6baf7ee0d38467c5b6eb343b4759730/specification/communication/data-plane/Common/stable/2021-03-07/common.json#/definitions/CommunicationUserIdentifierModel"
         },
         "PhoneNumberIdentifier": {
-            "$ref": "../../../Common/stable/2021-03-07/common.json#/definitions/PhoneNumberIdentifierModel"
+            "$ref": "https://raw.githubusercontent.com/navali-msft/azure-rest-api-specs/66ad59ddc6baf7ee0d38467c5b6eb343b4759730/specification/communication/data-plane/Common/stable/2021-03-07/common.json#/definitions/PhoneNumberIdentifierModel"
         },
         "CommunicationCloudEnvironment": {
-            "$ref": "../../../Common/stable/2021-03-07/common.json#/definitions/CommunicationCloudEnvironmentModel"
+            "$ref": "https://raw.githubusercontent.com/navali-msft/azure-rest-api-specs/66ad59ddc6baf7ee0d38467c5b6eb343b4759730/specification/communication/data-plane/Common/stable/2021-03-07/common.json#/definitions/CommunicationCloudEnvironmentModel"
         },
         "MicrosoftTeamsUserIdentifier": {
-            "$ref": "../../../Common/stable/2021-03-07/common.json#/definitions/MicrosoftTeamsUserIdentifierModel"
+            "$ref": "https://raw.githubusercontent.com/navali-msft/azure-rest-api-specs/66ad59ddc6baf7ee0d38467c5b6eb343b4759730/specification/communication/data-plane/Common/stable/2021-03-07/common.json#/definitions/MicrosoftTeamsUserIdentifierModel"
         },
         "UpdateAudioRoutingGroupRequest": {
             "description": "The update audio routing group request.",
@@ -2199,7 +2138,6 @@
         "CallConnectionState": {
             "description": "The state of the call connection.",
             "enum": [
-                "unknown",
                 "connecting",
                 "connected",
                 "transferring",
@@ -2399,6 +2337,10 @@
                     "description": "The call connection id to replace the current call with. This parameter should be used for consultative transfer.",
                     "type": "string"
                 },
+                "alternateCallerId": {
+                    "$ref": "#/definitions/PhoneNumberIdentifier",
+                    "description": "The alternate identity of the transferor if transferring to a pstn number."
+                },
                 "userToUserInformation": {
                     "description": "The user to user information.",
                     "type": "string"
@@ -2460,6 +2402,30 @@
                 "audioRoutingGroupId": {
                     "description": "The audio routing group id.",
                     "type": "string"
+                }
+            }
+        },
+        "OperationResponse": {
+            "description": "The base class for all the responses for any Acs Api operation",
+            "required": [
+                "status"
+            ],
+            "type": "object",
+            "properties": {
+                "operationId": {
+                    "description": "The operation id.",
+                    "type": "string"
+                },
+                "status": {
+                    "$ref": "#/definitions/CallingOperationStatus"
+                },
+                "operationContext": {
+                    "description": "The operation context provided by client.",
+                    "type": "string"
+                },
+                "resultInfo": {
+                    "$ref": "#/definitions/CallingOperationResultDetails",
+                    "description": "The result info for the operation."
                 }
             }
         },
@@ -3291,10 +3257,10 @@
             }
         },
         "CommunicationErrorResponse": {
-            "$ref": "https://raw.githubusercontent.com/navali-msft/azure-rest-api-specs/callingServer/2021-11-15-preview/specification/communication/data-plane/Common/stable/2021-03-07/common.json#/definitions/CommunicationErrorResponse"
+            "$ref": "https://raw.githubusercontent.com/navali-msft/azure-rest-api-specs/66ad59ddc6baf7ee0d38467c5b6eb343b4759730/specification/communication/data-plane/Common/stable/2021-03-07/common.json#/definitions/CommunicationErrorResponse"
         },
         "CommunicationError": {
-            "$ref": "https://raw.githubusercontent.com/navali-msft/azure-rest-api-specs/callingServer/2021-11-15-preview/specification/communication/data-plane/Common/stable/2021-03-07/common.json#/definitions/CommunicationError"
+            "$ref": "https://raw.githubusercontent.com/navali-msft/azure-rest-api-specs/66ad59ddc6baf7ee0d38467c5b6eb343b4759730/specification/communication/data-plane/Common/stable/2021-03-07/common.json#/definitions/CommunicationError"
         },
         "CallLocator": {
             "$ref": "#/definitions/CallLocatorModel"

@@ -17,9 +17,11 @@ namespace Azure.Communication.CallingServer
         {
             _response = response;
         }
-        /// <summary> URL to query for status of the operation. </summary>
-        public string OperationLocation => _response.Headers.TryGetValue("Operation-Location", out string value) ? value : null;
         /// <summary> The location. </summary>
         public string Location => _response.Headers.TryGetValue("Location", out string value) ? value : null;
+        /// <summary> URL to query for status of the operation. </summary>
+        public string OperationLocation => _response.Headers.TryGetValue("Operation-Location", out string value) ? value : null;
+        /// <summary> The operation id. </summary>
+        public string OperationId => _response.Headers.TryGetValue("operation-id", out string value) ? value : null;
     }
 }

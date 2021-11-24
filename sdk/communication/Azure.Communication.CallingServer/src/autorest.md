@@ -14,8 +14,7 @@ If any of the new objects needs to be overwritten, add the required changes to t
 ```yaml
 title: Calling server
 model-namespace: false
-require:
-    - https://raw.githubusercontent.com/navali-msft/azure-rest-api-specs/e5d2381092bac6e5f0ced4ff5aca233c7c75e606/specification/communication/data-plane/CallingServer/readme.md
+input-file: swagger.json
 payload-flattening-threshold: 10
 clear-output-folder: true
 ```
