@@ -63,6 +63,11 @@
                     "500": {
                         "$ref": "#/responses/500"
                     }
+                },
+                "x-ms-examples": {
+                    "Get audio routing groups from a call.": {
+                        "$ref": "./examples/CallConnections_GetAudioRoutingGroups.json"
+                    }
                 }
             },
             "delete": {
@@ -108,6 +113,11 @@
                     },
                     "500": {
                         "$ref": "#/responses/500"
+                    }
+                },
+                "x-ms-examples": {
+                    "Delete audio routing group from a call.": {
+                        "$ref": "./examples/CallConnections_DeleteAudioRoutingGroup.json"
                     }
                 }
             },
@@ -163,6 +173,11 @@
                     },
                     "500": {
                         "$ref": "#/responses/500"
+                    }
+                },
+                "x-ms-examples": {
+                    "Update audio routing group.": {
+                        "$ref": "./examples/CallConnections_UpdateAudioRoutingGroup.json"
                     }
                 }
             }
@@ -226,6 +241,11 @@
                 "x-ms-long-running-operation": true,
                 "x-ms-long-running-operation-options": {
                     "final-state-via": "location"
+                },
+                "x-ms-examples": {
+                    "Create a new call.": {
+                        "$ref": "./examples/CallConnections_CreateCall.json"
+                    }
                 }
             }
         },
@@ -270,6 +290,11 @@
                     "500": {
                         "$ref": "#/responses/500"
                     }
+                },
+                "x-ms-examples": {
+                    "Get call connection.": {
+                        "$ref": "./examples/CallConnections_GetCall.json"
+                    }
                 }
             },
             "delete": {
@@ -309,6 +334,11 @@
                     },
                     "500": {
                         "$ref": "#/responses/500"
+                    }
+                },
+                "x-ms-examples": {
+                    "Delete the call.": {
+                        "$ref": "./examples/CallConnections_DeleteCall.json"
                     }
                 }
             }
@@ -351,6 +381,11 @@
                     },
                     "500": {
                         "$ref": "#/responses/500"
+                    }
+                },
+                "x-ms-examples": {
+                    "Hangup the call.": {
+                        "$ref": "./examples/CallConnections_HangupCall.json"
                     }
                 }
             }
@@ -413,6 +448,11 @@
                         "$ref": "#/responses/500"
                     }
                 },
+                "x-ms-examples": {
+                    "Play audio in the call.": {
+                        "$ref": "./examples/CallConnections_PlayAudio.json"
+                    }
+                },
                 "x-ms-long-running-operation": true
             }
         },
@@ -455,6 +495,11 @@
                     "500": {
                         "$ref": "#/responses/500"
                     }
+                },
+                "x-ms-examples": {
+                    "Cancel all media operations.": {
+                        "$ref": "./examples/CallConnections_CancelAllMediaOperations.json"
+                    }
                 }
             }
         },
@@ -496,6 +541,11 @@
                     },
                     "500": {
                         "$ref": "#/responses/500"
+                    }
+                },
+                "x-ms-examples": {
+                    "Keep the call alive.": {
+                        "$ref": "./examples/CallConnections_KeepAlive.json"
                     }
                 }
             }
@@ -551,6 +601,11 @@
                     "500": {
                         "$ref": "#/responses/500"
                     }
+                },
+                "x-ms-examples": {
+                    "Transfer the call to a participant or to another call.": {
+                        "$ref": "./examples/CallConnections_Transfer.json"
+                    }
                 }
             }
         },
@@ -604,6 +659,11 @@
                     "500": {
                         "$ref": "#/responses/500"
                     }
+                },
+                "x-ms-examples": {
+                    "Create audio routing group in a call.": {
+                        "$ref": "./examples/CallConnections_CreateAudioRoutingGroup.json"
+                    }
                 }
             }
         },
@@ -654,6 +714,11 @@
                     },
                     "500": {
                         "$ref": "#/responses/500"
+                    }
+                },
+                "x-ms-examples": {
+                    "Get the current status of the call.": {
+                        "$ref": "./examples/CallConnections_ConnectionStatus.json"
                     }
                 }
             }
@@ -713,6 +778,11 @@
                     "500": {
                         "$ref": "#/responses/500"
                     }
+                },
+                "x-ms-examples": {
+                    "Get the operation status": {
+                        "$ref": "./examples/Operation_GetOperation.json"
+                    }
                 }
             }
         },
@@ -762,6 +832,11 @@
                     "500": {
                         "$ref": "#/responses/500"
                     }
+                },
+                "x-ms-examples": {
+                    "Get participants from a server call.": {
+                        "$ref": "./examples/ServerCalls_GetParticipants.json"
+                    }
                 }
             }
         },
@@ -809,6 +884,11 @@
                     "500": {
                         "$ref": "#/responses/500"
                     }
+                },
+                "x-ms-examples": {
+                    "Add a participant to the call.": {
+                        "$ref": "./examples/ServerCalls_AddParticipant.json"
+                    }
                 }
             }
         },
@@ -852,6 +932,11 @@
                     },
                     "500": {
                         "$ref": "#/responses/500"
+                    }
+                },
+                "x-ms-examples": {
+                    "Remove participant from the call using identifier.": {
+                        "$ref": "./examples/ServerCalls_RemoveParticipant.json"
                     }
                 }
             }
@@ -903,6 +988,11 @@
                     "500": {
                         "$ref": "#/responses/500"
                     }
+                },
+                "x-ms-examples": {
+                    "Get participant from the call using identifier.": {
+                        "$ref": "./examples/ServerCalls_GetParticipant.json"
+                    }
                 }
             }
         },
@@ -950,6 +1040,11 @@
                     "500": {
                         "$ref": "#/responses/500"
                     }
+                },
+                "x-ms-examples": {
+                    "Play audio to a participant.": {
+                        "$ref": "./examples/ServerCalls_ParticipantPlayAudio.json"
+                    }
                 }
             }
         },
@@ -993,6 +1088,11 @@
                     },
                     "500": {
                         "$ref": "#/responses/500"
+                    }
+                },
+                "x-ms-examples": {
+                    "cancel media operation for a participant.": {
+                        "$ref": "./examples/ServerCalls_CancelParticipantMediaOperation.json"
                     }
                 }
             }
@@ -1040,6 +1140,11 @@
                     },
                     "500": {
                         "$ref": "#/responses/500"
+                    }
+                },
+                "x-ms-examples": {
+                    "Get participants from a call.": {
+                        "$ref": "./examples/CallConnections_GetParticipants.json"
                     }
                 }
             },
@@ -1093,6 +1198,11 @@
                     "500": {
                         "$ref": "#/responses/500"
                     }
+                },
+                "x-ms-examples": {
+                    "Add a participant to the call.": {
+                        "$ref": "./examples/CallConnections_AddParticipant.json"
+                    }
                 }
             }
         },
@@ -1143,6 +1253,11 @@
                     },
                     "500": {
                         "$ref": "#/responses/500"
+                    }
+                },
+                "x-ms-examples": {
+                    "Remove participant from the call using identifier.": {
+                        "$ref": "./examples/CallConnections_RemoveParticipant.json"
                     }
                 }
             }
@@ -1201,6 +1316,11 @@
                     "500": {
                         "$ref": "#/responses/500"
                     }
+                },
+                "x-ms-examples": {
+                    "Get participant from the call using identifier.": {
+                        "$ref": "./examples/CallConnections_GetParticipant.json"
+                    }
                 }
             }
         },
@@ -1255,6 +1375,11 @@
                     "500": {
                         "$ref": "#/responses/500"
                     }
+                },
+                "x-ms-examples": {
+                    "Play audio to a participant.": {
+                        "$ref": "./examples/CallConnections_ParticipantPlayAudio.json"
+                    }
                 }
             }
         },
@@ -1305,6 +1430,11 @@
                     },
                     "500": {
                         "$ref": "#/responses/500"
+                    }
+                },
+                "x-ms-examples": {
+                    "Cancel media operation for a participant.": {
+                        "$ref": "./examples/CallConnections_CancelParticipantMediaOperation.json"
                     }
                 }
             }
@@ -1357,6 +1487,11 @@
                     "500": {
                         "$ref": "#/responses/500"
                     }
+                },
+                "x-ms-examples": {
+                    "Mute participant in the call": {
+                        "$ref": "./examples/CallConnections_MuteParticipant.json"
+                    }
                 }
             }
         },
@@ -1407,6 +1542,11 @@
                     },
                     "500": {
                         "$ref": "#/responses/500"
+                    }
+                },
+                "x-ms-examples": {
+                    "Unmute participant in the call": {
+                        "$ref": "./examples/CallConnections_UnmuteParticipant.json"
                     }
                 }
             }
@@ -1459,6 +1599,11 @@
                     "500": {
                         "$ref": "#/responses/500"
                     }
+                },
+                "x-ms-examples": {
+                    "Hold meeting audio of a participant in the call.": {
+                        "$ref": "./examples/CallConnections_HoldParticipantMeetingAudio.json"
+                    }
                 }
             }
         },
@@ -1510,6 +1655,11 @@
                     "500": {
                         "$ref": "#/responses/500"
                     }
+                },
+                "x-ms-examples": {
+                    "Resume meeting audio of a participant in the call.": {
+                        "$ref": "./examples/CallConnections_ResumeParticipantMeetingAudio.json"
+                    }
                 }
             }
         },
@@ -1557,6 +1707,11 @@
                         "$ref": "#/responses/500"
                     }
                 },
+                "x-ms-examples": {
+                    "Start recording the call.": {
+                        "$ref": "./examples/ServerCalls_StartRecording.json"
+                    }
+                }
             }
         },
         "/calling/recordings/{recordingId}": {
@@ -1600,6 +1755,11 @@
                     "500": {
                         "$ref": "#/responses/500"
                     }
+                },
+                "x-ms-examples": {
+                    "Get call recording properties.": {
+                        "$ref": "./examples/ServerCalls_GetRecordingProperties.json"
+                    }
                 }
             },
             "delete": {
@@ -1638,6 +1798,11 @@
                     },
                     "500": {
                         "$ref": "#/responses/500"
+                    }
+                },
+                "x-ms-examples": {
+                    "Stop recording the call.": {
+                        "$ref": "./examples/ServerCalls_StopRecording.json"
                     }
                 }
             }
@@ -1680,6 +1845,11 @@
                     "500": {
                         "$ref": "#/responses/500"
                     }
+                },
+                "x-ms-examples": {
+                    "Pause recording the call.": {
+                        "$ref": "./examples/ServerCalls_PauseRecording.json"
+                    }
                 }
             }
         },
@@ -1720,6 +1890,11 @@
                     },
                     "500": {
                         "$ref": "#/responses/500"
+                    }
+                },
+                "x-ms-examples": {
+                    "Resume recording the call.": {
+                        "$ref": "./examples/ServerCalls_ResumeRecording.json"
                     }
                 }
             }
@@ -1764,6 +1939,11 @@
                     },
                     "500": {
                         "$ref": "#/responses/500"
+                    }
+                },
+                "x-ms-examples": {
+                    "Join a call.": {
+                        "$ref": "./examples/ServerCalls_JoinCall.json"
                     }
                 }
             }
@@ -1812,6 +1992,11 @@
                     "500": {
                         "$ref": "#/responses/500"
                     }
+                },
+                "x-ms-examples": {
+                    "Play audio in the call.": {
+                        "$ref": "./examples/ServerCalls_PlayAudio.json"
+                    }
                 }
             }
         },
@@ -1855,6 +2040,11 @@
                     },
                     "500": {
                         "$ref": "#/responses/500"
+                    }
+                },
+                "x-ms-examples": {
+                    "cancel media operation.": {
+                        "$ref": "./examples/ServerCalls_CancelMediaOperation.json"
                     }
                 }
             }
@@ -1903,6 +2093,11 @@
                     "500": {
                         "$ref": "#/responses/500"
                     }
+                },
+                "x-ms-examples": {
+                    "Answer the call.": {
+                        "$ref": "./examples/ServerCalls_AnswerCall.json"
+                    }
                 }
             }
         },
@@ -1946,6 +2141,11 @@
                     },
                     "500": {
                         "$ref": "#/responses/500"
+                    }
+                },
+                "x-ms-examples": {
+                    "Reject the call.": {
+                        "$ref": "./examples/ServerCalls_RejectCall.json"
                     }
                 }
             }
@@ -1991,6 +2191,11 @@
                     "500": {
                         "$ref": "#/responses/500"
                     }
+                },
+                "x-ms-examples": {
+                    "Redirect the call.": {
+                        "$ref": "./examples/ServerCalls_RedirectCall.json"
+                    }
                 }
             }
         }
@@ -2025,19 +2230,19 @@
             }
         },
         "CommunicationIdentifier": {
-            "$ref": "https://raw.githubusercontent.com/navali-msft/azure-rest-api-specs/66ad59ddc6baf7ee0d38467c5b6eb343b4759730/specification/communication/data-plane/Common/stable/2021-03-07/common.json#/definitions/CommunicationIdentifierModel"
+            "$ref": "../../../Common/stable/2021-03-07/common.json#/definitions/CommunicationIdentifierModel"
         },
         "CommunicationUserIdentifier": {
-            "$ref": "https://raw.githubusercontent.com/navali-msft/azure-rest-api-specs/66ad59ddc6baf7ee0d38467c5b6eb343b4759730/specification/communication/data-plane/Common/stable/2021-03-07/common.json#/definitions/CommunicationUserIdentifierModel"
+            "$ref": "../../../Common/stable/2021-03-07/common.json#/definitions/CommunicationUserIdentifierModel"
         },
         "PhoneNumberIdentifier": {
-            "$ref": "https://raw.githubusercontent.com/navali-msft/azure-rest-api-specs/66ad59ddc6baf7ee0d38467c5b6eb343b4759730/specification/communication/data-plane/Common/stable/2021-03-07/common.json#/definitions/PhoneNumberIdentifierModel"
+            "$ref": "../../../Common/stable/2021-03-07/common.json#/definitions/PhoneNumberIdentifierModel"
         },
         "CommunicationCloudEnvironment": {
-            "$ref": "https://raw.githubusercontent.com/navali-msft/azure-rest-api-specs/66ad59ddc6baf7ee0d38467c5b6eb343b4759730/specification/communication/data-plane/Common/stable/2021-03-07/common.json#/definitions/CommunicationCloudEnvironmentModel"
+            "$ref": "../../../Common/stable/2021-03-07/common.json#/definitions/CommunicationCloudEnvironmentModel"
         },
         "MicrosoftTeamsUserIdentifier": {
-            "$ref": "https://raw.githubusercontent.com/navali-msft/azure-rest-api-specs/66ad59ddc6baf7ee0d38467c5b6eb343b4759730/specification/communication/data-plane/Common/stable/2021-03-07/common.json#/definitions/MicrosoftTeamsUserIdentifierModel"
+            "$ref": "../../../Common/stable/2021-03-07/common.json#/definitions/MicrosoftTeamsUserIdentifierModel"
         },
         "UpdateAudioRoutingGroupRequest": {
             "description": "The update audio routing group request.",
@@ -3257,10 +3462,10 @@
             }
         },
         "CommunicationErrorResponse": {
-            "$ref": "https://raw.githubusercontent.com/navali-msft/azure-rest-api-specs/66ad59ddc6baf7ee0d38467c5b6eb343b4759730/specification/communication/data-plane/Common/stable/2021-03-07/common.json#/definitions/CommunicationErrorResponse"
+            "$ref": "../../../Common/stable/2021-03-07/common.json#/definitions/CommunicationErrorResponse"
         },
         "CommunicationError": {
-            "$ref": "https://raw.githubusercontent.com/navali-msft/azure-rest-api-specs/66ad59ddc6baf7ee0d38467c5b6eb343b4759730/specification/communication/data-plane/Common/stable/2021-03-07/common.json#/definitions/CommunicationError"
+            "$ref": "../../../Common/stable/2021-03-07/common.json#/definitions/CommunicationError"
         },
         "CallLocator": {
             "$ref": "#/definitions/CallLocatorModel"

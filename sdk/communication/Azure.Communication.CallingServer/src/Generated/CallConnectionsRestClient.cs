@@ -354,7 +354,7 @@ namespace Azure.Communication.CallingServer
             var headers = new CallConnectionsCreateCallHeaders(message.Response);
             switch (message.Response.Status)
             {
-                case 201:
+                case 202:
                     return ResponseWithHeaders.FromValue(headers, message.Response);
                 default:
                     throw await _clientDiagnostics.CreateRequestFailedExceptionAsync(message.Response).ConfigureAwait(false);
@@ -391,7 +391,7 @@ namespace Azure.Communication.CallingServer
             var headers = new CallConnectionsCreateCallHeaders(message.Response);
             switch (message.Response.Status)
             {
-                case 201:
+                case 202:
                     return ResponseWithHeaders.FromValue(headers, message.Response);
                 default:
                     throw _clientDiagnostics.CreateRequestFailedException(message.Response);

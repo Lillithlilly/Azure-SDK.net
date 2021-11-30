@@ -12,9 +12,11 @@ If any of the new objects needs to be overwritten, add the required changes to t
 > see https://aka.ms/autorest
 
 ```yaml
+public-clients: true
 title: Calling server
 model-namespace: false
-input-file: swagger.json
+require: 
+    - https://raw.githubusercontent.com/navali-msft/azure-rest-api-specs/06826c0bc7bbcabb3b61b7d07eb87bb7d88bb924/specification/communication/data-plane/CallingServer/readme.md
 payload-flattening-threshold: 10
 clear-output-folder: true
 ```
