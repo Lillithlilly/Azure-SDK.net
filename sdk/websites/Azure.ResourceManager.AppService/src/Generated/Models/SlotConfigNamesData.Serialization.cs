@@ -12,7 +12,7 @@ using Azure.ResourceManager;
 
 namespace Azure.ResourceManager.AppService
 {
-    public partial class SlotConfigNamesResourceData : IUtf8JsonSerializable
+    public partial class SlotConfigNamesData : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
@@ -58,7 +58,7 @@ namespace Azure.ResourceManager.AppService
             writer.WriteEndObject();
         }
 
-        internal static SlotConfigNamesResourceData DeserializeSlotConfigNamesResourceData(JsonElement element)
+        internal static SlotConfigNamesData DeserializeSlotConfigNamesData(JsonElement element)
         {
             Optional<string> kind = default;
             ResourceIdentifier id = default;
@@ -147,7 +147,7 @@ namespace Azure.ResourceManager.AppService
                     continue;
                 }
             }
-            return new SlotConfigNamesResourceData(id, name, type, kind.Value, Optional.ToList(connectionStringNames), Optional.ToList(appSettingNames), Optional.ToList(azureStorageConfigNames));
+            return new SlotConfigNamesData(id, name, type, kind.Value, Optional.ToList(connectionStringNames), Optional.ToList(appSettingNames), Optional.ToList(azureStorageConfigNames));
         }
     }
 }

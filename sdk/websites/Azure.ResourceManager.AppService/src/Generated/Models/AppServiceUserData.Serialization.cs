@@ -5,15 +5,13 @@
 
 #nullable disable
 
-using System;
 using System.Text.Json;
 using Azure.Core;
 using Azure.ResourceManager;
-using Azure.ResourceManager.AppService.Models;
 
 namespace Azure.ResourceManager.AppService
 {
-    public partial class StaticSiteCustomDomainOverviewARMResourceData : IUtf8JsonSerializable
+    public partial class AppServiceUserData : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
@@ -25,21 +23,46 @@ namespace Azure.ResourceManager.AppService
             }
             writer.WritePropertyName("properties");
             writer.WriteStartObject();
+            if (Optional.IsDefined(PublishingUserName))
+            {
+                writer.WritePropertyName("publishingUserName");
+                writer.WriteStringValue(PublishingUserName);
+            }
+            if (Optional.IsDefined(PublishingPassword))
+            {
+                writer.WritePropertyName("publishingPassword");
+                writer.WriteStringValue(PublishingPassword);
+            }
+            if (Optional.IsDefined(PublishingPasswordHash))
+            {
+                writer.WritePropertyName("publishingPasswordHash");
+                writer.WriteStringValue(PublishingPasswordHash);
+            }
+            if (Optional.IsDefined(PublishingPasswordHashSalt))
+            {
+                writer.WritePropertyName("publishingPasswordHashSalt");
+                writer.WriteStringValue(PublishingPasswordHashSalt);
+            }
+            if (Optional.IsDefined(ScmUri))
+            {
+                writer.WritePropertyName("scmUri");
+                writer.WriteStringValue(ScmUri);
+            }
             writer.WriteEndObject();
             writer.WriteEndObject();
         }
 
-        internal static StaticSiteCustomDomainOverviewARMResourceData DeserializeStaticSiteCustomDomainOverviewARMResourceData(JsonElement element)
+        internal static AppServiceUserData DeserializeAppServiceUserData(JsonElement element)
         {
             Optional<string> kind = default;
             ResourceIdentifier id = default;
             string name = default;
             ResourceType type = default;
-            Optional<string> domainName = default;
-            Optional<DateTimeOffset> createdOn = default;
-            Optional<CustomDomainStatus> status = default;
-            Optional<string> validationToken = default;
-            Optional<string> errorMessage = default;
+            Optional<string> publishingUserName = default;
+            Optional<string> publishingPassword = default;
+            Optional<string> publishingPasswordHash = default;
+            Optional<string> publishingPasswordHashSalt = default;
+            Optional<string> scmUri = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("kind"))
@@ -71,46 +94,36 @@ namespace Azure.ResourceManager.AppService
                     }
                     foreach (var property0 in property.Value.EnumerateObject())
                     {
-                        if (property0.NameEquals("domainName"))
+                        if (property0.NameEquals("publishingUserName"))
                         {
-                            domainName = property0.Value.GetString();
+                            publishingUserName = property0.Value.GetString();
                             continue;
                         }
-                        if (property0.NameEquals("createdOn"))
+                        if (property0.NameEquals("publishingPassword"))
                         {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                property0.ThrowNonNullablePropertyIsNull();
-                                continue;
-                            }
-                            createdOn = property0.Value.GetDateTimeOffset("O");
+                            publishingPassword = property0.Value.GetString();
                             continue;
                         }
-                        if (property0.NameEquals("status"))
+                        if (property0.NameEquals("publishingPasswordHash"))
                         {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                property0.ThrowNonNullablePropertyIsNull();
-                                continue;
-                            }
-                            status = new CustomDomainStatus(property0.Value.GetString());
+                            publishingPasswordHash = property0.Value.GetString();
                             continue;
                         }
-                        if (property0.NameEquals("validationToken"))
+                        if (property0.NameEquals("publishingPasswordHashSalt"))
                         {
-                            validationToken = property0.Value.GetString();
+                            publishingPasswordHashSalt = property0.Value.GetString();
                             continue;
                         }
-                        if (property0.NameEquals("errorMessage"))
+                        if (property0.NameEquals("scmUri"))
                         {
-                            errorMessage = property0.Value.GetString();
+                            scmUri = property0.Value.GetString();
                             continue;
                         }
                     }
                     continue;
                 }
             }
-            return new StaticSiteCustomDomainOverviewARMResourceData(id, name, type, kind.Value, domainName.Value, Optional.ToNullable(createdOn), Optional.ToNullable(status), validationToken.Value, errorMessage.Value);
+            return new AppServiceUserData(id, name, type, kind.Value, publishingUserName.Value, publishingPassword.Value, publishingPasswordHash.Value, publishingPasswordHashSalt.Value, scmUri.Value);
         }
     }
 }

@@ -463,14 +463,14 @@ namespace Azure.ResourceManager.AppService
         }
         #endregion
 
-        #region User
-        /// <summary> Gets an object representing a User along with the instance operations that can be performed on it but with no data. </summary>
+        #region AppServiceUser
+        /// <summary> Gets an object representing a AppServiceUser along with the instance operations that can be performed on it but with no data. </summary>
         /// <param name="armClient"> The <see cref="ArmClient" /> instance the method will execute against. </param>
         /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="User" /> object. </returns>
-        public static User GetUser(this ArmClient armClient, ResourceIdentifier id)
+        /// <returns> Returns a <see cref="AppServiceUser" /> object. </returns>
+        public static AppServiceUser GetAppServiceUser(this ArmClient armClient, ResourceIdentifier id)
         {
-            return armClient.UseClientContext((uri, credential, clientOptions, pipeline) => new User(clientOptions, credential, uri, pipeline, id));
+            return armClient.UseClientContext((uri, credential, clientOptions, pipeline) => new AppServiceUser(clientOptions, credential, uri, pipeline, id));
         }
         #endregion
 
@@ -485,25 +485,25 @@ namespace Azure.ResourceManager.AppService
         }
         #endregion
 
-        #region StaticSiteARMResource
-        /// <summary> Gets an object representing a StaticSiteARMResource along with the instance operations that can be performed on it but with no data. </summary>
+        #region StaticSite
+        /// <summary> Gets an object representing a StaticSite along with the instance operations that can be performed on it but with no data. </summary>
         /// <param name="armClient"> The <see cref="ArmClient" /> instance the method will execute against. </param>
         /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="StaticSiteARMResource" /> object. </returns>
-        public static StaticSiteARMResource GetStaticSiteARMResource(this ArmClient armClient, ResourceIdentifier id)
+        /// <returns> Returns a <see cref="StaticSite" /> object. </returns>
+        public static StaticSite GetStaticSite(this ArmClient armClient, ResourceIdentifier id)
         {
-            return armClient.UseClientContext((uri, credential, clientOptions, pipeline) => new StaticSiteARMResource(clientOptions, credential, uri, pipeline, id));
+            return armClient.UseClientContext((uri, credential, clientOptions, pipeline) => new StaticSite(clientOptions, credential, uri, pipeline, id));
         }
         #endregion
 
-        #region StaticSiteBuildARMResource
-        /// <summary> Gets an object representing a StaticSiteBuildARMResource along with the instance operations that can be performed on it but with no data. </summary>
+        #region StaticSiteBuild
+        /// <summary> Gets an object representing a StaticSiteBuild along with the instance operations that can be performed on it but with no data. </summary>
         /// <param name="armClient"> The <see cref="ArmClient" /> instance the method will execute against. </param>
         /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="StaticSiteBuildARMResource" /> object. </returns>
-        public static StaticSiteBuildARMResource GetStaticSiteBuildARMResource(this ArmClient armClient, ResourceIdentifier id)
+        /// <returns> Returns a <see cref="StaticSiteBuild" /> object. </returns>
+        public static StaticSiteBuild GetStaticSiteBuild(this ArmClient armClient, ResourceIdentifier id)
         {
-            return armClient.UseClientContext((uri, credential, clientOptions, pipeline) => new StaticSiteBuildARMResource(clientOptions, credential, uri, pipeline, id));
+            return armClient.UseClientContext((uri, credential, clientOptions, pipeline) => new StaticSiteBuild(clientOptions, credential, uri, pipeline, id));
         }
         #endregion
 
@@ -529,14 +529,14 @@ namespace Azure.ResourceManager.AppService
         }
         #endregion
 
-        #region StaticSiteCustomDomainOverviewARMResource
-        /// <summary> Gets an object representing a StaticSiteCustomDomainOverviewARMResource along with the instance operations that can be performed on it but with no data. </summary>
+        #region StaticSiteCustomDomainOverview
+        /// <summary> Gets an object representing a StaticSiteCustomDomainOverview along with the instance operations that can be performed on it but with no data. </summary>
         /// <param name="armClient"> The <see cref="ArmClient" /> instance the method will execute against. </param>
         /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="StaticSiteCustomDomainOverviewARMResource" /> object. </returns>
-        public static StaticSiteCustomDomainOverviewARMResource GetStaticSiteCustomDomainOverviewARMResource(this ArmClient armClient, ResourceIdentifier id)
+        /// <returns> Returns a <see cref="StaticSiteCustomDomainOverview" /> object. </returns>
+        public static StaticSiteCustomDomainOverview GetStaticSiteCustomDomainOverview(this ArmClient armClient, ResourceIdentifier id)
         {
-            return armClient.UseClientContext((uri, credential, clientOptions, pipeline) => new StaticSiteCustomDomainOverviewARMResource(clientOptions, credential, uri, pipeline, id));
+            return armClient.UseClientContext((uri, credential, clientOptions, pipeline) => new StaticSiteCustomDomainOverview(clientOptions, credential, uri, pipeline, id));
         }
         #endregion
 
@@ -694,14 +694,14 @@ namespace Azure.ResourceManager.AppService
         }
         #endregion
 
-        #region SlotConfigNamesResource
-        /// <summary> Gets an object representing a SlotConfigNamesResource along with the instance operations that can be performed on it but with no data. </summary>
+        #region SlotConfigNames
+        /// <summary> Gets an object representing a SlotConfigNames along with the instance operations that can be performed on it but with no data. </summary>
         /// <param name="armClient"> The <see cref="ArmClient" /> instance the method will execute against. </param>
         /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="SlotConfigNamesResource" /> object. </returns>
-        public static SlotConfigNamesResource GetSlotConfigNamesResource(this ArmClient armClient, ResourceIdentifier id)
+        /// <returns> Returns a <see cref="SlotConfigNames" /> object. </returns>
+        public static SlotConfigNames GetSlotConfigNames(this ArmClient armClient, ResourceIdentifier id)
         {
-            return armClient.UseClientContext((uri, credential, clientOptions, pipeline) => new SlotConfigNamesResource(clientOptions, credential, uri, pipeline, id));
+            return armClient.UseClientContext((uri, credential, clientOptions, pipeline) => new SlotConfigNames(clientOptions, credential, uri, pipeline, id));
         }
         #endregion
 

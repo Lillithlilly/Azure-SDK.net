@@ -18,10 +18,10 @@ namespace Azure.ResourceManager.AppService.Tests.TestsCase
         {
         }
 
-        private async Task<StaticSiteARMResourceCollection> GetStaticSiteCollectionAsync()
+        private async Task<StaticSiteCollection> GetStaticSiteCollectionAsync()
         {
             var resourceGroup = await CreateResourceGroupAsync();
-            return resourceGroup.GetStaticSiteARMResources();
+            return resourceGroup.GetStaticSites();
         }
 
         [TestCase]
@@ -46,8 +46,8 @@ namespace Azure.ResourceManager.AppService.Tests.TestsCase
             var staticSiteName = Recording.GenerateAssetName("testStaticSite");
             var input = ResourceDataHelper.GetBasicStaticSiteARMResourceData(StaticSiteLocation);
             var lro = await container.CreateOrUpdateAsync(staticSiteName, input);
-            StaticSiteARMResource staticSite1 = lro.Value;
-            StaticSiteARMResource staticSite2 = await container.GetAsync(staticSiteName);
+            StaticSite staticSite1 = lro.Value;
+            StaticSite staticSite2 = await container.GetAsync(staticSiteName);
             ResourceDataHelper.AssertStaticSiteARMResourceData(staticSite1.Data, staticSite2.Data);
         }
 
@@ -77,7 +77,7 @@ namespace Azure.ResourceManager.AppService.Tests.TestsCase
             var staticSiteName = Recording.GenerateAssetName("testStaticSite");
             var input = ResourceDataHelper.GetBasicStaticSiteARMResourceData(StaticSiteLocation);
             var lro = await container.CreateOrUpdateAsync(staticSiteName, input);
-            StaticSiteARMResource staticSiteARMResource = lro.Value;
+            StaticSite staticSiteARMResource = lro.Value;
             Assert.IsTrue(await container.CheckIfExistsAsync(staticSiteName));
             Assert.IsFalse(await container.CheckIfExistsAsync(staticSiteName + "1"));
 

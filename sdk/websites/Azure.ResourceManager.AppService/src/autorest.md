@@ -35,6 +35,13 @@ modelerfour:
       Status: OperationStatus
       DetectorResponse: AppServiceDetector
       DetectorDefinitionResource: DetectorDefinition
+      SlotConfigNamesResource: SlotConfigNames
+      StaticSiteARMResource: StaticSite
+      StaticSiteBuildARMResource: StaticSiteBuild
+      StaticSiteCustomDomainOverviewARMResource: StaticSiteCustomDomainOverview
+      User: AppServiceUser
+      VnetInfoResource: VnetInfo
+      WorkerPoolResource: WorkerPool
     
 output-folder: ./Generated
 

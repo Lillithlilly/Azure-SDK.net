@@ -12,16 +12,16 @@ using Azure.ResourceManager.AppService.Models;
 
 namespace Azure.ResourceManager.AppService
 {
-    /// <summary> A class representing the WorkerPoolResource data model. </summary>
-    public partial class WorkerPoolResourceData : ProxyOnlyResource
+    /// <summary> A class representing the WorkerPool data model. </summary>
+    public partial class WorkerPoolData : ProxyOnlyResource
     {
-        /// <summary> Initializes a new instance of WorkerPoolResourceData. </summary>
-        public WorkerPoolResourceData()
+        /// <summary> Initializes a new instance of WorkerPoolData. </summary>
+        public WorkerPoolData()
         {
             InstanceNames = new ChangeTrackingList<string>();
         }
 
-        /// <summary> Initializes a new instance of WorkerPoolResourceData. </summary>
+        /// <summary> Initializes a new instance of WorkerPoolData. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
         /// <param name="type"> The type. </param>
@@ -32,7 +32,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="workerSize"> VM size of the worker pool instances. </param>
         /// <param name="workerCount"> Number of instances in the worker pool. </param>
         /// <param name="instanceNames"> Names of all instances in the worker pool (read only). </param>
-        internal WorkerPoolResourceData(ResourceIdentifier id, string name, ResourceType type, string kind, SkuDescription sku, int? workerSizeId, ComputeModeOptions? computeMode, string workerSize, int? workerCount, IReadOnlyList<string> instanceNames) : base(id, name, type, kind)
+        internal WorkerPoolData(ResourceIdentifier id, string name, ResourceType type, string kind, SkuDescription sku, int? workerSizeId, ComputeModeOptions? computeMode, string workerSize, int? workerCount, IReadOnlyList<string> instanceNames) : base(id, name, type, kind)
         {
             Sku = sku;
             WorkerSizeId = workerSizeId;

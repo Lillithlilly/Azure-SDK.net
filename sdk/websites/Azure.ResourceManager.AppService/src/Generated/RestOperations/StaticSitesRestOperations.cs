@@ -159,7 +159,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="subscriptionId"> Your Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> is null. </exception>
-        public async Task<Response<StaticSiteCollection>> ListAsync(string subscriptionId, CancellationToken cancellationToken = default)
+        public async Task<Response<Models.StaticSiteCollection>> ListAsync(string subscriptionId, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -172,9 +172,9 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        StaticSiteCollection value = default;
+                        Models.StaticSiteCollection value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = StaticSiteCollection.DeserializeStaticSiteCollection(document.RootElement);
+                        value = Models.StaticSiteCollection.DeserializeStaticSiteCollection(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -186,7 +186,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="subscriptionId"> Your Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> is null. </exception>
-        public Response<StaticSiteCollection> List(string subscriptionId, CancellationToken cancellationToken = default)
+        public Response<Models.StaticSiteCollection> List(string subscriptionId, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -199,9 +199,9 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        StaticSiteCollection value = default;
+                        Models.StaticSiteCollection value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = StaticSiteCollection.DeserializeStaticSiteCollection(document.RootElement);
+                        value = Models.StaticSiteCollection.DeserializeStaticSiteCollection(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -233,7 +233,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="resourceGroupName"> Name of the resource group to which the resource belongs. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> or <paramref name="resourceGroupName"/> is null. </exception>
-        public async Task<Response<StaticSiteCollection>> GetStaticSitesByResourceGroupAsync(string subscriptionId, string resourceGroupName, CancellationToken cancellationToken = default)
+        public async Task<Response<Models.StaticSiteCollection>> GetStaticSitesByResourceGroupAsync(string subscriptionId, string resourceGroupName, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -250,9 +250,9 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        StaticSiteCollection value = default;
+                        Models.StaticSiteCollection value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = StaticSiteCollection.DeserializeStaticSiteCollection(document.RootElement);
+                        value = Models.StaticSiteCollection.DeserializeStaticSiteCollection(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -265,7 +265,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="resourceGroupName"> Name of the resource group to which the resource belongs. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> or <paramref name="resourceGroupName"/> is null. </exception>
-        public Response<StaticSiteCollection> GetStaticSitesByResourceGroup(string subscriptionId, string resourceGroupName, CancellationToken cancellationToken = default)
+        public Response<Models.StaticSiteCollection> GetStaticSitesByResourceGroup(string subscriptionId, string resourceGroupName, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -282,9 +282,9 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        StaticSiteCollection value = default;
+                        Models.StaticSiteCollection value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = StaticSiteCollection.DeserializeStaticSiteCollection(document.RootElement);
+                        value = Models.StaticSiteCollection.DeserializeStaticSiteCollection(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -318,7 +318,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="name"> Name of the static site. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, or <paramref name="name"/> is null. </exception>
-        public async Task<Response<StaticSiteARMResourceData>> GetStaticSiteAsync(string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
+        public async Task<Response<StaticSiteData>> GetStaticSiteAsync(string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -339,13 +339,13 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        StaticSiteARMResourceData value = default;
+                        StaticSiteData value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = StaticSiteARMResourceData.DeserializeStaticSiteARMResourceData(document.RootElement);
+                        value = StaticSiteData.DeserializeStaticSiteData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 case 404:
-                    return Response.FromValue((StaticSiteARMResourceData)null, message.Response);
+                    return Response.FromValue((StaticSiteData)null, message.Response);
                 default:
                     throw await _clientDiagnostics.CreateRequestFailedExceptionAsync(message.Response).ConfigureAwait(false);
             }
@@ -357,7 +357,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="name"> Name of the static site. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, or <paramref name="name"/> is null. </exception>
-        public Response<StaticSiteARMResourceData> GetStaticSite(string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
+        public Response<StaticSiteData> GetStaticSite(string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -378,19 +378,19 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        StaticSiteARMResourceData value = default;
+                        StaticSiteData value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = StaticSiteARMResourceData.DeserializeStaticSiteARMResourceData(document.RootElement);
+                        value = StaticSiteData.DeserializeStaticSiteData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 case 404:
-                    return Response.FromValue((StaticSiteARMResourceData)null, message.Response);
+                    return Response.FromValue((StaticSiteData)null, message.Response);
                 default:
                     throw _clientDiagnostics.CreateRequestFailedException(message.Response);
             }
         }
 
-        internal HttpMessage CreateCreateOrUpdateStaticSiteRequest(string subscriptionId, string resourceGroupName, string name, StaticSiteARMResourceData staticSiteEnvelope)
+        internal HttpMessage CreateCreateOrUpdateStaticSiteRequest(string subscriptionId, string resourceGroupName, string name, StaticSiteData staticSiteEnvelope)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -421,7 +421,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="staticSiteEnvelope"> A JSON representation of the staticsite properties. See example. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, or <paramref name="staticSiteEnvelope"/> is null. </exception>
-        public async Task<Response> CreateOrUpdateStaticSiteAsync(string subscriptionId, string resourceGroupName, string name, StaticSiteARMResourceData staticSiteEnvelope, CancellationToken cancellationToken = default)
+        public async Task<Response> CreateOrUpdateStaticSiteAsync(string subscriptionId, string resourceGroupName, string name, StaticSiteData staticSiteEnvelope, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -459,7 +459,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="staticSiteEnvelope"> A JSON representation of the staticsite properties. See example. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, or <paramref name="staticSiteEnvelope"/> is null. </exception>
-        public Response CreateOrUpdateStaticSite(string subscriptionId, string resourceGroupName, string name, StaticSiteARMResourceData staticSiteEnvelope, CancellationToken cancellationToken = default)
+        public Response CreateOrUpdateStaticSite(string subscriptionId, string resourceGroupName, string name, StaticSiteData staticSiteEnvelope, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -607,7 +607,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="staticSiteEnvelope"> A JSON representation of the staticsite properties. See example. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, or <paramref name="staticSiteEnvelope"/> is null. </exception>
-        public async Task<Response<StaticSiteARMResourceData>> UpdateStaticSiteAsync(string subscriptionId, string resourceGroupName, string name, StaticSitePatchResource staticSiteEnvelope, CancellationToken cancellationToken = default)
+        public async Task<Response<StaticSiteData>> UpdateStaticSiteAsync(string subscriptionId, string resourceGroupName, string name, StaticSitePatchResource staticSiteEnvelope, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -633,9 +633,9 @@ namespace Azure.ResourceManager.AppService
                 case 200:
                 case 202:
                     {
-                        StaticSiteARMResourceData value = default;
+                        StaticSiteData value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = StaticSiteARMResourceData.DeserializeStaticSiteARMResourceData(document.RootElement);
+                        value = StaticSiteData.DeserializeStaticSiteData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -650,7 +650,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="staticSiteEnvelope"> A JSON representation of the staticsite properties. See example. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, or <paramref name="staticSiteEnvelope"/> is null. </exception>
-        public Response<StaticSiteARMResourceData> UpdateStaticSite(string subscriptionId, string resourceGroupName, string name, StaticSitePatchResource staticSiteEnvelope, CancellationToken cancellationToken = default)
+        public Response<StaticSiteData> UpdateStaticSite(string subscriptionId, string resourceGroupName, string name, StaticSitePatchResource staticSiteEnvelope, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -676,9 +676,9 @@ namespace Azure.ResourceManager.AppService
                 case 200:
                 case 202:
                     {
-                        StaticSiteARMResourceData value = default;
+                        StaticSiteData value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = StaticSiteARMResourceData.DeserializeStaticSiteARMResourceData(document.RootElement);
+                        value = StaticSiteData.DeserializeStaticSiteData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -1060,7 +1060,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="name"> Name of the static site. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, or <paramref name="name"/> is null. </exception>
-        public async Task<Response<StaticSiteBuildCollection>> GetStaticSiteBuildsAsync(string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
+        public async Task<Response<Models.StaticSiteBuildCollection>> GetStaticSiteBuildsAsync(string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -1081,9 +1081,9 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        StaticSiteBuildCollection value = default;
+                        Models.StaticSiteBuildCollection value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = StaticSiteBuildCollection.DeserializeStaticSiteBuildCollection(document.RootElement);
+                        value = Models.StaticSiteBuildCollection.DeserializeStaticSiteBuildCollection(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -1097,7 +1097,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="name"> Name of the static site. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, or <paramref name="name"/> is null. </exception>
-        public Response<StaticSiteBuildCollection> GetStaticSiteBuilds(string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
+        public Response<Models.StaticSiteBuildCollection> GetStaticSiteBuilds(string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -1118,9 +1118,9 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        StaticSiteBuildCollection value = default;
+                        Models.StaticSiteBuildCollection value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = StaticSiteBuildCollection.DeserializeStaticSiteBuildCollection(document.RootElement);
+                        value = Models.StaticSiteBuildCollection.DeserializeStaticSiteBuildCollection(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -1157,7 +1157,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="environmentName"> The stage site identifier. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, or <paramref name="environmentName"/> is null. </exception>
-        public async Task<Response<StaticSiteBuildARMResourceData>> GetStaticSiteBuildAsync(string subscriptionId, string resourceGroupName, string name, string environmentName, CancellationToken cancellationToken = default)
+        public async Task<Response<StaticSiteBuildData>> GetStaticSiteBuildAsync(string subscriptionId, string resourceGroupName, string name, string environmentName, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -1182,13 +1182,13 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        StaticSiteBuildARMResourceData value = default;
+                        StaticSiteBuildData value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = StaticSiteBuildARMResourceData.DeserializeStaticSiteBuildARMResourceData(document.RootElement);
+                        value = StaticSiteBuildData.DeserializeStaticSiteBuildData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 case 404:
-                    return Response.FromValue((StaticSiteBuildARMResourceData)null, message.Response);
+                    return Response.FromValue((StaticSiteBuildData)null, message.Response);
                 default:
                     throw await _clientDiagnostics.CreateRequestFailedExceptionAsync(message.Response).ConfigureAwait(false);
             }
@@ -1201,7 +1201,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="environmentName"> The stage site identifier. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, or <paramref name="environmentName"/> is null. </exception>
-        public Response<StaticSiteBuildARMResourceData> GetStaticSiteBuild(string subscriptionId, string resourceGroupName, string name, string environmentName, CancellationToken cancellationToken = default)
+        public Response<StaticSiteBuildData> GetStaticSiteBuild(string subscriptionId, string resourceGroupName, string name, string environmentName, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -1226,13 +1226,13 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        StaticSiteBuildARMResourceData value = default;
+                        StaticSiteBuildData value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = StaticSiteBuildARMResourceData.DeserializeStaticSiteBuildARMResourceData(document.RootElement);
+                        value = StaticSiteBuildData.DeserializeStaticSiteBuildData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 case 404:
-                    return Response.FromValue((StaticSiteBuildARMResourceData)null, message.Response);
+                    return Response.FromValue((StaticSiteBuildData)null, message.Response);
                 default:
                     throw _clientDiagnostics.CreateRequestFailedException(message.Response);
             }
@@ -2837,7 +2837,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="name"> Name of the static site resource to search in. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, or <paramref name="name"/> is null. </exception>
-        public async Task<Response<StaticSiteCustomDomainOverviewCollection>> ListStaticSiteCustomDomainsAsync(string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
+        public async Task<Response<Models.StaticSiteCustomDomainOverviewCollection>> ListStaticSiteCustomDomainsAsync(string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -2858,9 +2858,9 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        StaticSiteCustomDomainOverviewCollection value = default;
+                        Models.StaticSiteCustomDomainOverviewCollection value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = StaticSiteCustomDomainOverviewCollection.DeserializeStaticSiteCustomDomainOverviewCollection(document.RootElement);
+                        value = Models.StaticSiteCustomDomainOverviewCollection.DeserializeStaticSiteCustomDomainOverviewCollection(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -2874,7 +2874,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="name"> Name of the static site resource to search in. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, or <paramref name="name"/> is null. </exception>
-        public Response<StaticSiteCustomDomainOverviewCollection> ListStaticSiteCustomDomains(string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
+        public Response<Models.StaticSiteCustomDomainOverviewCollection> ListStaticSiteCustomDomains(string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -2895,9 +2895,9 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        StaticSiteCustomDomainOverviewCollection value = default;
+                        Models.StaticSiteCustomDomainOverviewCollection value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = StaticSiteCustomDomainOverviewCollection.DeserializeStaticSiteCustomDomainOverviewCollection(document.RootElement);
+                        value = Models.StaticSiteCustomDomainOverviewCollection.DeserializeStaticSiteCustomDomainOverviewCollection(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -2934,7 +2934,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="domainName"> The custom domain name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, or <paramref name="domainName"/> is null. </exception>
-        public async Task<Response<StaticSiteCustomDomainOverviewARMResourceData>> GetStaticSiteCustomDomainAsync(string subscriptionId, string resourceGroupName, string name, string domainName, CancellationToken cancellationToken = default)
+        public async Task<Response<StaticSiteCustomDomainOverviewData>> GetStaticSiteCustomDomainAsync(string subscriptionId, string resourceGroupName, string name, string domainName, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -2959,13 +2959,13 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        StaticSiteCustomDomainOverviewARMResourceData value = default;
+                        StaticSiteCustomDomainOverviewData value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = StaticSiteCustomDomainOverviewARMResourceData.DeserializeStaticSiteCustomDomainOverviewARMResourceData(document.RootElement);
+                        value = StaticSiteCustomDomainOverviewData.DeserializeStaticSiteCustomDomainOverviewData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 case 404:
-                    return Response.FromValue((StaticSiteCustomDomainOverviewARMResourceData)null, message.Response);
+                    return Response.FromValue((StaticSiteCustomDomainOverviewData)null, message.Response);
                 default:
                     throw await _clientDiagnostics.CreateRequestFailedExceptionAsync(message.Response).ConfigureAwait(false);
             }
@@ -2978,7 +2978,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="domainName"> The custom domain name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, or <paramref name="domainName"/> is null. </exception>
-        public Response<StaticSiteCustomDomainOverviewARMResourceData> GetStaticSiteCustomDomain(string subscriptionId, string resourceGroupName, string name, string domainName, CancellationToken cancellationToken = default)
+        public Response<StaticSiteCustomDomainOverviewData> GetStaticSiteCustomDomain(string subscriptionId, string resourceGroupName, string name, string domainName, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -3003,13 +3003,13 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        StaticSiteCustomDomainOverviewARMResourceData value = default;
+                        StaticSiteCustomDomainOverviewData value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = StaticSiteCustomDomainOverviewARMResourceData.DeserializeStaticSiteCustomDomainOverviewARMResourceData(document.RootElement);
+                        value = StaticSiteCustomDomainOverviewData.DeserializeStaticSiteCustomDomainOverviewData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 case 404:
-                    return Response.FromValue((StaticSiteCustomDomainOverviewARMResourceData)null, message.Response);
+                    return Response.FromValue((StaticSiteCustomDomainOverviewData)null, message.Response);
                 default:
                     throw _clientDiagnostics.CreateRequestFailedException(message.Response);
             }
@@ -5052,7 +5052,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="subscriptionId"> Your Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/> or <paramref name="subscriptionId"/> is null. </exception>
-        public async Task<Response<StaticSiteCollection>> ListNextPageAsync(string nextLink, string subscriptionId, CancellationToken cancellationToken = default)
+        public async Task<Response<Models.StaticSiteCollection>> ListNextPageAsync(string nextLink, string subscriptionId, CancellationToken cancellationToken = default)
         {
             if (nextLink == null)
             {
@@ -5069,9 +5069,9 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        StaticSiteCollection value = default;
+                        Models.StaticSiteCollection value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = StaticSiteCollection.DeserializeStaticSiteCollection(document.RootElement);
+                        value = Models.StaticSiteCollection.DeserializeStaticSiteCollection(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -5084,7 +5084,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="subscriptionId"> Your Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/> or <paramref name="subscriptionId"/> is null. </exception>
-        public Response<StaticSiteCollection> ListNextPage(string nextLink, string subscriptionId, CancellationToken cancellationToken = default)
+        public Response<Models.StaticSiteCollection> ListNextPage(string nextLink, string subscriptionId, CancellationToken cancellationToken = default)
         {
             if (nextLink == null)
             {
@@ -5101,9 +5101,9 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        StaticSiteCollection value = default;
+                        Models.StaticSiteCollection value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = StaticSiteCollection.DeserializeStaticSiteCollection(document.RootElement);
+                        value = Models.StaticSiteCollection.DeserializeStaticSiteCollection(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -5131,7 +5131,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="resourceGroupName"> Name of the resource group to which the resource belongs. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="subscriptionId"/>, or <paramref name="resourceGroupName"/> is null. </exception>
-        public async Task<Response<StaticSiteCollection>> GetStaticSitesByResourceGroupNextPageAsync(string nextLink, string subscriptionId, string resourceGroupName, CancellationToken cancellationToken = default)
+        public async Task<Response<Models.StaticSiteCollection>> GetStaticSitesByResourceGroupNextPageAsync(string nextLink, string subscriptionId, string resourceGroupName, CancellationToken cancellationToken = default)
         {
             if (nextLink == null)
             {
@@ -5152,9 +5152,9 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        StaticSiteCollection value = default;
+                        Models.StaticSiteCollection value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = StaticSiteCollection.DeserializeStaticSiteCollection(document.RootElement);
+                        value = Models.StaticSiteCollection.DeserializeStaticSiteCollection(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -5168,7 +5168,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="resourceGroupName"> Name of the resource group to which the resource belongs. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="subscriptionId"/>, or <paramref name="resourceGroupName"/> is null. </exception>
-        public Response<StaticSiteCollection> GetStaticSitesByResourceGroupNextPage(string nextLink, string subscriptionId, string resourceGroupName, CancellationToken cancellationToken = default)
+        public Response<Models.StaticSiteCollection> GetStaticSitesByResourceGroupNextPage(string nextLink, string subscriptionId, string resourceGroupName, CancellationToken cancellationToken = default)
         {
             if (nextLink == null)
             {
@@ -5189,9 +5189,9 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        StaticSiteCollection value = default;
+                        Models.StaticSiteCollection value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = StaticSiteCollection.DeserializeStaticSiteCollection(document.RootElement);
+                        value = Models.StaticSiteCollection.DeserializeStaticSiteCollection(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -5328,7 +5328,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="name"> Name of the static site. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, or <paramref name="name"/> is null. </exception>
-        public async Task<Response<StaticSiteBuildCollection>> GetStaticSiteBuildsNextPageAsync(string nextLink, string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
+        public async Task<Response<Models.StaticSiteBuildCollection>> GetStaticSiteBuildsNextPageAsync(string nextLink, string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
         {
             if (nextLink == null)
             {
@@ -5353,9 +5353,9 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        StaticSiteBuildCollection value = default;
+                        Models.StaticSiteBuildCollection value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = StaticSiteBuildCollection.DeserializeStaticSiteBuildCollection(document.RootElement);
+                        value = Models.StaticSiteBuildCollection.DeserializeStaticSiteBuildCollection(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -5370,7 +5370,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="name"> Name of the static site. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, or <paramref name="name"/> is null. </exception>
-        public Response<StaticSiteBuildCollection> GetStaticSiteBuildsNextPage(string nextLink, string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
+        public Response<Models.StaticSiteBuildCollection> GetStaticSiteBuildsNextPage(string nextLink, string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
         {
             if (nextLink == null)
             {
@@ -5395,9 +5395,9 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        StaticSiteBuildCollection value = default;
+                        Models.StaticSiteBuildCollection value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = StaticSiteBuildCollection.DeserializeStaticSiteBuildCollection(document.RootElement);
+                        value = Models.StaticSiteBuildCollection.DeserializeStaticSiteBuildCollection(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -5642,7 +5642,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="name"> Name of the static site resource to search in. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, or <paramref name="name"/> is null. </exception>
-        public async Task<Response<StaticSiteCustomDomainOverviewCollection>> ListStaticSiteCustomDomainsNextPageAsync(string nextLink, string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
+        public async Task<Response<Models.StaticSiteCustomDomainOverviewCollection>> ListStaticSiteCustomDomainsNextPageAsync(string nextLink, string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
         {
             if (nextLink == null)
             {
@@ -5667,9 +5667,9 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        StaticSiteCustomDomainOverviewCollection value = default;
+                        Models.StaticSiteCustomDomainOverviewCollection value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = StaticSiteCustomDomainOverviewCollection.DeserializeStaticSiteCustomDomainOverviewCollection(document.RootElement);
+                        value = Models.StaticSiteCustomDomainOverviewCollection.DeserializeStaticSiteCustomDomainOverviewCollection(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -5684,7 +5684,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="name"> Name of the static site resource to search in. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, or <paramref name="name"/> is null. </exception>
-        public Response<StaticSiteCustomDomainOverviewCollection> ListStaticSiteCustomDomainsNextPage(string nextLink, string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
+        public Response<Models.StaticSiteCustomDomainOverviewCollection> ListStaticSiteCustomDomainsNextPage(string nextLink, string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
         {
             if (nextLink == null)
             {
@@ -5709,9 +5709,9 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        StaticSiteCustomDomainOverviewCollection value = default;
+                        Models.StaticSiteCustomDomainOverviewCollection value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = StaticSiteCustomDomainOverviewCollection.DeserializeStaticSiteCustomDomainOverviewCollection(document.RootElement);
+                        value = Models.StaticSiteCustomDomainOverviewCollection.DeserializeStaticSiteCustomDomainOverviewCollection(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:

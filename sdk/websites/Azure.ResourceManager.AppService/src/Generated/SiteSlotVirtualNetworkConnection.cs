@@ -24,7 +24,7 @@ namespace Azure.ResourceManager.AppService
     {
         private readonly ClientDiagnostics _clientDiagnostics;
         private readonly WebAppsRestOperations _webAppsRestClient;
-        private readonly VnetInfoResourceData _data;
+        private readonly VnetInfoData _data;
 
         /// <summary> Initializes a new instance of the <see cref="SiteSlotVirtualNetworkConnection"/> class for mocking. </summary>
         protected SiteSlotVirtualNetworkConnection()
@@ -34,7 +34,7 @@ namespace Azure.ResourceManager.AppService
         /// <summary> Initializes a new instance of the <see cref = "SiteSlotVirtualNetworkConnection"/> class. </summary>
         /// <param name="options"> The client parameters to use in these operations. </param>
         /// <param name="resource"> The resource that is the target of operations. </param>
-        internal SiteSlotVirtualNetworkConnection(ArmResource options, VnetInfoResourceData resource) : base(options, resource.Id)
+        internal SiteSlotVirtualNetworkConnection(ArmResource options, VnetInfoData resource) : base(options, resource.Id)
         {
             HasData = true;
             _data = resource;
@@ -74,7 +74,7 @@ namespace Azure.ResourceManager.AppService
 
         /// <summary> Gets the data representing this Feature. </summary>
         /// <exception cref="InvalidOperationException"> Throws if there is no data loaded in the current instance. </exception>
-        public virtual VnetInfoResourceData Data
+        public virtual VnetInfoData Data
         {
             get
             {
@@ -203,7 +203,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="connectionEnvelope"> Properties of the Virtual Network connection. See example. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="connectionEnvelope"/> is null. </exception>
-        public async virtual Task<Response<SiteSlotVirtualNetworkConnection>> UpdateAsync(VnetInfoResourceData connectionEnvelope, CancellationToken cancellationToken = default)
+        public async virtual Task<Response<SiteSlotVirtualNetworkConnection>> UpdateAsync(VnetInfoData connectionEnvelope, CancellationToken cancellationToken = default)
         {
             if (connectionEnvelope == null)
             {
@@ -231,7 +231,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="connectionEnvelope"> Properties of the Virtual Network connection. See example. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="connectionEnvelope"/> is null. </exception>
-        public virtual Response<SiteSlotVirtualNetworkConnection> Update(VnetInfoResourceData connectionEnvelope, CancellationToken cancellationToken = default)
+        public virtual Response<SiteSlotVirtualNetworkConnection> Update(VnetInfoData connectionEnvelope, CancellationToken cancellationToken = default)
         {
             if (connectionEnvelope == null)
             {

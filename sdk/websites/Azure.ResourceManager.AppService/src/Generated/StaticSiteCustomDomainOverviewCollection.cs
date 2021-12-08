@@ -20,28 +20,28 @@ using Azure.ResourceManager.Core;
 
 namespace Azure.ResourceManager.AppService
 {
-    /// <summary> A class representing collection of StaticSiteCustomDomainOverviewARMResource and their operations over its parent. </summary>
-    public partial class StaticSiteCustomDomainOverviewARMResourceCollection : ArmCollection, IEnumerable<StaticSiteCustomDomainOverviewARMResource>, IAsyncEnumerable<StaticSiteCustomDomainOverviewARMResource>
+    /// <summary> A class representing collection of StaticSiteCustomDomainOverview and their operations over its parent. </summary>
+    public partial class StaticSiteCustomDomainOverviewCollection : ArmCollection, IEnumerable<StaticSiteCustomDomainOverview>, IAsyncEnumerable<StaticSiteCustomDomainOverview>
 
     {
         private readonly ClientDiagnostics _clientDiagnostics;
         private readonly StaticSitesRestOperations _staticSitesRestClient;
 
-        /// <summary> Initializes a new instance of the <see cref="StaticSiteCustomDomainOverviewARMResourceCollection"/> class for mocking. </summary>
-        protected StaticSiteCustomDomainOverviewARMResourceCollection()
+        /// <summary> Initializes a new instance of the <see cref="StaticSiteCustomDomainOverviewCollection"/> class for mocking. </summary>
+        protected StaticSiteCustomDomainOverviewCollection()
         {
         }
 
-        /// <summary> Initializes a new instance of StaticSiteCustomDomainOverviewARMResourceCollection class. </summary>
+        /// <summary> Initializes a new instance of StaticSiteCustomDomainOverviewCollection class. </summary>
         /// <param name="parent"> The resource representing the parent resource. </param>
-        internal StaticSiteCustomDomainOverviewARMResourceCollection(ArmResource parent) : base(parent)
+        internal StaticSiteCustomDomainOverviewCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
             _staticSitesRestClient = new StaticSitesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
         }
 
         /// <summary> Gets the valid resource type for this object. </summary>
-        protected override ResourceType ValidResourceType => StaticSiteARMResource.ResourceType;
+        protected override ResourceType ValidResourceType => StaticSite.ResourceType;
 
         // Collection level operations.
 
@@ -65,7 +65,7 @@ namespace Azure.ResourceManager.AppService
                 throw new ArgumentNullException(nameof(staticSiteCustomDomainRequestPropertiesEnvelope));
             }
 
-            using var scope = _clientDiagnostics.CreateScope("StaticSiteCustomDomainOverviewARMResourceCollection.CreateOrUpdate");
+            using var scope = _clientDiagnostics.CreateScope("StaticSiteCustomDomainOverviewCollection.CreateOrUpdate");
             scope.Start();
             try
             {
@@ -102,7 +102,7 @@ namespace Azure.ResourceManager.AppService
                 throw new ArgumentNullException(nameof(staticSiteCustomDomainRequestPropertiesEnvelope));
             }
 
-            using var scope = _clientDiagnostics.CreateScope("StaticSiteCustomDomainOverviewARMResourceCollection.CreateOrUpdate");
+            using var scope = _clientDiagnostics.CreateScope("StaticSiteCustomDomainOverviewCollection.CreateOrUpdate");
             scope.Start();
             try
             {
@@ -126,21 +126,21 @@ namespace Azure.ResourceManager.AppService
         /// <param name="domainName"> The custom domain name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="domainName"/> is null. </exception>
-        public virtual Response<StaticSiteCustomDomainOverviewARMResource> Get(string domainName, CancellationToken cancellationToken = default)
+        public virtual Response<StaticSiteCustomDomainOverview> Get(string domainName, CancellationToken cancellationToken = default)
         {
             if (domainName == null)
             {
                 throw new ArgumentNullException(nameof(domainName));
             }
 
-            using var scope = _clientDiagnostics.CreateScope("StaticSiteCustomDomainOverviewARMResourceCollection.Get");
+            using var scope = _clientDiagnostics.CreateScope("StaticSiteCustomDomainOverviewCollection.Get");
             scope.Start();
             try
             {
                 var response = _staticSitesRestClient.GetStaticSiteCustomDomain(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, domainName, cancellationToken);
                 if (response.Value == null)
                     throw _clientDiagnostics.CreateRequestFailedException(response.GetRawResponse());
-                return Response.FromValue(new StaticSiteCustomDomainOverviewARMResource(Parent, response.Value), response.GetRawResponse());
+                return Response.FromValue(new StaticSiteCustomDomainOverview(Parent, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
             {
@@ -156,21 +156,21 @@ namespace Azure.ResourceManager.AppService
         /// <param name="domainName"> The custom domain name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="domainName"/> is null. </exception>
-        public async virtual Task<Response<StaticSiteCustomDomainOverviewARMResource>> GetAsync(string domainName, CancellationToken cancellationToken = default)
+        public async virtual Task<Response<StaticSiteCustomDomainOverview>> GetAsync(string domainName, CancellationToken cancellationToken = default)
         {
             if (domainName == null)
             {
                 throw new ArgumentNullException(nameof(domainName));
             }
 
-            using var scope = _clientDiagnostics.CreateScope("StaticSiteCustomDomainOverviewARMResourceCollection.Get");
+            using var scope = _clientDiagnostics.CreateScope("StaticSiteCustomDomainOverviewCollection.Get");
             scope.Start();
             try
             {
                 var response = await _staticSitesRestClient.GetStaticSiteCustomDomainAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, domainName, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw await _clientDiagnostics.CreateRequestFailedExceptionAsync(response.GetRawResponse()).ConfigureAwait(false);
-                return Response.FromValue(new StaticSiteCustomDomainOverviewARMResource(Parent, response.Value), response.GetRawResponse());
+                return Response.FromValue(new StaticSiteCustomDomainOverview(Parent, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
             {
@@ -183,21 +183,21 @@ namespace Azure.ResourceManager.AppService
         /// <param name="domainName"> The custom domain name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="domainName"/> is null. </exception>
-        public virtual Response<StaticSiteCustomDomainOverviewARMResource> GetIfExists(string domainName, CancellationToken cancellationToken = default)
+        public virtual Response<StaticSiteCustomDomainOverview> GetIfExists(string domainName, CancellationToken cancellationToken = default)
         {
             if (domainName == null)
             {
                 throw new ArgumentNullException(nameof(domainName));
             }
 
-            using var scope = _clientDiagnostics.CreateScope("StaticSiteCustomDomainOverviewARMResourceCollection.GetIfExists");
+            using var scope = _clientDiagnostics.CreateScope("StaticSiteCustomDomainOverviewCollection.GetIfExists");
             scope.Start();
             try
             {
                 var response = _staticSitesRestClient.GetStaticSiteCustomDomain(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, domainName, cancellationToken: cancellationToken);
                 return response.Value == null
-                    ? Response.FromValue<StaticSiteCustomDomainOverviewARMResource>(null, response.GetRawResponse())
-                    : Response.FromValue(new StaticSiteCustomDomainOverviewARMResource(this, response.Value), response.GetRawResponse());
+                    ? Response.FromValue<StaticSiteCustomDomainOverview>(null, response.GetRawResponse())
+                    : Response.FromValue(new StaticSiteCustomDomainOverview(this, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
             {
@@ -210,21 +210,21 @@ namespace Azure.ResourceManager.AppService
         /// <param name="domainName"> The custom domain name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="domainName"/> is null. </exception>
-        public async virtual Task<Response<StaticSiteCustomDomainOverviewARMResource>> GetIfExistsAsync(string domainName, CancellationToken cancellationToken = default)
+        public async virtual Task<Response<StaticSiteCustomDomainOverview>> GetIfExistsAsync(string domainName, CancellationToken cancellationToken = default)
         {
             if (domainName == null)
             {
                 throw new ArgumentNullException(nameof(domainName));
             }
 
-            using var scope = _clientDiagnostics.CreateScope("StaticSiteCustomDomainOverviewARMResourceCollection.GetIfExistsAsync");
+            using var scope = _clientDiagnostics.CreateScope("StaticSiteCustomDomainOverviewCollection.GetIfExistsAsync");
             scope.Start();
             try
             {
                 var response = await _staticSitesRestClient.GetStaticSiteCustomDomainAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, domainName, cancellationToken: cancellationToken).ConfigureAwait(false);
                 return response.Value == null
-                    ? Response.FromValue<StaticSiteCustomDomainOverviewARMResource>(null, response.GetRawResponse())
-                    : Response.FromValue(new StaticSiteCustomDomainOverviewARMResource(this, response.Value), response.GetRawResponse());
+                    ? Response.FromValue<StaticSiteCustomDomainOverview>(null, response.GetRawResponse())
+                    : Response.FromValue(new StaticSiteCustomDomainOverview(this, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
             {
@@ -244,7 +244,7 @@ namespace Azure.ResourceManager.AppService
                 throw new ArgumentNullException(nameof(domainName));
             }
 
-            using var scope = _clientDiagnostics.CreateScope("StaticSiteCustomDomainOverviewARMResourceCollection.CheckIfExists");
+            using var scope = _clientDiagnostics.CreateScope("StaticSiteCustomDomainOverviewCollection.CheckIfExists");
             scope.Start();
             try
             {
@@ -269,7 +269,7 @@ namespace Azure.ResourceManager.AppService
                 throw new ArgumentNullException(nameof(domainName));
             }
 
-            using var scope = _clientDiagnostics.CreateScope("StaticSiteCustomDomainOverviewARMResourceCollection.CheckIfExistsAsync");
+            using var scope = _clientDiagnostics.CreateScope("StaticSiteCustomDomainOverviewCollection.CheckIfExistsAsync");
             scope.Start();
             try
             {
@@ -288,17 +288,17 @@ namespace Azure.ResourceManager.AppService
         /// OperationId: StaticSites_ListStaticSiteCustomDomains
         /// <summary> Description for Gets all static site custom domains for a particular static site. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="StaticSiteCustomDomainOverviewARMResource" /> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<StaticSiteCustomDomainOverviewARMResource> GetAll(CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="StaticSiteCustomDomainOverview" /> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<StaticSiteCustomDomainOverview> GetAll(CancellationToken cancellationToken = default)
         {
-            Page<StaticSiteCustomDomainOverviewARMResource> FirstPageFunc(int? pageSizeHint)
+            Page<StaticSiteCustomDomainOverview> FirstPageFunc(int? pageSizeHint)
             {
-                using var scope = _clientDiagnostics.CreateScope("StaticSiteCustomDomainOverviewARMResourceCollection.GetAll");
+                using var scope = _clientDiagnostics.CreateScope("StaticSiteCustomDomainOverviewCollection.GetAll");
                 scope.Start();
                 try
                 {
                     var response = _staticSitesRestClient.ListStaticSiteCustomDomains(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken: cancellationToken);
-                    return Page.FromValues(response.Value.Value.Select(value => new StaticSiteCustomDomainOverviewARMResource(Parent, value)), response.Value.NextLink, response.GetRawResponse());
+                    return Page.FromValues(response.Value.Value.Select(value => new StaticSiteCustomDomainOverview(Parent, value)), response.Value.NextLink, response.GetRawResponse());
                 }
                 catch (Exception e)
                 {
@@ -306,14 +306,14 @@ namespace Azure.ResourceManager.AppService
                     throw;
                 }
             }
-            Page<StaticSiteCustomDomainOverviewARMResource> NextPageFunc(string nextLink, int? pageSizeHint)
+            Page<StaticSiteCustomDomainOverview> NextPageFunc(string nextLink, int? pageSizeHint)
             {
-                using var scope = _clientDiagnostics.CreateScope("StaticSiteCustomDomainOverviewARMResourceCollection.GetAll");
+                using var scope = _clientDiagnostics.CreateScope("StaticSiteCustomDomainOverviewCollection.GetAll");
                 scope.Start();
                 try
                 {
                     var response = _staticSitesRestClient.ListStaticSiteCustomDomainsNextPage(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken: cancellationToken);
-                    return Page.FromValues(response.Value.Value.Select(value => new StaticSiteCustomDomainOverviewARMResource(Parent, value)), response.Value.NextLink, response.GetRawResponse());
+                    return Page.FromValues(response.Value.Value.Select(value => new StaticSiteCustomDomainOverview(Parent, value)), response.Value.NextLink, response.GetRawResponse());
                 }
                 catch (Exception e)
                 {
@@ -329,17 +329,17 @@ namespace Azure.ResourceManager.AppService
         /// OperationId: StaticSites_ListStaticSiteCustomDomains
         /// <summary> Description for Gets all static site custom domains for a particular static site. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> An async collection of <see cref="StaticSiteCustomDomainOverviewARMResource" /> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<StaticSiteCustomDomainOverviewARMResource> GetAllAsync(CancellationToken cancellationToken = default)
+        /// <returns> An async collection of <see cref="StaticSiteCustomDomainOverview" /> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<StaticSiteCustomDomainOverview> GetAllAsync(CancellationToken cancellationToken = default)
         {
-            async Task<Page<StaticSiteCustomDomainOverviewARMResource>> FirstPageFunc(int? pageSizeHint)
+            async Task<Page<StaticSiteCustomDomainOverview>> FirstPageFunc(int? pageSizeHint)
             {
-                using var scope = _clientDiagnostics.CreateScope("StaticSiteCustomDomainOverviewARMResourceCollection.GetAll");
+                using var scope = _clientDiagnostics.CreateScope("StaticSiteCustomDomainOverviewCollection.GetAll");
                 scope.Start();
                 try
                 {
                     var response = await _staticSitesRestClient.ListStaticSiteCustomDomainsAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken: cancellationToken).ConfigureAwait(false);
-                    return Page.FromValues(response.Value.Value.Select(value => new StaticSiteCustomDomainOverviewARMResource(Parent, value)), response.Value.NextLink, response.GetRawResponse());
+                    return Page.FromValues(response.Value.Value.Select(value => new StaticSiteCustomDomainOverview(Parent, value)), response.Value.NextLink, response.GetRawResponse());
                 }
                 catch (Exception e)
                 {
@@ -347,14 +347,14 @@ namespace Azure.ResourceManager.AppService
                     throw;
                 }
             }
-            async Task<Page<StaticSiteCustomDomainOverviewARMResource>> NextPageFunc(string nextLink, int? pageSizeHint)
+            async Task<Page<StaticSiteCustomDomainOverview>> NextPageFunc(string nextLink, int? pageSizeHint)
             {
-                using var scope = _clientDiagnostics.CreateScope("StaticSiteCustomDomainOverviewARMResourceCollection.GetAll");
+                using var scope = _clientDiagnostics.CreateScope("StaticSiteCustomDomainOverviewCollection.GetAll");
                 scope.Start();
                 try
                 {
                     var response = await _staticSitesRestClient.ListStaticSiteCustomDomainsNextPageAsync(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken: cancellationToken).ConfigureAwait(false);
-                    return Page.FromValues(response.Value.Value.Select(value => new StaticSiteCustomDomainOverviewARMResource(Parent, value)), response.Value.NextLink, response.GetRawResponse());
+                    return Page.FromValues(response.Value.Value.Select(value => new StaticSiteCustomDomainOverview(Parent, value)), response.Value.NextLink, response.GetRawResponse());
                 }
                 catch (Exception e)
                 {
@@ -365,7 +365,7 @@ namespace Azure.ResourceManager.AppService
             return PageableHelpers.CreateAsyncEnumerable(FirstPageFunc, NextPageFunc);
         }
 
-        IEnumerator<StaticSiteCustomDomainOverviewARMResource> IEnumerable<StaticSiteCustomDomainOverviewARMResource>.GetEnumerator()
+        IEnumerator<StaticSiteCustomDomainOverview> IEnumerable<StaticSiteCustomDomainOverview>.GetEnumerator()
         {
             return GetAll().GetEnumerator();
         }
@@ -375,12 +375,12 @@ namespace Azure.ResourceManager.AppService
             return GetAll().GetEnumerator();
         }
 
-        IAsyncEnumerator<StaticSiteCustomDomainOverviewARMResource> IAsyncEnumerable<StaticSiteCustomDomainOverviewARMResource>.GetAsyncEnumerator(CancellationToken cancellationToken)
+        IAsyncEnumerator<StaticSiteCustomDomainOverview> IAsyncEnumerable<StaticSiteCustomDomainOverview>.GetAsyncEnumerator(CancellationToken cancellationToken)
         {
             return GetAllAsync(cancellationToken: cancellationToken).GetAsyncEnumerator(cancellationToken);
         }
 
         // Builders.
-        // public ArmBuilder<Azure.ResourceManager.ResourceIdentifier, StaticSiteCustomDomainOverviewARMResource, StaticSiteCustomDomainOverviewARMResourceData> Construct() { }
+        // public ArmBuilder<Azure.ResourceManager.ResourceIdentifier, StaticSiteCustomDomainOverview, StaticSiteCustomDomainOverviewData> Construct() { }
     }
 }

@@ -24,7 +24,7 @@ namespace Azure.ResourceManager.AppService
     {
         private readonly ClientDiagnostics _clientDiagnostics;
         private readonly AppServicePlansRestOperations _appServicePlansRestClient;
-        private readonly VnetInfoResourceData _data;
+        private readonly VnetInfoData _data;
 
         /// <summary> Initializes a new instance of the <see cref="ServerfarmVirtualNetworkConnection"/> class for mocking. </summary>
         protected ServerfarmVirtualNetworkConnection()
@@ -34,7 +34,7 @@ namespace Azure.ResourceManager.AppService
         /// <summary> Initializes a new instance of the <see cref = "ServerfarmVirtualNetworkConnection"/> class. </summary>
         /// <param name="options"> The client parameters to use in these operations. </param>
         /// <param name="resource"> The resource that is the target of operations. </param>
-        internal ServerfarmVirtualNetworkConnection(ArmResource options, VnetInfoResourceData resource) : base(options, resource.Id)
+        internal ServerfarmVirtualNetworkConnection(ArmResource options, VnetInfoData resource) : base(options, resource.Id)
         {
             HasData = true;
             _data = resource;
@@ -74,7 +74,7 @@ namespace Azure.ResourceManager.AppService
 
         /// <summary> Gets the data representing this Feature. </summary>
         /// <exception cref="InvalidOperationException"> Throws if there is no data loaded in the current instance. </exception>
-        public virtual VnetInfoResourceData Data
+        public virtual VnetInfoData Data
         {
             get
             {

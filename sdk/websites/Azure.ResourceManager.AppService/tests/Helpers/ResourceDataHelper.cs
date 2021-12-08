@@ -219,7 +219,7 @@ namespace Azure.ResourceManager.AppService.Tests.Helpers
         #endregion
 
         #region StaticSiteARMResourceData(StaticSiteRestOperation)
-        public static void AssertStaticSiteARMResourceData(StaticSiteARMResourceData ssrd1, StaticSiteARMResourceData ssrd2)
+        public static void AssertStaticSiteARMResourceData(StaticSiteData ssrd1, StaticSiteData ssrd2)
         {
             AssertTrackedResource(ssrd1, ssrd2);
             Assert.AreEqual(ssrd1.Branch, ssrd2.Branch);
@@ -227,9 +227,9 @@ namespace Azure.ResourceManager.AppService.Tests.Helpers
             Assert.AreEqual(ssrd1.Kind, ssrd2.Kind);
         }
 
-        public static StaticSiteARMResourceData GetBasicStaticSiteARMResourceData(Location location)
+        public static StaticSiteData GetBasicStaticSiteARMResourceData(Location location)
         {
-            var data = new StaticSiteARMResourceData(location)
+            var data = new StaticSiteData(location)
             {
                 Sku = new SkuDescription()
                 {

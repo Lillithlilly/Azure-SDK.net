@@ -25,7 +25,7 @@ namespace Azure.ResourceManager.AppService.Models
         {
         }
 
-        internal AppServiceEnvironmentUpdateMultiRolePoolOperation(ArmResource operationsBase, Response<WorkerPoolResourceData> response)
+        internal AppServiceEnvironmentUpdateMultiRolePoolOperation(ArmResource operationsBase, Response<WorkerPoolData> response)
         {
             _operation = new OperationOrResponseInternals<HostingEnvironmentMultiRolePool>(Response.FromValue(new HostingEnvironmentMultiRolePool(operationsBase, response.Value), response.GetRawResponse()));
         }

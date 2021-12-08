@@ -80,13 +80,13 @@ namespace Azure.ResourceManager.AppService
         }
         #endregion
 
-        #region StaticSiteARMResource
-        /// <summary> Gets an object representing a StaticSiteARMResourceCollection along with the instance operations that can be performed on it. </summary>
+        #region StaticSite
+        /// <summary> Gets an object representing a StaticSiteCollection along with the instance operations that can be performed on it. </summary>
         /// <param name="resourceGroup"> The <see cref="ResourceGroup" /> instance the method will execute against. </param>
-        /// <returns> Returns a <see cref="StaticSiteARMResourceCollection" /> object. </returns>
-        public static StaticSiteARMResourceCollection GetStaticSiteARMResources(this ResourceGroup resourceGroup)
+        /// <returns> Returns a <see cref="StaticSiteCollection" /> object. </returns>
+        public static StaticSiteCollection GetStaticSites(this ResourceGroup resourceGroup)
         {
-            return new StaticSiteARMResourceCollection(resourceGroup);
+            return new StaticSiteCollection(resourceGroup);
         }
         #endregion
 

@@ -4506,7 +4506,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="name"> Name of the app. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, or <paramref name="name"/> is null. </exception>
-        public async Task<Response<SlotConfigNamesResourceData>> ListSlotConfigurationNamesAsync(string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
+        public async Task<Response<SlotConfigNamesData>> ListSlotConfigurationNamesAsync(string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -4527,13 +4527,13 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        SlotConfigNamesResourceData value = default;
+                        SlotConfigNamesData value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = SlotConfigNamesResourceData.DeserializeSlotConfigNamesResourceData(document.RootElement);
+                        value = SlotConfigNamesData.DeserializeSlotConfigNamesData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 case 404:
-                    return Response.FromValue((SlotConfigNamesResourceData)null, message.Response);
+                    return Response.FromValue((SlotConfigNamesData)null, message.Response);
                 default:
                     throw await _clientDiagnostics.CreateRequestFailedExceptionAsync(message.Response).ConfigureAwait(false);
             }
@@ -4545,7 +4545,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="name"> Name of the app. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, or <paramref name="name"/> is null. </exception>
-        public Response<SlotConfigNamesResourceData> ListSlotConfigurationNames(string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
+        public Response<SlotConfigNamesData> ListSlotConfigurationNames(string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -4566,19 +4566,19 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        SlotConfigNamesResourceData value = default;
+                        SlotConfigNamesData value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = SlotConfigNamesResourceData.DeserializeSlotConfigNamesResourceData(document.RootElement);
+                        value = SlotConfigNamesData.DeserializeSlotConfigNamesData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 case 404:
-                    return Response.FromValue((SlotConfigNamesResourceData)null, message.Response);
+                    return Response.FromValue((SlotConfigNamesData)null, message.Response);
                 default:
                     throw _clientDiagnostics.CreateRequestFailedException(message.Response);
             }
         }
 
-        internal HttpMessage CreateUpdateSlotConfigurationNamesRequest(string subscriptionId, string resourceGroupName, string name, SlotConfigNamesResourceData slotConfigNames)
+        internal HttpMessage CreateUpdateSlotConfigurationNamesRequest(string subscriptionId, string resourceGroupName, string name, SlotConfigNamesData slotConfigNames)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -4610,7 +4610,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="slotConfigNames"> Names of application settings and connection strings. See example. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, or <paramref name="slotConfigNames"/> is null. </exception>
-        public async Task<Response<SlotConfigNamesResourceData>> UpdateSlotConfigurationNamesAsync(string subscriptionId, string resourceGroupName, string name, SlotConfigNamesResourceData slotConfigNames, CancellationToken cancellationToken = default)
+        public async Task<Response<SlotConfigNamesData>> UpdateSlotConfigurationNamesAsync(string subscriptionId, string resourceGroupName, string name, SlotConfigNamesData slotConfigNames, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -4635,9 +4635,9 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        SlotConfigNamesResourceData value = default;
+                        SlotConfigNamesData value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = SlotConfigNamesResourceData.DeserializeSlotConfigNamesResourceData(document.RootElement);
+                        value = SlotConfigNamesData.DeserializeSlotConfigNamesData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -4652,7 +4652,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="slotConfigNames"> Names of application settings and connection strings. See example. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, or <paramref name="slotConfigNames"/> is null. </exception>
-        public Response<SlotConfigNamesResourceData> UpdateSlotConfigurationNames(string subscriptionId, string resourceGroupName, string name, SlotConfigNamesResourceData slotConfigNames, CancellationToken cancellationToken = default)
+        public Response<SlotConfigNamesData> UpdateSlotConfigurationNames(string subscriptionId, string resourceGroupName, string name, SlotConfigNamesData slotConfigNames, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -4677,9 +4677,9 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        SlotConfigNamesResourceData value = default;
+                        SlotConfigNamesData value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = SlotConfigNamesResourceData.DeserializeSlotConfigNamesResourceData(document.RootElement);
+                        value = SlotConfigNamesData.DeserializeSlotConfigNamesData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -38711,7 +38711,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="slot"> Name of the deployment slot. If a slot is not specified, the API will get virtual network connections for the production slot. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, or <paramref name="slot"/> is null. </exception>
-        public async Task<Response<IReadOnlyList<VnetInfoResourceData>>> ListVnetConnectionsSlotAsync(string subscriptionId, string resourceGroupName, string name, string slot, CancellationToken cancellationToken = default)
+        public async Task<Response<IReadOnlyList<VnetInfoData>>> ListVnetConnectionsSlotAsync(string subscriptionId, string resourceGroupName, string name, string slot, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -38736,12 +38736,12 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        IReadOnlyList<VnetInfoResourceData> value = default;
+                        IReadOnlyList<VnetInfoData> value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        List<VnetInfoResourceData> array = new List<VnetInfoResourceData>();
+                        List<VnetInfoData> array = new List<VnetInfoData>();
                         foreach (var item in document.RootElement.EnumerateArray())
                         {
-                            array.Add(VnetInfoResourceData.DeserializeVnetInfoResourceData(item));
+                            array.Add(VnetInfoData.DeserializeVnetInfoData(item));
                         }
                         value = array;
                         return Response.FromValue(value, message.Response);
@@ -38758,7 +38758,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="slot"> Name of the deployment slot. If a slot is not specified, the API will get virtual network connections for the production slot. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, or <paramref name="slot"/> is null. </exception>
-        public Response<IReadOnlyList<VnetInfoResourceData>> ListVnetConnectionsSlot(string subscriptionId, string resourceGroupName, string name, string slot, CancellationToken cancellationToken = default)
+        public Response<IReadOnlyList<VnetInfoData>> ListVnetConnectionsSlot(string subscriptionId, string resourceGroupName, string name, string slot, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -38783,12 +38783,12 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        IReadOnlyList<VnetInfoResourceData> value = default;
+                        IReadOnlyList<VnetInfoData> value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        List<VnetInfoResourceData> array = new List<VnetInfoResourceData>();
+                        List<VnetInfoData> array = new List<VnetInfoData>();
                         foreach (var item in document.RootElement.EnumerateArray())
                         {
-                            array.Add(VnetInfoResourceData.DeserializeVnetInfoResourceData(item));
+                            array.Add(VnetInfoData.DeserializeVnetInfoData(item));
                         }
                         value = array;
                         return Response.FromValue(value, message.Response);
@@ -38830,7 +38830,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="vnetName"> Name of the virtual network. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, <paramref name="slot"/>, or <paramref name="vnetName"/> is null. </exception>
-        public async Task<Response<VnetInfoResourceData>> GetVnetConnectionSlotAsync(string subscriptionId, string resourceGroupName, string name, string slot, string vnetName, CancellationToken cancellationToken = default)
+        public async Task<Response<VnetInfoData>> GetVnetConnectionSlotAsync(string subscriptionId, string resourceGroupName, string name, string slot, string vnetName, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -38859,13 +38859,13 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        VnetInfoResourceData value = default;
+                        VnetInfoData value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = VnetInfoResourceData.DeserializeVnetInfoResourceData(document.RootElement);
+                        value = VnetInfoData.DeserializeVnetInfoData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 case 404:
-                    return Response.FromValue((VnetInfoResourceData)null, message.Response);
+                    return Response.FromValue((VnetInfoData)null, message.Response);
                 default:
                     throw await _clientDiagnostics.CreateRequestFailedExceptionAsync(message.Response).ConfigureAwait(false);
             }
@@ -38879,7 +38879,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="vnetName"> Name of the virtual network. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, <paramref name="slot"/>, or <paramref name="vnetName"/> is null. </exception>
-        public Response<VnetInfoResourceData> GetVnetConnectionSlot(string subscriptionId, string resourceGroupName, string name, string slot, string vnetName, CancellationToken cancellationToken = default)
+        public Response<VnetInfoData> GetVnetConnectionSlot(string subscriptionId, string resourceGroupName, string name, string slot, string vnetName, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -38908,19 +38908,19 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        VnetInfoResourceData value = default;
+                        VnetInfoData value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = VnetInfoResourceData.DeserializeVnetInfoResourceData(document.RootElement);
+                        value = VnetInfoData.DeserializeVnetInfoData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 case 404:
-                    return Response.FromValue((VnetInfoResourceData)null, message.Response);
+                    return Response.FromValue((VnetInfoData)null, message.Response);
                 default:
                     throw _clientDiagnostics.CreateRequestFailedException(message.Response);
             }
         }
 
-        internal HttpMessage CreateCreateOrUpdateVnetConnectionSlotRequest(string subscriptionId, string resourceGroupName, string name, string slot, string vnetName, VnetInfoResourceData connectionEnvelope)
+        internal HttpMessage CreateCreateOrUpdateVnetConnectionSlotRequest(string subscriptionId, string resourceGroupName, string name, string slot, string vnetName, VnetInfoData connectionEnvelope)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -38957,7 +38957,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="connectionEnvelope"> Properties of the Virtual Network connection. See example. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, <paramref name="slot"/>, <paramref name="vnetName"/>, or <paramref name="connectionEnvelope"/> is null. </exception>
-        public async Task<Response<VnetInfoResourceData>> CreateOrUpdateVnetConnectionSlotAsync(string subscriptionId, string resourceGroupName, string name, string slot, string vnetName, VnetInfoResourceData connectionEnvelope, CancellationToken cancellationToken = default)
+        public async Task<Response<VnetInfoData>> CreateOrUpdateVnetConnectionSlotAsync(string subscriptionId, string resourceGroupName, string name, string slot, string vnetName, VnetInfoData connectionEnvelope, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -38990,9 +38990,9 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        VnetInfoResourceData value = default;
+                        VnetInfoData value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = VnetInfoResourceData.DeserializeVnetInfoResourceData(document.RootElement);
+                        value = VnetInfoData.DeserializeVnetInfoData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -39009,7 +39009,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="connectionEnvelope"> Properties of the Virtual Network connection. See example. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, <paramref name="slot"/>, <paramref name="vnetName"/>, or <paramref name="connectionEnvelope"/> is null. </exception>
-        public Response<VnetInfoResourceData> CreateOrUpdateVnetConnectionSlot(string subscriptionId, string resourceGroupName, string name, string slot, string vnetName, VnetInfoResourceData connectionEnvelope, CancellationToken cancellationToken = default)
+        public Response<VnetInfoData> CreateOrUpdateVnetConnectionSlot(string subscriptionId, string resourceGroupName, string name, string slot, string vnetName, VnetInfoData connectionEnvelope, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -39042,9 +39042,9 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        VnetInfoResourceData value = default;
+                        VnetInfoData value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = VnetInfoResourceData.DeserializeVnetInfoResourceData(document.RootElement);
+                        value = VnetInfoData.DeserializeVnetInfoData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -39160,7 +39160,7 @@ namespace Azure.ResourceManager.AppService
             }
         }
 
-        internal HttpMessage CreateUpdateVnetConnectionSlotRequest(string subscriptionId, string resourceGroupName, string name, string slot, string vnetName, VnetInfoResourceData connectionEnvelope)
+        internal HttpMessage CreateUpdateVnetConnectionSlotRequest(string subscriptionId, string resourceGroupName, string name, string slot, string vnetName, VnetInfoData connectionEnvelope)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -39197,7 +39197,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="connectionEnvelope"> Properties of the Virtual Network connection. See example. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, <paramref name="slot"/>, <paramref name="vnetName"/>, or <paramref name="connectionEnvelope"/> is null. </exception>
-        public async Task<Response<VnetInfoResourceData>> UpdateVnetConnectionSlotAsync(string subscriptionId, string resourceGroupName, string name, string slot, string vnetName, VnetInfoResourceData connectionEnvelope, CancellationToken cancellationToken = default)
+        public async Task<Response<VnetInfoData>> UpdateVnetConnectionSlotAsync(string subscriptionId, string resourceGroupName, string name, string slot, string vnetName, VnetInfoData connectionEnvelope, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -39230,9 +39230,9 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        VnetInfoResourceData value = default;
+                        VnetInfoData value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = VnetInfoResourceData.DeserializeVnetInfoResourceData(document.RootElement);
+                        value = VnetInfoData.DeserializeVnetInfoData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -39249,7 +39249,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="connectionEnvelope"> Properties of the Virtual Network connection. See example. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, <paramref name="slot"/>, <paramref name="vnetName"/>, or <paramref name="connectionEnvelope"/> is null. </exception>
-        public Response<VnetInfoResourceData> UpdateVnetConnectionSlot(string subscriptionId, string resourceGroupName, string name, string slot, string vnetName, VnetInfoResourceData connectionEnvelope, CancellationToken cancellationToken = default)
+        public Response<VnetInfoData> UpdateVnetConnectionSlot(string subscriptionId, string resourceGroupName, string name, string slot, string vnetName, VnetInfoData connectionEnvelope, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -39282,9 +39282,9 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        VnetInfoResourceData value = default;
+                        VnetInfoData value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = VnetInfoResourceData.DeserializeVnetInfoResourceData(document.RootElement);
+                        value = VnetInfoData.DeserializeVnetInfoData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -42044,7 +42044,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="name"> Name of the app. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, or <paramref name="name"/> is null. </exception>
-        public async Task<Response<IReadOnlyList<VnetInfoResourceData>>> ListVnetConnectionsAsync(string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
+        public async Task<Response<IReadOnlyList<VnetInfoData>>> ListVnetConnectionsAsync(string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -42065,12 +42065,12 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        IReadOnlyList<VnetInfoResourceData> value = default;
+                        IReadOnlyList<VnetInfoData> value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        List<VnetInfoResourceData> array = new List<VnetInfoResourceData>();
+                        List<VnetInfoData> array = new List<VnetInfoData>();
                         foreach (var item in document.RootElement.EnumerateArray())
                         {
-                            array.Add(VnetInfoResourceData.DeserializeVnetInfoResourceData(item));
+                            array.Add(VnetInfoData.DeserializeVnetInfoData(item));
                         }
                         value = array;
                         return Response.FromValue(value, message.Response);
@@ -42086,7 +42086,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="name"> Name of the app. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, or <paramref name="name"/> is null. </exception>
-        public Response<IReadOnlyList<VnetInfoResourceData>> ListVnetConnections(string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
+        public Response<IReadOnlyList<VnetInfoData>> ListVnetConnections(string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -42107,12 +42107,12 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        IReadOnlyList<VnetInfoResourceData> value = default;
+                        IReadOnlyList<VnetInfoData> value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        List<VnetInfoResourceData> array = new List<VnetInfoResourceData>();
+                        List<VnetInfoData> array = new List<VnetInfoData>();
                         foreach (var item in document.RootElement.EnumerateArray())
                         {
-                            array.Add(VnetInfoResourceData.DeserializeVnetInfoResourceData(item));
+                            array.Add(VnetInfoData.DeserializeVnetInfoData(item));
                         }
                         value = array;
                         return Response.FromValue(value, message.Response);
@@ -42151,7 +42151,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="vnetName"> Name of the virtual network. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, or <paramref name="vnetName"/> is null. </exception>
-        public async Task<Response<VnetInfoResourceData>> GetVnetConnectionAsync(string subscriptionId, string resourceGroupName, string name, string vnetName, CancellationToken cancellationToken = default)
+        public async Task<Response<VnetInfoData>> GetVnetConnectionAsync(string subscriptionId, string resourceGroupName, string name, string vnetName, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -42176,13 +42176,13 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        VnetInfoResourceData value = default;
+                        VnetInfoData value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = VnetInfoResourceData.DeserializeVnetInfoResourceData(document.RootElement);
+                        value = VnetInfoData.DeserializeVnetInfoData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 case 404:
-                    return Response.FromValue((VnetInfoResourceData)null, message.Response);
+                    return Response.FromValue((VnetInfoData)null, message.Response);
                 default:
                     throw await _clientDiagnostics.CreateRequestFailedExceptionAsync(message.Response).ConfigureAwait(false);
             }
@@ -42195,7 +42195,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="vnetName"> Name of the virtual network. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, or <paramref name="vnetName"/> is null. </exception>
-        public Response<VnetInfoResourceData> GetVnetConnection(string subscriptionId, string resourceGroupName, string name, string vnetName, CancellationToken cancellationToken = default)
+        public Response<VnetInfoData> GetVnetConnection(string subscriptionId, string resourceGroupName, string name, string vnetName, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -42220,19 +42220,19 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        VnetInfoResourceData value = default;
+                        VnetInfoData value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = VnetInfoResourceData.DeserializeVnetInfoResourceData(document.RootElement);
+                        value = VnetInfoData.DeserializeVnetInfoData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 case 404:
-                    return Response.FromValue((VnetInfoResourceData)null, message.Response);
+                    return Response.FromValue((VnetInfoData)null, message.Response);
                 default:
                     throw _clientDiagnostics.CreateRequestFailedException(message.Response);
             }
         }
 
-        internal HttpMessage CreateCreateOrUpdateVnetConnectionRequest(string subscriptionId, string resourceGroupName, string name, string vnetName, VnetInfoResourceData connectionEnvelope)
+        internal HttpMessage CreateCreateOrUpdateVnetConnectionRequest(string subscriptionId, string resourceGroupName, string name, string vnetName, VnetInfoData connectionEnvelope)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -42266,7 +42266,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="connectionEnvelope"> Properties of the Virtual Network connection. See example. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, <paramref name="vnetName"/>, or <paramref name="connectionEnvelope"/> is null. </exception>
-        public async Task<Response<VnetInfoResourceData>> CreateOrUpdateVnetConnectionAsync(string subscriptionId, string resourceGroupName, string name, string vnetName, VnetInfoResourceData connectionEnvelope, CancellationToken cancellationToken = default)
+        public async Task<Response<VnetInfoData>> CreateOrUpdateVnetConnectionAsync(string subscriptionId, string resourceGroupName, string name, string vnetName, VnetInfoData connectionEnvelope, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -42295,9 +42295,9 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        VnetInfoResourceData value = default;
+                        VnetInfoData value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = VnetInfoResourceData.DeserializeVnetInfoResourceData(document.RootElement);
+                        value = VnetInfoData.DeserializeVnetInfoData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -42313,7 +42313,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="connectionEnvelope"> Properties of the Virtual Network connection. See example. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, <paramref name="vnetName"/>, or <paramref name="connectionEnvelope"/> is null. </exception>
-        public Response<VnetInfoResourceData> CreateOrUpdateVnetConnection(string subscriptionId, string resourceGroupName, string name, string vnetName, VnetInfoResourceData connectionEnvelope, CancellationToken cancellationToken = default)
+        public Response<VnetInfoData> CreateOrUpdateVnetConnection(string subscriptionId, string resourceGroupName, string name, string vnetName, VnetInfoData connectionEnvelope, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -42342,9 +42342,9 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        VnetInfoResourceData value = default;
+                        VnetInfoData value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = VnetInfoResourceData.DeserializeVnetInfoResourceData(document.RootElement);
+                        value = VnetInfoData.DeserializeVnetInfoData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -42448,7 +42448,7 @@ namespace Azure.ResourceManager.AppService
             }
         }
 
-        internal HttpMessage CreateUpdateVnetConnectionRequest(string subscriptionId, string resourceGroupName, string name, string vnetName, VnetInfoResourceData connectionEnvelope)
+        internal HttpMessage CreateUpdateVnetConnectionRequest(string subscriptionId, string resourceGroupName, string name, string vnetName, VnetInfoData connectionEnvelope)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -42482,7 +42482,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="connectionEnvelope"> Properties of the Virtual Network connection. See example. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, <paramref name="vnetName"/>, or <paramref name="connectionEnvelope"/> is null. </exception>
-        public async Task<Response<VnetInfoResourceData>> UpdateVnetConnectionAsync(string subscriptionId, string resourceGroupName, string name, string vnetName, VnetInfoResourceData connectionEnvelope, CancellationToken cancellationToken = default)
+        public async Task<Response<VnetInfoData>> UpdateVnetConnectionAsync(string subscriptionId, string resourceGroupName, string name, string vnetName, VnetInfoData connectionEnvelope, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -42511,9 +42511,9 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        VnetInfoResourceData value = default;
+                        VnetInfoData value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = VnetInfoResourceData.DeserializeVnetInfoResourceData(document.RootElement);
+                        value = VnetInfoData.DeserializeVnetInfoData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -42529,7 +42529,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="connectionEnvelope"> Properties of the Virtual Network connection. See example. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, <paramref name="vnetName"/>, or <paramref name="connectionEnvelope"/> is null. </exception>
-        public Response<VnetInfoResourceData> UpdateVnetConnection(string subscriptionId, string resourceGroupName, string name, string vnetName, VnetInfoResourceData connectionEnvelope, CancellationToken cancellationToken = default)
+        public Response<VnetInfoData> UpdateVnetConnection(string subscriptionId, string resourceGroupName, string name, string vnetName, VnetInfoData connectionEnvelope, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -42558,9 +42558,9 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        VnetInfoResourceData value = default;
+                        VnetInfoData value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = VnetInfoResourceData.DeserializeVnetInfoResourceData(document.RootElement);
+                        value = VnetInfoData.DeserializeVnetInfoData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:

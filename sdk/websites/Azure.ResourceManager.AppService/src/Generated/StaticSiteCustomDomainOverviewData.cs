@@ -11,15 +11,15 @@ using Azure.ResourceManager.AppService.Models;
 
 namespace Azure.ResourceManager.AppService
 {
-    /// <summary> A class representing the StaticSiteCustomDomainOverviewARMResource data model. </summary>
-    public partial class StaticSiteCustomDomainOverviewARMResourceData : ProxyOnlyResource
+    /// <summary> A class representing the StaticSiteCustomDomainOverview data model. </summary>
+    public partial class StaticSiteCustomDomainOverviewData : ProxyOnlyResource
     {
-        /// <summary> Initializes a new instance of StaticSiteCustomDomainOverviewARMResourceData. </summary>
-        public StaticSiteCustomDomainOverviewARMResourceData()
+        /// <summary> Initializes a new instance of StaticSiteCustomDomainOverviewData. </summary>
+        public StaticSiteCustomDomainOverviewData()
         {
         }
 
-        /// <summary> Initializes a new instance of StaticSiteCustomDomainOverviewARMResourceData. </summary>
+        /// <summary> Initializes a new instance of StaticSiteCustomDomainOverviewData. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
         /// <param name="type"> The type. </param>
@@ -29,7 +29,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="status"> The status of the custom domain. </param>
         /// <param name="validationToken"> The TXT record validation token. </param>
         /// <param name="errorMessage"></param>
-        internal StaticSiteCustomDomainOverviewARMResourceData(ResourceIdentifier id, string name, ResourceType type, string kind, string domainName, DateTimeOffset? createdOn, CustomDomainStatus? status, string validationToken, string errorMessage) : base(id, name, type, kind)
+        internal StaticSiteCustomDomainOverviewData(ResourceIdentifier id, string name, ResourceType type, string kind, string domainName, DateTimeOffset? createdOn, CustomDomainStatus? status, string validationToken, string errorMessage) : base(id, name, type, kind)
         {
             DomainName = domainName;
             CreatedOn = createdOn;

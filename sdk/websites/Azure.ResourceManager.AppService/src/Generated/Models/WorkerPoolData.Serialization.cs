@@ -13,7 +13,7 @@ using Azure.ResourceManager.AppService.Models;
 
 namespace Azure.ResourceManager.AppService
 {
-    public partial class WorkerPoolResourceData : IUtf8JsonSerializable
+    public partial class WorkerPoolData : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
@@ -54,7 +54,7 @@ namespace Azure.ResourceManager.AppService
             writer.WriteEndObject();
         }
 
-        internal static WorkerPoolResourceData DeserializeWorkerPoolResourceData(JsonElement element)
+        internal static WorkerPoolData DeserializeWorkerPoolData(JsonElement element)
         {
             Optional<SkuDescription> sku = default;
             Optional<string> kind = default;
@@ -161,7 +161,7 @@ namespace Azure.ResourceManager.AppService
                     continue;
                 }
             }
-            return new WorkerPoolResourceData(id, name, type, kind.Value, sku.Value, Optional.ToNullable(workerSizeId), Optional.ToNullable(computeMode), workerSize.Value, Optional.ToNullable(workerCount), Optional.ToList(instanceNames));
+            return new WorkerPoolData(id, name, type, kind.Value, sku.Value, Optional.ToNullable(workerSizeId), Optional.ToNullable(computeMode), workerSize.Value, Optional.ToNullable(workerCount), Optional.ToList(instanceNames));
         }
     }
 }

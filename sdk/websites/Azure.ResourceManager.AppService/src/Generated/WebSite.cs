@@ -4337,13 +4337,13 @@ namespace Azure.ResourceManager.AppService
         }
         #endregion
 
-        #region SlotConfigNamesResource
+        #region SlotConfigNames
 
-        /// <summary> Gets an object representing a SlotConfigNamesResource along with the instance operations that can be performed on it in the WebSite. </summary>
-        /// <returns> Returns a <see cref="SlotConfigNamesResource" /> object. </returns>
-        public SlotConfigNamesResource GetSlotConfigNamesResource()
+        /// <summary> Gets an object representing a SlotConfigNames along with the instance operations that can be performed on it in the WebSite. </summary>
+        /// <returns> Returns a <see cref="SlotConfigNames" /> object. </returns>
+        public SlotConfigNames GetSlotConfigNames()
         {
-            return new SlotConfigNamesResource(this, Id + "/config/slotConfigNames");
+            return new SlotConfigNames(this, Id + "/config/slotConfigNames");
         }
         #endregion
 

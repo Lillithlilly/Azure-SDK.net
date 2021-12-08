@@ -20,7 +20,7 @@ using Azure.ResourceManager.Core;
 
 namespace Azure.ResourceManager.AppService
 {
-    /// <summary> A class representing collection of WorkerPoolResource and their operations over its parent. </summary>
+    /// <summary> A class representing collection of WorkerPool and their operations over its parent. </summary>
     public partial class HostingEnvironmentWorkerPoolCollection : ArmCollection, IEnumerable<HostingEnvironmentWorkerPool>, IAsyncEnumerable<HostingEnvironmentWorkerPool>
 
     {
@@ -54,7 +54,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="workerPoolName"/> or <paramref name="workerPoolEnvelope"/> is null. </exception>
-        public virtual AppServiceEnvironmentCreateOrUpdateWorkerPoolOperation CreateOrUpdate(string workerPoolName, WorkerPoolResourceData workerPoolEnvelope, bool waitForCompletion = true, CancellationToken cancellationToken = default)
+        public virtual AppServiceEnvironmentCreateOrUpdateWorkerPoolOperation CreateOrUpdate(string workerPoolName, WorkerPoolData workerPoolEnvelope, bool waitForCompletion = true, CancellationToken cancellationToken = default)
         {
             if (workerPoolName == null)
             {
@@ -91,7 +91,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="workerPoolName"/> or <paramref name="workerPoolEnvelope"/> is null. </exception>
-        public async virtual Task<AppServiceEnvironmentCreateOrUpdateWorkerPoolOperation> CreateOrUpdateAsync(string workerPoolName, WorkerPoolResourceData workerPoolEnvelope, bool waitForCompletion = true, CancellationToken cancellationToken = default)
+        public async virtual Task<AppServiceEnvironmentCreateOrUpdateWorkerPoolOperation> CreateOrUpdateAsync(string workerPoolName, WorkerPoolData workerPoolEnvelope, bool waitForCompletion = true, CancellationToken cancellationToken = default)
         {
             if (workerPoolName == null)
             {
@@ -381,6 +381,6 @@ namespace Azure.ResourceManager.AppService
         }
 
         // Builders.
-        // public ArmBuilder<Azure.ResourceManager.ResourceIdentifier, HostingEnvironmentWorkerPool, WorkerPoolResourceData> Construct() { }
+        // public ArmBuilder<Azure.ResourceManager.ResourceIdentifier, HostingEnvironmentWorkerPool, WorkerPoolData> Construct() { }
     }
 }

@@ -5,6 +5,7 @@
 
 #nullable disable
 
+using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
@@ -13,7 +14,7 @@ using Azure.ResourceManager.AppService.Models;
 
 namespace Azure.ResourceManager.AppService
 {
-    public partial class VnetInfoResourceData : IUtf8JsonSerializable
+    public partial class StaticSiteBuildData : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
@@ -25,43 +26,24 @@ namespace Azure.ResourceManager.AppService
             }
             writer.WritePropertyName("properties");
             writer.WriteStartObject();
-            if (Optional.IsDefined(VnetResourceId))
-            {
-                writer.WritePropertyName("vnetResourceId");
-                writer.WriteStringValue(VnetResourceId);
-            }
-            if (Optional.IsDefined(CertBlob))
-            {
-                writer.WritePropertyName("certBlob");
-                writer.WriteStringValue(CertBlob);
-            }
-            if (Optional.IsDefined(DnsServers))
-            {
-                writer.WritePropertyName("dnsServers");
-                writer.WriteStringValue(DnsServers);
-            }
-            if (Optional.IsDefined(IsSwift))
-            {
-                writer.WritePropertyName("isSwift");
-                writer.WriteBooleanValue(IsSwift.Value);
-            }
             writer.WriteEndObject();
             writer.WriteEndObject();
         }
 
-        internal static VnetInfoResourceData DeserializeVnetInfoResourceData(JsonElement element)
+        internal static StaticSiteBuildData DeserializeStaticSiteBuildData(JsonElement element)
         {
             Optional<string> kind = default;
             ResourceIdentifier id = default;
             string name = default;
             ResourceType type = default;
-            Optional<string> vnetResourceId = default;
-            Optional<string> certThumbprint = default;
-            Optional<string> certBlob = default;
-            Optional<IReadOnlyList<VnetRoute>> routes = default;
-            Optional<bool> resyncRequired = default;
-            Optional<string> dnsServers = default;
-            Optional<bool> isSwift = default;
+            Optional<string> buildId = default;
+            Optional<string> sourceBranch = default;
+            Optional<string> pullRequestTitle = default;
+            Optional<string> hostname = default;
+            Optional<DateTimeOffset> createdTimeUtc = default;
+            Optional<DateTimeOffset> lastUpdatedOn = default;
+            Optional<BuildStatus> status = default;
+            Optional<IReadOnlyList<Models.StaticSiteUserProvidedFunctionApp>> userProvidedFunctionApps = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("kind"))
@@ -93,66 +75,76 @@ namespace Azure.ResourceManager.AppService
                     }
                     foreach (var property0 in property.Value.EnumerateObject())
                     {
-                        if (property0.NameEquals("vnetResourceId"))
+                        if (property0.NameEquals("buildId"))
                         {
-                            vnetResourceId = property0.Value.GetString();
+                            buildId = property0.Value.GetString();
                             continue;
                         }
-                        if (property0.NameEquals("certThumbprint"))
+                        if (property0.NameEquals("sourceBranch"))
                         {
-                            certThumbprint = property0.Value.GetString();
+                            sourceBranch = property0.Value.GetString();
                             continue;
                         }
-                        if (property0.NameEquals("certBlob"))
+                        if (property0.NameEquals("pullRequestTitle"))
                         {
-                            certBlob = property0.Value.GetString();
+                            pullRequestTitle = property0.Value.GetString();
                             continue;
                         }
-                        if (property0.NameEquals("routes"))
+                        if (property0.NameEquals("hostname"))
+                        {
+                            hostname = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("createdTimeUtc"))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
                             {
                                 property0.ThrowNonNullablePropertyIsNull();
                                 continue;
                             }
-                            List<VnetRoute> array = new List<VnetRoute>();
+                            createdTimeUtc = property0.Value.GetDateTimeOffset("O");
+                            continue;
+                        }
+                        if (property0.NameEquals("lastUpdatedOn"))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            lastUpdatedOn = property0.Value.GetDateTimeOffset("O");
+                            continue;
+                        }
+                        if (property0.NameEquals("status"))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            status = new BuildStatus(property0.Value.GetString());
+                            continue;
+                        }
+                        if (property0.NameEquals("userProvidedFunctionApps"))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            List<Models.StaticSiteUserProvidedFunctionApp> array = new List<Models.StaticSiteUserProvidedFunctionApp>();
                             foreach (var item in property0.Value.EnumerateArray())
                             {
-                                array.Add(VnetRoute.DeserializeVnetRoute(item));
+                                array.Add(Models.StaticSiteUserProvidedFunctionApp.DeserializeStaticSiteUserProvidedFunctionApp(item));
                             }
-                            routes = array;
-                            continue;
-                        }
-                        if (property0.NameEquals("resyncRequired"))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                property0.ThrowNonNullablePropertyIsNull();
-                                continue;
-                            }
-                            resyncRequired = property0.Value.GetBoolean();
-                            continue;
-                        }
-                        if (property0.NameEquals("dnsServers"))
-                        {
-                            dnsServers = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("isSwift"))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                property0.ThrowNonNullablePropertyIsNull();
-                                continue;
-                            }
-                            isSwift = property0.Value.GetBoolean();
+                            userProvidedFunctionApps = array;
                             continue;
                         }
                     }
                     continue;
                 }
             }
-            return new VnetInfoResourceData(id, name, type, kind.Value, vnetResourceId.Value, certThumbprint.Value, certBlob.Value, Optional.ToList(routes), Optional.ToNullable(resyncRequired), dnsServers.Value, Optional.ToNullable(isSwift));
+            return new StaticSiteBuildData(id, name, type, kind.Value, buildId.Value, sourceBranch.Value, pullRequestTitle.Value, hostname.Value, Optional.ToNullable(createdTimeUtc), Optional.ToNullable(lastUpdatedOn), Optional.ToNullable(status), Optional.ToList(userProvidedFunctionApps));
         }
     }
 }

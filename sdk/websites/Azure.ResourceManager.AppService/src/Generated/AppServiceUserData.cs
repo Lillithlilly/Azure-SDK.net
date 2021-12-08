@@ -10,15 +10,15 @@ using Azure.ResourceManager.AppService.Models;
 
 namespace Azure.ResourceManager.AppService
 {
-    /// <summary> A class representing the User data model. </summary>
-    public partial class UserData : ProxyOnlyResource
+    /// <summary> A class representing the AppServiceUser data model. </summary>
+    public partial class AppServiceUserData : ProxyOnlyResource
     {
-        /// <summary> Initializes a new instance of UserData. </summary>
-        public UserData()
+        /// <summary> Initializes a new instance of AppServiceUserData. </summary>
+        public AppServiceUserData()
         {
         }
 
-        /// <summary> Initializes a new instance of UserData. </summary>
+        /// <summary> Initializes a new instance of AppServiceUserData. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
         /// <param name="type"> The type. </param>
@@ -28,7 +28,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="publishingPasswordHash"> Password hash used for publishing. </param>
         /// <param name="publishingPasswordHashSalt"> Password hash salt used for publishing. </param>
         /// <param name="scmUri"> Url of SCM site. </param>
-        internal UserData(ResourceIdentifier id, string name, ResourceType type, string kind, string publishingUserName, string publishingPassword, string publishingPasswordHash, string publishingPasswordHashSalt, string scmUri) : base(id, name, type, kind)
+        internal AppServiceUserData(ResourceIdentifier id, string name, ResourceType type, string kind, string publishingUserName, string publishingPassword, string publishingPasswordHash, string publishingPasswordHashSalt, string scmUri) : base(id, name, type, kind)
         {
             PublishingUserName = publishingUserName;
             PublishingPassword = publishingPassword;

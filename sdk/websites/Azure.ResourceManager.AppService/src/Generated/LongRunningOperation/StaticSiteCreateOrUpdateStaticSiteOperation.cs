@@ -18,9 +18,9 @@ using Azure.ResourceManager.Core;
 namespace Azure.ResourceManager.AppService.Models
 {
     /// <summary> Description for Creates a new static site in an existing resource group, or updates an existing static site. </summary>
-    public partial class StaticSiteCreateOrUpdateStaticSiteOperation : Operation<StaticSiteARMResource>, IOperationSource<StaticSiteARMResource>
+    public partial class StaticSiteCreateOrUpdateStaticSiteOperation : Operation<StaticSite>, IOperationSource<StaticSite>
     {
-        private readonly OperationInternals<StaticSiteARMResource> _operation;
+        private readonly OperationInternals<StaticSite> _operation;
 
         private readonly ArmResource _operationBase;
 
@@ -31,7 +31,7 @@ namespace Azure.ResourceManager.AppService.Models
 
         internal StaticSiteCreateOrUpdateStaticSiteOperation(ArmResource operationsBase, ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
-            _operation = new OperationInternals<StaticSiteARMResource>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.Location, "StaticSiteCreateOrUpdateStaticSiteOperation");
+            _operation = new OperationInternals<StaticSite>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.Location, "StaticSiteCreateOrUpdateStaticSiteOperation");
             _operationBase = operationsBase;
         }
 
@@ -39,7 +39,7 @@ namespace Azure.ResourceManager.AppService.Models
         public override string Id => _operation.Id;
 
         /// <inheritdoc />
-        public override StaticSiteARMResource Value => _operation.Value;
+        public override StaticSite Value => _operation.Value;
 
         /// <inheritdoc />
         public override bool HasCompleted => _operation.HasCompleted;
@@ -57,21 +57,21 @@ namespace Azure.ResourceManager.AppService.Models
         public override ValueTask<Response> UpdateStatusAsync(CancellationToken cancellationToken = default) => _operation.UpdateStatusAsync(cancellationToken);
 
         /// <inheritdoc />
-        public override ValueTask<Response<StaticSiteARMResource>> WaitForCompletionAsync(CancellationToken cancellationToken = default) => _operation.WaitForCompletionAsync(cancellationToken);
+        public override ValueTask<Response<StaticSite>> WaitForCompletionAsync(CancellationToken cancellationToken = default) => _operation.WaitForCompletionAsync(cancellationToken);
 
         /// <inheritdoc />
-        public override ValueTask<Response<StaticSiteARMResource>> WaitForCompletionAsync(TimeSpan pollingInterval, CancellationToken cancellationToken = default) => _operation.WaitForCompletionAsync(pollingInterval, cancellationToken);
+        public override ValueTask<Response<StaticSite>> WaitForCompletionAsync(TimeSpan pollingInterval, CancellationToken cancellationToken = default) => _operation.WaitForCompletionAsync(pollingInterval, cancellationToken);
 
-        StaticSiteARMResource IOperationSource<StaticSiteARMResource>.CreateResult(Response response, CancellationToken cancellationToken)
+        StaticSite IOperationSource<StaticSite>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            return new StaticSiteARMResource(_operationBase, StaticSiteARMResourceData.DeserializeStaticSiteARMResourceData(document.RootElement));
+            return new StaticSite(_operationBase, StaticSiteData.DeserializeStaticSiteData(document.RootElement));
         }
 
-        async ValueTask<StaticSiteARMResource> IOperationSource<StaticSiteARMResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
+        async ValueTask<StaticSite> IOperationSource<StaticSite>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            return new StaticSiteARMResource(_operationBase, StaticSiteARMResourceData.DeserializeStaticSiteARMResourceData(document.RootElement));
+            return new StaticSite(_operationBase, StaticSiteData.DeserializeStaticSiteData(document.RootElement));
         }
     }
 }

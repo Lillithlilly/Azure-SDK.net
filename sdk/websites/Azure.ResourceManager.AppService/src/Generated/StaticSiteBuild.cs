@@ -19,22 +19,22 @@ using Azure.ResourceManager.Resources.Models;
 
 namespace Azure.ResourceManager.AppService
 {
-    /// <summary> A Class representing a StaticSiteBuildARMResource along with the instance operations that can be performed on it. </summary>
-    public partial class StaticSiteBuildARMResource : ArmResource
+    /// <summary> A Class representing a StaticSiteBuild along with the instance operations that can be performed on it. </summary>
+    public partial class StaticSiteBuild : ArmResource
     {
         private readonly ClientDiagnostics _clientDiagnostics;
         private readonly StaticSitesRestOperations _staticSitesRestClient;
-        private readonly StaticSiteBuildARMResourceData _data;
+        private readonly StaticSiteBuildData _data;
 
-        /// <summary> Initializes a new instance of the <see cref="StaticSiteBuildARMResource"/> class for mocking. </summary>
-        protected StaticSiteBuildARMResource()
+        /// <summary> Initializes a new instance of the <see cref="StaticSiteBuild"/> class for mocking. </summary>
+        protected StaticSiteBuild()
         {
         }
 
-        /// <summary> Initializes a new instance of the <see cref = "StaticSiteBuildARMResource"/> class. </summary>
+        /// <summary> Initializes a new instance of the <see cref = "StaticSiteBuild"/> class. </summary>
         /// <param name="options"> The client parameters to use in these operations. </param>
         /// <param name="resource"> The resource that is the target of operations. </param>
-        internal StaticSiteBuildARMResource(ArmResource options, StaticSiteBuildARMResourceData resource) : base(options, resource.Id)
+        internal StaticSiteBuild(ArmResource options, StaticSiteBuildData resource) : base(options, resource.Id)
         {
             HasData = true;
             _data = resource;
@@ -42,22 +42,22 @@ namespace Azure.ResourceManager.AppService
             _staticSitesRestClient = new StaticSitesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
         }
 
-        /// <summary> Initializes a new instance of the <see cref="StaticSiteBuildARMResource"/> class. </summary>
+        /// <summary> Initializes a new instance of the <see cref="StaticSiteBuild"/> class. </summary>
         /// <param name="options"> The client parameters to use in these operations. </param>
         /// <param name="id"> The identifier of the resource that is the target of operations. </param>
-        internal StaticSiteBuildARMResource(ArmResource options, ResourceIdentifier id) : base(options, id)
+        internal StaticSiteBuild(ArmResource options, ResourceIdentifier id) : base(options, id)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
             _staticSitesRestClient = new StaticSitesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
         }
 
-        /// <summary> Initializes a new instance of the <see cref="StaticSiteBuildARMResource"/> class. </summary>
+        /// <summary> Initializes a new instance of the <see cref="StaticSiteBuild"/> class. </summary>
         /// <param name="clientOptions"> The client options to build client context. </param>
         /// <param name="credential"> The credential to build client context. </param>
         /// <param name="uri"> The uri to build client context. </param>
         /// <param name="pipeline"> The pipeline to build client context. </param>
         /// <param name="id"> The identifier of the resource that is the target of operations. </param>
-        internal StaticSiteBuildARMResource(ArmClientOptions clientOptions, TokenCredential credential, Uri uri, HttpPipeline pipeline, ResourceIdentifier id) : base(clientOptions, credential, uri, pipeline, id)
+        internal StaticSiteBuild(ArmClientOptions clientOptions, TokenCredential credential, Uri uri, HttpPipeline pipeline, ResourceIdentifier id) : base(clientOptions, credential, uri, pipeline, id)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
             _staticSitesRestClient = new StaticSitesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
@@ -74,7 +74,7 @@ namespace Azure.ResourceManager.AppService
 
         /// <summary> Gets the data representing this Feature. </summary>
         /// <exception cref="InvalidOperationException"> Throws if there is no data loaded in the current instance. </exception>
-        public virtual StaticSiteBuildARMResourceData Data
+        public virtual StaticSiteBuildData Data
         {
             get
             {
@@ -89,16 +89,16 @@ namespace Azure.ResourceManager.AppService
         /// OperationId: StaticSites_GetStaticSiteBuild
         /// <summary> Description for Gets the details of a static site build. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public async virtual Task<Response<StaticSiteBuildARMResource>> GetAsync(CancellationToken cancellationToken = default)
+        public async virtual Task<Response<StaticSiteBuild>> GetAsync(CancellationToken cancellationToken = default)
         {
-            using var scope = _clientDiagnostics.CreateScope("StaticSiteBuildARMResource.Get");
+            using var scope = _clientDiagnostics.CreateScope("StaticSiteBuild.Get");
             scope.Start();
             try
             {
                 var response = await _staticSitesRestClient.GetStaticSiteBuildAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw await _clientDiagnostics.CreateRequestFailedExceptionAsync(response.GetRawResponse()).ConfigureAwait(false);
-                return Response.FromValue(new StaticSiteBuildARMResource(this, response.Value), response.GetRawResponse());
+                return Response.FromValue(new StaticSiteBuild(this, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
             {
@@ -112,16 +112,16 @@ namespace Azure.ResourceManager.AppService
         /// OperationId: StaticSites_GetStaticSiteBuild
         /// <summary> Description for Gets the details of a static site build. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual Response<StaticSiteBuildARMResource> Get(CancellationToken cancellationToken = default)
+        public virtual Response<StaticSiteBuild> Get(CancellationToken cancellationToken = default)
         {
-            using var scope = _clientDiagnostics.CreateScope("StaticSiteBuildARMResource.Get");
+            using var scope = _clientDiagnostics.CreateScope("StaticSiteBuild.Get");
             scope.Start();
             try
             {
                 var response = _staticSitesRestClient.GetStaticSiteBuild(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken);
                 if (response.Value == null)
                     throw _clientDiagnostics.CreateRequestFailedException(response.GetRawResponse());
-                return Response.FromValue(new StaticSiteBuildARMResource(this, response.Value), response.GetRawResponse());
+                return Response.FromValue(new StaticSiteBuild(this, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
             {
@@ -154,7 +154,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public async virtual Task<StaticSiteDeleteStaticSiteBuildOperation> DeleteAsync(bool waitForCompletion = true, CancellationToken cancellationToken = default)
         {
-            using var scope = _clientDiagnostics.CreateScope("StaticSiteBuildARMResource.Delete");
+            using var scope = _clientDiagnostics.CreateScope("StaticSiteBuild.Delete");
             scope.Start();
             try
             {
@@ -179,7 +179,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual StaticSiteDeleteStaticSiteBuildOperation Delete(bool waitForCompletion = true, CancellationToken cancellationToken = default)
         {
-            using var scope = _clientDiagnostics.CreateScope("StaticSiteBuildARMResource.Delete");
+            using var scope = _clientDiagnostics.CreateScope("StaticSiteBuild.Delete");
             scope.Start();
             try
             {
@@ -210,7 +210,7 @@ namespace Azure.ResourceManager.AppService
                 throw new ArgumentNullException(nameof(appSettings));
             }
 
-            using var scope = _clientDiagnostics.CreateScope("StaticSiteBuildARMResource.CreateOrUpdateStaticSiteBuildAppSettings");
+            using var scope = _clientDiagnostics.CreateScope("StaticSiteBuild.CreateOrUpdateStaticSiteBuildAppSettings");
             scope.Start();
             try
             {
@@ -238,7 +238,7 @@ namespace Azure.ResourceManager.AppService
                 throw new ArgumentNullException(nameof(appSettings));
             }
 
-            using var scope = _clientDiagnostics.CreateScope("StaticSiteBuildARMResource.CreateOrUpdateStaticSiteBuildAppSettings");
+            using var scope = _clientDiagnostics.CreateScope("StaticSiteBuild.CreateOrUpdateStaticSiteBuildAppSettings");
             scope.Start();
             try
             {
@@ -266,7 +266,7 @@ namespace Azure.ResourceManager.AppService
                 throw new ArgumentNullException(nameof(appSettings));
             }
 
-            using var scope = _clientDiagnostics.CreateScope("StaticSiteBuildARMResource.CreateOrUpdateStaticSiteBuildFunctionAppSettings");
+            using var scope = _clientDiagnostics.CreateScope("StaticSiteBuild.CreateOrUpdateStaticSiteBuildFunctionAppSettings");
             scope.Start();
             try
             {
@@ -294,7 +294,7 @@ namespace Azure.ResourceManager.AppService
                 throw new ArgumentNullException(nameof(appSettings));
             }
 
-            using var scope = _clientDiagnostics.CreateScope("StaticSiteBuildARMResource.CreateOrUpdateStaticSiteBuildFunctionAppSettings");
+            using var scope = _clientDiagnostics.CreateScope("StaticSiteBuild.CreateOrUpdateStaticSiteBuildFunctionAppSettings");
             scope.Start();
             try
             {
@@ -318,7 +318,7 @@ namespace Azure.ResourceManager.AppService
         {
             async Task<Page<StaticSiteFunctionOverviewARMResource>> FirstPageFunc(int? pageSizeHint)
             {
-                using var scope = _clientDiagnostics.CreateScope("StaticSiteBuildARMResource.GetStaticSiteBuildFunctions");
+                using var scope = _clientDiagnostics.CreateScope("StaticSiteBuild.GetStaticSiteBuildFunctions");
                 scope.Start();
                 try
                 {
@@ -333,7 +333,7 @@ namespace Azure.ResourceManager.AppService
             }
             async Task<Page<StaticSiteFunctionOverviewARMResource>> NextPageFunc(string nextLink, int? pageSizeHint)
             {
-                using var scope = _clientDiagnostics.CreateScope("StaticSiteBuildARMResource.GetStaticSiteBuildFunctions");
+                using var scope = _clientDiagnostics.CreateScope("StaticSiteBuild.GetStaticSiteBuildFunctions");
                 scope.Start();
                 try
                 {
@@ -359,7 +359,7 @@ namespace Azure.ResourceManager.AppService
         {
             Page<StaticSiteFunctionOverviewARMResource> FirstPageFunc(int? pageSizeHint)
             {
-                using var scope = _clientDiagnostics.CreateScope("StaticSiteBuildARMResource.GetStaticSiteBuildFunctions");
+                using var scope = _clientDiagnostics.CreateScope("StaticSiteBuild.GetStaticSiteBuildFunctions");
                 scope.Start();
                 try
                 {
@@ -374,7 +374,7 @@ namespace Azure.ResourceManager.AppService
             }
             Page<StaticSiteFunctionOverviewARMResource> NextPageFunc(string nextLink, int? pageSizeHint)
             {
-                using var scope = _clientDiagnostics.CreateScope("StaticSiteBuildARMResource.GetStaticSiteBuildFunctions");
+                using var scope = _clientDiagnostics.CreateScope("StaticSiteBuild.GetStaticSiteBuildFunctions");
                 scope.Start();
                 try
                 {
@@ -397,7 +397,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public async virtual Task<Response<StringDictionary>> GetStaticSiteBuildAppSettingsAsync(CancellationToken cancellationToken = default)
         {
-            using var scope = _clientDiagnostics.CreateScope("StaticSiteBuildARMResource.GetStaticSiteBuildAppSettings");
+            using var scope = _clientDiagnostics.CreateScope("StaticSiteBuild.GetStaticSiteBuildAppSettings");
             scope.Start();
             try
             {
@@ -418,7 +418,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual Response<StringDictionary> GetStaticSiteBuildAppSettings(CancellationToken cancellationToken = default)
         {
-            using var scope = _clientDiagnostics.CreateScope("StaticSiteBuildARMResource.GetStaticSiteBuildAppSettings");
+            using var scope = _clientDiagnostics.CreateScope("StaticSiteBuild.GetStaticSiteBuildAppSettings");
             scope.Start();
             try
             {
@@ -439,7 +439,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public async virtual Task<Response<StringDictionary>> GetStaticSiteBuildFunctionAppSettingsAsync(CancellationToken cancellationToken = default)
         {
-            using var scope = _clientDiagnostics.CreateScope("StaticSiteBuildARMResource.GetStaticSiteBuildFunctionAppSettings");
+            using var scope = _clientDiagnostics.CreateScope("StaticSiteBuild.GetStaticSiteBuildFunctionAppSettings");
             scope.Start();
             try
             {
@@ -460,7 +460,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual Response<StringDictionary> GetStaticSiteBuildFunctionAppSettings(CancellationToken cancellationToken = default)
         {
-            using var scope = _clientDiagnostics.CreateScope("StaticSiteBuildARMResource.GetStaticSiteBuildFunctionAppSettings");
+            using var scope = _clientDiagnostics.CreateScope("StaticSiteBuild.GetStaticSiteBuildFunctionAppSettings");
             scope.Start();
             try
             {
@@ -489,7 +489,7 @@ namespace Azure.ResourceManager.AppService
                 throw new ArgumentNullException(nameof(staticSiteZipDeploymentEnvelope));
             }
 
-            using var scope = _clientDiagnostics.CreateScope("StaticSiteBuildARMResource.CreateZipDeploymentForStaticSiteBuild");
+            using var scope = _clientDiagnostics.CreateScope("StaticSiteBuild.CreateZipDeploymentForStaticSiteBuild");
             scope.Start();
             try
             {
@@ -521,7 +521,7 @@ namespace Azure.ResourceManager.AppService
                 throw new ArgumentNullException(nameof(staticSiteZipDeploymentEnvelope));
             }
 
-            using var scope = _clientDiagnostics.CreateScope("StaticSiteBuildARMResource.CreateZipDeploymentForStaticSiteBuild");
+            using var scope = _clientDiagnostics.CreateScope("StaticSiteBuild.CreateZipDeploymentForStaticSiteBuild");
             scope.Start();
             try
             {
@@ -540,8 +540,8 @@ namespace Azure.ResourceManager.AppService
 
         #region StaticSiteBuildUserProvidedFunctionApp
 
-        /// <summary> Gets a collection of StaticSiteBuildUserProvidedFunctionApps in the StaticSiteBuildARMResource. </summary>
-        /// <returns> An object representing collection of StaticSiteBuildUserProvidedFunctionApps and their operations over a StaticSiteBuildARMResource. </returns>
+        /// <summary> Gets a collection of StaticSiteBuildUserProvidedFunctionApps in the StaticSiteBuild. </summary>
+        /// <returns> An object representing collection of StaticSiteBuildUserProvidedFunctionApps and their operations over a StaticSiteBuild. </returns>
         public StaticSiteBuildUserProvidedFunctionAppCollection GetStaticSiteBuildUserProvidedFunctionApps()
         {
             return new StaticSiteBuildUserProvidedFunctionAppCollection(this);

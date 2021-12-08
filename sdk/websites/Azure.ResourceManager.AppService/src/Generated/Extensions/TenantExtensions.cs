@@ -20,13 +20,13 @@ namespace Azure.ResourceManager.AppService
     /// <summary> A class to add extension methods to Tenant. </summary>
     public static partial class TenantExtensions
     {
-        #region User
-        /// <summary> Gets an object representing a UserCollection along with the instance operations that can be performed on it. </summary>
+        #region AppServiceUser
+        /// <summary> Gets an object representing a AppServiceUserCollection along with the instance operations that can be performed on it. </summary>
         /// <param name="tenant"> The <see cref="Tenant" /> instance the method will execute against. </param>
-        /// <returns> Returns a <see cref="UserCollection" /> object. </returns>
-        public static UserCollection GetUsers(this Tenant tenant)
+        /// <returns> Returns a <see cref="AppServiceUserCollection" /> object. </returns>
+        public static AppServiceUserCollection GetAppServiceUsers(this Tenant tenant)
         {
-            return new UserCollection(tenant);
+            return new AppServiceUserCollection(tenant);
         }
         #endregion
 

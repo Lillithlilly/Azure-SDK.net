@@ -16,25 +16,25 @@ using Azure.ResourceManager.Core;
 namespace Azure.ResourceManager.AppService.Models
 {
     /// <summary> Description for Creates a new static site in an existing resource group, or updates an existing static site. </summary>
-    public partial class StaticSiteUpdateStaticSiteOperation : Operation<StaticSiteARMResource>
+    public partial class StaticSiteUpdateStaticSiteOperation : Operation<StaticSite>
     {
-        private readonly OperationOrResponseInternals<StaticSiteARMResource> _operation;
+        private readonly OperationOrResponseInternals<StaticSite> _operation;
 
         /// <summary> Initializes a new instance of StaticSiteUpdateStaticSiteOperation for mocking. </summary>
         protected StaticSiteUpdateStaticSiteOperation()
         {
         }
 
-        internal StaticSiteUpdateStaticSiteOperation(ArmResource operationsBase, Response<StaticSiteARMResourceData> response)
+        internal StaticSiteUpdateStaticSiteOperation(ArmResource operationsBase, Response<StaticSiteData> response)
         {
-            _operation = new OperationOrResponseInternals<StaticSiteARMResource>(Response.FromValue(new StaticSiteARMResource(operationsBase, response.Value), response.GetRawResponse()));
+            _operation = new OperationOrResponseInternals<StaticSite>(Response.FromValue(new StaticSite(operationsBase, response.Value), response.GetRawResponse()));
         }
 
         /// <inheritdoc />
         public override string Id => _operation.Id;
 
         /// <inheritdoc />
-        public override StaticSiteARMResource Value => _operation.Value;
+        public override StaticSite Value => _operation.Value;
 
         /// <inheritdoc />
         public override bool HasCompleted => _operation.HasCompleted;
@@ -52,9 +52,9 @@ namespace Azure.ResourceManager.AppService.Models
         public override ValueTask<Response> UpdateStatusAsync(CancellationToken cancellationToken = default) => _operation.UpdateStatusAsync(cancellationToken);
 
         /// <inheritdoc />
-        public override ValueTask<Response<StaticSiteARMResource>> WaitForCompletionAsync(CancellationToken cancellationToken = default) => _operation.WaitForCompletionAsync(cancellationToken);
+        public override ValueTask<Response<StaticSite>> WaitForCompletionAsync(CancellationToken cancellationToken = default) => _operation.WaitForCompletionAsync(cancellationToken);
 
         /// <inheritdoc />
-        public override ValueTask<Response<StaticSiteARMResource>> WaitForCompletionAsync(TimeSpan pollingInterval, CancellationToken cancellationToken = default) => _operation.WaitForCompletionAsync(pollingInterval, cancellationToken);
+        public override ValueTask<Response<StaticSite>> WaitForCompletionAsync(TimeSpan pollingInterval, CancellationToken cancellationToken = default) => _operation.WaitForCompletionAsync(pollingInterval, cancellationToken);
     }
 }

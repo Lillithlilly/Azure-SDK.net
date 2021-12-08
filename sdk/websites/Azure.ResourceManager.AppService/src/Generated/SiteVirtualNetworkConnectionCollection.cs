@@ -19,7 +19,7 @@ using Azure.ResourceManager.Core;
 
 namespace Azure.ResourceManager.AppService
 {
-    /// <summary> A class representing collection of VnetInfoResource and their operations over its parent. </summary>
+    /// <summary> A class representing collection of VnetInfo and their operations over its parent. </summary>
     public partial class SiteVirtualNetworkConnectionCollection : ArmCollection, IEnumerable<SiteVirtualNetworkConnection>
     {
         private readonly ClientDiagnostics _clientDiagnostics;
@@ -52,7 +52,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="vnetName"/> or <paramref name="connectionEnvelope"/> is null. </exception>
-        public virtual WebAppCreateOrUpdateVnetConnectionOperation CreateOrUpdate(string vnetName, VnetInfoResourceData connectionEnvelope, bool waitForCompletion = true, CancellationToken cancellationToken = default)
+        public virtual WebAppCreateOrUpdateVnetConnectionOperation CreateOrUpdate(string vnetName, VnetInfoData connectionEnvelope, bool waitForCompletion = true, CancellationToken cancellationToken = default)
         {
             if (vnetName == null)
             {
@@ -89,7 +89,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="vnetName"/> or <paramref name="connectionEnvelope"/> is null. </exception>
-        public async virtual Task<WebAppCreateOrUpdateVnetConnectionOperation> CreateOrUpdateAsync(string vnetName, VnetInfoResourceData connectionEnvelope, bool waitForCompletion = true, CancellationToken cancellationToken = default)
+        public async virtual Task<WebAppCreateOrUpdateVnetConnectionOperation> CreateOrUpdateAsync(string vnetName, VnetInfoData connectionEnvelope, bool waitForCompletion = true, CancellationToken cancellationToken = default)
         {
             if (vnetName == null)
             {
@@ -334,6 +334,6 @@ namespace Azure.ResourceManager.AppService
         }
 
         // Builders.
-        // public ArmBuilder<Azure.ResourceManager.ResourceIdentifier, SiteVirtualNetworkConnection, VnetInfoResourceData> Construct() { }
+        // public ArmBuilder<Azure.ResourceManager.ResourceIdentifier, SiteVirtualNetworkConnection, VnetInfoData> Construct() { }
     }
 }

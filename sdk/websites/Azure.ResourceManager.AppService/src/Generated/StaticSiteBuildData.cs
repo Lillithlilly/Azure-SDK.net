@@ -13,16 +13,16 @@ using Azure.ResourceManager.AppService.Models;
 
 namespace Azure.ResourceManager.AppService
 {
-    /// <summary> A class representing the StaticSiteBuildARMResource data model. </summary>
-    public partial class StaticSiteBuildARMResourceData : ProxyOnlyResource
+    /// <summary> A class representing the StaticSiteBuild data model. </summary>
+    public partial class StaticSiteBuildData : ProxyOnlyResource
     {
-        /// <summary> Initializes a new instance of StaticSiteBuildARMResourceData. </summary>
-        public StaticSiteBuildARMResourceData()
+        /// <summary> Initializes a new instance of StaticSiteBuildData. </summary>
+        public StaticSiteBuildData()
         {
             UserProvidedFunctionApps = new ChangeTrackingList<Models.StaticSiteUserProvidedFunctionApp>();
         }
 
-        /// <summary> Initializes a new instance of StaticSiteBuildARMResourceData. </summary>
+        /// <summary> Initializes a new instance of StaticSiteBuildData. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
         /// <param name="type"> The type. </param>
@@ -35,7 +35,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="lastUpdatedOn"> When this build was updated. </param>
         /// <param name="status"> The status of the static site build. </param>
         /// <param name="userProvidedFunctionApps"> User provided function apps registered with the static site build. </param>
-        internal StaticSiteBuildARMResourceData(ResourceIdentifier id, string name, ResourceType type, string kind, string buildId, string sourceBranch, string pullRequestTitle, string hostname, DateTimeOffset? createdTimeUtc, DateTimeOffset? lastUpdatedOn, BuildStatus? status, IReadOnlyList<Models.StaticSiteUserProvidedFunctionApp> userProvidedFunctionApps) : base(id, name, type, kind)
+        internal StaticSiteBuildData(ResourceIdentifier id, string name, ResourceType type, string kind, string buildId, string sourceBranch, string pullRequestTitle, string hostname, DateTimeOffset? createdTimeUtc, DateTimeOffset? lastUpdatedOn, BuildStatus? status, IReadOnlyList<Models.StaticSiteUserProvidedFunctionApp> userProvidedFunctionApps) : base(id, name, type, kind)
         {
             BuildId = buildId;
             SourceBranch = sourceBranch;

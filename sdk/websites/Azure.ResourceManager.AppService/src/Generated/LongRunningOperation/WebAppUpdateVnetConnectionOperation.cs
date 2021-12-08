@@ -25,7 +25,7 @@ namespace Azure.ResourceManager.AppService.Models
         {
         }
 
-        internal WebAppUpdateVnetConnectionOperation(ArmResource operationsBase, Response<VnetInfoResourceData> response)
+        internal WebAppUpdateVnetConnectionOperation(ArmResource operationsBase, Response<VnetInfoData> response)
         {
             _operation = new OperationOrResponseInternals<SiteVirtualNetworkConnection>(Response.FromValue(new SiteVirtualNetworkConnection(operationsBase, response.Value), response.GetRawResponse()));
         }

@@ -12,16 +12,16 @@ using Azure.ResourceManager.AppService.Models;
 
 namespace Azure.ResourceManager.AppService
 {
-    /// <summary> A class representing the VnetInfoResource data model. </summary>
-    public partial class VnetInfoResourceData : ProxyOnlyResource
+    /// <summary> A class representing the VnetInfo data model. </summary>
+    public partial class VnetInfoData : ProxyOnlyResource
     {
-        /// <summary> Initializes a new instance of VnetInfoResourceData. </summary>
-        public VnetInfoResourceData()
+        /// <summary> Initializes a new instance of VnetInfoData. </summary>
+        public VnetInfoData()
         {
             Routes = new ChangeTrackingList<VnetRoute>();
         }
 
-        /// <summary> Initializes a new instance of VnetInfoResourceData. </summary>
+        /// <summary> Initializes a new instance of VnetInfoData. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
         /// <param name="type"> The type. </param>
@@ -36,7 +36,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="resyncRequired"> &lt;code&gt;true&lt;/code&gt; if a resync is required; otherwise, &lt;code&gt;false&lt;/code&gt;. </param>
         /// <param name="dnsServers"> DNS servers to be used by this Virtual Network. This should be a comma-separated list of IP addresses. </param>
         /// <param name="isSwift"> Flag that is used to denote if this is VNET injection. </param>
-        internal VnetInfoResourceData(ResourceIdentifier id, string name, ResourceType type, string kind, string vnetResourceId, string certThumbprint, string certBlob, IReadOnlyList<VnetRoute> routes, bool? resyncRequired, string dnsServers, bool? isSwift) : base(id, name, type, kind)
+        internal VnetInfoData(ResourceIdentifier id, string name, ResourceType type, string kind, string vnetResourceId, string certThumbprint, string certBlob, IReadOnlyList<VnetRoute> routes, bool? resyncRequired, string dnsServers, bool? isSwift) : base(id, name, type, kind)
         {
             VnetResourceId = vnetResourceId;
             CertThumbprint = certThumbprint;

@@ -17,20 +17,20 @@ using Azure.ResourceManager.Resources;
 
 namespace Azure.ResourceManager.AppService
 {
-    /// <summary> A class representing collection of User and their operations over its parent. </summary>
-    public partial class UserCollection : ArmCollection
+    /// <summary> A class representing collection of AppServiceUser and their operations over its parent. </summary>
+    public partial class AppServiceUserCollection : ArmCollection
     {
         private readonly ClientDiagnostics _clientDiagnostics;
         private readonly WebSiteManagementRestOperations _restClient;
 
-        /// <summary> Initializes a new instance of the <see cref="UserCollection"/> class for mocking. </summary>
-        protected UserCollection()
+        /// <summary> Initializes a new instance of the <see cref="AppServiceUserCollection"/> class for mocking. </summary>
+        protected AppServiceUserCollection()
         {
         }
 
-        /// <summary> Initializes a new instance of UserCollection class. </summary>
+        /// <summary> Initializes a new instance of AppServiceUserCollection class. </summary>
         /// <param name="parent"> The resource representing the parent resource. </param>
-        internal UserCollection(ArmResource parent) : base(parent)
+        internal AppServiceUserCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
             _restClient = new WebSiteManagementRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
@@ -49,14 +49,14 @@ namespace Azure.ResourceManager.AppService
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="userDetails"/> is null. </exception>
-        public virtual WebSiteManagementUpdatePublishingUserOperation CreateOrUpdate(UserData userDetails, bool waitForCompletion = true, CancellationToken cancellationToken = default)
+        public virtual WebSiteManagementUpdatePublishingUserOperation CreateOrUpdate(AppServiceUserData userDetails, bool waitForCompletion = true, CancellationToken cancellationToken = default)
         {
             if (userDetails == null)
             {
                 throw new ArgumentNullException(nameof(userDetails));
             }
 
-            using var scope = _clientDiagnostics.CreateScope("UserCollection.CreateOrUpdate");
+            using var scope = _clientDiagnostics.CreateScope("AppServiceUserCollection.CreateOrUpdate");
             scope.Start();
             try
             {
@@ -81,14 +81,14 @@ namespace Azure.ResourceManager.AppService
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="userDetails"/> is null. </exception>
-        public async virtual Task<WebSiteManagementUpdatePublishingUserOperation> CreateOrUpdateAsync(UserData userDetails, bool waitForCompletion = true, CancellationToken cancellationToken = default)
+        public async virtual Task<WebSiteManagementUpdatePublishingUserOperation> CreateOrUpdateAsync(AppServiceUserData userDetails, bool waitForCompletion = true, CancellationToken cancellationToken = default)
         {
             if (userDetails == null)
             {
                 throw new ArgumentNullException(nameof(userDetails));
             }
 
-            using var scope = _clientDiagnostics.CreateScope("UserCollection.CreateOrUpdate");
+            using var scope = _clientDiagnostics.CreateScope("AppServiceUserCollection.CreateOrUpdate");
             scope.Start();
             try
             {
@@ -110,16 +110,16 @@ namespace Azure.ResourceManager.AppService
         /// OperationId: GetPublishingUser
         /// <summary> Description for Gets publishing user. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual Response<User> Get(CancellationToken cancellationToken = default)
+        public virtual Response<AppServiceUser> Get(CancellationToken cancellationToken = default)
         {
-            using var scope = _clientDiagnostics.CreateScope("UserCollection.Get");
+            using var scope = _clientDiagnostics.CreateScope("AppServiceUserCollection.Get");
             scope.Start();
             try
             {
                 var response = _restClient.GetPublishingUser(cancellationToken);
                 if (response.Value == null)
                     throw _clientDiagnostics.CreateRequestFailedException(response.GetRawResponse());
-                return Response.FromValue(new User(Parent, response.Value), response.GetRawResponse());
+                return Response.FromValue(new AppServiceUser(Parent, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
             {
@@ -133,16 +133,16 @@ namespace Azure.ResourceManager.AppService
         /// OperationId: GetPublishingUser
         /// <summary> Description for Gets publishing user. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public async virtual Task<Response<User>> GetAsync(CancellationToken cancellationToken = default)
+        public async virtual Task<Response<AppServiceUser>> GetAsync(CancellationToken cancellationToken = default)
         {
-            using var scope = _clientDiagnostics.CreateScope("UserCollection.Get");
+            using var scope = _clientDiagnostics.CreateScope("AppServiceUserCollection.Get");
             scope.Start();
             try
             {
                 var response = await _restClient.GetPublishingUserAsync(cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw await _clientDiagnostics.CreateRequestFailedExceptionAsync(response.GetRawResponse()).ConfigureAwait(false);
-                return Response.FromValue(new User(Parent, response.Value), response.GetRawResponse());
+                return Response.FromValue(new AppServiceUser(Parent, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
             {
@@ -153,16 +153,16 @@ namespace Azure.ResourceManager.AppService
 
         /// <summary> Tries to get details for this resource from the service. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual Response<User> GetIfExists(CancellationToken cancellationToken = default)
+        public virtual Response<AppServiceUser> GetIfExists(CancellationToken cancellationToken = default)
         {
-            using var scope = _clientDiagnostics.CreateScope("UserCollection.GetIfExists");
+            using var scope = _clientDiagnostics.CreateScope("AppServiceUserCollection.GetIfExists");
             scope.Start();
             try
             {
                 var response = _restClient.GetPublishingUser(cancellationToken: cancellationToken);
                 return response.Value == null
-                    ? Response.FromValue<User>(null, response.GetRawResponse())
-                    : Response.FromValue(new User(this, response.Value), response.GetRawResponse());
+                    ? Response.FromValue<AppServiceUser>(null, response.GetRawResponse())
+                    : Response.FromValue(new AppServiceUser(this, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
             {
@@ -173,16 +173,16 @@ namespace Azure.ResourceManager.AppService
 
         /// <summary> Tries to get details for this resource from the service. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public async virtual Task<Response<User>> GetIfExistsAsync(CancellationToken cancellationToken = default)
+        public async virtual Task<Response<AppServiceUser>> GetIfExistsAsync(CancellationToken cancellationToken = default)
         {
-            using var scope = _clientDiagnostics.CreateScope("UserCollection.GetIfExistsAsync");
+            using var scope = _clientDiagnostics.CreateScope("AppServiceUserCollection.GetIfExistsAsync");
             scope.Start();
             try
             {
                 var response = await _restClient.GetPublishingUserAsync(cancellationToken: cancellationToken).ConfigureAwait(false);
                 return response.Value == null
-                    ? Response.FromValue<User>(null, response.GetRawResponse())
-                    : Response.FromValue(new User(this, response.Value), response.GetRawResponse());
+                    ? Response.FromValue<AppServiceUser>(null, response.GetRawResponse())
+                    : Response.FromValue(new AppServiceUser(this, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
             {
@@ -195,7 +195,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual Response<bool> CheckIfExists(CancellationToken cancellationToken = default)
         {
-            using var scope = _clientDiagnostics.CreateScope("UserCollection.CheckIfExists");
+            using var scope = _clientDiagnostics.CreateScope("AppServiceUserCollection.CheckIfExists");
             scope.Start();
             try
             {
@@ -213,7 +213,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public async virtual Task<Response<bool>> CheckIfExistsAsync(CancellationToken cancellationToken = default)
         {
-            using var scope = _clientDiagnostics.CreateScope("UserCollection.CheckIfExistsAsync");
+            using var scope = _clientDiagnostics.CreateScope("AppServiceUserCollection.CheckIfExistsAsync");
             scope.Start();
             try
             {
@@ -228,6 +228,6 @@ namespace Azure.ResourceManager.AppService
         }
 
         // Builders.
-        // public ArmBuilder<Azure.ResourceManager.ResourceIdentifier, User, UserData> Construct() { }
+        // public ArmBuilder<Azure.ResourceManager.ResourceIdentifier, AppServiceUser, AppServiceUserData> Construct() { }
     }
 }

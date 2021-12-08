@@ -12,18 +12,18 @@ using Azure.ResourceManager.AppService.Models;
 
 namespace Azure.ResourceManager.AppService
 {
-    /// <summary> A class representing the SlotConfigNamesResource data model. </summary>
-    public partial class SlotConfigNamesResourceData : ProxyOnlyResource
+    /// <summary> A class representing the SlotConfigNames data model. </summary>
+    public partial class SlotConfigNamesData : ProxyOnlyResource
     {
-        /// <summary> Initializes a new instance of SlotConfigNamesResourceData. </summary>
-        public SlotConfigNamesResourceData()
+        /// <summary> Initializes a new instance of SlotConfigNamesData. </summary>
+        public SlotConfigNamesData()
         {
             ConnectionStringNames = new ChangeTrackingList<string>();
             AppSettingNames = new ChangeTrackingList<string>();
             AzureStorageConfigNames = new ChangeTrackingList<string>();
         }
 
-        /// <summary> Initializes a new instance of SlotConfigNamesResourceData. </summary>
+        /// <summary> Initializes a new instance of SlotConfigNamesData. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
         /// <param name="type"> The type. </param>
@@ -31,7 +31,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="connectionStringNames"> List of connection string names. </param>
         /// <param name="appSettingNames"> List of application settings names. </param>
         /// <param name="azureStorageConfigNames"> List of external Azure storage account identifiers. </param>
-        internal SlotConfigNamesResourceData(ResourceIdentifier id, string name, ResourceType type, string kind, IList<string> connectionStringNames, IList<string> appSettingNames, IList<string> azureStorageConfigNames) : base(id, name, type, kind)
+        internal SlotConfigNamesData(ResourceIdentifier id, string name, ResourceType type, string kind, IList<string> connectionStringNames, IList<string> appSettingNames, IList<string> azureStorageConfigNames) : base(id, name, type, kind)
         {
             ConnectionStringNames = connectionStringNames;
             AppSettingNames = appSettingNames;

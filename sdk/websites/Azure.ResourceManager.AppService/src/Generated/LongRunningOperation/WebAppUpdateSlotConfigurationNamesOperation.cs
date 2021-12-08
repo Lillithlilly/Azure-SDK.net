@@ -16,25 +16,25 @@ using Azure.ResourceManager.Core;
 namespace Azure.ResourceManager.AppService.Models
 {
     /// <summary> Description for Updates the names of application settings and connection string that remain with the slot during swap operation. </summary>
-    public partial class WebAppUpdateSlotConfigurationNamesOperation : Operation<SlotConfigNamesResource>
+    public partial class WebAppUpdateSlotConfigurationNamesOperation : Operation<SlotConfigNames>
     {
-        private readonly OperationOrResponseInternals<SlotConfigNamesResource> _operation;
+        private readonly OperationOrResponseInternals<SlotConfigNames> _operation;
 
         /// <summary> Initializes a new instance of WebAppUpdateSlotConfigurationNamesOperation for mocking. </summary>
         protected WebAppUpdateSlotConfigurationNamesOperation()
         {
         }
 
-        internal WebAppUpdateSlotConfigurationNamesOperation(ArmResource operationsBase, Response<SlotConfigNamesResourceData> response)
+        internal WebAppUpdateSlotConfigurationNamesOperation(ArmResource operationsBase, Response<SlotConfigNamesData> response)
         {
-            _operation = new OperationOrResponseInternals<SlotConfigNamesResource>(Response.FromValue(new SlotConfigNamesResource(operationsBase, response.Value), response.GetRawResponse()));
+            _operation = new OperationOrResponseInternals<SlotConfigNames>(Response.FromValue(new SlotConfigNames(operationsBase, response.Value), response.GetRawResponse()));
         }
 
         /// <inheritdoc />
         public override string Id => _operation.Id;
 
         /// <inheritdoc />
-        public override SlotConfigNamesResource Value => _operation.Value;
+        public override SlotConfigNames Value => _operation.Value;
 
         /// <inheritdoc />
         public override bool HasCompleted => _operation.HasCompleted;
@@ -52,9 +52,9 @@ namespace Azure.ResourceManager.AppService.Models
         public override ValueTask<Response> UpdateStatusAsync(CancellationToken cancellationToken = default) => _operation.UpdateStatusAsync(cancellationToken);
 
         /// <inheritdoc />
-        public override ValueTask<Response<SlotConfigNamesResource>> WaitForCompletionAsync(CancellationToken cancellationToken = default) => _operation.WaitForCompletionAsync(cancellationToken);
+        public override ValueTask<Response<SlotConfigNames>> WaitForCompletionAsync(CancellationToken cancellationToken = default) => _operation.WaitForCompletionAsync(cancellationToken);
 
         /// <inheritdoc />
-        public override ValueTask<Response<SlotConfigNamesResource>> WaitForCompletionAsync(TimeSpan pollingInterval, CancellationToken cancellationToken = default) => _operation.WaitForCompletionAsync(pollingInterval, cancellationToken);
+        public override ValueTask<Response<SlotConfigNames>> WaitForCompletionAsync(TimeSpan pollingInterval, CancellationToken cancellationToken = default) => _operation.WaitForCompletionAsync(pollingInterval, cancellationToken);
     }
 }
