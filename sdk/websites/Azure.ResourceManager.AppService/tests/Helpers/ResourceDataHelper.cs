@@ -271,5 +271,58 @@ namespace Azure.ResourceManager.AppService.Tests.Helpers
             return data;
         }
         #endregion
+
+        #region AppServiceCertificateOrder
+        public static void AssertAppServiceCertificateOrder(AppServiceCertificateOrderData order1, AppServiceCertificateOrderData order2)
+        {
+            AssertTrackedResource(order1, order2);
+            Assert.AreEqual(order1.ExpirationTime, order2.ExpirationTime);
+            Assert.AreEqual(order1.SerialNumber, order2.SerialNumber);
+        }
+
+        public static AppServiceCertificateOrderData GetBasicAppServiceCertificateOrderData(Location location)
+        {
+            var data = new AppServiceCertificateOrderData(location)
+            {
+                Location = location,
+            };
+            return data;
+        }
+        #endregion
+
+        #region AppServiceCertificateResource
+        public static void AssertAppServiceCertificateResource(AppServiceCertificateResourceData certificate1, AppServiceCertificateResourceData certificate2)
+        {
+            AssertTrackedResource(certificate1, certificate2);
+            Assert.AreEqual(certificate1.KeyVaultId, certificate2.KeyVaultId);
+        }
+
+        public static AppServiceCertificateResourceData GetBasicAppServiceCertificateResourceData(Location location)
+        {
+            var data = new AppServiceCertificateResourceData(location)
+            {
+                Location = location,
+            };
+            return data;
+        }
+        #endregion
+
+        #region AppServiceDomain
+        public static void AssertAppServiceDomain(AppServiceDomainData domain1, AppServiceDomainData domain2)
+        {
+            AssertTrackedResource(domain1, domain2);
+            Assert.AreEqual(domain1.ExpirationTime, domain2.ExpirationTime);
+            Assert.AreEqual(domain1.AuthCode, domain2.AuthCode);
+        }
+
+        public static AppServiceDomainData GetBasicAppServiceDomainData(Location location)
+        {
+            var data = new AppServiceDomainData(location)
+            {
+                Location = location,
+            };
+            return data;
+        }
+        #endregion
     }
 }

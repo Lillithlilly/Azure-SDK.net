@@ -13,7 +13,7 @@ namespace Azure.ResourceManager.AppService.Tests.TestsCase
     public class SiteCollectionTests : AppServiceTestBase
     {
         public SiteCollectionTests(bool isAsync)
-           : base(isAsync)
+           : base(isAsync, RecordedTestMode.Record)
         {
         }
 
@@ -40,7 +40,7 @@ namespace Azure.ResourceManager.AppService.Tests.TestsCase
         public async Task Get()
         {
             var container = await GetSiteCollectionAsync();
-            var siteName = Recording.GenerateAssetName("testSite-");
+            var siteName = Recording.GenerateAssetName("testSite");
             var input = ResourceDataHelper.GetBasicSiteData(DefaultLocation);
             var lro = await container.CreateOrUpdateAsync(siteName, input);
             WebSite site1 = lro.Value;

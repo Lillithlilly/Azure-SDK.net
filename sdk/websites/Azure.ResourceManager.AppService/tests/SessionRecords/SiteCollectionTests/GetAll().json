@@ -6,12 +6,9 @@
       "RequestHeaders": {
         "Accept": "application/json",
         "Authorization": "Sanitized",
-        "traceparent": "00-c40176ee4bdeec4e8e90b5799be555fa-d3716b60b7e41245-00",
-        "User-Agent": [
-          "azsdk-net-ResourceManager/1.0.0-beta.5",
-          "(.NET Core 3.1.21; Microsoft Windows 10.0.22000)"
-        ],
-        "x-ms-client-request-id": "9c0ce0de47fe73b1c6dbde9d9eace676",
+        "traceparent": "00-b5761b9e349d05f898d38a1ec216d7d8-03aa09476c312a21-00",
+        "User-Agent": "azsdk-net-ResourceManager/1.0.0-alpha.20211208.1 (.NET 6.0.0-rtm.21522.10; Microsoft Windows 10.0.22000)",
+        "x-ms-client-request-id": "99160a51ecd0881005b3708002ce7ab8",
         "x-ms-return-client-request-id": "true"
       },
       "RequestBody": null,
@@ -20,15 +17,15 @@
         "Cache-Control": "no-cache",
         "Content-Length": "468",
         "Content-Type": "application/json; charset=utf-8",
-        "Date": "Tue, 07 Dec 2021 07:13:46 GMT",
+        "Date": "Mon, 13 Dec 2021 09:55:33 GMT",
         "Expires": "-1",
         "Pragma": "no-cache",
         "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
         "X-Content-Type-Options": "nosniff",
-        "x-ms-correlation-request-id": "686930ba-0b99-4260-bf77-444c83708590",
-        "x-ms-ratelimit-remaining-subscription-reads": "11983",
-        "x-ms-request-id": "686930ba-0b99-4260-bf77-444c83708590",
-        "x-ms-routing-request-id": "SOUTHEASTASIA:20211207T071347Z:686930ba-0b99-4260-bf77-444c83708590"
+        "x-ms-correlation-request-id": "8ea83a65-a461-438f-a81c-05c3d086a045",
+        "x-ms-ratelimit-remaining-subscription-reads": "11994",
+        "x-ms-request-id": "8ea83a65-a461-438f-a81c-05c3d086a045",
+        "x-ms-routing-request-id": "SOUTHEASTASIA:20211213T095533Z:8ea83a65-a461-438f-a81c-05c3d086a045"
       },
       "ResponseBody": {
         "id": "/subscriptions/db1ab6f0-4769-4b27-930e-01e2ef9c123c",
@@ -50,18 +47,15 @@
       }
     },
     {
-      "RequestUri": "https://management.azure.com/subscriptions/db1ab6f0-4769-4b27-930e-01e2ef9c123c/resourcegroups/testRG-8648?api-version=2019-10-01",
+      "RequestUri": "https://management.azure.com/subscriptions/db1ab6f0-4769-4b27-930e-01e2ef9c123c/resourcegroups/testRG-363?api-version=2019-10-01",
       "RequestMethod": "PUT",
       "RequestHeaders": {
         "Accept": "application/json",
         "Authorization": "Sanitized",
         "Content-Length": "43",
         "Content-Type": "application/json",
-        "User-Agent": [
-          "azsdk-net-ResourceManager/1.0.0-beta.5",
-          "(.NET Core 3.1.21; Microsoft Windows 10.0.22000)"
-        ],
-        "x-ms-client-request-id": "6cf7472d6a51a77e9a317432954c71b5",
+        "User-Agent": "azsdk-net-ResourceManager/1.0.0-alpha.20211208.1 (.NET 6.0.0-rtm.21522.10; Microsoft Windows 10.0.22000)",
+        "x-ms-client-request-id": "0af10ae97d90908e81dbabd042b7c203",
         "x-ms-return-client-request-id": "true"
       },
       "RequestBody": {
@@ -73,21 +67,21 @@
       "StatusCode": 201,
       "ResponseHeaders": {
         "Cache-Control": "no-cache",
-        "Content-Length": "241",
+        "Content-Length": "239",
         "Content-Type": "application/json; charset=utf-8",
-        "Date": "Tue, 07 Dec 2021 07:13:47 GMT",
+        "Date": "Mon, 13 Dec 2021 09:55:34 GMT",
         "Expires": "-1",
         "Pragma": "no-cache",
         "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
         "X-Content-Type-Options": "nosniff",
-        "x-ms-correlation-request-id": "9b3e62f5-70fa-4de1-91e7-339d93fe686e",
-        "x-ms-ratelimit-remaining-subscription-writes": "1194",
-        "x-ms-request-id": "9b3e62f5-70fa-4de1-91e7-339d93fe686e",
-        "x-ms-routing-request-id": "SOUTHEASTASIA:20211207T071348Z:9b3e62f5-70fa-4de1-91e7-339d93fe686e"
+        "x-ms-correlation-request-id": "45e3555a-f816-4c74-9992-25d8995d172f",
+        "x-ms-ratelimit-remaining-subscription-writes": "1197",
+        "x-ms-request-id": "45e3555a-f816-4c74-9992-25d8995d172f",
+        "x-ms-routing-request-id": "SOUTHEASTASIA:20211213T095534Z:45e3555a-f816-4c74-9992-25d8995d172f"
       },
       "ResponseBody": {
-        "id": "/subscriptions/db1ab6f0-4769-4b27-930e-01e2ef9c123c/resourceGroups/testRG-8648",
-        "name": "testRG-8648",
+        "id": "/subscriptions/db1ab6f0-4769-4b27-930e-01e2ef9c123c/resourceGroups/testRG-363",
+        "name": "testRG-363",
         "type": "Microsoft.Resources/resourceGroups",
         "location": "eastus",
         "tags": {
@@ -99,18 +93,15 @@
       }
     },
     {
-      "RequestUri": "https://management.azure.com/subscriptions/db1ab6f0-4769-4b27-930e-01e2ef9c123c/resourceGroups/testRG-8648/providers/Microsoft.Web/sites/testSite-7364?api-version=2021-02-01",
+      "RequestUri": "https://management.azure.com/subscriptions/db1ab6f0-4769-4b27-930e-01e2ef9c123c/resourceGroups/testRG-363/providers/Microsoft.Web/sites/testSite-4264?api-version=2021-02-01",
       "RequestMethod": "PUT",
       "RequestHeaders": {
         "Accept": "application/json",
         "Authorization": "Sanitized",
         "Content-Length": "47",
         "Content-Type": "application/json",
-        "User-Agent": [
-          "azsdk-net-ResourceManager.AppService/1.0.0-alpha.20211207.1",
-          "(.NET Core 3.1.21; Microsoft Windows 10.0.22000)"
-        ],
-        "x-ms-client-request-id": "8958b21271a48d8dc7db0c0b78e4e267",
+        "User-Agent": "azsdk-net-ResourceManager.AppService/1.0.0-alpha.20211210.1 (.NET 6.0.0-rtm.21522.10; Microsoft Windows 10.0.22000)",
+        "x-ms-client-request-id": "c2f0b4ff4ea7f9dc1759c4f7c679ded0",
         "x-ms-return-client-request-id": "true"
       },
       "RequestBody": {
@@ -121,45 +112,45 @@
       "StatusCode": 200,
       "ResponseHeaders": {
         "Cache-Control": "no-cache",
-        "Content-Length": "6115",
+        "Content-Length": "6143",
         "Content-Type": "application/json",
-        "Date": "Tue, 07 Dec 2021 07:14:15 GMT",
-        "ETag": "\u00221D7EB3A00B75E0B\u0022",
+        "Date": "Mon, 13 Dec 2021 09:55:58 GMT",
+        "ETag": "\u00221D7F007973E5180\u0022",
         "Expires": "-1",
         "Pragma": "no-cache",
         "Server": "Microsoft-IIS/10.0",
         "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
         "X-AspNet-Version": "4.0.30319",
         "X-Content-Type-Options": "nosniff",
-        "x-ms-correlation-request-id": "6aaf8394-4db3-4c48-aaa1-a83090565d10",
-        "x-ms-ratelimit-remaining-subscription-resource-requests": "499",
-        "x-ms-request-id": "7b129cb8-d98c-4f7c-b09d-c9e9e8bdbe71",
-        "x-ms-routing-request-id": "SOUTHEASTASIA:20211207T071415Z:6aaf8394-4db3-4c48-aaa1-a83090565d10",
+        "x-ms-correlation-request-id": "c59df79d-f7d4-495f-af41-a2c7e80aac39",
+        "x-ms-ratelimit-remaining-subscription-resource-requests": "497",
+        "x-ms-request-id": "31d295dc-7ae0-4f55-ad46-00947251e717",
+        "x-ms-routing-request-id": "SOUTHEASTASIA:20211213T095559Z:c59df79d-f7d4-495f-af41-a2c7e80aac39",
         "X-Powered-By": "ASP.NET"
       },
       "ResponseBody": {
-        "id": "/subscriptions/db1ab6f0-4769-4b27-930e-01e2ef9c123c/resourceGroups/testRG-8648/providers/Microsoft.Web/sites/testSite-7364",
-        "name": "testSite-7364",
+        "id": "/subscriptions/db1ab6f0-4769-4b27-930e-01e2ef9c123c/resourceGroups/testRG-363/providers/Microsoft.Web/sites/testSite-4264",
+        "name": "testSite-4264",
         "type": "Microsoft.Web/sites",
         "kind": "app",
         "location": "eastus",
         "tags": {},
         "properties": {
-          "name": "testSite-7364",
+          "name": "testSite-4264",
           "state": "Running",
           "hostNames": [
-            "testsite-7364.azurewebsites.net"
+            "testsite-4264.azurewebsites.net"
           ],
-          "webSpace": "testRG-8648-EastUSwebspace",
-          "selfLink": "https://waws-prod-blu-289.api.azurewebsites.windows.net:454/subscriptions/db1ab6f0-4769-4b27-930e-01e2ef9c123c/webspaces/testRG-8648-EastUSwebspace/sites/testSite-7364",
-          "repositorySiteName": "testSite-7364",
+          "webSpace": "testRG-363-EastUSwebspace",
+          "selfLink": "https://waws-prod-blu-279.api.azurewebsites.windows.net:454/subscriptions/db1ab6f0-4769-4b27-930e-01e2ef9c123c/webspaces/testRG-363-EastUSwebspace/sites/testSite-4264",
+          "repositorySiteName": "testSite-4264",
           "owner": null,
           "usageState": "Normal",
           "enabled": true,
           "adminEnabled": true,
           "enabledHostNames": [
-            "testsite-7364.azurewebsites.net",
-            "testsite-7364.scm.azurewebsites.net"
+            "testsite-4264.azurewebsites.net",
+            "testsite-4264.scm.azurewebsites.net"
           ],
           "siteProperties": {
             "metadata": null,
@@ -182,7 +173,7 @@
           "siteMode": null,
           "hostNameSslStates": [
             {
-              "name": "testsite-7364.azurewebsites.net",
+              "name": "testsite-4264.azurewebsites.net",
               "sslState": "Disabled",
               "ipBasedSslResult": null,
               "virtualIP": null,
@@ -193,7 +184,7 @@
               "hostType": "Standard"
             },
             {
-              "name": "testsite-7364.scm.azurewebsites.net",
+              "name": "testsite-4264.scm.azurewebsites.net",
               "sslState": "Disabled",
               "ipBasedSslResult": null,
               "virtualIP": null,
@@ -206,11 +197,11 @@
           ],
           "computeMode": null,
           "serverFarm": null,
-          "serverFarmId": "/subscriptions/db1ab6f0-4769-4b27-930e-01e2ef9c123c/resourceGroups/testRG-8648/providers/Microsoft.Web/serverfarms/Default1wi",
+          "serverFarmId": "/subscriptions/db1ab6f0-4769-4b27-930e-01e2ef9c123c/resourceGroups/testRG-363/providers/Microsoft.Web/serverfarms/Default1sc",
           "reserved": false,
           "isXenon": false,
           "hyperV": false,
-          "lastModifiedTimeUtc": "2021-12-07T07:13:58.23",
+          "lastModifiedTimeUtc": "2021-12-13T09:55:42.1866667",
           "storageRecoveryDefaultState": "Running",
           "contentAvailabilityState": "Normal",
           "runtimeAvailabilityState": "Normal",
@@ -308,9 +299,11 @@
             "websiteTimeZone": null,
             "minimumElasticInstanceCount": 0,
             "azureStorageAccounts": null,
-            "sitePort": null
+            "http20ProxyFlag": null,
+            "sitePort": null,
+            "antivirusScanEnabled": null
           },
-          "deploymentId": "testSite-7364",
+          "deploymentId": "testSite-4264",
           "slotName": null,
           "trafficManagerHostNames": null,
           "sku": "Free",
@@ -326,24 +319,24 @@
           "domainVerificationIdentifiers": null,
           "customDomainVerificationId": "B2B26A95110144FA7D61C7F11182785CA097CEE09243353FC8B6B68E6270D88A",
           "kind": "app",
-          "inboundIpAddress": "20.49.104.54",
-          "possibleInboundIpAddresses": "20.49.104.54",
-          "ftpUsername": "testSite-7364\\$testSite-7364",
-          "ftpsHostName": "ftps://waws-prod-blu-289.ftp.azurewebsites.windows.net/site/wwwroot",
-          "outboundIpAddresses": "52.188.45.143,52.142.21.23,52.149.203.151,52.149.203.162,52.149.203.170,52.149.204.114,20.49.104.54",
-          "possibleOutboundIpAddresses": "52.188.45.143,52.142.21.23,52.149.203.151,52.149.203.162,52.149.203.170,52.149.204.114,52.149.204.125,52.188.47.163,52.149.204.241,20.185.12.52,52.147.213.53,52.149.205.138,52.149.206.143,52.147.212.206,52.149.207.119,52.150.51.84,52.150.52.144,52.150.52.195,52.150.52.212,52.150.53.80,52.150.53.189,52.150.53.244,52.150.54.60,52.149.200.127,52.154.65.85,52.154.65.229,20.42.35.174,52.142.19.237,52.147.215.226,52.154.66.148,20.49.104.54",
+          "inboundIpAddress": "20.49.104.49",
+          "possibleInboundIpAddresses": "20.49.104.49",
+          "ftpUsername": "testSite-4264\\$testSite-4264",
+          "ftpsHostName": "ftps://waws-prod-blu-279.ftp.azurewebsites.windows.net/site/wwwroot",
+          "outboundIpAddresses": "52.152.254.85,52.152.255.209,52.186.89.165,52.186.90.95,52.186.91.86,52.186.92.49,20.49.104.49",
+          "possibleOutboundIpAddresses": "52.152.254.85,52.152.255.209,52.186.89.165,52.186.90.95,52.186.91.86,52.186.92.49,52.186.92.131,52.186.93.198,52.186.93.240,52.186.94.230,52.186.95.0,52.186.95.234,52.190.32.4,52.190.32.206,52.190.33.177,52.190.34.116,52.190.34.155,52.190.34.197,52.190.34.255,52.190.35.26,52.190.35.44,52.190.35.75,52.190.35.141,52.190.35.234,52.150.34.147,52.150.35.63,52.150.36.89,52.150.36.224,52.150.37.7,52.150.37.148,20.49.104.49",
           "containerSize": 0,
           "dailyMemoryTimeQuota": 0,
           "suspendedTill": null,
           "siteDisabledReason": 0,
           "functionExecutionUnitsCache": null,
           "maxNumberOfWorkers": null,
-          "homeStamp": "waws-prod-blu-289",
+          "homeStamp": "waws-prod-blu-279",
           "cloningInfo": null,
           "hostingEnvironmentId": null,
           "tags": {},
-          "resourceGroup": "testRG-8648",
-          "defaultHostName": "testsite-7364.azurewebsites.net",
+          "resourceGroup": "testRG-363",
+          "defaultHostName": "testsite-4264.azurewebsites.net",
           "slotSwapStatus": null,
           "httpsOnly": false,
           "redundancyMode": "None",
@@ -361,18 +354,15 @@
       }
     },
     {
-      "RequestUri": "https://management.azure.com/subscriptions/db1ab6f0-4769-4b27-930e-01e2ef9c123c/resourceGroups/testRG-8648/providers/Microsoft.Web/sites/testSite-6538?api-version=2021-02-01",
+      "RequestUri": "https://management.azure.com/subscriptions/db1ab6f0-4769-4b27-930e-01e2ef9c123c/resourceGroups/testRG-363/providers/Microsoft.Web/sites/testSite-9769?api-version=2021-02-01",
       "RequestMethod": "PUT",
       "RequestHeaders": {
         "Accept": "application/json",
         "Authorization": "Sanitized",
         "Content-Length": "47",
         "Content-Type": "application/json",
-        "User-Agent": [
-          "azsdk-net-ResourceManager.AppService/1.0.0-alpha.20211207.1",
-          "(.NET Core 3.1.21; Microsoft Windows 10.0.22000)"
-        ],
-        "x-ms-client-request-id": "1d339a6f88a369d6df8a8e719c224c92",
+        "User-Agent": "azsdk-net-ResourceManager.AppService/1.0.0-alpha.20211210.1 (.NET 6.0.0-rtm.21522.10; Microsoft Windows 10.0.22000)",
+        "x-ms-client-request-id": "c7c6cf6e417a15bb107924c998ba62cd",
         "x-ms-return-client-request-id": "true"
       },
       "RequestBody": {
@@ -383,45 +373,45 @@
       "StatusCode": 200,
       "ResponseHeaders": {
         "Cache-Control": "no-cache",
-        "Content-Length": "6120",
+        "Content-Length": "6138",
         "Content-Type": "application/json",
-        "Date": "Tue, 07 Dec 2021 07:14:37 GMT",
-        "ETag": "\u00221D7EB3A0D3FC835\u0022",
+        "Date": "Mon, 13 Dec 2021 09:56:19 GMT",
+        "ETag": "\u00221D7F007A3471160\u0022",
         "Expires": "-1",
         "Pragma": "no-cache",
         "Server": "Microsoft-IIS/10.0",
         "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
         "X-AspNet-Version": "4.0.30319",
         "X-Content-Type-Options": "nosniff",
-        "x-ms-correlation-request-id": "5361a07b-f675-4f55-ab1f-d8dfa7ab5afb",
-        "x-ms-ratelimit-remaining-subscription-resource-requests": "498",
-        "x-ms-request-id": "33216444-1471-4dce-8de1-990d116a691c",
-        "x-ms-routing-request-id": "SOUTHEASTASIA:20211207T071437Z:5361a07b-f675-4f55-ab1f-d8dfa7ab5afb",
+        "x-ms-correlation-request-id": "88aaa34a-2572-4380-9f2c-f8a3c7378401",
+        "x-ms-ratelimit-remaining-subscription-resource-requests": "496",
+        "x-ms-request-id": "edd2960e-cb36-499b-ad46-f55820ec9236",
+        "x-ms-routing-request-id": "SOUTHEASTASIA:20211213T095620Z:88aaa34a-2572-4380-9f2c-f8a3c7378401",
         "X-Powered-By": "ASP.NET"
       },
       "ResponseBody": {
-        "id": "/subscriptions/db1ab6f0-4769-4b27-930e-01e2ef9c123c/resourceGroups/testRG-8648/providers/Microsoft.Web/sites/testSite-6538",
-        "name": "testSite-6538",
+        "id": "/subscriptions/db1ab6f0-4769-4b27-930e-01e2ef9c123c/resourceGroups/testRG-363/providers/Microsoft.Web/sites/testSite-9769",
+        "name": "testSite-9769",
         "type": "Microsoft.Web/sites",
         "kind": "app",
         "location": "eastus",
         "tags": {},
         "properties": {
-          "name": "testSite-6538",
+          "name": "testSite-9769",
           "state": "Running",
           "hostNames": [
-            "testsite-6538.azurewebsites.net"
+            "testsite-9769.azurewebsites.net"
           ],
-          "webSpace": "testRG-8648-EastUSwebspace",
-          "selfLink": "https://waws-prod-blu-289.api.azurewebsites.windows.net:454/subscriptions/db1ab6f0-4769-4b27-930e-01e2ef9c123c/webspaces/testRG-8648-EastUSwebspace/sites/testSite-6538",
-          "repositorySiteName": "testSite-6538",
+          "webSpace": "testRG-363-EastUSwebspace",
+          "selfLink": "https://waws-prod-blu-279.api.azurewebsites.windows.net:454/subscriptions/db1ab6f0-4769-4b27-930e-01e2ef9c123c/webspaces/testRG-363-EastUSwebspace/sites/testSite-9769",
+          "repositorySiteName": "testSite-9769",
           "owner": null,
           "usageState": "Normal",
           "enabled": true,
           "adminEnabled": true,
           "enabledHostNames": [
-            "testsite-6538.azurewebsites.net",
-            "testsite-6538.scm.azurewebsites.net"
+            "testsite-9769.azurewebsites.net",
+            "testsite-9769.scm.azurewebsites.net"
           ],
           "siteProperties": {
             "metadata": null,
@@ -444,7 +434,7 @@
           "siteMode": null,
           "hostNameSslStates": [
             {
-              "name": "testsite-6538.azurewebsites.net",
+              "name": "testsite-9769.azurewebsites.net",
               "sslState": "Disabled",
               "ipBasedSslResult": null,
               "virtualIP": null,
@@ -455,7 +445,7 @@
               "hostType": "Standard"
             },
             {
-              "name": "testsite-6538.scm.azurewebsites.net",
+              "name": "testsite-9769.scm.azurewebsites.net",
               "sslState": "Disabled",
               "ipBasedSslResult": null,
               "virtualIP": null,
@@ -468,11 +458,11 @@
           ],
           "computeMode": null,
           "serverFarm": null,
-          "serverFarmId": "/subscriptions/db1ab6f0-4769-4b27-930e-01e2ef9c123c/resourceGroups/testRG-8648/providers/Microsoft.Web/serverfarms/Default1wi",
+          "serverFarmId": "/subscriptions/db1ab6f0-4769-4b27-930e-01e2ef9c123c/resourceGroups/testRG-363/providers/Microsoft.Web/serverfarms/Default1sc",
           "reserved": false,
           "isXenon": false,
           "hyperV": false,
-          "lastModifiedTimeUtc": "2021-12-07T07:14:19.1933333",
+          "lastModifiedTimeUtc": "2021-12-13T09:56:02.43",
           "storageRecoveryDefaultState": "Running",
           "contentAvailabilityState": "Normal",
           "runtimeAvailabilityState": "Normal",
@@ -570,9 +560,11 @@
             "websiteTimeZone": null,
             "minimumElasticInstanceCount": 0,
             "azureStorageAccounts": null,
-            "sitePort": null
+            "http20ProxyFlag": null,
+            "sitePort": null,
+            "antivirusScanEnabled": null
           },
-          "deploymentId": "testSite-6538",
+          "deploymentId": "testSite-9769",
           "slotName": null,
           "trafficManagerHostNames": null,
           "sku": "Free",
@@ -588,24 +580,24 @@
           "domainVerificationIdentifiers": null,
           "customDomainVerificationId": "B2B26A95110144FA7D61C7F11182785CA097CEE09243353FC8B6B68E6270D88A",
           "kind": "app",
-          "inboundIpAddress": "20.49.104.54",
-          "possibleInboundIpAddresses": "20.49.104.54",
-          "ftpUsername": "testSite-6538\\$testSite-6538",
-          "ftpsHostName": "ftps://waws-prod-blu-289.ftp.azurewebsites.windows.net/site/wwwroot",
-          "outboundIpAddresses": "52.188.45.143,52.142.21.23,52.149.203.151,52.149.203.162,52.149.203.170,52.149.204.114,20.49.104.54",
-          "possibleOutboundIpAddresses": "52.188.45.143,52.142.21.23,52.149.203.151,52.149.203.162,52.149.203.170,52.149.204.114,52.149.204.125,52.188.47.163,52.149.204.241,20.185.12.52,52.147.213.53,52.149.205.138,52.149.206.143,52.147.212.206,52.149.207.119,52.150.51.84,52.150.52.144,52.150.52.195,52.150.52.212,52.150.53.80,52.150.53.189,52.150.53.244,52.150.54.60,52.149.200.127,52.154.65.85,52.154.65.229,20.42.35.174,52.142.19.237,52.147.215.226,52.154.66.148,20.49.104.54",
+          "inboundIpAddress": "20.49.104.49",
+          "possibleInboundIpAddresses": "20.49.104.49",
+          "ftpUsername": "testSite-9769\\$testSite-9769",
+          "ftpsHostName": "ftps://waws-prod-blu-279.ftp.azurewebsites.windows.net/site/wwwroot",
+          "outboundIpAddresses": "52.152.254.85,52.152.255.209,52.186.89.165,52.186.90.95,52.186.91.86,52.186.92.49,20.49.104.49",
+          "possibleOutboundIpAddresses": "52.152.254.85,52.152.255.209,52.186.89.165,52.186.90.95,52.186.91.86,52.186.92.49,52.186.92.131,52.186.93.198,52.186.93.240,52.186.94.230,52.186.95.0,52.186.95.234,52.190.32.4,52.190.32.206,52.190.33.177,52.190.34.116,52.190.34.155,52.190.34.197,52.190.34.255,52.190.35.26,52.190.35.44,52.190.35.75,52.190.35.141,52.190.35.234,52.150.34.147,52.150.35.63,52.150.36.89,52.150.36.224,52.150.37.7,52.150.37.148,20.49.104.49",
           "containerSize": 0,
           "dailyMemoryTimeQuota": 0,
           "suspendedTill": null,
           "siteDisabledReason": 0,
           "functionExecutionUnitsCache": null,
           "maxNumberOfWorkers": null,
-          "homeStamp": "waws-prod-blu-289",
+          "homeStamp": "waws-prod-blu-279",
           "cloningInfo": null,
           "hostingEnvironmentId": null,
           "tags": {},
-          "resourceGroup": "testRG-8648",
-          "defaultHostName": "testsite-6538.azurewebsites.net",
+          "resourceGroup": "testRG-363",
+          "defaultHostName": "testsite-9769.azurewebsites.net",
           "slotSwapStatus": null,
           "httpsOnly": false,
           "redundancyMode": "None",
@@ -623,62 +615,59 @@
       }
     },
     {
-      "RequestUri": "https://management.azure.com/subscriptions/db1ab6f0-4769-4b27-930e-01e2ef9c123c/resourceGroups/testRG-8648/providers/Microsoft.Web/sites?api-version=2021-02-01",
+      "RequestUri": "https://management.azure.com/subscriptions/db1ab6f0-4769-4b27-930e-01e2ef9c123c/resourceGroups/testRG-363/providers/Microsoft.Web/sites?api-version=2021-02-01",
       "RequestMethod": "GET",
       "RequestHeaders": {
         "Accept": "application/json",
         "Authorization": "Sanitized",
-        "User-Agent": [
-          "azsdk-net-ResourceManager.AppService/1.0.0-alpha.20211207.1",
-          "(.NET Core 3.1.21; Microsoft Windows 10.0.22000)"
-        ],
-        "x-ms-client-request-id": "4a09229f49ae6c53607da902e71c5842",
+        "User-Agent": "azsdk-net-ResourceManager.AppService/1.0.0-alpha.20211210.1 (.NET 6.0.0-rtm.21522.10; Microsoft Windows 10.0.22000)",
+        "x-ms-client-request-id": "aa587a16091897f7999f224868be6f94",
         "x-ms-return-client-request-id": "true"
       },
       "RequestBody": null,
       "StatusCode": 200,
       "ResponseHeaders": {
         "Cache-Control": "no-cache",
-        "Content-Length": "11885",
+        "Content-Length": "11921",
         "Content-Type": "application/json",
-        "Date": "Tue, 07 Dec 2021 07:14:37 GMT",
+        "Date": "Mon, 13 Dec 2021 09:56:20 GMT",
         "Expires": "-1",
         "Pragma": "no-cache",
         "Server": "Microsoft-IIS/10.0",
         "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
         "X-AspNet-Version": "4.0.30319",
         "X-Content-Type-Options": "nosniff",
-        "x-ms-correlation-request-id": "011a7252-01ad-4d49-930d-cee4d251ad7e",
-        "x-ms-ratelimit-remaining-subscription-reads": "11982",
-        "x-ms-request-id": "4bea9419-0d50-4302-b450-2178d782f315",
-        "x-ms-routing-request-id": "SOUTHEASTASIA:20211207T071438Z:011a7252-01ad-4d49-930d-cee4d251ad7e",
+        "x-ms-correlation-request-id": "36879858-6338-4a80-ba15-b9eaf83da93f",
+        "x-ms-ratelimit-remaining-subscription-reads": "11993",
+        "x-ms-request-id": "0c96370e-5394-43a9-91d3-3a834a62e0eb",
+        "x-ms-routing-request-id": "SOUTHEASTASIA:20211213T095620Z:36879858-6338-4a80-ba15-b9eaf83da93f",
         "X-Powered-By": "ASP.NET"
       },
       "ResponseBody": {
         "value": [
           {
-            "id": "/subscriptions/db1ab6f0-4769-4b27-930e-01e2ef9c123c/resourceGroups/testRG-8648/providers/Microsoft.Web/sites/testSite-7364",
-            "name": "testSite-7364",
+            "id": "/subscriptions/db1ab6f0-4769-4b27-930e-01e2ef9c123c/resourceGroups/testRG-363/providers/Microsoft.Web/sites/testSite-4264",
+            "name": "testSite-4264",
             "type": "Microsoft.Web/sites",
             "kind": "app",
             "location": "East US",
             "tags": {},
             "properties": {
-              "name": "testSite-7364",
+              "name": "testSite-4264",
               "state": "Running",
               "hostNames": [
-                "testsite-7364.azurewebsites.net"
+                "testsite-4264.azurewebsites.net"
               ],
-              "webSpace": "testRG-8648-EastUSwebspace",
-              "selfLink": "https://waws-prod-blu-289.api.azurewebsites.windows.net:454/subscriptions/db1ab6f0-4769-4b27-930e-01e2ef9c123c/webspaces/testRG-8648-EastUSwebspace/sites/testSite-7364",
-              "repositorySiteName": "testSite-7364",
+              "webSpace": "testRG-363-EastUSwebspace",
+              "selfLink": "https://waws-prod-blu-279.api.azurewebsites.windows.net:454/subscriptions/db1ab6f0-4769-4b27-930e-01e2ef9c123c/webspaces/testRG-363-EastUSwebspace/sites/testSite-4264",
+              "repositorySiteName": "testSite-4264",
               "owner": null,
               "usageState": "Normal",
               "enabled": true,
               "adminEnabled": true,
               "enabledHostNames": [
-                "testsite-7364.azurewebsites.net",
-                "testsite-7364.scm.azurewebsites.net"
+                "testsite-4264.azurewebsites.net",
+                "testsite-4264.scm.azurewebsites.net"
               ],
               "siteProperties": {
                 "metadata": null,
@@ -701,7 +690,7 @@
               "siteMode": null,
               "hostNameSslStates": [
                 {
-                  "name": "testsite-7364.azurewebsites.net",
+                  "name": "testsite-4264.azurewebsites.net",
                   "sslState": "Disabled",
                   "ipBasedSslResult": null,
                   "virtualIP": null,
@@ -712,7 +701,7 @@
                   "hostType": "Standard"
                 },
                 {
-                  "name": "testsite-7364.scm.azurewebsites.net",
+                  "name": "testsite-4264.scm.azurewebsites.net",
                   "sslState": "Disabled",
                   "ipBasedSslResult": null,
                   "virtualIP": null,
@@ -725,11 +714,11 @@
               ],
               "computeMode": null,
               "serverFarm": null,
-              "serverFarmId": "/subscriptions/db1ab6f0-4769-4b27-930e-01e2ef9c123c/resourceGroups/testRG-8648/providers/Microsoft.Web/serverfarms/Default1wi",
+              "serverFarmId": "/subscriptions/db1ab6f0-4769-4b27-930e-01e2ef9c123c/resourceGroups/testRG-363/providers/Microsoft.Web/serverfarms/Default1sc",
               "reserved": false,
               "isXenon": false,
               "hyperV": false,
-              "lastModifiedTimeUtc": "2021-12-07T07:13:58.3366667",
+              "lastModifiedTimeUtc": "2021-12-13T09:55:42.36",
               "storageRecoveryDefaultState": "Running",
               "contentAvailabilityState": "Normal",
               "runtimeAvailabilityState": "Normal",
@@ -811,9 +800,11 @@
                 "websiteTimeZone": null,
                 "minimumElasticInstanceCount": 0,
                 "azureStorageAccounts": null,
-                "sitePort": null
+                "http20ProxyFlag": null,
+                "sitePort": null,
+                "antivirusScanEnabled": null
               },
-              "deploymentId": "testSite-7364",
+              "deploymentId": "testSite-4264",
               "slotName": null,
               "trafficManagerHostNames": null,
               "sku": "Free",
@@ -829,24 +820,24 @@
               "domainVerificationIdentifiers": null,
               "customDomainVerificationId": "B2B26A95110144FA7D61C7F11182785CA097CEE09243353FC8B6B68E6270D88A",
               "kind": "app",
-              "inboundIpAddress": "20.49.104.54",
-              "possibleInboundIpAddresses": "20.49.104.54",
-              "ftpUsername": "testSite-7364\\$testSite-7364",
-              "ftpsHostName": "ftps://waws-prod-blu-289.ftp.azurewebsites.windows.net/site/wwwroot",
-              "outboundIpAddresses": "52.188.45.143,52.142.21.23,52.149.203.151,52.149.203.162,52.149.203.170,52.149.204.114,20.49.104.54",
-              "possibleOutboundIpAddresses": "52.188.45.143,52.142.21.23,52.149.203.151,52.149.203.162,52.149.203.170,52.149.204.114,52.149.204.125,52.188.47.163,52.149.204.241,20.185.12.52,52.147.213.53,52.149.205.138,52.149.206.143,52.147.212.206,52.149.207.119,52.150.51.84,52.150.52.144,52.150.52.195,52.150.52.212,52.150.53.80,52.150.53.189,52.150.53.244,52.150.54.60,52.149.200.127,52.154.65.85,52.154.65.229,20.42.35.174,52.142.19.237,52.147.215.226,52.154.66.148,20.49.104.54",
+              "inboundIpAddress": "20.49.104.49",
+              "possibleInboundIpAddresses": "20.49.104.49",
+              "ftpUsername": "testSite-4264\\$testSite-4264",
+              "ftpsHostName": "ftps://waws-prod-blu-279.ftp.azurewebsites.windows.net/site/wwwroot",
+              "outboundIpAddresses": "52.152.254.85,52.152.255.209,52.186.89.165,52.186.90.95,52.186.91.86,52.186.92.49,20.49.104.49",
+              "possibleOutboundIpAddresses": "52.152.254.85,52.152.255.209,52.186.89.165,52.186.90.95,52.186.91.86,52.186.92.49,52.186.92.131,52.186.93.198,52.186.93.240,52.186.94.230,52.186.95.0,52.186.95.234,52.190.32.4,52.190.32.206,52.190.33.177,52.190.34.116,52.190.34.155,52.190.34.197,52.190.34.255,52.190.35.26,52.190.35.44,52.190.35.75,52.190.35.141,52.190.35.234,52.150.34.147,52.150.35.63,52.150.36.89,52.150.36.224,52.150.37.7,52.150.37.148,20.49.104.49",
               "containerSize": 0,
               "dailyMemoryTimeQuota": 0,
               "suspendedTill": null,
               "siteDisabledReason": 0,
               "functionExecutionUnitsCache": null,
               "maxNumberOfWorkers": null,
-              "homeStamp": "waws-prod-blu-289",
+              "homeStamp": "waws-prod-blu-279",
               "cloningInfo": null,
               "hostingEnvironmentId": null,
               "tags": {},
-              "resourceGroup": "testRG-8648",
-              "defaultHostName": "testsite-7364.azurewebsites.net",
+              "resourceGroup": "testRG-363",
+              "defaultHostName": "testsite-4264.azurewebsites.net",
               "slotSwapStatus": null,
               "httpsOnly": false,
               "redundancyMode": "None",
@@ -863,28 +854,28 @@
             }
           },
           {
-            "id": "/subscriptions/db1ab6f0-4769-4b27-930e-01e2ef9c123c/resourceGroups/testRG-8648/providers/Microsoft.Web/sites/testSite-6538",
-            "name": "testSite-6538",
+            "id": "/subscriptions/db1ab6f0-4769-4b27-930e-01e2ef9c123c/resourceGroups/testRG-363/providers/Microsoft.Web/sites/testSite-9769",
+            "name": "testSite-9769",
             "type": "Microsoft.Web/sites",
             "kind": "app",
             "location": "East US",
             "tags": {},
             "properties": {
-              "name": "testSite-6538",
+              "name": "testSite-9769",
               "state": "Running",
               "hostNames": [
-                "testsite-6538.azurewebsites.net"
+                "testsite-9769.azurewebsites.net"
               ],
-              "webSpace": "testRG-8648-EastUSwebspace",
-              "selfLink": "https://waws-prod-blu-289.api.azurewebsites.windows.net:454/subscriptions/db1ab6f0-4769-4b27-930e-01e2ef9c123c/webspaces/testRG-8648-EastUSwebspace/sites/testSite-6538",
-              "repositorySiteName": "testSite-6538",
+              "webSpace": "testRG-363-EastUSwebspace",
+              "selfLink": "https://waws-prod-blu-279.api.azurewebsites.windows.net:454/subscriptions/db1ab6f0-4769-4b27-930e-01e2ef9c123c/webspaces/testRG-363-EastUSwebspace/sites/testSite-9769",
+              "repositorySiteName": "testSite-9769",
               "owner": null,
               "usageState": "Normal",
               "enabled": true,
               "adminEnabled": true,
               "enabledHostNames": [
-                "testsite-6538.azurewebsites.net",
-                "testsite-6538.scm.azurewebsites.net"
+                "testsite-9769.azurewebsites.net",
+                "testsite-9769.scm.azurewebsites.net"
               ],
               "siteProperties": {
                 "metadata": null,
@@ -907,7 +898,7 @@
               "siteMode": null,
               "hostNameSslStates": [
                 {
-                  "name": "testsite-6538.azurewebsites.net",
+                  "name": "testsite-9769.azurewebsites.net",
                   "sslState": "Disabled",
                   "ipBasedSslResult": null,
                   "virtualIP": null,
@@ -918,7 +909,7 @@
                   "hostType": "Standard"
                 },
                 {
-                  "name": "testsite-6538.scm.azurewebsites.net",
+                  "name": "testsite-9769.scm.azurewebsites.net",
                   "sslState": "Disabled",
                   "ipBasedSslResult": null,
                   "virtualIP": null,
@@ -931,11 +922,11 @@
               ],
               "computeMode": null,
               "serverFarm": null,
-              "serverFarmId": "/subscriptions/db1ab6f0-4769-4b27-930e-01e2ef9c123c/resourceGroups/testRG-8648/providers/Microsoft.Web/serverfarms/Default1wi",
+              "serverFarmId": "/subscriptions/db1ab6f0-4769-4b27-930e-01e2ef9c123c/resourceGroups/testRG-363/providers/Microsoft.Web/serverfarms/Default1sc",
               "reserved": false,
               "isXenon": false,
               "hyperV": false,
-              "lastModifiedTimeUtc": "2021-12-07T07:14:19.3633333",
+              "lastModifiedTimeUtc": "2021-12-13T09:56:02.55",
               "storageRecoveryDefaultState": "Running",
               "contentAvailabilityState": "Normal",
               "runtimeAvailabilityState": "Normal",
@@ -1017,9 +1008,11 @@
                 "websiteTimeZone": null,
                 "minimumElasticInstanceCount": 0,
                 "azureStorageAccounts": null,
-                "sitePort": null
+                "http20ProxyFlag": null,
+                "sitePort": null,
+                "antivirusScanEnabled": null
               },
-              "deploymentId": "testSite-6538",
+              "deploymentId": "testSite-9769",
               "slotName": null,
               "trafficManagerHostNames": null,
               "sku": "Free",
@@ -1035,24 +1028,24 @@
               "domainVerificationIdentifiers": null,
               "customDomainVerificationId": "B2B26A95110144FA7D61C7F11182785CA097CEE09243353FC8B6B68E6270D88A",
               "kind": "app",
-              "inboundIpAddress": "20.49.104.54",
-              "possibleInboundIpAddresses": "20.49.104.54",
-              "ftpUsername": "testSite-6538\\$testSite-6538",
-              "ftpsHostName": "ftps://waws-prod-blu-289.ftp.azurewebsites.windows.net/site/wwwroot",
-              "outboundIpAddresses": "52.188.45.143,52.142.21.23,52.149.203.151,52.149.203.162,52.149.203.170,52.149.204.114,20.49.104.54",
-              "possibleOutboundIpAddresses": "52.188.45.143,52.142.21.23,52.149.203.151,52.149.203.162,52.149.203.170,52.149.204.114,52.149.204.125,52.188.47.163,52.149.204.241,20.185.12.52,52.147.213.53,52.149.205.138,52.149.206.143,52.147.212.206,52.149.207.119,52.150.51.84,52.150.52.144,52.150.52.195,52.150.52.212,52.150.53.80,52.150.53.189,52.150.53.244,52.150.54.60,52.149.200.127,52.154.65.85,52.154.65.229,20.42.35.174,52.142.19.237,52.147.215.226,52.154.66.148,20.49.104.54",
+              "inboundIpAddress": "20.49.104.49",
+              "possibleInboundIpAddresses": "20.49.104.49",
+              "ftpUsername": "testSite-9769\\$testSite-9769",
+              "ftpsHostName": "ftps://waws-prod-blu-279.ftp.azurewebsites.windows.net/site/wwwroot",
+              "outboundIpAddresses": "52.152.254.85,52.152.255.209,52.186.89.165,52.186.90.95,52.186.91.86,52.186.92.49,20.49.104.49",
+              "possibleOutboundIpAddresses": "52.152.254.85,52.152.255.209,52.186.89.165,52.186.90.95,52.186.91.86,52.186.92.49,52.186.92.131,52.186.93.198,52.186.93.240,52.186.94.230,52.186.95.0,52.186.95.234,52.190.32.4,52.190.32.206,52.190.33.177,52.190.34.116,52.190.34.155,52.190.34.197,52.190.34.255,52.190.35.26,52.190.35.44,52.190.35.75,52.190.35.141,52.190.35.234,52.150.34.147,52.150.35.63,52.150.36.89,52.150.36.224,52.150.37.7,52.150.37.148,20.49.104.49",
               "containerSize": 0,
               "dailyMemoryTimeQuota": 0,
               "suspendedTill": null,
               "siteDisabledReason": 0,
               "functionExecutionUnitsCache": null,
               "maxNumberOfWorkers": null,
-              "homeStamp": "waws-prod-blu-289",
+              "homeStamp": "waws-prod-blu-279",
               "cloningInfo": null,
               "hostingEnvironmentId": null,
               "tags": {},
-              "resourceGroup": "testRG-8648",
-              "defaultHostName": "testsite-6538.azurewebsites.net",
+              "resourceGroup": "testRG-363",
+              "defaultHostName": "testsite-9769.azurewebsites.net",
               "slotSwapStatus": null,
               "httpsOnly": false,
               "redundancyMode": "None",
@@ -1075,7 +1068,7 @@
     }
   ],
   "Variables": {
-    "RandomSeed": "1198821431",
+    "RandomSeed": "2005057809",
     "RESOURCE_MANAGER_URL": null,
     "SUBSCRIPTION_ID": "db1ab6f0-4769-4b27-930e-01e2ef9c123c"
   }
