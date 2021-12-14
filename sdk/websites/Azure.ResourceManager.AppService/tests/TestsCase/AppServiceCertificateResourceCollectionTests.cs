@@ -12,8 +12,8 @@ namespace Azure.ResourceManager.AppService.Tests.TestsCase
 {
     public class AppServiceCertificateResourceCollectionTests : AppServiceTestBase
     {
-        public AppServiceCertificateResourceCollectionTests(bool isAsync, RecordedTestMode Record)
-           : base(isAsync)
+        public AppServiceCertificateResourceCollectionTests(bool isAsync)
+           : base(isAsync, RecordedTestMode.Record)
         {
         }
 
@@ -21,7 +21,7 @@ namespace Azure.ResourceManager.AppService.Tests.TestsCase
         {
             var resourceGroup = await CreateResourceGroupAsync();
             var orderName = Recording.GenerateAssetName("testAppServiceCertificateOrder");
-            var orderInput = ResourceDataHelper.GetBasicAppServiceCertificateOrderData(DefaultLocation);
+            var orderInput = ResourceDataHelper.GetBasicAppServiceCertificateOrderData("global");
             var lro = await resourceGroup.GetAppServiceCertificateOrders().CreateOrUpdateAsync(orderName, orderInput);
             var Order = lro.Value;
             return Order.GetAppServiceCertificateResources();
@@ -33,7 +33,7 @@ namespace Azure.ResourceManager.AppService.Tests.TestsCase
         {
             var container = await GetAppServiceCertificateResourceCollectionAsync();
             var name = Recording.GenerateAssetName("testAppServiceCertificateResource");
-            var input = ResourceDataHelper.GetBasicAppServiceCertificateResourceData(DefaultLocation);
+            var input = ResourceDataHelper.GetBasicAppServiceCertificateResourceData("global");
             var lro = await container.CreateOrUpdateAsync(name, input);
             var appServiceCertificateResource = lro.Value;
             Assert.AreEqual(name, appServiceCertificateResource.Data.Name);

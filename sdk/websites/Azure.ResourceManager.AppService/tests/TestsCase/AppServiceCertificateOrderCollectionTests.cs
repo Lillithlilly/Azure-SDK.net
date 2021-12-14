@@ -29,7 +29,7 @@ namespace Azure.ResourceManager.AppService.Tests.TestsCase
         {
             var container = await GetAppServiceCertificateOrderCollectionAsync();
             var name = Recording.GenerateAssetName("testAppServiceCertificateOrder");
-            var input = ResourceDataHelper.GetBasicAppServiceCertificateOrderData(DefaultLocation);
+            var input = ResourceDataHelper.GetBasicAppServiceCertificateOrderData("global");
             var lro = await container.CreateOrUpdateAsync(name, input);
             var appServiceCertificateOrder = lro.Value;
             Assert.AreEqual(name, appServiceCertificateOrder.Data.Name);
