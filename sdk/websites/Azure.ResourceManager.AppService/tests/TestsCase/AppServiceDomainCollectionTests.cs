@@ -28,7 +28,7 @@ namespace Azure.ResourceManager.AppService.Tests.TestsCase
         public async Task CreateOrUpdate()
         {
             var container = await GetAppServiceDomainCollectionAsync();
-            var name = Recording.GenerateAssetName("testAppServiceDomain");
+            var name = Recording.GenerateAssetName("www.contoso.com");
             var input = ResourceDataHelper.GetBasicAppServiceDomainData("global");
             var lro = await container.CreateOrUpdateAsync(name, input);
             var domain = lro.Value;
