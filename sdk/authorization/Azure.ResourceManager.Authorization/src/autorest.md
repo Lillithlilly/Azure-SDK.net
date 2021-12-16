@@ -2,7 +2,7 @@
 
 Run `dotnet build /t:GenerateCode` to generate code.
 
-# Azure.ResourceManager.Compute
+# Azure.ResourceManager.Authorization
 
 > see https://aka.ms/autorest
 
@@ -11,44 +11,14 @@ azure-arm: true
 library-name: Authorization
 namespace: Azure.ResourceManager.Authorization
 require: https://github.com/Azure/azure-rest-api-specs/blob/ec2b6d1985ce89c8646276e0806a738338e98bd2/specification/authorization/resource-manager/readme.md
-tag: package-2021-03-01
+tag: package-2020-10-01-preview
 clear-output-folder: true
 skip-csproj: true
 modelerfour:
   lenient-model-deduplication: true
-  
-#TODO: remove after we resolve why RestorePoint has no list
-# list-exception:
-# - /subscriptions/{subscriptionId}/providers/Microsoft.Compute/locations/{location}/publishers/{publisherName}/artifacttypes/vmextension/types/{type}/versions/{version}
-# - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/restorePointCollections/{restorePointCollectionName}/restorePoints/{restorePointName}
-# - /subscriptions/{subscriptionId}/providers/Microsoft.Compute/locations/{location}/cloudServiceOsVersions/{osVersionName}
-# - /subscriptions/{subscriptionId}/providers/Microsoft.Compute/locations/{location}/cloudServiceOsFamilies/{osFamilyName}
 
-# override-operation-name:
-#   VirtualMachineScaleSets_Start: PowerOn
-#   VirtualMachineScaleSetVMs_Start: PowerOn
-#   CloudServices_Start: PowerOn
+request-path-to-resource-type:
+  /{scope}/providers/Microsoft.Authorization/denyAssignments/{denyAssignmentId}: ById
+# directive:
 
-directive:
-#   - from: compute.json
-#     where: $.definitions.VirtualMachineImageProperties.properties.dataDiskImages
-#     transform: $.description="The list of data disk images information."
-#   - from: disk.json
-#     where: $.definitions.GrantAccessData.properties.access
-#     transform: $.description="The Access Level, accepted values include None, Read, Write."
-#   - rename-model:
-#       from: SshPublicKey
-#       to: SshPublicKeyInfo
-#   - rename-model:
-#       from: LogAnalyticsOperationResult
-#       to: LogAnalytics
-#   - rename-model:
-#       from: SshPublicKeyResource
-#       to: SshPublicKey
-#   - rename-model:
-#       from: RollingUpgradeStatusInfo
-#       to: VirtualMachineScaleSetRollingUpgrade
-#   - rename-model:
-#       from: RestorePointCollection
-#       to: RestorePointGroup
 ```
