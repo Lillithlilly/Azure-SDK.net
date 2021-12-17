@@ -17,8 +17,17 @@ skip-csproj: true
 modelerfour:
   lenient-model-deduplication: true
 
+#TODO: remove after we resolve why RestorePoint has no list
+list-exception:
+- /providers/Microsoft.Authorization/accessReviewScheduleDefinitions/{scheduleDefinitionId}/instances/{id}
+- /{denyAssignmentId}
+- /{roleAssignmentId}
+- /{roleId}
+
 request-path-to-resource-type:
-  /{scope}/providers/Microsoft.Authorization/denyAssignments/{denyAssignmentId}: ById
+  /{denyAssignmentId}: DenyAssignment
+  /{roleAssignmentId}: RoleAssignment
+  /{roleId}: RoleAssignment
 # directive:
 
 ```
