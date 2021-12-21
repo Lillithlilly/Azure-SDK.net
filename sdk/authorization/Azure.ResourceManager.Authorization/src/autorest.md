@@ -28,6 +28,9 @@ request-path-to-resource-type:
   /{denyAssignmentId}: DenyAssignment
   /{roleAssignmentId}: RoleAssignment
   /{roleId}: RoleAssignment
+
+request-path-to-resource-name:
+  /subscriptions/{subscriptionId}/providers/Microsoft.Authorization/accessReviewScheduleDefinitions/{scheduleDefinitionId}/instances/{id}: AccessReviewInstance
 # directive:
 
 ```

@@ -3,9 +3,9 @@
 
 using Azure.Core.TestFramework;
 
-namespace Azure.ResourceManager.AppConfiguration.Tests
+namespace Azure.ResourceManager.Authorization.Tests
 {
-    public class AppConfigurationManagementTestEnvironment : TestEnvironment
+    public class AuthorizationManagementTestEnvironment : TestEnvironment
     {
     }
 }

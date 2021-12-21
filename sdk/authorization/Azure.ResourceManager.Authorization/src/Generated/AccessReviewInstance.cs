@@ -18,8 +18,8 @@ using Azure.ResourceManager.Resources.Models;
 
 namespace Azure.ResourceManager.Authorization
 {
-    /// <summary> A Class representing a AccessReviewScheduleDefinitionAccessReviewScheduleDefinitionInstance along with the instance operations that can be performed on it. </summary>
-    public partial class AccessReviewScheduleDefinitionAccessReviewScheduleDefinitionInstance : ArmResource
+    /// <summary> A Class representing a AccessReviewInstance along with the instance operations that can be performed on it. </summary>
+    public partial class AccessReviewInstance : ArmResource
     {
         private readonly ClientDiagnostics _clientDiagnostics;
         private readonly AccessReviewInstancesRestOperations _accessReviewInstancesRestClient;
@@ -27,15 +27,15 @@ namespace Azure.ResourceManager.Authorization
         private readonly AccessReviewInstanceDecisionsRestOperations _accessReviewInstanceDecisionsRestClient;
         private readonly AccessReviewInstanceData _data;
 
-        /// <summary> Initializes a new instance of the <see cref="AccessReviewScheduleDefinitionAccessReviewScheduleDefinitionInstance"/> class for mocking. </summary>
-        protected AccessReviewScheduleDefinitionAccessReviewScheduleDefinitionInstance()
+        /// <summary> Initializes a new instance of the <see cref="AccessReviewInstance"/> class for mocking. </summary>
+        protected AccessReviewInstance()
         {
         }
 
-        /// <summary> Initializes a new instance of the <see cref = "AccessReviewScheduleDefinitionAccessReviewScheduleDefinitionInstance"/> class. </summary>
+        /// <summary> Initializes a new instance of the <see cref = "AccessReviewInstance"/> class. </summary>
         /// <param name="options"> The client parameters to use in these operations. </param>
         /// <param name="resource"> The resource that is the target of operations. </param>
-        internal AccessReviewScheduleDefinitionAccessReviewScheduleDefinitionInstance(ArmResource options, AccessReviewInstanceData resource) : base(options, resource.Id)
+        internal AccessReviewInstance(ArmResource options, AccessReviewInstanceData resource) : base(options, resource.Id)
         {
             HasData = true;
             _data = resource;
@@ -45,10 +45,10 @@ namespace Azure.ResourceManager.Authorization
             _accessReviewInstanceDecisionsRestClient = new AccessReviewInstanceDecisionsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
         }
 
-        /// <summary> Initializes a new instance of the <see cref="AccessReviewScheduleDefinitionAccessReviewScheduleDefinitionInstance"/> class. </summary>
+        /// <summary> Initializes a new instance of the <see cref="AccessReviewInstance"/> class. </summary>
         /// <param name="options"> The client parameters to use in these operations. </param>
         /// <param name="id"> The identifier of the resource that is the target of operations. </param>
-        internal AccessReviewScheduleDefinitionAccessReviewScheduleDefinitionInstance(ArmResource options, ResourceIdentifier id) : base(options, id)
+        internal AccessReviewInstance(ArmResource options, ResourceIdentifier id) : base(options, id)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
             _accessReviewInstancesRestClient = new AccessReviewInstancesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
@@ -56,13 +56,13 @@ namespace Azure.ResourceManager.Authorization
             _accessReviewInstanceDecisionsRestClient = new AccessReviewInstanceDecisionsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
         }
 
-        /// <summary> Initializes a new instance of the <see cref="AccessReviewScheduleDefinitionAccessReviewScheduleDefinitionInstance"/> class. </summary>
+        /// <summary> Initializes a new instance of the <see cref="AccessReviewInstance"/> class. </summary>
         /// <param name="clientOptions"> The client options to build client context. </param>
         /// <param name="credential"> The credential to build client context. </param>
         /// <param name="uri"> The uri to build client context. </param>
         /// <param name="pipeline"> The pipeline to build client context. </param>
         /// <param name="id"> The identifier of the resource that is the target of operations. </param>
-        internal AccessReviewScheduleDefinitionAccessReviewScheduleDefinitionInstance(ArmClientOptions clientOptions, TokenCredential credential, Uri uri, HttpPipeline pipeline, ResourceIdentifier id) : base(clientOptions, credential, uri, pipeline, id)
+        internal AccessReviewInstance(ArmClientOptions clientOptions, TokenCredential credential, Uri uri, HttpPipeline pipeline, ResourceIdentifier id) : base(clientOptions, credential, uri, pipeline, id)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
             _accessReviewInstancesRestClient = new AccessReviewInstancesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
@@ -93,16 +93,16 @@ namespace Azure.ResourceManager.Authorization
 
         /// <summary> Get access review instances. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public async virtual Task<Response<AccessReviewScheduleDefinitionAccessReviewScheduleDefinitionInstance>> GetAsync(CancellationToken cancellationToken = default)
+        public async virtual Task<Response<AccessReviewInstance>> GetAsync(CancellationToken cancellationToken = default)
         {
-            using var scope = _clientDiagnostics.CreateScope("AccessReviewScheduleDefinitionAccessReviewScheduleDefinitionInstance.Get");
+            using var scope = _clientDiagnostics.CreateScope("AccessReviewInstance.Get");
             scope.Start();
             try
             {
                 var response = await _accessReviewInstancesRestClient.GetByIdAsync(Id.SubscriptionId, Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw await _clientDiagnostics.CreateRequestFailedExceptionAsync(response.GetRawResponse()).ConfigureAwait(false);
-                return Response.FromValue(new AccessReviewScheduleDefinitionAccessReviewScheduleDefinitionInstance(this, response.Value), response.GetRawResponse());
+                return Response.FromValue(new AccessReviewInstance(this, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
             {
@@ -113,16 +113,16 @@ namespace Azure.ResourceManager.Authorization
 
         /// <summary> Get access review instances. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual Response<AccessReviewScheduleDefinitionAccessReviewScheduleDefinitionInstance> Get(CancellationToken cancellationToken = default)
+        public virtual Response<AccessReviewInstance> Get(CancellationToken cancellationToken = default)
         {
-            using var scope = _clientDiagnostics.CreateScope("AccessReviewScheduleDefinitionAccessReviewScheduleDefinitionInstance.Get");
+            using var scope = _clientDiagnostics.CreateScope("AccessReviewInstance.Get");
             scope.Start();
             try
             {
                 var response = _accessReviewInstancesRestClient.GetById(Id.SubscriptionId, Id.Parent.Name, Id.Name, cancellationToken);
                 if (response.Value == null)
                     throw _clientDiagnostics.CreateRequestFailedException(response.GetRawResponse());
-                return Response.FromValue(new AccessReviewScheduleDefinitionAccessReviewScheduleDefinitionInstance(this, response.Value), response.GetRawResponse());
+                return Response.FromValue(new AccessReviewInstance(this, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
             {
@@ -151,7 +151,7 @@ namespace Azure.ResourceManager.Authorization
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public async virtual Task<Response> StopAccessReviewInstanceAsync(CancellationToken cancellationToken = default)
         {
-            using var scope = _clientDiagnostics.CreateScope("AccessReviewScheduleDefinitionAccessReviewScheduleDefinitionInstance.StopAccessReviewInstance");
+            using var scope = _clientDiagnostics.CreateScope("AccessReviewInstance.StopAccessReviewInstance");
             scope.Start();
             try
             {
@@ -169,7 +169,7 @@ namespace Azure.ResourceManager.Authorization
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual Response StopAccessReviewInstance(CancellationToken cancellationToken = default)
         {
-            using var scope = _clientDiagnostics.CreateScope("AccessReviewScheduleDefinitionAccessReviewScheduleDefinitionInstance.StopAccessReviewInstance");
+            using var scope = _clientDiagnostics.CreateScope("AccessReviewInstance.StopAccessReviewInstance");
             scope.Start();
             try
             {
@@ -187,7 +187,7 @@ namespace Azure.ResourceManager.Authorization
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public async virtual Task<Response> ResetDecisionsAccessReviewInstanceAsync(CancellationToken cancellationToken = default)
         {
-            using var scope = _clientDiagnostics.CreateScope("AccessReviewScheduleDefinitionAccessReviewScheduleDefinitionInstance.ResetDecisionsAccessReviewInstance");
+            using var scope = _clientDiagnostics.CreateScope("AccessReviewInstance.ResetDecisionsAccessReviewInstance");
             scope.Start();
             try
             {
@@ -205,7 +205,7 @@ namespace Azure.ResourceManager.Authorization
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual Response ResetDecisionsAccessReviewInstance(CancellationToken cancellationToken = default)
         {
-            using var scope = _clientDiagnostics.CreateScope("AccessReviewScheduleDefinitionAccessReviewScheduleDefinitionInstance.ResetDecisionsAccessReviewInstance");
+            using var scope = _clientDiagnostics.CreateScope("AccessReviewInstance.ResetDecisionsAccessReviewInstance");
             scope.Start();
             try
             {
@@ -223,7 +223,7 @@ namespace Azure.ResourceManager.Authorization
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public async virtual Task<Response> ApplyDecisionsAccessReviewInstanceAsync(CancellationToken cancellationToken = default)
         {
-            using var scope = _clientDiagnostics.CreateScope("AccessReviewScheduleDefinitionAccessReviewScheduleDefinitionInstance.ApplyDecisionsAccessReviewInstance");
+            using var scope = _clientDiagnostics.CreateScope("AccessReviewInstance.ApplyDecisionsAccessReviewInstance");
             scope.Start();
             try
             {
@@ -241,7 +241,7 @@ namespace Azure.ResourceManager.Authorization
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual Response ApplyDecisionsAccessReviewInstance(CancellationToken cancellationToken = default)
         {
-            using var scope = _clientDiagnostics.CreateScope("AccessReviewScheduleDefinitionAccessReviewScheduleDefinitionInstance.ApplyDecisionsAccessReviewInstance");
+            using var scope = _clientDiagnostics.CreateScope("AccessReviewInstance.ApplyDecisionsAccessReviewInstance");
             scope.Start();
             try
             {
@@ -259,7 +259,7 @@ namespace Azure.ResourceManager.Authorization
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public async virtual Task<Response> SendRemindersAccessReviewInstanceAsync(CancellationToken cancellationToken = default)
         {
-            using var scope = _clientDiagnostics.CreateScope("AccessReviewScheduleDefinitionAccessReviewScheduleDefinitionInstance.SendRemindersAccessReviewInstance");
+            using var scope = _clientDiagnostics.CreateScope("AccessReviewInstance.SendRemindersAccessReviewInstance");
             scope.Start();
             try
             {
@@ -277,7 +277,7 @@ namespace Azure.ResourceManager.Authorization
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual Response SendRemindersAccessReviewInstance(CancellationToken cancellationToken = default)
         {
-            using var scope = _clientDiagnostics.CreateScope("AccessReviewScheduleDefinitionAccessReviewScheduleDefinitionInstance.SendRemindersAccessReviewInstance");
+            using var scope = _clientDiagnostics.CreateScope("AccessReviewInstance.SendRemindersAccessReviewInstance");
             scope.Start();
             try
             {
@@ -298,7 +298,7 @@ namespace Azure.ResourceManager.Authorization
         {
             async Task<Page<AccessReviewDecisionData>> FirstPageFunc(int? pageSizeHint)
             {
-                using var scope = _clientDiagnostics.CreateScope("AccessReviewScheduleDefinitionAccessReviewScheduleDefinitionInstance.GetAccessReviewInstanceDecisions");
+                using var scope = _clientDiagnostics.CreateScope("AccessReviewInstance.GetAccessReviewInstanceDecisions");
                 scope.Start();
                 try
                 {
@@ -313,7 +313,7 @@ namespace Azure.ResourceManager.Authorization
             }
             async Task<Page<AccessReviewDecisionData>> NextPageFunc(string nextLink, int? pageSizeHint)
             {
-                using var scope = _clientDiagnostics.CreateScope("AccessReviewScheduleDefinitionAccessReviewScheduleDefinitionInstance.GetAccessReviewInstanceDecisions");
+                using var scope = _clientDiagnostics.CreateScope("AccessReviewInstance.GetAccessReviewInstanceDecisions");
                 scope.Start();
                 try
                 {
@@ -336,7 +336,7 @@ namespace Azure.ResourceManager.Authorization
         {
             Page<AccessReviewDecisionData> FirstPageFunc(int? pageSizeHint)
             {
-                using var scope = _clientDiagnostics.CreateScope("AccessReviewScheduleDefinitionAccessReviewScheduleDefinitionInstance.GetAccessReviewInstanceDecisions");
+                using var scope = _clientDiagnostics.CreateScope("AccessReviewInstance.GetAccessReviewInstanceDecisions");
                 scope.Start();
                 try
                 {
@@ -351,7 +351,7 @@ namespace Azure.ResourceManager.Authorization
             }
             Page<AccessReviewDecisionData> NextPageFunc(string nextLink, int? pageSizeHint)
             {
-                using var scope = _clientDiagnostics.CreateScope("AccessReviewScheduleDefinitionAccessReviewScheduleDefinitionInstance.GetAccessReviewInstanceDecisions");
+                using var scope = _clientDiagnostics.CreateScope("AccessReviewInstance.GetAccessReviewInstanceDecisions");
                 scope.Start();
                 try
                 {

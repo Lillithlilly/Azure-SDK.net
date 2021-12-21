@@ -23,14 +23,14 @@ namespace Azure.ResourceManager.Authorization
         }
         #endregion
 
-        #region AccessReviewScheduleDefinitionAccessReviewScheduleDefinitionInstance
-        /// <summary> Gets an object representing a AccessReviewScheduleDefinitionAccessReviewScheduleDefinitionInstance along with the instance operations that can be performed on it but with no data. </summary>
+        #region AccessReviewInstance
+        /// <summary> Gets an object representing a AccessReviewInstance along with the instance operations that can be performed on it but with no data. </summary>
         /// <param name="armClient"> The <see cref="ArmClient" /> instance the method will execute against. </param>
         /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="AccessReviewScheduleDefinitionAccessReviewScheduleDefinitionInstance" /> object. </returns>
-        public static AccessReviewScheduleDefinitionAccessReviewScheduleDefinitionInstance GetAccessReviewScheduleDefinitionAccessReviewScheduleDefinitionInstance(this ArmClient armClient, ResourceIdentifier id)
+        /// <returns> Returns a <see cref="AccessReviewInstance" /> object. </returns>
+        public static AccessReviewInstance GetAccessReviewInstance(this ArmClient armClient, ResourceIdentifier id)
         {
-            return armClient.UseClientContext((uri, credential, clientOptions, pipeline) => new AccessReviewScheduleDefinitionAccessReviewScheduleDefinitionInstance(clientOptions, credential, uri, pipeline, id));
+            return armClient.UseClientContext((uri, credential, clientOptions, pipeline) => new AccessReviewInstance(clientOptions, credential, uri, pipeline, id));
         }
         #endregion
 

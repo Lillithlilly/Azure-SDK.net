@@ -1,4 +1,4 @@
-# Azure Compute Management client library for .NET
+# Azure Authorization Management client library for .NET
 
 This package follows the [new Azure SDK guidelines](https://azure.github.io/azure-sdk/general_introduction.html),which provide core capabilities that are shared amongst all Azure SDKs, including:
 
@@ -11,10 +11,10 @@ This package follows the [new Azure SDK guidelines](https://azure.github.io/azur
 
 ### Install the package
 
-Install the Azure Compute management library for .NET with [NuGet](https://www.nuget.org/):
+Install the Azure Authorization management library for .NET with [NuGet](https://www.nuget.org/):
 
 ```PowerShell
-Install-Package Azure.ResourceManager.Compute -Version 1.0.0-beta.4
+Install-Package Azure.ResourceManager.Authorization -Version 1.0.0-beta.1
 ```
 
 ### Prerequisites

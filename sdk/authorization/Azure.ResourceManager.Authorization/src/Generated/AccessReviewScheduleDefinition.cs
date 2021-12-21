@@ -220,13 +220,13 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
-        #region AccessReviewScheduleDefinitionAccessReviewScheduleDefinitionInstance
+        #region AccessReviewInstance
 
-        /// <summary> Gets a collection of AccessReviewScheduleDefinitionAccessReviewScheduleDefinitionInstances in the AccessReviewScheduleDefinition. </summary>
-        /// <returns> An object representing collection of AccessReviewScheduleDefinitionAccessReviewScheduleDefinitionInstances and their operations over a AccessReviewScheduleDefinition. </returns>
-        public AccessReviewScheduleDefinitionAccessReviewScheduleDefinitionInstanceCollection GetAccessReviewScheduleDefinitionAccessReviewScheduleDefinitionInstances()
+        /// <summary> Gets a collection of AccessReviewInstances in the AccessReviewScheduleDefinition. </summary>
+        /// <returns> An object representing collection of AccessReviewInstances and their operations over a AccessReviewScheduleDefinition. </returns>
+        public AccessReviewInstanceCollection GetAccessReviewInstances()
         {
-            return new AccessReviewScheduleDefinitionAccessReviewScheduleDefinitionInstanceCollection(this);
+            return new AccessReviewInstanceCollection(this);
         }
         #endregion
     }
