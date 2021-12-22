@@ -51,6 +51,9 @@ namespace Azure.ResourceManager.Authorization
 
         // Collection level operations.
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/roleEligibilityScheduleRequests/{roleEligibilityScheduleRequestName}
+        /// ContextualPath: /{scope}
+        /// OperationId: RoleEligibilityScheduleRequests_Create
         /// <summary> Creates a role eligibility schedule request. </summary>
         /// <param name="roleEligibilityScheduleRequestName"> The name of the role eligibility to create. It can be any valid GUID. </param>
         /// <param name="parameters"> Parameters for the role eligibility schedule request. </param>
@@ -85,6 +88,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/roleEligibilityScheduleRequests/{roleEligibilityScheduleRequestName}
+        /// ContextualPath: /{scope}
+        /// OperationId: RoleEligibilityScheduleRequests_Create
         /// <summary> Creates a role eligibility schedule request. </summary>
         /// <param name="roleEligibilityScheduleRequestName"> The name of the role eligibility to create. It can be any valid GUID. </param>
         /// <param name="parameters"> Parameters for the role eligibility schedule request. </param>
@@ -119,6 +125,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/roleEligibilityScheduleRequests/{roleEligibilityScheduleRequestName}
+        /// ContextualPath: /{scope}
+        /// OperationId: RoleEligibilityScheduleRequests_Get
         /// <summary> Get the specified role eligibility schedule request. </summary>
         /// <param name="roleEligibilityScheduleRequestName"> The name (guid) of the role eligibility schedule request to get. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -146,6 +155,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/roleEligibilityScheduleRequests/{roleEligibilityScheduleRequestName}
+        /// ContextualPath: /{scope}
+        /// OperationId: RoleEligibilityScheduleRequests_Get
         /// <summary> Get the specified role eligibility schedule request. </summary>
         /// <param name="roleEligibilityScheduleRequestName"> The name (guid) of the role eligibility schedule request to get. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -277,6 +289,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/roleEligibilityScheduleRequests
+        /// ContextualPath: /{scope}
+        /// OperationId: RoleEligibilityScheduleRequests_ListForScope
         /// <summary> Gets role eligibility schedule requests for a scope. </summary>
         /// <param name="filter"> The filter to apply on the operation. Use $filter=atScope() to return all role eligibility schedule requests at or above the scope. Use $filter=principalId eq {id} to return all role eligibility schedule requests at, above or below the scope for the specified principal. Use $filter=asRequestor() to return all role eligibility schedule requests requested by the current user. Use $filter=asTarget() to return all role eligibility schedule requests created for the current user. Use $filter=asApprover() to return all role eligibility schedule requests where the current user is an approver. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -316,6 +331,9 @@ namespace Azure.ResourceManager.Authorization
             return PageableHelpers.CreateEnumerable(FirstPageFunc, NextPageFunc);
         }
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/roleEligibilityScheduleRequests
+        /// ContextualPath: /{scope}
+        /// OperationId: RoleEligibilityScheduleRequests_ListForScope
         /// <summary> Gets role eligibility schedule requests for a scope. </summary>
         /// <param name="filter"> The filter to apply on the operation. Use $filter=atScope() to return all role eligibility schedule requests at or above the scope. Use $filter=principalId eq {id} to return all role eligibility schedule requests at, above or below the scope for the specified principal. Use $filter=asRequestor() to return all role eligibility schedule requests requested by the current user. Use $filter=asTarget() to return all role eligibility schedule requests created for the current user. Use $filter=asApprover() to return all role eligibility schedule requests where the current user is an approver. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>

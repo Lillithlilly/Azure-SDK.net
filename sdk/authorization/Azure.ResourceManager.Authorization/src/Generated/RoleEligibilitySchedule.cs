@@ -83,6 +83,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/roleEligibilitySchedules/{roleEligibilityScheduleName}
+        /// ContextualPath: /{scope}/providers/Microsoft.Authorization/roleEligibilitySchedules/{roleEligibilityScheduleName}
+        /// OperationId: RoleEligibilitySchedules_Get
         /// <summary> Get the specified role eligibility schedule for a resource scope. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public async virtual Task<Response<RoleEligibilitySchedule>> GetAsync(CancellationToken cancellationToken = default)
@@ -103,6 +106,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/roleEligibilitySchedules/{roleEligibilityScheduleName}
+        /// ContextualPath: /{scope}/providers/Microsoft.Authorization/roleEligibilitySchedules/{roleEligibilityScheduleName}
+        /// OperationId: RoleEligibilitySchedules_Get
         /// <summary> Get the specified role eligibility schedule for a resource scope. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual Response<RoleEligibilitySchedule> Get(CancellationToken cancellationToken = default)

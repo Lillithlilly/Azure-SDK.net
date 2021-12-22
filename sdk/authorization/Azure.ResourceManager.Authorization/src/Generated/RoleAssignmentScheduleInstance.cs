@@ -83,6 +83,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/roleAssignmentScheduleInstances/{roleAssignmentScheduleInstanceName}
+        /// ContextualPath: /{scope}/providers/Microsoft.Authorization/roleAssignmentScheduleInstances/{roleAssignmentScheduleInstanceName}
+        /// OperationId: RoleAssignmentScheduleInstances_Get
         /// <summary> Gets the specified role assignment schedule instance. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public async virtual Task<Response<RoleAssignmentScheduleInstance>> GetAsync(CancellationToken cancellationToken = default)
@@ -103,6 +106,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/roleAssignmentScheduleInstances/{roleAssignmentScheduleInstanceName}
+        /// ContextualPath: /{scope}/providers/Microsoft.Authorization/roleAssignmentScheduleInstances/{roleAssignmentScheduleInstanceName}
+        /// OperationId: RoleAssignmentScheduleInstances_Get
         /// <summary> Gets the specified role assignment schedule instance. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual Response<RoleAssignmentScheduleInstance> Get(CancellationToken cancellationToken = default)

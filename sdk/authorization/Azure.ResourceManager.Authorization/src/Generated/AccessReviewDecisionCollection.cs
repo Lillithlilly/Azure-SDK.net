@@ -44,6 +44,9 @@ namespace Azure.ResourceManager.Authorization
 
         // Collection level operations.
 
+        /// RequestPath: /providers/Microsoft.Authorization/accessReviewScheduleDefinitions/{scheduleDefinitionId}/instances/{id}/decisions/{decisionId}
+        /// ContextualPath: /providers/Microsoft.Authorization/accessReviewScheduleDefinitions/{scheduleDefinitionId}/instances/{id}
+        /// OperationId: AccessReviewInstanceMyDecisions_GetById
         /// <summary> Get my single access review instance decision. </summary>
         /// <param name="decisionId"> The id of the decision record. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -71,6 +74,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /providers/Microsoft.Authorization/accessReviewScheduleDefinitions/{scheduleDefinitionId}/instances/{id}/decisions/{decisionId}
+        /// ContextualPath: /providers/Microsoft.Authorization/accessReviewScheduleDefinitions/{scheduleDefinitionId}/instances/{id}
+        /// OperationId: AccessReviewInstanceMyDecisions_GetById
         /// <summary> Get my single access review instance decision. </summary>
         /// <param name="decisionId"> The id of the decision record. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -202,6 +208,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /providers/Microsoft.Authorization/accessReviewScheduleDefinitions/{scheduleDefinitionId}/instances/{id}/decisions
+        /// ContextualPath: /providers/Microsoft.Authorization/accessReviewScheduleDefinitions/{scheduleDefinitionId}/instances/{id}
+        /// OperationId: AccessReviewInstanceMyDecisions_List
         /// <summary> Get my access review instance decisions. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns> A collection of <see cref="AccessReviewDecision" /> that may take multiple service requests to iterate over. </returns>
@@ -240,6 +249,9 @@ namespace Azure.ResourceManager.Authorization
             return PageableHelpers.CreateEnumerable(FirstPageFunc, NextPageFunc);
         }
 
+        /// RequestPath: /providers/Microsoft.Authorization/accessReviewScheduleDefinitions/{scheduleDefinitionId}/instances/{id}/decisions
+        /// ContextualPath: /providers/Microsoft.Authorization/accessReviewScheduleDefinitions/{scheduleDefinitionId}/instances/{id}
+        /// OperationId: AccessReviewInstanceMyDecisions_List
         /// <summary> Get my access review instance decisions. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns> An async collection of <see cref="AccessReviewDecision" /> that may take multiple service requests to iterate over. </returns>

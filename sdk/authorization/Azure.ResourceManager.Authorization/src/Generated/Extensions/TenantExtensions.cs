@@ -13,6 +13,7 @@ using Azure;
 using Azure.Core;
 using Azure.Core.Pipeline;
 using Azure.ResourceManager;
+using Azure.ResourceManager.Authorization.Models;
 using Azure.ResourceManager.Resources;
 
 namespace Azure.ResourceManager.Authorization
@@ -20,13 +21,13 @@ namespace Azure.ResourceManager.Authorization
     /// <summary> A class to add extension methods to Tenant. </summary>
     public static partial class TenantExtensions
     {
-        #region TenantAccessReviewScheduleDefinitionInstance
-        /// <summary> Gets an object representing a TenantAccessReviewScheduleDefinitionInstanceCollection along with the instance operations that can be performed on it. </summary>
+        #region AccessReviewScheduleDefinitionInstance
+        /// <summary> Gets an object representing a AccessReviewScheduleDefinitionInstanceCollection along with the instance operations that can be performed on it. </summary>
         /// <param name="tenant"> The <see cref="Tenant" /> instance the method will execute against. </param>
-        /// <returns> Returns a <see cref="TenantAccessReviewScheduleDefinitionInstanceCollection" /> object. </returns>
-        public static TenantAccessReviewScheduleDefinitionInstanceCollection GetTenantAccessReviewScheduleDefinitionInstances(this Tenant tenant)
+        /// <returns> Returns a <see cref="AccessReviewScheduleDefinitionInstanceCollection" /> object. </returns>
+        public static AccessReviewScheduleDefinitionInstanceCollection GetAccessReviewScheduleDefinitionInstances(this Tenant tenant)
         {
-            return new TenantAccessReviewScheduleDefinitionInstanceCollection(tenant);
+            return new AccessReviewScheduleDefinitionInstanceCollection(tenant);
         }
         #endregion
 
@@ -37,16 +38,6 @@ namespace Azure.ResourceManager.Authorization
         public static DenyAssignmentCollection GetDenyAssignments(this Tenant tenant)
         {
             return new DenyAssignmentCollection(tenant);
-        }
-        #endregion
-
-        #region DenyAssignmentById
-        /// <summary> Gets an object representing a DenyAssignmentByIdCollection along with the instance operations that can be performed on it. </summary>
-        /// <param name="tenant"> The <see cref="Tenant" /> instance the method will execute against. </param>
-        /// <returns> Returns a <see cref="DenyAssignmentByIdCollection" /> object. </returns>
-        public static DenyAssignmentByIdCollection GetDenyAssignmentByIds(this Tenant tenant)
-        {
-            return new DenyAssignmentByIdCollection(tenant);
         }
         #endregion
 
@@ -70,16 +61,6 @@ namespace Azure.ResourceManager.Authorization
         }
         #endregion
 
-        #region RoleAssignmentById
-        /// <summary> Gets an object representing a RoleAssignmentByIdCollection along with the instance operations that can be performed on it. </summary>
-        /// <param name="tenant"> The <see cref="Tenant" /> instance the method will execute against. </param>
-        /// <returns> Returns a <see cref="RoleAssignmentByIdCollection" /> object. </returns>
-        public static RoleAssignmentByIdCollection GetRoleAssignmentByIds(this Tenant tenant)
-        {
-            return new RoleAssignmentByIdCollection(tenant);
-        }
-        #endregion
-
         #region RoleDefinition
         /// <summary> Gets an object representing a RoleDefinitionCollection along with the instance operations that can be performed on it. </summary>
         /// <param name="tenant"> The <see cref="Tenant" /> instance the method will execute against. </param>
@@ -87,16 +68,6 @@ namespace Azure.ResourceManager.Authorization
         public static RoleDefinitionCollection GetRoleDefinitions(this Tenant tenant)
         {
             return new RoleDefinitionCollection(tenant);
-        }
-        #endregion
-
-        #region RoleDefinitionById
-        /// <summary> Gets an object representing a RoleDefinitionByIdCollection along with the instance operations that can be performed on it. </summary>
-        /// <param name="tenant"> The <see cref="Tenant" /> instance the method will execute against. </param>
-        /// <returns> Returns a <see cref="RoleDefinitionByIdCollection" /> object. </returns>
-        public static RoleDefinitionByIdCollection GetRoleDefinitionByIds(this Tenant tenant)
-        {
-            return new RoleDefinitionByIdCollection(tenant);
         }
         #endregion
 
@@ -185,6 +156,14 @@ namespace Azure.ResourceManager.Authorization
             return new AccessReviewScheduleDefinitionsAssignedForMyApprovalRestOperations(clientDiagnostics, pipeline, clientOptions, endpoint);
         }
 
+        private static RoleAssignmentsRestOperations GetRoleAssignmentsRestOperations(ClientDiagnostics clientDiagnostics, TokenCredential credential, ArmClientOptions clientOptions, HttpPipeline pipeline, Uri endpoint = null)
+        {
+            return new RoleAssignmentsRestOperations(clientDiagnostics, pipeline, clientOptions, endpoint);
+        }
+
+        /// RequestPath: /providers/Microsoft.Authorization/accessReviewScheduleDefinitions
+        /// ContextualPath: /
+        /// OperationId: AccessReviewScheduleDefinitionsAssignedForMyApproval_List
         /// <summary> Lists the AccessReviewScheduleDefinitions for this <see cref="Tenant" />. </summary>
         /// <param name="tenant"> The <see cref="Tenant" /> instance the method will execute against. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -230,6 +209,9 @@ namespace Azure.ResourceManager.Authorization
             );
         }
 
+        /// RequestPath: /providers/Microsoft.Authorization/accessReviewScheduleDefinitions
+        /// ContextualPath: /
+        /// OperationId: AccessReviewScheduleDefinitionsAssignedForMyApproval_List
         /// <summary> Lists the AccessReviewScheduleDefinitions for this <see cref="Tenant" />. </summary>
         /// <param name="tenant"> The <see cref="Tenant" /> instance the method will execute against. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -271,6 +253,86 @@ namespace Azure.ResourceManager.Authorization
                     }
                 }
                 return PageableHelpers.CreateEnumerable(FirstPageFunc, NextPageFunc);
+            }
+            );
+        }
+
+        /// RequestPath: /{roleAssignmentId}/validate
+        /// ContextualPath: /
+        /// OperationId: RoleAssignments_ValidateById
+        /// <summary> Validate a role assignment create or update operation by ID. </summary>
+        /// <param name="tenant"> The <see cref="Tenant" /> instance the method will execute against. </param>
+        /// <param name="roleAssignmentId"> The fully qualified ID of the role assignment including scope, resource name, and resource type. Format: /{scope}/providers/Microsoft.Authorization/roleAssignments/{roleAssignmentName}. Example: /subscriptions/&lt;SUB_ID&gt;/resourcegroups/&lt;RESOURCE_GROUP&gt;/providers/Microsoft.Authorization/roleAssignments/&lt;ROLE_ASSIGNMENT_NAME&gt;. </param>
+        /// <param name="parameters"> Parameters for the role assignment. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="roleAssignmentId"/> or <paramref name="parameters"/> is null. </exception>
+        public static async Task<Response<ValidationResponse>> ValidateByIdRoleAssignmentAsync(this Tenant tenant, string roleAssignmentId, RoleAssignmentCreateParameters parameters, CancellationToken cancellationToken = default)
+        {
+            if (roleAssignmentId == null)
+            {
+                throw new ArgumentNullException(nameof(roleAssignmentId));
+            }
+            if (parameters == null)
+            {
+                throw new ArgumentNullException(nameof(parameters));
+            }
+
+            return await tenant.UseClientContext(async (baseUri, credential, options, pipeline) =>
+            {
+                var clientDiagnostics = new ClientDiagnostics(options);
+                using var scope = clientDiagnostics.CreateScope("TenantExtensions.ValidateByIdRoleAssignment");
+                scope.Start();
+                try
+                {
+                    var restOperations = GetRoleAssignmentsRestOperations(clientDiagnostics, credential, options, pipeline, baseUri);
+                    var response = await restOperations.ValidateByIdAsync(roleAssignmentId, parameters, cancellationToken).ConfigureAwait(false);
+                    return response;
+                }
+                catch (Exception e)
+                {
+                    scope.Failed(e);
+                    throw;
+                }
+            }
+            ).ConfigureAwait(false);
+        }
+
+        /// RequestPath: /{roleAssignmentId}/validate
+        /// ContextualPath: /
+        /// OperationId: RoleAssignments_ValidateById
+        /// <summary> Validate a role assignment create or update operation by ID. </summary>
+        /// <param name="tenant"> The <see cref="Tenant" /> instance the method will execute against. </param>
+        /// <param name="roleAssignmentId"> The fully qualified ID of the role assignment including scope, resource name, and resource type. Format: /{scope}/providers/Microsoft.Authorization/roleAssignments/{roleAssignmentName}. Example: /subscriptions/&lt;SUB_ID&gt;/resourcegroups/&lt;RESOURCE_GROUP&gt;/providers/Microsoft.Authorization/roleAssignments/&lt;ROLE_ASSIGNMENT_NAME&gt;. </param>
+        /// <param name="parameters"> Parameters for the role assignment. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="roleAssignmentId"/> or <paramref name="parameters"/> is null. </exception>
+        public static Response<ValidationResponse> ValidateByIdRoleAssignment(this Tenant tenant, string roleAssignmentId, RoleAssignmentCreateParameters parameters, CancellationToken cancellationToken = default)
+        {
+            if (roleAssignmentId == null)
+            {
+                throw new ArgumentNullException(nameof(roleAssignmentId));
+            }
+            if (parameters == null)
+            {
+                throw new ArgumentNullException(nameof(parameters));
+            }
+
+            return tenant.UseClientContext((baseUri, credential, options, pipeline) =>
+            {
+                var clientDiagnostics = new ClientDiagnostics(options);
+                using var scope = clientDiagnostics.CreateScope("TenantExtensions.ValidateByIdRoleAssignment");
+                scope.Start();
+                try
+                {
+                    var restOperations = GetRoleAssignmentsRestOperations(clientDiagnostics, credential, options, pipeline, baseUri);
+                    var response = restOperations.ValidateById(roleAssignmentId, parameters, cancellationToken);
+                    return response;
+                }
+                catch (Exception e)
+                {
+                    scope.Failed(e);
+                    throw;
+                }
             }
             );
         }

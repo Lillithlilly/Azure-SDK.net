@@ -46,6 +46,9 @@ namespace Azure.ResourceManager.Authorization
 
         // Collection level operations.
 
+        /// RequestPath: /subscriptions/{subscriptionId}/providers/Microsoft.Authorization/accessReviewScheduleDefinitions/{scheduleDefinitionId}
+        /// ContextualPath: /subscriptions/{subscriptionId}
+        /// OperationId: AccessReviewScheduleDefinitions_CreateOrUpdateById
         /// <summary> Create or Update access review schedule definition. </summary>
         /// <param name="scheduleDefinitionId"> The id of the access review schedule definition. </param>
         /// <param name="properties"> Access review schedule definition properties. </param>
@@ -80,6 +83,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /subscriptions/{subscriptionId}/providers/Microsoft.Authorization/accessReviewScheduleDefinitions/{scheduleDefinitionId}
+        /// ContextualPath: /subscriptions/{subscriptionId}
+        /// OperationId: AccessReviewScheduleDefinitions_CreateOrUpdateById
         /// <summary> Create or Update access review schedule definition. </summary>
         /// <param name="scheduleDefinitionId"> The id of the access review schedule definition. </param>
         /// <param name="properties"> Access review schedule definition properties. </param>
@@ -114,6 +120,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /subscriptions/{subscriptionId}/providers/Microsoft.Authorization/accessReviewScheduleDefinitions/{scheduleDefinitionId}
+        /// ContextualPath: /subscriptions/{subscriptionId}
+        /// OperationId: AccessReviewScheduleDefinitions_GetById
         /// <summary> Get single access review definition. </summary>
         /// <param name="scheduleDefinitionId"> The id of the access review schedule definition. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -141,6 +150,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /subscriptions/{subscriptionId}/providers/Microsoft.Authorization/accessReviewScheduleDefinitions/{scheduleDefinitionId}
+        /// ContextualPath: /subscriptions/{subscriptionId}
+        /// OperationId: AccessReviewScheduleDefinitions_GetById
         /// <summary> Get single access review definition. </summary>
         /// <param name="scheduleDefinitionId"> The id of the access review schedule definition. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -272,6 +284,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /subscriptions/{subscriptionId}/providers/Microsoft.Authorization/accessReviewScheduleDefinitions
+        /// ContextualPath: /subscriptions/{subscriptionId}
+        /// OperationId: AccessReviewScheduleDefinitions_List
         /// <summary> Get access review schedule definitions. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns> A collection of <see cref="AccessReviewScheduleDefinition" /> that may take multiple service requests to iterate over. </returns>
@@ -310,6 +325,9 @@ namespace Azure.ResourceManager.Authorization
             return PageableHelpers.CreateEnumerable(FirstPageFunc, NextPageFunc);
         }
 
+        /// RequestPath: /subscriptions/{subscriptionId}/providers/Microsoft.Authorization/accessReviewScheduleDefinitions
+        /// ContextualPath: /subscriptions/{subscriptionId}
+        /// OperationId: AccessReviewScheduleDefinitions_List
         /// <summary> Get access review schedule definitions. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns> An async collection of <see cref="AccessReviewScheduleDefinition" /> that may take multiple service requests to iterate over. </returns>

@@ -50,6 +50,9 @@ namespace Azure.ResourceManager.Authorization
 
         // Collection level operations.
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/roleManagementPolicies/{roleManagementPolicyName}
+        /// ContextualPath: /{scope}
+        /// OperationId: RoleManagementPolicies_Get
         /// <summary> Get the specified role management policy for a resource scope. </summary>
         /// <param name="roleManagementPolicyName"> The name (guid) of the role management policy to get. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -77,6 +80,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/roleManagementPolicies/{roleManagementPolicyName}
+        /// ContextualPath: /{scope}
+        /// OperationId: RoleManagementPolicies_Get
         /// <summary> Get the specified role management policy for a resource scope. </summary>
         /// <param name="roleManagementPolicyName"> The name (guid) of the role management policy to get. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -208,6 +214,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/roleManagementPolicies
+        /// ContextualPath: /{scope}
+        /// OperationId: RoleManagementPolicies_ListForScope
         /// <summary> Gets role management policies for a resource scope. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns> A collection of <see cref="RoleManagementPolicy" /> that may take multiple service requests to iterate over. </returns>
@@ -246,6 +255,9 @@ namespace Azure.ResourceManager.Authorization
             return PageableHelpers.CreateEnumerable(FirstPageFunc, NextPageFunc);
         }
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/roleManagementPolicies
+        /// ContextualPath: /{scope}
+        /// OperationId: RoleManagementPolicies_ListForScope
         /// <summary> Gets role management policies for a resource scope. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns> An async collection of <see cref="RoleManagementPolicy" /> that may take multiple service requests to iterate over. </returns>

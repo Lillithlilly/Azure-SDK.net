@@ -89,6 +89,9 @@ namespace Azure.ResourceManager.Authorization
         /// <summary> Gets the parent resource of this resource. </summary>
         public ArmResource Parent { get; }
 
+        /// RequestPath: /subscriptions/{subscriptionId}/providers/Microsoft.Authorization/accessReviewScheduleSettings/default
+        /// ContextualPath: /subscriptions/{subscriptionId}/providers/Microsoft.Authorization/accessReviewScheduleSettings/default
+        /// OperationId: AccessReviewDefaultSettings_Get
         /// <summary> Get access review default settings for the subscription. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public async virtual Task<Response<AccessReviewDefaultSettings>> GetAsync(CancellationToken cancellationToken = default)
@@ -109,6 +112,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /subscriptions/{subscriptionId}/providers/Microsoft.Authorization/accessReviewScheduleSettings/default
+        /// ContextualPath: /subscriptions/{subscriptionId}/providers/Microsoft.Authorization/accessReviewScheduleSettings/default
+        /// OperationId: AccessReviewDefaultSettings_Get
         /// <summary> Get access review default settings for the subscription. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual Response<AccessReviewDefaultSettings> Get(CancellationToken cancellationToken = default)
@@ -145,6 +151,9 @@ namespace Azure.ResourceManager.Authorization
             return ListAvailableLocations(ResourceType, cancellationToken);
         }
 
+        /// RequestPath: /subscriptions/{subscriptionId}/providers/Microsoft.Authorization/accessReviewScheduleSettings/default
+        /// ContextualPath: /subscriptions/{subscriptionId}/providers/Microsoft.Authorization/accessReviewScheduleSettings/default
+        /// OperationId: AccessReviewDefaultSettings_Put
         /// <summary> Get access review default settings for the subscription. </summary>
         /// <param name="properties"> Access review schedule settings. </param>
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
@@ -174,6 +183,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /subscriptions/{subscriptionId}/providers/Microsoft.Authorization/accessReviewScheduleSettings/default
+        /// ContextualPath: /subscriptions/{subscriptionId}/providers/Microsoft.Authorization/accessReviewScheduleSettings/default
+        /// OperationId: AccessReviewDefaultSettings_Put
         /// <summary> Get access review default settings for the subscription. </summary>
         /// <param name="properties"> Access review schedule settings. </param>
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>

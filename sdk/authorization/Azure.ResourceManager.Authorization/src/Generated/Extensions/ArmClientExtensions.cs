@@ -34,14 +34,14 @@ namespace Azure.ResourceManager.Authorization
         }
         #endregion
 
-        #region TenantAccessReviewScheduleDefinitionInstance
-        /// <summary> Gets an object representing a TenantAccessReviewScheduleDefinitionInstance along with the instance operations that can be performed on it but with no data. </summary>
+        #region AccessReviewScheduleDefinitionInstance
+        /// <summary> Gets an object representing a AccessReviewScheduleDefinitionInstance along with the instance operations that can be performed on it but with no data. </summary>
         /// <param name="armClient"> The <see cref="ArmClient" /> instance the method will execute against. </param>
         /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="TenantAccessReviewScheduleDefinitionInstance" /> object. </returns>
-        public static TenantAccessReviewScheduleDefinitionInstance GetTenantAccessReviewScheduleDefinitionInstance(this ArmClient armClient, ResourceIdentifier id)
+        /// <returns> Returns a <see cref="AccessReviewScheduleDefinitionInstance" /> object. </returns>
+        public static AccessReviewScheduleDefinitionInstance GetAccessReviewScheduleDefinitionInstance(this ArmClient armClient, ResourceIdentifier id)
         {
-            return armClient.UseClientContext((uri, credential, clientOptions, pipeline) => new TenantAccessReviewScheduleDefinitionInstance(clientOptions, credential, uri, pipeline, id));
+            return armClient.UseClientContext((uri, credential, clientOptions, pipeline) => new AccessReviewScheduleDefinitionInstance(clientOptions, credential, uri, pipeline, id));
         }
         #endregion
 
@@ -78,17 +78,6 @@ namespace Azure.ResourceManager.Authorization
         }
         #endregion
 
-        #region DenyAssignmentById
-        /// <summary> Gets an object representing a DenyAssignmentById along with the instance operations that can be performed on it but with no data. </summary>
-        /// <param name="armClient"> The <see cref="ArmClient" /> instance the method will execute against. </param>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="DenyAssignmentById" /> object. </returns>
-        public static DenyAssignmentById GetDenyAssignmentById(this ArmClient armClient, ResourceIdentifier id)
-        {
-            return armClient.UseClientContext((uri, credential, clientOptions, pipeline) => new DenyAssignmentById(clientOptions, credential, uri, pipeline, id));
-        }
-        #endregion
-
         #region ProviderOperationsMetadata
         /// <summary> Gets an object representing a ProviderOperationsMetadata along with the instance operations that can be performed on it but with no data. </summary>
         /// <param name="armClient"> The <see cref="ArmClient" /> instance the method will execute against. </param>
@@ -111,17 +100,6 @@ namespace Azure.ResourceManager.Authorization
         }
         #endregion
 
-        #region RoleAssignmentById
-        /// <summary> Gets an object representing a RoleAssignmentById along with the instance operations that can be performed on it but with no data. </summary>
-        /// <param name="armClient"> The <see cref="ArmClient" /> instance the method will execute against. </param>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="RoleAssignmentById" /> object. </returns>
-        public static RoleAssignmentById GetRoleAssignmentById(this ArmClient armClient, ResourceIdentifier id)
-        {
-            return armClient.UseClientContext((uri, credential, clientOptions, pipeline) => new RoleAssignmentById(clientOptions, credential, uri, pipeline, id));
-        }
-        #endregion
-
         #region RoleDefinition
         /// <summary> Gets an object representing a RoleDefinition along with the instance operations that can be performed on it but with no data. </summary>
         /// <param name="armClient"> The <see cref="ArmClient" /> instance the method will execute against. </param>
@@ -130,17 +108,6 @@ namespace Azure.ResourceManager.Authorization
         public static RoleDefinition GetRoleDefinition(this ArmClient armClient, ResourceIdentifier id)
         {
             return armClient.UseClientContext((uri, credential, clientOptions, pipeline) => new RoleDefinition(clientOptions, credential, uri, pipeline, id));
-        }
-        #endregion
-
-        #region RoleDefinitionById
-        /// <summary> Gets an object representing a RoleDefinitionById along with the instance operations that can be performed on it but with no data. </summary>
-        /// <param name="armClient"> The <see cref="ArmClient" /> instance the method will execute against. </param>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="RoleDefinitionById" /> object. </returns>
-        public static RoleDefinitionById GetRoleDefinitionById(this ArmClient armClient, ResourceIdentifier id)
-        {
-            return armClient.UseClientContext((uri, credential, clientOptions, pipeline) => new RoleDefinitionById(clientOptions, credential, uri, pipeline, id));
         }
         #endregion
 

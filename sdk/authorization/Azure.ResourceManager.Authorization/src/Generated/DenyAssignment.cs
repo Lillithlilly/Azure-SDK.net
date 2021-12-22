@@ -83,6 +83,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/denyAssignments/{denyAssignmentId}
+        /// ContextualPath: /{scope}/providers/Microsoft.Authorization/denyAssignments/{denyAssignmentId}
+        /// OperationId: DenyAssignments_Get
         /// <summary> Get the specified deny assignment. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public async virtual Task<Response<DenyAssignment>> GetAsync(CancellationToken cancellationToken = default)
@@ -103,6 +106,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/denyAssignments/{denyAssignmentId}
+        /// ContextualPath: /{scope}/providers/Microsoft.Authorization/denyAssignments/{denyAssignmentId}
+        /// OperationId: DenyAssignments_Get
         /// <summary> Get the specified deny assignment. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual Response<DenyAssignment> Get(CancellationToken cancellationToken = default)

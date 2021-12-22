@@ -1,50 +1,51 @@
-﻿ // Copyright (c) Microsoft Corporation. All rights reserved.
+﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-using Azure.Core;
+using System.Threading.Tasks;
 using Azure.Core.TestFramework;
 using Azure.ResourceManager.Resources;
-using Azure.ResourceManager.Network;
+using Azure.ResourceManager.Resources.Models;
 using Azure.ResourceManager.TestFramework;
-using Azure.ResourceManager.AppConfiguration;
-using System.Threading.Tasks;
+using NUnit.Framework;
 
-namespace Azure.ResourceManager.AppConfiguration.Tests
+namespace Azure.ResourceManager.Authorization.Tests
 {
-    [RunFrequency(RunTestFrequency.Manually)]
-    public abstract class AppConfigurationClientBase : ManagementRecordedTestBase<AppConfigurationManagementTestEnvironment>
+    public class AuthorizationTestBase : ManagementRecordedTestBase<AuthorizationManagementTestEnvironment>
     {
-        public ArmClient ArmClient { get; set; }
-        public string Location { get; set; }
-        public string KeyUuId { get; set; }
-        public string LabelUuId { get; set; }
-        public string Key { get; set; }
-        public string Label { get; set; }
-        public string TestContentType { get; set; }
-        public string TestValue { get; set; }
-        public string ResourceGroupPrefix { get; set; }
+        protected Location DefaultLocation => Location.EastUS;
+        protected ArmClient Client { get; private set; }
+        protected Subscription DefaultSubscription { get; private set; }
 
-        protected AppConfigurationClientBase(bool isAsync)
+        protected AuthorizationTestBase(bool isAsync)
             : base(isAsync)
         {
         }
 
-        protected AppConfigurationClientBase(bool isAsync, RecordedTestMode mode)
+        protected AuthorizationTestBase(bool isAsync, RecordedTestMode mode)
             : base(isAsync, mode)
         {
         }
 
-        protected void Initialize()
+        [SetUp]
+        public async Task CreateCommonClient()
         {
-            Location = "eastus";
-            KeyUuId = "test_key_a6af8952-54a6-11e9-b600-2816a84d0309";
-            LabelUuId = "1d7b2b28-549e-11e9-b51c-2816a84d0309";
-            Key = "PYTHON_UNIT_" + KeyUuId;
-            Label = "test_label1_" + LabelUuId;
-            TestContentType = "test content type";
-            TestValue = "test value";
-            ResourceGroupPrefix = "Default-AppConfiguration-";
-            ArmClient = GetArmClient();
+            Client = GetArmClient();
+            DefaultSubscription = await Client.GetDefaultSubscriptionAsync().ConfigureAwait(false);
+        }
+
+        protected async Task<ResourceGroup> CreateResourceGroupAsync()
+        {
+            var resourceGroupName = Recording.GenerateAssetName("testRG-");
+            var rgOp = await DefaultSubscription.GetResourceGroups().CreateOrUpdateAsync(
+                resourceGroupName,
+                new ResourceGroupData(DefaultLocation)
+                {
+                    Tags =
+                    {
+                        { "test", "env" }
+                    }
+                });
+            return rgOp.Value;
         }
     }
 }

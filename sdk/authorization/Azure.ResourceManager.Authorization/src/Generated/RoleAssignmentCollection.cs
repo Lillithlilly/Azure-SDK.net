@@ -52,6 +52,9 @@ namespace Azure.ResourceManager.Authorization
 
         // Collection level operations.
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/roleAssignments/{roleAssignmentName}
+        /// ContextualPath: /{scope}
+        /// OperationId: RoleAssignments_Create
         /// <summary> Create or update a role assignment by scope and name. </summary>
         /// <param name="roleAssignmentName"> The name of the role assignment. It can be any valid GUID. </param>
         /// <param name="parameters"> Parameters for the role assignment. </param>
@@ -86,6 +89,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/roleAssignments/{roleAssignmentName}
+        /// ContextualPath: /{scope}
+        /// OperationId: RoleAssignments_Create
         /// <summary> Create or update a role assignment by scope and name. </summary>
         /// <param name="roleAssignmentName"> The name of the role assignment. It can be any valid GUID. </param>
         /// <param name="parameters"> Parameters for the role assignment. </param>
@@ -120,6 +126,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/roleAssignments/{roleAssignmentName}
+        /// ContextualPath: /{scope}
+        /// OperationId: RoleAssignments_Get
         /// <summary> Get a role assignment by scope and name. </summary>
         /// <param name="roleAssignmentName"> The name of the role assignment. It can be any valid GUID. </param>
         /// <param name="tenantId"> Tenant ID for cross-tenant request. </param>
@@ -148,6 +157,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/roleAssignments/{roleAssignmentName}
+        /// ContextualPath: /{scope}
+        /// OperationId: RoleAssignments_Get
         /// <summary> Get a role assignment by scope and name. </summary>
         /// <param name="roleAssignmentName"> The name of the role assignment. It can be any valid GUID. </param>
         /// <param name="tenantId"> Tenant ID for cross-tenant request. </param>
@@ -284,6 +296,18 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /subscriptions/{subscriptionId}/providers/Microsoft.Authorization/roleAssignments
+        /// ContextualPath: /subscriptions/{subscriptionId}
+        /// OperationId: RoleAssignments_ListForSubscription
+        /// RequestPath: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Authorization/roleAssignments
+        /// ContextualPath: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}
+        /// OperationId: RoleAssignments_ListForResourceGroup
+        /// RequestPath: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}/providers/Microsoft.Authorization/roleAssignments
+        /// ContextualPath: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+        /// OperationId: RoleAssignments_ListForResource
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/roleAssignments
+        /// ContextualPath: /{scope}
+        /// OperationId: RoleAssignments_ListForScope
         /// <summary> List all role assignments that apply to a subscription. </summary>
         /// <param name="filter"> The filter to apply on the operation. Use $filter=atScope() to return all role assignments at or above the scope. Use $filter=principalId eq {id} to return all role assignments at, above or below the scope for the specified principal. </param>
         /// <param name="tenantId"> Tenant ID for cross-tenant request. </param>
@@ -429,6 +453,18 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /subscriptions/{subscriptionId}/providers/Microsoft.Authorization/roleAssignments
+        /// ContextualPath: /subscriptions/{subscriptionId}
+        /// OperationId: RoleAssignments_ListForSubscription
+        /// RequestPath: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Authorization/roleAssignments
+        /// ContextualPath: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}
+        /// OperationId: RoleAssignments_ListForResourceGroup
+        /// RequestPath: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}/providers/Microsoft.Authorization/roleAssignments
+        /// ContextualPath: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+        /// OperationId: RoleAssignments_ListForResource
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/roleAssignments
+        /// ContextualPath: /{scope}
+        /// OperationId: RoleAssignments_ListForScope
         /// <summary> List all role assignments that apply to a subscription. </summary>
         /// <param name="filter"> The filter to apply on the operation. Use $filter=atScope() to return all role assignments at or above the scope. Use $filter=principalId eq {id} to return all role assignments at, above or below the scope for the specified principal. </param>
         /// <param name="tenantId"> Tenant ID for cross-tenant request. </param>

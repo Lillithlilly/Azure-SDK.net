@@ -84,6 +84,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/roleDefinitions/{roleDefinitionId}
+        /// ContextualPath: /{scope}/providers/Microsoft.Authorization/roleDefinitions/{roleDefinitionId}
+        /// OperationId: RoleDefinitions_Get
         /// <summary> Get role definition by name (GUID). </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public async virtual Task<Response<RoleDefinition>> GetAsync(CancellationToken cancellationToken = default)
@@ -104,6 +107,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/roleDefinitions/{roleDefinitionId}
+        /// ContextualPath: /{scope}/providers/Microsoft.Authorization/roleDefinitions/{roleDefinitionId}
+        /// OperationId: RoleDefinitions_Get
         /// <summary> Get role definition by name (GUID). </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual Response<RoleDefinition> Get(CancellationToken cancellationToken = default)
@@ -140,6 +146,9 @@ namespace Azure.ResourceManager.Authorization
             return ListAvailableLocations(ResourceType, cancellationToken);
         }
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/roleDefinitions/{roleDefinitionId}
+        /// ContextualPath: /{scope}/providers/Microsoft.Authorization/roleDefinitions/{roleDefinitionId}
+        /// OperationId: RoleDefinitions_Delete
         /// <summary> Deletes a role definition. </summary>
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -162,6 +171,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/roleDefinitions/{roleDefinitionId}
+        /// ContextualPath: /{scope}/providers/Microsoft.Authorization/roleDefinitions/{roleDefinitionId}
+        /// OperationId: RoleDefinitions_Delete
         /// <summary> Deletes a role definition. </summary>
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>

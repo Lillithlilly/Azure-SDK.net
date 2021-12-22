@@ -84,6 +84,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/roleManagementPolicies/{roleManagementPolicyName}
+        /// ContextualPath: /{scope}/providers/Microsoft.Authorization/roleManagementPolicies/{roleManagementPolicyName}
+        /// OperationId: RoleManagementPolicies_Get
         /// <summary> Get the specified role management policy for a resource scope. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public async virtual Task<Response<RoleManagementPolicy>> GetAsync(CancellationToken cancellationToken = default)
@@ -104,6 +107,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/roleManagementPolicies/{roleManagementPolicyName}
+        /// ContextualPath: /{scope}/providers/Microsoft.Authorization/roleManagementPolicies/{roleManagementPolicyName}
+        /// OperationId: RoleManagementPolicies_Get
         /// <summary> Get the specified role management policy for a resource scope. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual Response<RoleManagementPolicy> Get(CancellationToken cancellationToken = default)
@@ -140,6 +146,9 @@ namespace Azure.ResourceManager.Authorization
             return ListAvailableLocations(ResourceType, cancellationToken);
         }
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/roleManagementPolicies/{roleManagementPolicyName}
+        /// ContextualPath: /{scope}/providers/Microsoft.Authorization/roleManagementPolicies/{roleManagementPolicyName}
+        /// OperationId: RoleManagementPolicies_Delete
         /// <summary> Delete a role management policy. </summary>
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -162,6 +171,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/roleManagementPolicies/{roleManagementPolicyName}
+        /// ContextualPath: /{scope}/providers/Microsoft.Authorization/roleManagementPolicies/{roleManagementPolicyName}
+        /// OperationId: RoleManagementPolicies_Delete
         /// <summary> Delete a role management policy. </summary>
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -184,6 +196,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/roleManagementPolicies/{roleManagementPolicyName}
+        /// ContextualPath: /{scope}/providers/Microsoft.Authorization/roleManagementPolicies/{roleManagementPolicyName}
+        /// OperationId: RoleManagementPolicies_Update
         /// <summary> Update a role management policy. </summary>
         /// <param name="parameters"> Parameters for the role management policy. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -209,6 +224,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/roleManagementPolicies/{roleManagementPolicyName}
+        /// ContextualPath: /{scope}/providers/Microsoft.Authorization/roleManagementPolicies/{roleManagementPolicyName}
+        /// OperationId: RoleManagementPolicies_Update
         /// <summary> Update a role management policy. </summary>
         /// <param name="parameters"> Parameters for the role management policy. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>

@@ -91,6 +91,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /subscriptions/{subscriptionId}/providers/Microsoft.Authorization/accessReviewScheduleDefinitions/{scheduleDefinitionId}/instances/{id}
+        /// ContextualPath: /subscriptions/{subscriptionId}/providers/Microsoft.Authorization/accessReviewScheduleDefinitions/{scheduleDefinitionId}/instances/{id}
+        /// OperationId: AccessReviewInstances_GetById
         /// <summary> Get access review instances. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public async virtual Task<Response<AccessReviewInstance>> GetAsync(CancellationToken cancellationToken = default)
@@ -111,6 +114,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /subscriptions/{subscriptionId}/providers/Microsoft.Authorization/accessReviewScheduleDefinitions/{scheduleDefinitionId}/instances/{id}
+        /// ContextualPath: /subscriptions/{subscriptionId}/providers/Microsoft.Authorization/accessReviewScheduleDefinitions/{scheduleDefinitionId}/instances/{id}
+        /// OperationId: AccessReviewInstances_GetById
         /// <summary> Get access review instances. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual Response<AccessReviewInstance> Get(CancellationToken cancellationToken = default)
@@ -147,6 +153,9 @@ namespace Azure.ResourceManager.Authorization
             return ListAvailableLocations(ResourceType, cancellationToken);
         }
 
+        /// RequestPath: /subscriptions/{subscriptionId}/providers/Microsoft.Authorization/accessReviewScheduleDefinitions/{scheduleDefinitionId}/instances/{id}/stop
+        /// ContextualPath: /subscriptions/{subscriptionId}/providers/Microsoft.Authorization/accessReviewScheduleDefinitions/{scheduleDefinitionId}/instances/{id}
+        /// OperationId: AccessReviewInstance_Stop
         /// <summary> An action to stop an access review instance. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public async virtual Task<Response> StopAccessReviewInstanceAsync(CancellationToken cancellationToken = default)
@@ -165,6 +174,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /subscriptions/{subscriptionId}/providers/Microsoft.Authorization/accessReviewScheduleDefinitions/{scheduleDefinitionId}/instances/{id}/stop
+        /// ContextualPath: /subscriptions/{subscriptionId}/providers/Microsoft.Authorization/accessReviewScheduleDefinitions/{scheduleDefinitionId}/instances/{id}
+        /// OperationId: AccessReviewInstance_Stop
         /// <summary> An action to stop an access review instance. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual Response StopAccessReviewInstance(CancellationToken cancellationToken = default)
@@ -183,6 +195,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /subscriptions/{subscriptionId}/providers/Microsoft.Authorization/accessReviewScheduleDefinitions/{scheduleDefinitionId}/instances/{id}/resetDecisions
+        /// ContextualPath: /subscriptions/{subscriptionId}/providers/Microsoft.Authorization/accessReviewScheduleDefinitions/{scheduleDefinitionId}/instances/{id}
+        /// OperationId: AccessReviewInstance_ResetDecisions
         /// <summary> An action to reset all decisions for an access review instance. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public async virtual Task<Response> ResetDecisionsAccessReviewInstanceAsync(CancellationToken cancellationToken = default)
@@ -201,6 +216,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /subscriptions/{subscriptionId}/providers/Microsoft.Authorization/accessReviewScheduleDefinitions/{scheduleDefinitionId}/instances/{id}/resetDecisions
+        /// ContextualPath: /subscriptions/{subscriptionId}/providers/Microsoft.Authorization/accessReviewScheduleDefinitions/{scheduleDefinitionId}/instances/{id}
+        /// OperationId: AccessReviewInstance_ResetDecisions
         /// <summary> An action to reset all decisions for an access review instance. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual Response ResetDecisionsAccessReviewInstance(CancellationToken cancellationToken = default)
@@ -219,6 +237,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /subscriptions/{subscriptionId}/providers/Microsoft.Authorization/accessReviewScheduleDefinitions/{scheduleDefinitionId}/instances/{id}/applyDecisions
+        /// ContextualPath: /subscriptions/{subscriptionId}/providers/Microsoft.Authorization/accessReviewScheduleDefinitions/{scheduleDefinitionId}/instances/{id}
+        /// OperationId: AccessReviewInstance_ApplyDecisions
         /// <summary> An action to apply all decisions for an access review instance. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public async virtual Task<Response> ApplyDecisionsAccessReviewInstanceAsync(CancellationToken cancellationToken = default)
@@ -237,6 +258,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /subscriptions/{subscriptionId}/providers/Microsoft.Authorization/accessReviewScheduleDefinitions/{scheduleDefinitionId}/instances/{id}/applyDecisions
+        /// ContextualPath: /subscriptions/{subscriptionId}/providers/Microsoft.Authorization/accessReviewScheduleDefinitions/{scheduleDefinitionId}/instances/{id}
+        /// OperationId: AccessReviewInstance_ApplyDecisions
         /// <summary> An action to apply all decisions for an access review instance. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual Response ApplyDecisionsAccessReviewInstance(CancellationToken cancellationToken = default)
@@ -255,6 +279,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /subscriptions/{subscriptionId}/providers/Microsoft.Authorization/accessReviewScheduleDefinitions/{scheduleDefinitionId}/instances/{id}/sendReminders
+        /// ContextualPath: /subscriptions/{subscriptionId}/providers/Microsoft.Authorization/accessReviewScheduleDefinitions/{scheduleDefinitionId}/instances/{id}
+        /// OperationId: AccessReviewInstance_SendReminders
         /// <summary> An action to send reminders for an access review instance. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public async virtual Task<Response> SendRemindersAccessReviewInstanceAsync(CancellationToken cancellationToken = default)
@@ -273,6 +300,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /subscriptions/{subscriptionId}/providers/Microsoft.Authorization/accessReviewScheduleDefinitions/{scheduleDefinitionId}/instances/{id}/sendReminders
+        /// ContextualPath: /subscriptions/{subscriptionId}/providers/Microsoft.Authorization/accessReviewScheduleDefinitions/{scheduleDefinitionId}/instances/{id}
+        /// OperationId: AccessReviewInstance_SendReminders
         /// <summary> An action to send reminders for an access review instance. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual Response SendRemindersAccessReviewInstance(CancellationToken cancellationToken = default)
@@ -291,6 +321,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /subscriptions/{subscriptionId}/providers/Microsoft.Authorization/accessReviewScheduleDefinitions/{scheduleDefinitionId}/instances/{id}/decisions
+        /// ContextualPath: /subscriptions/{subscriptionId}/providers/Microsoft.Authorization/accessReviewScheduleDefinitions/{scheduleDefinitionId}/instances/{id}
+        /// OperationId: AccessReviewInstanceDecisions_List
         /// <summary> Get access review instance decisions. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns> An async collection of <see cref="AccessReviewDecisionData" /> that may take multiple service requests to iterate over. </returns>
@@ -329,6 +362,9 @@ namespace Azure.ResourceManager.Authorization
             return PageableHelpers.CreateAsyncEnumerable(FirstPageFunc, NextPageFunc);
         }
 
+        /// RequestPath: /subscriptions/{subscriptionId}/providers/Microsoft.Authorization/accessReviewScheduleDefinitions/{scheduleDefinitionId}/instances/{id}/decisions
+        /// ContextualPath: /subscriptions/{subscriptionId}/providers/Microsoft.Authorization/accessReviewScheduleDefinitions/{scheduleDefinitionId}/instances/{id}
+        /// OperationId: AccessReviewInstanceDecisions_List
         /// <summary> Get access review instance decisions. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns> A collection of <see cref="AccessReviewDecisionData" /> that may take multiple service requests to iterate over. </returns>

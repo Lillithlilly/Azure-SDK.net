@@ -84,6 +84,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /providers/Microsoft.Authorization/accessReviewScheduleDefinitions/{scheduleDefinitionId}/instances/{id}/decisions/{decisionId}
+        /// ContextualPath: /providers/Microsoft.Authorization/accessReviewScheduleDefinitions/{scheduleDefinitionId}/instances/{id}/decisions/{decisionId}
+        /// OperationId: AccessReviewInstanceMyDecisions_GetById
         /// <summary> Get my single access review instance decision. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public async virtual Task<Response<AccessReviewDecision>> GetAsync(CancellationToken cancellationToken = default)
@@ -104,6 +107,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /providers/Microsoft.Authorization/accessReviewScheduleDefinitions/{scheduleDefinitionId}/instances/{id}/decisions/{decisionId}
+        /// ContextualPath: /providers/Microsoft.Authorization/accessReviewScheduleDefinitions/{scheduleDefinitionId}/instances/{id}/decisions/{decisionId}
+        /// OperationId: AccessReviewInstanceMyDecisions_GetById
         /// <summary> Get my single access review instance decision. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual Response<AccessReviewDecision> Get(CancellationToken cancellationToken = default)
@@ -140,6 +146,9 @@ namespace Azure.ResourceManager.Authorization
             return ListAvailableLocations(ResourceType, cancellationToken);
         }
 
+        /// RequestPath: /providers/Microsoft.Authorization/accessReviewScheduleDefinitions/{scheduleDefinitionId}/instances/{id}/decisions/{decisionId}
+        /// ContextualPath: /providers/Microsoft.Authorization/accessReviewScheduleDefinitions/{scheduleDefinitionId}/instances/{id}/decisions/{decisionId}
+        /// OperationId: AccessReviewInstanceMyDecisions_Patch
         /// <summary> Record a decision. </summary>
         /// <param name="properties"> Access review decision properties to patch. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -165,6 +174,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /providers/Microsoft.Authorization/accessReviewScheduleDefinitions/{scheduleDefinitionId}/instances/{id}/decisions/{decisionId}
+        /// ContextualPath: /providers/Microsoft.Authorization/accessReviewScheduleDefinitions/{scheduleDefinitionId}/instances/{id}/decisions/{decisionId}
+        /// OperationId: AccessReviewInstanceMyDecisions_Patch
         /// <summary> Record a decision. </summary>
         /// <param name="properties"> Access review decision properties to patch. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>

@@ -50,6 +50,9 @@ namespace Azure.ResourceManager.Authorization
 
         // Collection level operations.
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/roleAssignmentSchedules/{roleAssignmentScheduleName}
+        /// ContextualPath: /{scope}
+        /// OperationId: RoleAssignmentSchedules_Get
         /// <summary> Get the specified role assignment schedule for a resource scope. </summary>
         /// <param name="roleAssignmentScheduleName"> The name (guid) of the role assignment schedule to get. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -77,6 +80,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/roleAssignmentSchedules/{roleAssignmentScheduleName}
+        /// ContextualPath: /{scope}
+        /// OperationId: RoleAssignmentSchedules_Get
         /// <summary> Get the specified role assignment schedule for a resource scope. </summary>
         /// <param name="roleAssignmentScheduleName"> The name (guid) of the role assignment schedule to get. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -208,6 +214,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/roleAssignmentSchedules
+        /// ContextualPath: /{scope}
+        /// OperationId: RoleAssignmentSchedules_ListForScope
         /// <summary> Gets role assignment schedules for a resource scope. </summary>
         /// <param name="filter"> The filter to apply on the operation. Use $filter=atScope() to return all role assignment schedules at or above the scope. Use $filter=principalId eq {id} to return all role assignment schedules at, above or below the scope for the specified principal. Use $filter=assignedTo(&apos;{userId}&apos;) to return all role assignment schedules for the current user. Use $filter=asTarget() to return all role assignment schedules created for the current user. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -247,6 +256,9 @@ namespace Azure.ResourceManager.Authorization
             return PageableHelpers.CreateEnumerable(FirstPageFunc, NextPageFunc);
         }
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/roleAssignmentSchedules
+        /// ContextualPath: /{scope}
+        /// OperationId: RoleAssignmentSchedules_ListForScope
         /// <summary> Gets role assignment schedules for a resource scope. </summary>
         /// <param name="filter"> The filter to apply on the operation. Use $filter=atScope() to return all role assignment schedules at or above the scope. Use $filter=principalId eq {id} to return all role assignment schedules at, above or below the scope for the specified principal. Use $filter=assignedTo(&apos;{userId}&apos;) to return all role assignment schedules for the current user. Use $filter=asTarget() to return all role assignment schedules created for the current user. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>

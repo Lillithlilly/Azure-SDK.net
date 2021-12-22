@@ -83,6 +83,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /providers/Microsoft.Authorization/providerOperations/{resourceProviderNamespace}
+        /// ContextualPath: /providers/Microsoft.Authorization/providerOperations/{resourceProviderNamespace}
+        /// OperationId: ProviderOperationsMetadata_Get
         /// <summary> Gets provider operations metadata for the specified resource provider. </summary>
         /// <param name="expand"> Specifies whether to expand the values. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -104,6 +107,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /providers/Microsoft.Authorization/providerOperations/{resourceProviderNamespace}
+        /// ContextualPath: /providers/Microsoft.Authorization/providerOperations/{resourceProviderNamespace}
+        /// OperationId: ProviderOperationsMetadata_Get
         /// <summary> Gets provider operations metadata for the specified resource provider. </summary>
         /// <param name="expand"> Specifies whether to expand the values. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>

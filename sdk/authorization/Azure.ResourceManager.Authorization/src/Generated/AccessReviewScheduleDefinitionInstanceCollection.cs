@@ -19,19 +19,19 @@ using Azure.ResourceManager.Resources;
 namespace Azure.ResourceManager.Authorization
 {
     /// <summary> A class representing collection of AccessReviewInstance and their operations over its parent. </summary>
-    public partial class TenantAccessReviewScheduleDefinitionInstanceCollection : ArmCollection
+    public partial class AccessReviewScheduleDefinitionInstanceCollection : ArmCollection
     {
         private readonly ClientDiagnostics _clientDiagnostics;
         private readonly AccessReviewInstancesAssignedForMyApprovalRestOperations _accessReviewInstancesAssignedForMyApprovalRestClient;
 
-        /// <summary> Initializes a new instance of the <see cref="TenantAccessReviewScheduleDefinitionInstanceCollection"/> class for mocking. </summary>
-        protected TenantAccessReviewScheduleDefinitionInstanceCollection()
+        /// <summary> Initializes a new instance of the <see cref="AccessReviewScheduleDefinitionInstanceCollection"/> class for mocking. </summary>
+        protected AccessReviewScheduleDefinitionInstanceCollection()
         {
         }
 
-        /// <summary> Initializes a new instance of TenantAccessReviewScheduleDefinitionInstanceCollection class. </summary>
+        /// <summary> Initializes a new instance of AccessReviewScheduleDefinitionInstanceCollection class. </summary>
         /// <param name="parent"> The resource representing the parent resource. </param>
-        internal TenantAccessReviewScheduleDefinitionInstanceCollection(ArmResource parent) : base(parent)
+        internal AccessReviewScheduleDefinitionInstanceCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
             _accessReviewInstancesAssignedForMyApprovalRestClient = new AccessReviewInstancesAssignedForMyApprovalRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
@@ -42,12 +42,15 @@ namespace Azure.ResourceManager.Authorization
 
         // Collection level operations.
 
+        /// RequestPath: /providers/Microsoft.Authorization/accessReviewScheduleDefinitions/{scheduleDefinitionId}/instances/{id}
+        /// ContextualPath: /
+        /// OperationId: AccessReviewInstancesAssignedForMyApproval_GetById
         /// <summary> Get single access review instance assigned for my approval. </summary>
         /// <param name="scheduleDefinitionId"> The id of the access review schedule definition. </param>
         /// <param name="id"> The id of the access review instance. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="scheduleDefinitionId"/> or <paramref name="id"/> is null. </exception>
-        public virtual Response<TenantAccessReviewScheduleDefinitionInstance> Get(string scheduleDefinitionId, string id, CancellationToken cancellationToken = default)
+        public virtual Response<AccessReviewScheduleDefinitionInstance> Get(string scheduleDefinitionId, string id, CancellationToken cancellationToken = default)
         {
             if (scheduleDefinitionId == null)
             {
@@ -58,14 +61,14 @@ namespace Azure.ResourceManager.Authorization
                 throw new ArgumentNullException(nameof(id));
             }
 
-            using var scope = _clientDiagnostics.CreateScope("TenantAccessReviewScheduleDefinitionInstanceCollection.Get");
+            using var scope = _clientDiagnostics.CreateScope("AccessReviewScheduleDefinitionInstanceCollection.Get");
             scope.Start();
             try
             {
                 var response = _accessReviewInstancesAssignedForMyApprovalRestClient.GetById(scheduleDefinitionId, id, cancellationToken);
                 if (response.Value == null)
                     throw _clientDiagnostics.CreateRequestFailedException(response.GetRawResponse());
-                return Response.FromValue(new TenantAccessReviewScheduleDefinitionInstance(Parent, response.Value), response.GetRawResponse());
+                return Response.FromValue(new AccessReviewScheduleDefinitionInstance(Parent, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
             {
@@ -74,12 +77,15 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /providers/Microsoft.Authorization/accessReviewScheduleDefinitions/{scheduleDefinitionId}/instances/{id}
+        /// ContextualPath: /
+        /// OperationId: AccessReviewInstancesAssignedForMyApproval_GetById
         /// <summary> Get single access review instance assigned for my approval. </summary>
         /// <param name="scheduleDefinitionId"> The id of the access review schedule definition. </param>
         /// <param name="id"> The id of the access review instance. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="scheduleDefinitionId"/> or <paramref name="id"/> is null. </exception>
-        public async virtual Task<Response<TenantAccessReviewScheduleDefinitionInstance>> GetAsync(string scheduleDefinitionId, string id, CancellationToken cancellationToken = default)
+        public async virtual Task<Response<AccessReviewScheduleDefinitionInstance>> GetAsync(string scheduleDefinitionId, string id, CancellationToken cancellationToken = default)
         {
             if (scheduleDefinitionId == null)
             {
@@ -90,14 +96,14 @@ namespace Azure.ResourceManager.Authorization
                 throw new ArgumentNullException(nameof(id));
             }
 
-            using var scope = _clientDiagnostics.CreateScope("TenantAccessReviewScheduleDefinitionInstanceCollection.Get");
+            using var scope = _clientDiagnostics.CreateScope("AccessReviewScheduleDefinitionInstanceCollection.Get");
             scope.Start();
             try
             {
                 var response = await _accessReviewInstancesAssignedForMyApprovalRestClient.GetByIdAsync(scheduleDefinitionId, id, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw await _clientDiagnostics.CreateRequestFailedExceptionAsync(response.GetRawResponse()).ConfigureAwait(false);
-                return Response.FromValue(new TenantAccessReviewScheduleDefinitionInstance(Parent, response.Value), response.GetRawResponse());
+                return Response.FromValue(new AccessReviewScheduleDefinitionInstance(Parent, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
             {
@@ -111,7 +117,7 @@ namespace Azure.ResourceManager.Authorization
         /// <param name="id"> The id of the access review instance. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="scheduleDefinitionId"/> or <paramref name="id"/> is null. </exception>
-        public virtual Response<TenantAccessReviewScheduleDefinitionInstance> GetIfExists(string scheduleDefinitionId, string id, CancellationToken cancellationToken = default)
+        public virtual Response<AccessReviewScheduleDefinitionInstance> GetIfExists(string scheduleDefinitionId, string id, CancellationToken cancellationToken = default)
         {
             if (scheduleDefinitionId == null)
             {
@@ -122,14 +128,14 @@ namespace Azure.ResourceManager.Authorization
                 throw new ArgumentNullException(nameof(id));
             }
 
-            using var scope = _clientDiagnostics.CreateScope("TenantAccessReviewScheduleDefinitionInstanceCollection.GetIfExists");
+            using var scope = _clientDiagnostics.CreateScope("AccessReviewScheduleDefinitionInstanceCollection.GetIfExists");
             scope.Start();
             try
             {
                 var response = _accessReviewInstancesAssignedForMyApprovalRestClient.GetById(scheduleDefinitionId, id, cancellationToken: cancellationToken);
                 return response.Value == null
-                    ? Response.FromValue<TenantAccessReviewScheduleDefinitionInstance>(null, response.GetRawResponse())
-                    : Response.FromValue(new TenantAccessReviewScheduleDefinitionInstance(this, response.Value), response.GetRawResponse());
+                    ? Response.FromValue<AccessReviewScheduleDefinitionInstance>(null, response.GetRawResponse())
+                    : Response.FromValue(new AccessReviewScheduleDefinitionInstance(this, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
             {
@@ -143,7 +149,7 @@ namespace Azure.ResourceManager.Authorization
         /// <param name="id"> The id of the access review instance. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="scheduleDefinitionId"/> or <paramref name="id"/> is null. </exception>
-        public async virtual Task<Response<TenantAccessReviewScheduleDefinitionInstance>> GetIfExistsAsync(string scheduleDefinitionId, string id, CancellationToken cancellationToken = default)
+        public async virtual Task<Response<AccessReviewScheduleDefinitionInstance>> GetIfExistsAsync(string scheduleDefinitionId, string id, CancellationToken cancellationToken = default)
         {
             if (scheduleDefinitionId == null)
             {
@@ -154,14 +160,14 @@ namespace Azure.ResourceManager.Authorization
                 throw new ArgumentNullException(nameof(id));
             }
 
-            using var scope = _clientDiagnostics.CreateScope("TenantAccessReviewScheduleDefinitionInstanceCollection.GetIfExistsAsync");
+            using var scope = _clientDiagnostics.CreateScope("AccessReviewScheduleDefinitionInstanceCollection.GetIfExistsAsync");
             scope.Start();
             try
             {
                 var response = await _accessReviewInstancesAssignedForMyApprovalRestClient.GetByIdAsync(scheduleDefinitionId, id, cancellationToken: cancellationToken).ConfigureAwait(false);
                 return response.Value == null
-                    ? Response.FromValue<TenantAccessReviewScheduleDefinitionInstance>(null, response.GetRawResponse())
-                    : Response.FromValue(new TenantAccessReviewScheduleDefinitionInstance(this, response.Value), response.GetRawResponse());
+                    ? Response.FromValue<AccessReviewScheduleDefinitionInstance>(null, response.GetRawResponse())
+                    : Response.FromValue(new AccessReviewScheduleDefinitionInstance(this, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
             {
@@ -186,7 +192,7 @@ namespace Azure.ResourceManager.Authorization
                 throw new ArgumentNullException(nameof(id));
             }
 
-            using var scope = _clientDiagnostics.CreateScope("TenantAccessReviewScheduleDefinitionInstanceCollection.CheckIfExists");
+            using var scope = _clientDiagnostics.CreateScope("AccessReviewScheduleDefinitionInstanceCollection.CheckIfExists");
             scope.Start();
             try
             {
@@ -216,7 +222,7 @@ namespace Azure.ResourceManager.Authorization
                 throw new ArgumentNullException(nameof(id));
             }
 
-            using var scope = _clientDiagnostics.CreateScope("TenantAccessReviewScheduleDefinitionInstanceCollection.CheckIfExistsAsync");
+            using var scope = _clientDiagnostics.CreateScope("AccessReviewScheduleDefinitionInstanceCollection.CheckIfExistsAsync");
             scope.Start();
             try
             {
@@ -230,25 +236,28 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /providers/Microsoft.Authorization/accessReviewScheduleDefinitions/{scheduleDefinitionId}/instances
+        /// ContextualPath: /
+        /// OperationId: AccessReviewInstancesAssignedForMyApproval_List
         /// <summary> Get access review instances assigned for my approval. </summary>
         /// <param name="scheduleDefinitionId"> The id of the access review schedule definition. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="TenantAccessReviewScheduleDefinitionInstance" /> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<TenantAccessReviewScheduleDefinitionInstance> GetAll(string scheduleDefinitionId, CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="AccessReviewScheduleDefinitionInstance" /> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<AccessReviewScheduleDefinitionInstance> GetAll(string scheduleDefinitionId, CancellationToken cancellationToken = default)
         {
             if (scheduleDefinitionId == null)
             {
                 throw new ArgumentNullException(nameof(scheduleDefinitionId));
             }
 
-            Page<TenantAccessReviewScheduleDefinitionInstance> FirstPageFunc(int? pageSizeHint)
+            Page<AccessReviewScheduleDefinitionInstance> FirstPageFunc(int? pageSizeHint)
             {
-                using var scope = _clientDiagnostics.CreateScope("TenantAccessReviewScheduleDefinitionInstanceCollection.GetAll");
+                using var scope = _clientDiagnostics.CreateScope("AccessReviewScheduleDefinitionInstanceCollection.GetAll");
                 scope.Start();
                 try
                 {
                     var response = _accessReviewInstancesAssignedForMyApprovalRestClient.List(scheduleDefinitionId, cancellationToken: cancellationToken);
-                    return Page.FromValues(response.Value.Value.Select(value => new TenantAccessReviewScheduleDefinitionInstance(Parent, value)), response.Value.NextLink, response.GetRawResponse());
+                    return Page.FromValues(response.Value.Value.Select(value => new AccessReviewScheduleDefinitionInstance(Parent, value)), response.Value.NextLink, response.GetRawResponse());
                 }
                 catch (Exception e)
                 {
@@ -256,14 +265,14 @@ namespace Azure.ResourceManager.Authorization
                     throw;
                 }
             }
-            Page<TenantAccessReviewScheduleDefinitionInstance> NextPageFunc(string nextLink, int? pageSizeHint)
+            Page<AccessReviewScheduleDefinitionInstance> NextPageFunc(string nextLink, int? pageSizeHint)
             {
-                using var scope = _clientDiagnostics.CreateScope("TenantAccessReviewScheduleDefinitionInstanceCollection.GetAll");
+                using var scope = _clientDiagnostics.CreateScope("AccessReviewScheduleDefinitionInstanceCollection.GetAll");
                 scope.Start();
                 try
                 {
                     var response = _accessReviewInstancesAssignedForMyApprovalRestClient.ListNextPage(nextLink, scheduleDefinitionId, cancellationToken: cancellationToken);
-                    return Page.FromValues(response.Value.Value.Select(value => new TenantAccessReviewScheduleDefinitionInstance(Parent, value)), response.Value.NextLink, response.GetRawResponse());
+                    return Page.FromValues(response.Value.Value.Select(value => new AccessReviewScheduleDefinitionInstance(Parent, value)), response.Value.NextLink, response.GetRawResponse());
                 }
                 catch (Exception e)
                 {
@@ -274,25 +283,28 @@ namespace Azure.ResourceManager.Authorization
             return PageableHelpers.CreateEnumerable(FirstPageFunc, NextPageFunc);
         }
 
+        /// RequestPath: /providers/Microsoft.Authorization/accessReviewScheduleDefinitions/{scheduleDefinitionId}/instances
+        /// ContextualPath: /
+        /// OperationId: AccessReviewInstancesAssignedForMyApproval_List
         /// <summary> Get access review instances assigned for my approval. </summary>
         /// <param name="scheduleDefinitionId"> The id of the access review schedule definition. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> An async collection of <see cref="TenantAccessReviewScheduleDefinitionInstance" /> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<TenantAccessReviewScheduleDefinitionInstance> GetAllAsync(string scheduleDefinitionId, CancellationToken cancellationToken = default)
+        /// <returns> An async collection of <see cref="AccessReviewScheduleDefinitionInstance" /> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<AccessReviewScheduleDefinitionInstance> GetAllAsync(string scheduleDefinitionId, CancellationToken cancellationToken = default)
         {
             if (scheduleDefinitionId == null)
             {
                 throw new ArgumentNullException(nameof(scheduleDefinitionId));
             }
 
-            async Task<Page<TenantAccessReviewScheduleDefinitionInstance>> FirstPageFunc(int? pageSizeHint)
+            async Task<Page<AccessReviewScheduleDefinitionInstance>> FirstPageFunc(int? pageSizeHint)
             {
-                using var scope = _clientDiagnostics.CreateScope("TenantAccessReviewScheduleDefinitionInstanceCollection.GetAll");
+                using var scope = _clientDiagnostics.CreateScope("AccessReviewScheduleDefinitionInstanceCollection.GetAll");
                 scope.Start();
                 try
                 {
                     var response = await _accessReviewInstancesAssignedForMyApprovalRestClient.ListAsync(scheduleDefinitionId, cancellationToken: cancellationToken).ConfigureAwait(false);
-                    return Page.FromValues(response.Value.Value.Select(value => new TenantAccessReviewScheduleDefinitionInstance(Parent, value)), response.Value.NextLink, response.GetRawResponse());
+                    return Page.FromValues(response.Value.Value.Select(value => new AccessReviewScheduleDefinitionInstance(Parent, value)), response.Value.NextLink, response.GetRawResponse());
                 }
                 catch (Exception e)
                 {
@@ -300,14 +312,14 @@ namespace Azure.ResourceManager.Authorization
                     throw;
                 }
             }
-            async Task<Page<TenantAccessReviewScheduleDefinitionInstance>> NextPageFunc(string nextLink, int? pageSizeHint)
+            async Task<Page<AccessReviewScheduleDefinitionInstance>> NextPageFunc(string nextLink, int? pageSizeHint)
             {
-                using var scope = _clientDiagnostics.CreateScope("TenantAccessReviewScheduleDefinitionInstanceCollection.GetAll");
+                using var scope = _clientDiagnostics.CreateScope("AccessReviewScheduleDefinitionInstanceCollection.GetAll");
                 scope.Start();
                 try
                 {
                     var response = await _accessReviewInstancesAssignedForMyApprovalRestClient.ListNextPageAsync(nextLink, scheduleDefinitionId, cancellationToken: cancellationToken).ConfigureAwait(false);
-                    return Page.FromValues(response.Value.Value.Select(value => new TenantAccessReviewScheduleDefinitionInstance(Parent, value)), response.Value.NextLink, response.GetRawResponse());
+                    return Page.FromValues(response.Value.Value.Select(value => new AccessReviewScheduleDefinitionInstance(Parent, value)), response.Value.NextLink, response.GetRawResponse());
                 }
                 catch (Exception e)
                 {
@@ -319,6 +331,6 @@ namespace Azure.ResourceManager.Authorization
         }
 
         // Builders.
-        // public ArmBuilder<Azure.ResourceManager.ResourceIdentifier, TenantAccessReviewScheduleDefinitionInstance, AccessReviewInstanceData> Construct() { }
+        // public ArmBuilder<Azure.ResourceManager.ResourceIdentifier, AccessReviewScheduleDefinitionInstance, AccessReviewInstanceData> Construct() { }
     }
 }

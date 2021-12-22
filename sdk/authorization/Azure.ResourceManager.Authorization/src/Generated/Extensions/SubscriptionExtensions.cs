@@ -155,6 +155,9 @@ namespace Azure.ResourceManager.Authorization
             return new RoleAssignmentMetricsRestOperations(clientDiagnostics, pipeline, clientOptions, endpoint);
         }
 
+        /// RequestPath: /subscriptions/{subscriptionId}/providers/Microsoft.Authorization/roleAssignmentsUsageMetrics
+        /// ContextualPath: /subscriptions/{subscriptionId}
+        /// OperationId: RoleAssignmentMetrics_GetMetricsForSubscription
         /// <summary> Get role assignment usage metrics for a subscription. </summary>
         /// <param name="subscription"> The <see cref="Subscription" /> instance the method will execute against. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -180,6 +183,9 @@ namespace Azure.ResourceManager.Authorization
             ).ConfigureAwait(false);
         }
 
+        /// RequestPath: /subscriptions/{subscriptionId}/providers/Microsoft.Authorization/roleAssignmentsUsageMetrics
+        /// ContextualPath: /subscriptions/{subscriptionId}
+        /// OperationId: RoleAssignmentMetrics_GetMetricsForSubscription
         /// <summary> Get role assignment usage metrics for a subscription. </summary>
         /// <param name="subscription"> The <see cref="Subscription" /> instance the method will execute against. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>

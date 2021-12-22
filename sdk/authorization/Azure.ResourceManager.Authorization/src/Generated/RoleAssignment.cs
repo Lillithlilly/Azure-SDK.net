@@ -84,6 +84,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/roleAssignments/{roleAssignmentName}
+        /// ContextualPath: /{scope}/providers/Microsoft.Authorization/roleAssignments/{roleAssignmentName}
+        /// OperationId: RoleAssignments_Get
         /// <summary> Get a role assignment by scope and name. </summary>
         /// <param name="tenantId"> Tenant ID for cross-tenant request. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -105,6 +108,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/roleAssignments/{roleAssignmentName}
+        /// ContextualPath: /{scope}/providers/Microsoft.Authorization/roleAssignments/{roleAssignmentName}
+        /// OperationId: RoleAssignments_Get
         /// <summary> Get a role assignment by scope and name. </summary>
         /// <param name="tenantId"> Tenant ID for cross-tenant request. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -142,6 +148,9 @@ namespace Azure.ResourceManager.Authorization
             return ListAvailableLocations(ResourceType, cancellationToken);
         }
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/roleAssignments/{roleAssignmentName}
+        /// ContextualPath: /{scope}/providers/Microsoft.Authorization/roleAssignments/{roleAssignmentName}
+        /// OperationId: RoleAssignments_Delete
         /// <summary> Delete a role assignment by scope and name. </summary>
         /// <param name="tenantId"> Tenant ID for cross-tenant request. </param>
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
@@ -165,6 +174,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/roleAssignments/{roleAssignmentName}
+        /// ContextualPath: /{scope}/providers/Microsoft.Authorization/roleAssignments/{roleAssignmentName}
+        /// OperationId: RoleAssignments_Delete
         /// <summary> Delete a role assignment by scope and name. </summary>
         /// <param name="tenantId"> Tenant ID for cross-tenant request. </param>
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
@@ -188,6 +200,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/roleAssignments/{roleAssignmentName}/validate
+        /// ContextualPath: /{scope}/providers/Microsoft.Authorization/roleAssignments/{roleAssignmentName}
+        /// OperationId: RoleAssignments_Validate
         /// <summary> Validate a role assignment create or update operation by scope and name. </summary>
         /// <param name="parameters"> Parameters for the role assignment. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -213,6 +228,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/roleAssignments/{roleAssignmentName}/validate
+        /// ContextualPath: /{scope}/providers/Microsoft.Authorization/roleAssignments/{roleAssignmentName}
+        /// OperationId: RoleAssignments_Validate
         /// <summary> Validate a role assignment create or update operation by scope and name. </summary>
         /// <param name="parameters"> Parameters for the role assignment. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>

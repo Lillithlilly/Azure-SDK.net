@@ -16,23 +16,10 @@ namespace Azure.ResourceManager.Authorization.Tests.Tests
             : base(isAsync, RecordedTestMode.Record)
         {
         }
-
-        private async Task<DiskCollection> GetDiskCollectionAsync()
-        {
-            var resourceGroup = await CreateResourceGroupAsync();
-            return resourceGroup.GetDisks();
-        }
-
-        [TestCase]
-        [RecordedTest]
-        public async Task CreateOrUpdate()
-        {
-            var collection = await GetDiskCollectionAsync();
-            var diskName = Recording.GenerateAssetName("testDisk-");
-            var input = ResourceDataHelper.GetEmptyDiskData(DefaultLocation);
-            var lro = await collection.CreateOrUpdateAsync(diskName, input);
-            Disk disk = lro.Value;
-            Assert.AreEqual(diskName, disk.Data.Name);
-        }
+        //private async Task<AccessReviewDecisionCollection> GetAccessReviewDecisionCollectionAsync()
+        //{
+            //var resourceGroup = await CreateResourceGroupAsync();
+             //resourceGroup.GetRoleAssignmentScheduleInstances();
+        //}
     }
 }

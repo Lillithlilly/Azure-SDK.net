@@ -51,6 +51,9 @@ namespace Azure.ResourceManager.Authorization
 
         // Collection level operations.
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/roleManagementPolicyAssignments/{roleManagementPolicyAssignmentName}
+        /// ContextualPath: /{scope}
+        /// OperationId: RoleManagementPolicyAssignments_Create
         /// <summary> Create a role management policy assignment. </summary>
         /// <param name="roleManagementPolicyAssignmentName"> The name of format {guid_guid} the role management policy assignment to upsert. </param>
         /// <param name="parameters"> Parameters for the role management policy assignment. </param>
@@ -85,6 +88,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/roleManagementPolicyAssignments/{roleManagementPolicyAssignmentName}
+        /// ContextualPath: /{scope}
+        /// OperationId: RoleManagementPolicyAssignments_Create
         /// <summary> Create a role management policy assignment. </summary>
         /// <param name="roleManagementPolicyAssignmentName"> The name of format {guid_guid} the role management policy assignment to upsert. </param>
         /// <param name="parameters"> Parameters for the role management policy assignment. </param>
@@ -119,6 +125,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/roleManagementPolicyAssignments/{roleManagementPolicyAssignmentName}
+        /// ContextualPath: /{scope}
+        /// OperationId: RoleManagementPolicyAssignments_Get
         /// <summary> Get the specified role management policy assignment for a resource scope. </summary>
         /// <param name="roleManagementPolicyAssignmentName"> The name of format {guid_guid} the role management policy assignment to get. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -146,6 +155,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/roleManagementPolicyAssignments/{roleManagementPolicyAssignmentName}
+        /// ContextualPath: /{scope}
+        /// OperationId: RoleManagementPolicyAssignments_Get
         /// <summary> Get the specified role management policy assignment for a resource scope. </summary>
         /// <param name="roleManagementPolicyAssignmentName"> The name of format {guid_guid} the role management policy assignment to get. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -277,6 +289,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/roleManagementPolicyAssignments
+        /// ContextualPath: /{scope}
+        /// OperationId: RoleManagementPolicyAssignments_ListForScope
         /// <summary> Gets role management assignment policies for a resource scope. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns> A collection of <see cref="RoleManagementPolicyAssignment" /> that may take multiple service requests to iterate over. </returns>
@@ -315,6 +330,9 @@ namespace Azure.ResourceManager.Authorization
             return PageableHelpers.CreateEnumerable(FirstPageFunc, NextPageFunc);
         }
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/roleManagementPolicyAssignments
+        /// ContextualPath: /{scope}
+        /// OperationId: RoleManagementPolicyAssignments_ListForScope
         /// <summary> Gets role management assignment policies for a resource scope. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns> An async collection of <see cref="RoleManagementPolicyAssignment" /> that may take multiple service requests to iterate over. </returns>

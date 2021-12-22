@@ -45,6 +45,9 @@ namespace Azure.ResourceManager.Authorization
 
         // Collection level operations.
 
+        /// RequestPath: /providers/Microsoft.Authorization/providerOperations/{resourceProviderNamespace}
+        /// ContextualPath: /
+        /// OperationId: ProviderOperationsMetadata_Get
         /// <summary> Gets provider operations metadata for the specified resource provider. </summary>
         /// <param name="resourceProviderNamespace"> The namespace of the resource provider. </param>
         /// <param name="expand"> Specifies whether to expand the values. </param>
@@ -73,6 +76,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /providers/Microsoft.Authorization/providerOperations/{resourceProviderNamespace}
+        /// ContextualPath: /
+        /// OperationId: ProviderOperationsMetadata_Get
         /// <summary> Gets provider operations metadata for the specified resource provider. </summary>
         /// <param name="resourceProviderNamespace"> The namespace of the resource provider. </param>
         /// <param name="expand"> Specifies whether to expand the values. </param>
@@ -209,6 +215,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /providers/Microsoft.Authorization/providerOperations
+        /// ContextualPath: /
+        /// OperationId: ProviderOperationsMetadata_List
         /// <summary> Gets provider operations metadata for all resource providers. </summary>
         /// <param name="expand"> Specifies whether to expand the values. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -248,6 +257,9 @@ namespace Azure.ResourceManager.Authorization
             return PageableHelpers.CreateEnumerable(FirstPageFunc, NextPageFunc);
         }
 
+        /// RequestPath: /providers/Microsoft.Authorization/providerOperations
+        /// ContextualPath: /
+        /// OperationId: ProviderOperationsMetadata_List
         /// <summary> Gets provider operations metadata for all resource providers. </summary>
         /// <param name="expand"> Specifies whether to expand the values. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>

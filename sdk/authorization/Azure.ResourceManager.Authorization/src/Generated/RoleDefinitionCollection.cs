@@ -51,6 +51,9 @@ namespace Azure.ResourceManager.Authorization
 
         // Collection level operations.
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/roleDefinitions/{roleDefinitionId}
+        /// ContextualPath: /{scope}
+        /// OperationId: RoleDefinitions_CreateOrUpdate
         /// <summary> Creates or updates a role definition. </summary>
         /// <param name="roleDefinitionId"> The ID of the role definition. </param>
         /// <param name="roleDefinition"> The values for the role definition. </param>
@@ -85,6 +88,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/roleDefinitions/{roleDefinitionId}
+        /// ContextualPath: /{scope}
+        /// OperationId: RoleDefinitions_CreateOrUpdate
         /// <summary> Creates or updates a role definition. </summary>
         /// <param name="roleDefinitionId"> The ID of the role definition. </param>
         /// <param name="roleDefinition"> The values for the role definition. </param>
@@ -119,6 +125,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/roleDefinitions/{roleDefinitionId}
+        /// ContextualPath: /{scope}
+        /// OperationId: RoleDefinitions_Get
         /// <summary> Get role definition by name (GUID). </summary>
         /// <param name="roleDefinitionId"> The ID of the role definition. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -146,6 +155,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/roleDefinitions/{roleDefinitionId}
+        /// ContextualPath: /{scope}
+        /// OperationId: RoleDefinitions_Get
         /// <summary> Get role definition by name (GUID). </summary>
         /// <param name="roleDefinitionId"> The ID of the role definition. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -277,6 +289,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/roleDefinitions
+        /// ContextualPath: /{scope}
+        /// OperationId: RoleDefinitions_List
         /// <summary> Get all role definitions that are applicable at scope and above. </summary>
         /// <param name="filter"> The filter to apply on the operation. Use atScopeAndBelow filter to search below the given scope as well. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -316,6 +331,9 @@ namespace Azure.ResourceManager.Authorization
             return PageableHelpers.CreateEnumerable(FirstPageFunc, NextPageFunc);
         }
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/roleDefinitions
+        /// ContextualPath: /{scope}
+        /// OperationId: RoleDefinitions_List
         /// <summary> Get all role definitions that are applicable at scope and above. </summary>
         /// <param name="filter"> The filter to apply on the operation. Use atScopeAndBelow filter to search below the given scope as well. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>

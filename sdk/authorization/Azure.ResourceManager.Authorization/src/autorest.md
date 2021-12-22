@@ -20,17 +20,20 @@ modelerfour:
 #TODO: remove after we resolve why RestorePoint has no list
 list-exception:
 - /providers/Microsoft.Authorization/accessReviewScheduleDefinitions/{scheduleDefinitionId}/instances/{id}
-- /{denyAssignmentId}
-- /{roleAssignmentId}
-- /{roleId}
-
-request-path-to-resource-type:
-  /{denyAssignmentId}: DenyAssignment
-  /{roleAssignmentId}: RoleAssignment
-  /{roleId}: RoleAssignment
 
 request-path-to-resource-name:
   /subscriptions/{subscriptionId}/providers/Microsoft.Authorization/accessReviewScheduleDefinitions/{scheduleDefinitionId}/instances/{id}: AccessReviewInstance
-# directive:
+  /providers/Microsoft.Authorization/accessReviewScheduleDefinitions/{scheduleDefinitionId}/instances/{id}: AccessReviewScheduleDefinitionInstance
+mgmt-debug:
+  show-request-path: true
+directive:
 
+  - remove-operation: DenyAssignments_GetById
+  - remove-operation: RoleAssignments_GetById
+  - remove-operation: RoleAssignments_CreateById
+  - remove-operation: RoleAssignments_DeleteById
+
+  - from: swagger-document
+    where: $["x-ms-paths"]
+    transform: delete $["/{roleId}?disambiguation_dummy"]
 ```

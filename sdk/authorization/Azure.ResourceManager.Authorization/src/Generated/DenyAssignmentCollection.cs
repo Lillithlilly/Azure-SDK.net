@@ -51,6 +51,9 @@ namespace Azure.ResourceManager.Authorization
 
         // Collection level operations.
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/denyAssignments/{denyAssignmentId}
+        /// ContextualPath: /{scope}
+        /// OperationId: DenyAssignments_Get
         /// <summary> Get the specified deny assignment. </summary>
         /// <param name="denyAssignmentId"> The ID of the deny assignment to get. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -78,6 +81,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/denyAssignments/{denyAssignmentId}
+        /// ContextualPath: /{scope}
+        /// OperationId: DenyAssignments_Get
         /// <summary> Get the specified deny assignment. </summary>
         /// <param name="denyAssignmentId"> The ID of the deny assignment to get. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -209,6 +215,18 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{parentResourcePath}/{resourceType}/{resourceName}/providers/Microsoft.Authorization/denyAssignments
+        /// ContextualPath: /subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{parentResourcePath}/{resourceType}/{resourceName}
+        /// OperationId: DenyAssignments_ListForResource
+        /// RequestPath: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Authorization/denyAssignments
+        /// ContextualPath: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}
+        /// OperationId: DenyAssignments_ListForResourceGroup
+        /// RequestPath: /subscriptions/{subscriptionId}/providers/Microsoft.Authorization/denyAssignments
+        /// ContextualPath: /subscriptions/{subscriptionId}
+        /// OperationId: DenyAssignments_List
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/denyAssignments
+        /// ContextualPath: /{scope}
+        /// OperationId: DenyAssignments_ListForScope
         /// <summary> Gets deny assignments for a resource. </summary>
         /// <param name="filter"> The filter to apply on the operation. Use $filter=atScope() to return all deny assignments at or above the scope. Use $filter=denyAssignmentName eq &apos;{name}&apos; to search deny assignments by name at specified scope. Use $filter=principalId eq &apos;{id}&apos; to return all deny assignments at, above and below the scope for the specified principal. Use $filter=gdprExportPrincipalId eq &apos;{id}&apos; to return all deny assignments at, above and below the scope for the specified principal. This filter is different from the principalId filter as it returns not only those deny assignments that contain the specified principal is the Principals list but also those deny assignments that contain the specified principal is the ExcludePrincipals list. Additionally, when gdprExportPrincipalId filter is used, only the deny assignment name and description properties are returned. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -353,6 +371,18 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{parentResourcePath}/{resourceType}/{resourceName}/providers/Microsoft.Authorization/denyAssignments
+        /// ContextualPath: /subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{parentResourcePath}/{resourceType}/{resourceName}
+        /// OperationId: DenyAssignments_ListForResource
+        /// RequestPath: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Authorization/denyAssignments
+        /// ContextualPath: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}
+        /// OperationId: DenyAssignments_ListForResourceGroup
+        /// RequestPath: /subscriptions/{subscriptionId}/providers/Microsoft.Authorization/denyAssignments
+        /// ContextualPath: /subscriptions/{subscriptionId}
+        /// OperationId: DenyAssignments_List
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/denyAssignments
+        /// ContextualPath: /{scope}
+        /// OperationId: DenyAssignments_ListForScope
         /// <summary> Gets deny assignments for a resource. </summary>
         /// <param name="filter"> The filter to apply on the operation. Use $filter=atScope() to return all deny assignments at or above the scope. Use $filter=denyAssignmentName eq &apos;{name}&apos; to search deny assignments by name at specified scope. Use $filter=principalId eq &apos;{id}&apos; to return all deny assignments at, above and below the scope for the specified principal. Use $filter=gdprExportPrincipalId eq &apos;{id}&apos; to return all deny assignments at, above and below the scope for the specified principal. This filter is different from the principalId filter as it returns not only those deny assignments that contain the specified principal is the Principals list but also those deny assignments that contain the specified principal is the ExcludePrincipals list. Additionally, when gdprExportPrincipalId filter is used, only the deny assignment name and description properties are returned. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>

@@ -51,6 +51,9 @@ namespace Azure.ResourceManager.Authorization
 
         // Collection level operations.
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/roleAssignmentScheduleRequests/{roleAssignmentScheduleRequestName}
+        /// ContextualPath: /{scope}
+        /// OperationId: RoleAssignmentScheduleRequests_Create
         /// <summary> Creates a role assignment schedule request. </summary>
         /// <param name="roleAssignmentScheduleRequestName"> The name of the role assignment to create. It can be any valid GUID. </param>
         /// <param name="parameters"> Parameters for the role assignment schedule request. </param>
@@ -85,6 +88,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/roleAssignmentScheduleRequests/{roleAssignmentScheduleRequestName}
+        /// ContextualPath: /{scope}
+        /// OperationId: RoleAssignmentScheduleRequests_Create
         /// <summary> Creates a role assignment schedule request. </summary>
         /// <param name="roleAssignmentScheduleRequestName"> The name of the role assignment to create. It can be any valid GUID. </param>
         /// <param name="parameters"> Parameters for the role assignment schedule request. </param>
@@ -119,6 +125,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/roleAssignmentScheduleRequests/{roleAssignmentScheduleRequestName}
+        /// ContextualPath: /{scope}
+        /// OperationId: RoleAssignmentScheduleRequests_Get
         /// <summary> Get the specified role assignment schedule request. </summary>
         /// <param name="roleAssignmentScheduleRequestName"> The name (guid) of the role assignment schedule request to get. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -146,6 +155,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/roleAssignmentScheduleRequests/{roleAssignmentScheduleRequestName}
+        /// ContextualPath: /{scope}
+        /// OperationId: RoleAssignmentScheduleRequests_Get
         /// <summary> Get the specified role assignment schedule request. </summary>
         /// <param name="roleAssignmentScheduleRequestName"> The name (guid) of the role assignment schedule request to get. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -277,6 +289,9 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/roleAssignmentScheduleRequests
+        /// ContextualPath: /{scope}
+        /// OperationId: RoleAssignmentScheduleRequests_ListForScope
         /// <summary> Gets role assignment schedule requests for a scope. </summary>
         /// <param name="filter"> The filter to apply on the operation. Use $filter=atScope() to return all role assignment schedule requests at or above the scope. Use $filter=principalId eq {id} to return all role assignment schedule requests at, above or below the scope for the specified principal. Use $filter=asRequestor() to return all role assignment schedule requests requested by the current user. Use $filter=asTarget() to return all role assignment schedule requests created for the current user. Use $filter=asApprover() to return all role assignment schedule requests where the current user is an approver. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -316,6 +331,9 @@ namespace Azure.ResourceManager.Authorization
             return PageableHelpers.CreateEnumerable(FirstPageFunc, NextPageFunc);
         }
 
+        /// RequestPath: /{scope}/providers/Microsoft.Authorization/roleAssignmentScheduleRequests
+        /// ContextualPath: /{scope}
+        /// OperationId: RoleAssignmentScheduleRequests_ListForScope
         /// <summary> Gets role assignment schedule requests for a scope. </summary>
         /// <param name="filter"> The filter to apply on the operation. Use $filter=atScope() to return all role assignment schedule requests at or above the scope. Use $filter=principalId eq {id} to return all role assignment schedule requests at, above or below the scope for the specified principal. Use $filter=asRequestor() to return all role assignment schedule requests requested by the current user. Use $filter=asTarget() to return all role assignment schedule requests created for the current user. Use $filter=asApprover() to return all role assignment schedule requests where the current user is an approver. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
