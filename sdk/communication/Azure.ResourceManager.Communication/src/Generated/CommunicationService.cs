@@ -22,6 +22,12 @@ namespace Azure.ResourceManager.Communication
     /// <summary> A Class representing a CommunicationService along with the instance operations that can be performed on it. </summary>
     public partial class CommunicationService : ArmResource
     {
+        /// <summary> Generate the resource identifier of a <see cref="CommunicationService"/> instance. </summary>
+        public static ResourceIdentifier CreateResourceIdentifier(string subscriptionId, string resourceGroupName, string communicationServiceName)
+        {
+            var resourceId = $"/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Communication/communicationServices/{communicationServiceName}";
+            return new ResourceIdentifier(resourceId);
+        }
         private readonly ClientDiagnostics _clientDiagnostics;
         private readonly CommunicationServiceRestOperations _communicationServiceRestClient;
         private readonly CommunicationServiceData _data;
@@ -225,7 +231,7 @@ namespace Azure.ResourceManager.Communication
         /// <summary> Links an Azure Notification Hub to this communication service. </summary>
         /// <param name="linkNotificationHubParameters"> Parameters supplied to the operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public async virtual Task<Response<LinkedNotificationHub>> LinkNotificationHubAsync(LinkNotificationHubParameters linkNotificationHubParameters = null, CancellationToken cancellationToken = default)
+        public async virtual Task<Response<LinkedNotificationHub>> LinkNotificationHubAsync(LinkNotificationHubOptions linkNotificationHubParameters = null, CancellationToken cancellationToken = default)
         {
             using var scope = _clientDiagnostics.CreateScope("CommunicationService.LinkNotificationHub");
             scope.Start();
@@ -244,7 +250,7 @@ namespace Azure.ResourceManager.Communication
         /// <summary> Links an Azure Notification Hub to this communication service. </summary>
         /// <param name="linkNotificationHubParameters"> Parameters supplied to the operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual Response<LinkedNotificationHub> LinkNotificationHub(LinkNotificationHubParameters linkNotificationHubParameters = null, CancellationToken cancellationToken = default)
+        public virtual Response<LinkedNotificationHub> LinkNotificationHub(LinkNotificationHubOptions linkNotificationHubParameters = null, CancellationToken cancellationToken = default)
         {
             using var scope = _clientDiagnostics.CreateScope("CommunicationService.LinkNotificationHub");
             scope.Start();
@@ -300,7 +306,7 @@ namespace Azure.ResourceManager.Communication
         /// <param name="parameters"> Parameter that describes the Regenerate Key Operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="parameters"/> is null. </exception>
-        public async virtual Task<Response<CommunicationServiceKeys>> RegenerateKeyAsync(RegenerateKeyParameters parameters, CancellationToken cancellationToken = default)
+        public async virtual Task<Response<CommunicationServiceKeys>> RegenerateKeyAsync(RegenerateKeyOptions parameters, CancellationToken cancellationToken = default)
         {
             if (parameters == null)
             {
@@ -325,7 +331,7 @@ namespace Azure.ResourceManager.Communication
         /// <param name="parameters"> Parameter that describes the Regenerate Key Operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="parameters"/> is null. </exception>
-        public virtual Response<CommunicationServiceKeys> RegenerateKey(RegenerateKeyParameters parameters, CancellationToken cancellationToken = default)
+        public virtual Response<CommunicationServiceKeys> RegenerateKey(RegenerateKeyOptions parameters, CancellationToken cancellationToken = default)
         {
             if (parameters == null)
             {
