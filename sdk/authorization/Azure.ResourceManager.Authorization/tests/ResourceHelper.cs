@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 
 using System.Collections.Generic;
+using System.Security.AccessControl;
 using Azure.ResourceManager.Authorization.Models;
 using Azure.ResourceManager.Models;
 using Azure.ResourceManager.Resources.Models;
@@ -46,6 +47,118 @@ namespace Azure.ResourceManager.Authorization.Tests
         public static AccessReviewDecisionData GetBasicAvailabilitySetData()
         {
             return new AccessReviewDecisionData();
+        }
+        #endregion
+
+        #region RoleAssignment
+        public static void AssertRoleAssignment(RoleAssignmentData ra1, RoleAssignmentData ra2)
+        {
+            AssertTrackedResource(ra1, ra2);
+            Assert.AreEqual(ra1.PrincipalId, ra2.PrincipalId);
+            Assert.AreEqual(ra1.ConditionVersion, ra2.ConditionVersion);
+            Assert.AreEqual(ra1.RoleDefinitionId, ra2.RoleDefinitionId);
+        }
+
+        public static RoleAssignmentData GetBasicRoleAssignmentData()
+        {
+            return new RoleAssignmentData();
+        }
+
+        public static RoleAssignmentCreateParameters GetBasicRoleAssignmentCreateParameters()
+        {
+            return new RoleAssignmentCreateParameters("", "")
+            {
+            };
+        }
+        #endregion
+
+        #region RoleAssignmentScheduleRequest
+        public static void AssertRoleAssignmentScheduleRequest(RoleAssignmentScheduleRequestData ra1, RoleAssignmentScheduleRequestData ra2)
+        {
+            AssertTrackedResource(ra1, ra2);
+            Assert.AreEqual(ra1.PrincipalId, ra2.PrincipalId);
+            Assert.AreEqual(ra1.ConditionVersion, ra2.ConditionVersion);
+            Assert.AreEqual(ra1.RoleDefinitionId, ra2.RoleDefinitionId);
+        }
+
+        public static RoleAssignmentScheduleRequestData GetBasicRoleAssignmentScheduleRequestData()
+        {
+            return new RoleAssignmentScheduleRequestData();
+        }
+        #endregion
+
+        #region RoleManagementPolicyAssignment
+        public static void AssertRoleManagementPolicyAssignment(RoleManagementPolicyAssignmentData ra1, RoleManagementPolicyAssignmentData ra2)
+        {
+            AssertTrackedResource(ra1, ra2);
+            Assert.AreEqual(ra1.RoleDefinitionId, ra2.RoleDefinitionId);
+        }
+
+        public static RoleManagementPolicyAssignmentData GetBasicRoleManagementPolicyAssignmentData()
+        {
+            return new RoleManagementPolicyAssignmentData();
+        }
+        #endregion
+
+        #region RoleEligibilityScheduleRequest
+        public static void AssertRoleEligibilityScheduleRequest(RoleEligibilityScheduleRequestData ra1, RoleEligibilityScheduleRequestData ra2)
+        {
+            AssertTrackedResource(ra1, ra2);
+            Assert.AreEqual(ra1.PrincipalId, ra2.PrincipalId);
+            Assert.AreEqual(ra1.ConditionVersion, ra2.ConditionVersion);
+            Assert.AreEqual(ra1.RoleDefinitionId, ra2.RoleDefinitionId);
+        }
+
+        public static RoleEligibilityScheduleRequestData GetBasicRoleEligibilityScheduleRequestData()
+        {
+            return new RoleEligibilityScheduleRequestData();
+        }
+        #endregion
+
+        #region RoleDefinition
+        public static void AssertRoleDefinition(RoleDefinitionData ra1, RoleDefinitionData ra2)
+        {
+            AssertTrackedResource(ra1, ra2);
+            Assert.AreEqual(ra1.Description, ra2.Description);
+            Assert.AreEqual(ra1.RoleName, ra2.RoleName);
+            Assert.AreEqual(ra1.AssignableScopes, ra2.AssignableScopes);
+        }
+
+        public static RoleDefinitionData GetBasicRoleDefinitionData(string Id)
+        {
+            return new RoleDefinitionData()
+            {
+                AssignableScopes =
+                {
+                    Id,
+                },
+                Permissions =
+                {
+                    new Permission()
+                    {
+                        Actions =
+                        {
+                            "Microsoft.Compute/*/read",
+                            "Microsoft.Compute/virtualMachines/start/action",
+                            "Microsoft.Compute/virtualMachines/restart/action",
+                            "Microsoft.Network/*/read",
+                            "Microsoft.Storage/*/read",
+                            "Microsoft.Authorization/*/read",
+                            "Microsoft.Resources/subscriptions/resourceGroups/read",
+                            "Microsoft.Resources/subscriptions/resourceGroups/resources/read",
+                            "Microsoft.Insights/alertRules/*"
+                        },
+                        DataActions =
+                        {
+                            "Microsoft.Storage/storageAccounts/blobServices/containers/blobs/*"
+                        },
+                        NotDataActions =
+                        {
+                            "Microsoft.Storage/storageAccounts/blobServices/containers/blobs/write"
+                        }
+                    }
+                }
+            };
         }
         #endregion
     }
