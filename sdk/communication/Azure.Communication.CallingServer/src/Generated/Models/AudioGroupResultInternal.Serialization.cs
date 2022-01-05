@@ -13,9 +13,9 @@ using Azure.Core;
 
 namespace Azure.Communication.CallingServer.Models
 {
-    internal partial class AudioRoutingGroupResultInternal
+    internal partial class AudioGroupResultInternal
     {
-        internal static AudioRoutingGroupResultInternal DeserializeAudioRoutingGroupResultInternal(JsonElement element)
+        internal static AudioGroupResultInternal DeserializeAudioGroupResultInternal(JsonElement element)
         {
             Optional<AudioRoutingMode> audioRoutingMode = default;
             Optional<IReadOnlyList<CommunicationIdentifierModel>> targets = default;
@@ -47,7 +47,7 @@ namespace Azure.Communication.CallingServer.Models
                     continue;
                 }
             }
-            return new AudioRoutingGroupResultInternal(Optional.ToNullable(audioRoutingMode), Optional.ToList(targets));
+            return new AudioGroupResultInternal(Optional.ToNullable(audioRoutingMode), Optional.ToList(targets));
         }
     }
 }

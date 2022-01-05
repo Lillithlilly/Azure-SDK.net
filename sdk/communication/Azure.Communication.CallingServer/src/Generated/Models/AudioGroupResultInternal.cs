@@ -12,19 +12,19 @@ using Azure.Core;
 
 namespace Azure.Communication.CallingServer.Models
 {
-    /// <summary> The audio routing group result. </summary>
-    internal partial class AudioRoutingGroupResultInternal
+    /// <summary> The audio group result. </summary>
+    internal partial class AudioGroupResultInternal
     {
-        /// <summary> Initializes a new instance of AudioRoutingGroupResultInternal. </summary>
-        internal AudioRoutingGroupResultInternal()
+        /// <summary> Initializes a new instance of AudioGroupResultInternal. </summary>
+        internal AudioGroupResultInternal()
         {
             Targets = new ChangeTrackingList<CommunicationIdentifierModel>();
         }
 
-        /// <summary> Initializes a new instance of AudioRoutingGroupResultInternal. </summary>
+        /// <summary> Initializes a new instance of AudioGroupResultInternal. </summary>
         /// <param name="audioRoutingMode"> The audio routing mode. </param>
-        /// <param name="targets"> The target identities that would be receivers in the audio routing group. </param>
-        internal AudioRoutingGroupResultInternal(AudioRoutingMode? audioRoutingMode, IReadOnlyList<CommunicationIdentifierModel> targets)
+        /// <param name="targets"> The target identities that would be receivers in the audio group. </param>
+        internal AudioGroupResultInternal(AudioRoutingMode? audioRoutingMode, IReadOnlyList<CommunicationIdentifierModel> targets)
         {
             AudioRoutingMode = audioRoutingMode;
             Targets = targets;
@@ -32,7 +32,7 @@ namespace Azure.Communication.CallingServer.Models
 
         /// <summary> The audio routing mode. </summary>
         public AudioRoutingMode? AudioRoutingMode { get; }
-        /// <summary> The target identities that would be receivers in the audio routing group. </summary>
+        /// <summary> The target identities that would be receivers in the audio group. </summary>
         public IReadOnlyList<CommunicationIdentifierModel> Targets { get; }
     }
 }
