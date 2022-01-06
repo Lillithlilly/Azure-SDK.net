@@ -32,7 +32,7 @@ modelerfour:
       Operation: OperationInformation
       Recommendation: AppServiceRecommendation
       Resource: AppServiceResource
-      Status: OperationStatus
+      Status: IdentifyInsightStatus
       DetectorResponse: AppServiceDetector
       DetectorDefinitionResource: DetectorDefinition
       Certificate: AppServiceCertificate
@@ -147,6 +147,10 @@ directive:
   - rename-model:
       from: SiteConfigResource
       to: SiteConfig
+
+  - from: AppServiceEnvironments.json
+    where: $.definitions.AppServiceEnvironmentResource
+    transform: $["x-ms-client-name"] = "AppServiceEnvironment"
 
 # Enum rename
   - from: swagger-document
