@@ -17,7 +17,7 @@ namespace Azure.ResourceManager.AppService.Models
         /// <summary> Initializes a new instance of UsageCollection. </summary>
         /// <param name="value"> Collection of resources. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="value"/> is null. </exception>
-        internal UsageCollection(IEnumerable<Usage> value)
+        internal UsageCollection(IEnumerable<ResourceUsage> value)
         {
             if (value == null)
             {
@@ -30,14 +30,14 @@ namespace Azure.ResourceManager.AppService.Models
         /// <summary> Initializes a new instance of UsageCollection. </summary>
         /// <param name="value"> Collection of resources. </param>
         /// <param name="nextLink"> Link to next page of resources. </param>
-        internal UsageCollection(IReadOnlyList<Usage> value, string nextLink)
+        internal UsageCollection(IReadOnlyList<ResourceUsage> value, string nextLink)
         {
             Value = value;
             NextLink = nextLink;
         }
 
         /// <summary> Collection of resources. </summary>
-        public IReadOnlyList<Usage> Value { get; }
+        public IReadOnlyList<ResourceUsage> Value { get; }
         /// <summary> Link to next page of resources. </summary>
         public string NextLink { get; }
     }

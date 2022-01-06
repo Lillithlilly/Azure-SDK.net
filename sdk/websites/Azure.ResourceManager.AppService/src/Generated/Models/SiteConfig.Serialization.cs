@@ -866,7 +866,7 @@ namespace Azure.ResourceManager.AppService.Models
             Optional<ManagedPipelineMode?> managedPipelineMode = default;
             Optional<IList<VirtualApplication>> virtualApplications = default;
             Optional<SiteLoadBalancing?> loadBalancing = default;
-            Optional<Experiments> experiments = default;
+            Optional<ProductionExperiments> experiments = default;
             Optional<SiteLimits> limits = default;
             Optional<bool?> autoHealEnabled = default;
             Optional<AutoHealRules> autoHealRules = default;
@@ -1280,7 +1280,7 @@ namespace Azure.ResourceManager.AppService.Models
                         experiments = null;
                         continue;
                     }
-                    experiments = Experiments.DeserializeExperiments(property.Value);
+                    experiments = ProductionExperiments.DeserializeProductionExperiments(property.Value);
                     continue;
                 }
                 if (property.NameEquals("limits"))

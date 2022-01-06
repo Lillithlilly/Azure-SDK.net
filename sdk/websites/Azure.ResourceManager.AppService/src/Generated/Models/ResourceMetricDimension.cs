@@ -11,19 +11,19 @@ namespace Azure.ResourceManager.AppService.Models
     /// Dimension of a resource metric. For e.g. instance specific HTTP requests for a web app, 
     /// where instance name is dimension of the metric HTTP request
     /// </summary>
-    public partial class Dimension
+    public partial class ResourceMetricDimension
     {
-        /// <summary> Initializes a new instance of Dimension. </summary>
-        internal Dimension()
+        /// <summary> Initializes a new instance of ResourceMetricDimension. </summary>
+        internal ResourceMetricDimension()
         {
         }
 
-        /// <summary> Initializes a new instance of Dimension. </summary>
+        /// <summary> Initializes a new instance of ResourceMetricDimension. </summary>
         /// <param name="name"></param>
         /// <param name="displayName"></param>
         /// <param name="internalName"></param>
         /// <param name="toBeExportedForShoebox"></param>
-        internal Dimension(string name, string displayName, string internalName, bool? toBeExportedForShoebox)
+        internal ResourceMetricDimension(string name, string displayName, string internalName, bool? toBeExportedForShoebox)
         {
             Name = name;
             DisplayName = displayName;

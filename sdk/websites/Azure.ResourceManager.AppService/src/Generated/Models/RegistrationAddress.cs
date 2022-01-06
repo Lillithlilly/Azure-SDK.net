@@ -10,16 +10,16 @@ using System;
 namespace Azure.ResourceManager.AppService.Models
 {
     /// <summary> Address information for domain registration. </summary>
-    public partial class Address
+    public partial class RegistrationAddress
     {
-        /// <summary> Initializes a new instance of Address. </summary>
+        /// <summary> Initializes a new instance of RegistrationAddress. </summary>
         /// <param name="address1"> First line of an Address. </param>
         /// <param name="city"> The city for the address. </param>
         /// <param name="country"> The country for the address. </param>
         /// <param name="postalCode"> The postal code for the address. </param>
         /// <param name="state"> The state or province for the address. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="address1"/>, <paramref name="city"/>, <paramref name="country"/>, <paramref name="postalCode"/>, or <paramref name="state"/> is null. </exception>
-        public Address(string address1, string city, string country, string postalCode, string state)
+        public RegistrationAddress(string address1, string city, string country, string postalCode, string state)
         {
             if (address1 == null)
             {
@@ -49,14 +49,14 @@ namespace Azure.ResourceManager.AppService.Models
             State = state;
         }
 
-        /// <summary> Initializes a new instance of Address. </summary>
+        /// <summary> Initializes a new instance of RegistrationAddress. </summary>
         /// <param name="address1"> First line of an Address. </param>
         /// <param name="address2"> The second line of the Address. Optional. </param>
         /// <param name="city"> The city for the address. </param>
         /// <param name="country"> The country for the address. </param>
         /// <param name="postalCode"> The postal code for the address. </param>
         /// <param name="state"> The state or province for the address. </param>
-        internal Address(string address1, string address2, string city, string country, string postalCode, string state)
+        internal RegistrationAddress(string address1, string address2, string city, string country, string postalCode, string state)
         {
             Address1 = address1;
             Address2 = address2;

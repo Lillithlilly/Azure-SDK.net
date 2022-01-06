@@ -10,7 +10,7 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.AppService.Models
 {
-    public partial class Capability : IUtf8JsonSerializable
+    public partial class SKUCapability : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
@@ -33,7 +33,7 @@ namespace Azure.ResourceManager.AppService.Models
             writer.WriteEndObject();
         }
 
-        internal static Capability DeserializeCapability(JsonElement element)
+        internal static SKUCapability DeserializeSKUCapability(JsonElement element)
         {
             Optional<string> name = default;
             Optional<string> value = default;
@@ -56,7 +56,7 @@ namespace Azure.ResourceManager.AppService.Models
                     continue;
                 }
             }
-            return new Capability(name.Value, value.Value, reason.Value);
+            return new SKUCapability(name.Value, value.Value, reason.Value);
         }
     }
 }

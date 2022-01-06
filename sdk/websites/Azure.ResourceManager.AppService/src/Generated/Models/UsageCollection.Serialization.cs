@@ -15,16 +15,16 @@ namespace Azure.ResourceManager.AppService.Models
     {
         internal static UsageCollection DeserializeUsageCollection(JsonElement element)
         {
-            IReadOnlyList<Usage> value = default;
+            IReadOnlyList<ResourceUsage> value = default;
             Optional<string> nextLink = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("value"))
                 {
-                    List<Usage> array = new List<Usage>();
+                    List<ResourceUsage> array = new List<ResourceUsage>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(Usage.DeserializeUsage(item));
+                        array.Add(ResourceUsage.DeserializeResourceUsage(item));
                     }
                     value = array;
                     continue;

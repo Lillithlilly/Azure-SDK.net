@@ -10,7 +10,7 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.AppService.Models
 {
-    public partial class Rendering : IUtf8JsonSerializable
+    public partial class DataRendering : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
@@ -33,7 +33,7 @@ namespace Azure.ResourceManager.AppService.Models
             writer.WriteEndObject();
         }
 
-        internal static Rendering DeserializeRendering(JsonElement element)
+        internal static DataRendering DeserializeDataRendering(JsonElement element)
         {
             Optional<RenderingType> type = default;
             Optional<string> title = default;
@@ -61,7 +61,7 @@ namespace Azure.ResourceManager.AppService.Models
                     continue;
                 }
             }
-            return new Rendering(Optional.ToNullable(type), title.Value, description.Value);
+            return new DataRendering(Optional.ToNullable(type), title.Value, description.Value);
         }
     }
 }

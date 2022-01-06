@@ -41,7 +41,7 @@ namespace Azure.ResourceManager.AppService
         }
 
         /// <summary> Gets the valid resource type for this object. </summary>
-        protected override ResourceType ValidResourceType => StaticSiteBuildARMResource.ResourceType;
+        protected override ResourceType ValidResourceType => StaticSiteBuild.ResourceType;
 
         // Collection level operations.
 

@@ -12,7 +12,7 @@ using Azure.ResourceManager;
 
 namespace Azure.ResourceManager.AppService.Models
 {
-    public partial class Usage : IUtf8JsonSerializable
+    public partial class ResourceUsage : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
@@ -28,7 +28,7 @@ namespace Azure.ResourceManager.AppService.Models
             writer.WriteEndObject();
         }
 
-        internal static Usage DeserializeUsage(JsonElement element)
+        internal static ResourceUsage DeserializeResourceUsage(JsonElement element)
         {
             Optional<string> kind = default;
             ResourceIdentifier id = default;
@@ -137,7 +137,7 @@ namespace Azure.ResourceManager.AppService.Models
                     continue;
                 }
             }
-            return new Usage(id, name, type, kind.Value, displayName.Value, resourceName.Value, unit.Value, Optional.ToNullable(currentValue), Optional.ToNullable(limit), Optional.ToNullable(nextResetTime), Optional.ToNullable(computeMode), siteMode.Value);
+            return new ResourceUsage(id, name, type, kind.Value, displayName.Value, resourceName.Value, unit.Value, Optional.ToNullable(currentValue), Optional.ToNullable(limit), Optional.ToNullable(nextResetTime), Optional.ToNullable(computeMode), siteMode.Value);
         }
     }
 }

@@ -11,14 +11,14 @@ using Azure.ResourceManager;
 namespace Azure.ResourceManager.AppService.Models
 {
     /// <summary> Usage of the quota resource. </summary>
-    public partial class Usage : ProxyOnlyResource
+    public partial class ResourceUsage : ProxyOnlyResource
     {
-        /// <summary> Initializes a new instance of Usage. </summary>
-        public Usage()
+        /// <summary> Initializes a new instance of ResourceUsage. </summary>
+        public ResourceUsage()
         {
         }
 
-        /// <summary> Initializes a new instance of Usage. </summary>
+        /// <summary> Initializes a new instance of ResourceUsage. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
         /// <param name="type"> The type. </param>
@@ -31,7 +31,7 @@ namespace Azure.ResourceManager.AppService.Models
         /// <param name="nextResetTime"> Next reset time for the resource counter. </param>
         /// <param name="computeMode"> Compute mode used for this usage. </param>
         /// <param name="siteMode"> Site mode used for this usage. </param>
-        internal Usage(ResourceIdentifier id, string name, ResourceType type, string kind, string displayName, string resourceName, string unit, long? currentValue, long? limit, DateTimeOffset? nextResetTime, ComputeModeOptions? computeMode, string siteMode) : base(id, name, type, kind)
+        internal ResourceUsage(ResourceIdentifier id, string name, ResourceType type, string kind, string displayName, string resourceName, string unit, long? currentValue, long? limit, DateTimeOffset? nextResetTime, ComputeModeOptions? computeMode, string siteMode) : base(id, name, type, kind)
         {
             DisplayName = displayName;
             ResourceName = resourceName;

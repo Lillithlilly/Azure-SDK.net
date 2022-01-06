@@ -84,7 +84,7 @@ namespace Azure.ResourceManager.AppService.Models
             Optional<double> priority = default;
             Optional<IList<IList<NameValuePair>>> metaData = default;
             Optional<IssueType> type = default;
-            Optional<IList<Solution>> solutions = default;
+            Optional<IList<ClassSolution>> solutions = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("startTime"))
@@ -164,10 +164,10 @@ namespace Azure.ResourceManager.AppService.Models
                         property.ThrowNonNullablePropertyIsNull();
                         continue;
                     }
-                    List<Solution> array = new List<Solution>();
+                    List<ClassSolution> array = new List<ClassSolution>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(Solution.DeserializeSolution(item));
+                        array.Add(ClassSolution.DeserializeClassSolution(item));
                     }
                     solutions = array;
                     continue;

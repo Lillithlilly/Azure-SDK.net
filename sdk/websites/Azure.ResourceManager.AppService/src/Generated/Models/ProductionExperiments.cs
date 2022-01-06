@@ -11,17 +11,17 @@ using Azure.Core;
 namespace Azure.ResourceManager.AppService.Models
 {
     /// <summary> Routing rules in production experiments. </summary>
-    public partial class Experiments
+    public partial class ProductionExperiments
     {
-        /// <summary> Initializes a new instance of Experiments. </summary>
-        public Experiments()
+        /// <summary> Initializes a new instance of ProductionExperiments. </summary>
+        public ProductionExperiments()
         {
             RampUpRules = new ChangeTrackingList<RampUpRule>();
         }
 
-        /// <summary> Initializes a new instance of Experiments. </summary>
+        /// <summary> Initializes a new instance of ProductionExperiments. </summary>
         /// <param name="rampUpRules"> List of ramp-up rules. </param>
-        internal Experiments(IList<RampUpRule> rampUpRules)
+        internal ProductionExperiments(IList<RampUpRule> rampUpRules)
         {
             RampUpRules = rampUpRules;
         }

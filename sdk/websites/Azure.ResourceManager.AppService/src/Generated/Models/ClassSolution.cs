@@ -11,16 +11,16 @@ using Azure.Core;
 namespace Azure.ResourceManager.AppService.Models
 {
     /// <summary> Class Representing Solution for problems detected. </summary>
-    public partial class Solution
+    public partial class ClassSolution
     {
-        /// <summary> Initializes a new instance of Solution. </summary>
-        public Solution()
+        /// <summary> Initializes a new instance of ClassSolution. </summary>
+        public ClassSolution()
         {
             Data = new ChangeTrackingList<IList<NameValuePair>>();
             Metadata = new ChangeTrackingList<IList<NameValuePair>>();
         }
 
-        /// <summary> Initializes a new instance of Solution. </summary>
+        /// <summary> Initializes a new instance of ClassSolution. </summary>
         /// <param name="id"> Solution Id. </param>
         /// <param name="displayName"> Display Name of the solution. </param>
         /// <param name="order"> Order of the solution. </param>
@@ -28,7 +28,7 @@ namespace Azure.ResourceManager.AppService.Models
         /// <param name="type"> Type of Solution. </param>
         /// <param name="data"> Solution Data. </param>
         /// <param name="metadata"> Solution Metadata. </param>
-        internal Solution(double? id, string displayName, double? order, string description, SolutionType? type, IList<IList<NameValuePair>> data, IList<IList<NameValuePair>> metadata)
+        internal ClassSolution(double? id, string displayName, double? order, string description, SolutionType? type, IList<IList<NameValuePair>> data, IList<IList<NameValuePair>> metadata)
         {
             Id = id;
             DisplayName = displayName;

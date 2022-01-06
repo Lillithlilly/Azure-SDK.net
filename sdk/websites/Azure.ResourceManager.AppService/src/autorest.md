@@ -35,7 +35,20 @@ modelerfour:
       Status: OperationStatus
       DetectorResponse: AppServiceDetector
       DetectorDefinitionResource: DetectorDefinition
-    
+      Certificate: AppServiceCertificate
+      StaticSiteBuildARMResource: StaticSiteBuild
+      User: AppServiceUser
+      WorkerPoolResource: WorkerPool
+      Capability: SKUCapability
+      Dimension: ResourceMetricDimension
+      Experiments: ProductionExperiments
+      Nonce: LoginNonce
+      Rendering: DataRendering
+      Snapshot: AppSnapshot
+      Solution: ClassSolution
+      Usage: ResourceUsage
+      Address: RegistrationAddress
+
 output-folder: ./Generated
 
 request-path-is-non-resource:
@@ -44,21 +57,24 @@ request-path-is-non-resource:
 - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/migratemysql/status
 - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/networkFeatures/{view}
 
-# request-path-to-singleton-resource: 
-#   /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/sourcecontrols/web: sourcecontrols/web
-#   /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/configurations/networking: configurations/networking
-#   /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/basicPublishingCredentialsPolicies/ftp: basicPublishingCredentialsPolicies/ftp
-#   /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/basicPublishingCredentialsPolicies/scm: basicPublishingCredentialsPolicies/scm
-#   /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/logs: config/logs
-#   /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/logs: config/logs
-#   /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/web: config/web
-#   /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/migratemysql/status: migratemysql/status
-#   /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/privateAccess/virtualNetworks: privateAccess/virtualNetworks
-#   /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/basicPublishingCredentialsPolicies/ftp: basicPublishingCredentialsPolicies/ftp
-#   /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/basicPublishingCredentialsPolicies/scm: basicPublishingCredentialsPolicies/scm
-#   /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/web: config/web
-#   /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/networkConfig/virtualNetwork: networkConfig/virtualNetwork
-#   /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/slotConfigNames: config/slotConfigNames
+request-path-to-singleton-resource: 
+  /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/sourcecontrols/web: sourcecontrols/web
+  /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/configurations/networking: configurations/networking
+  /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/basicPublishingCredentialsPolicies/ftp: basicPublishingCredentialsPolicies/ftp
+  /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/basicPublishingCredentialsPolicies/scm: basicPublishingCredentialsPolicies/scm
+  /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/logs: config/logs
+  /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/logs: config/logs
+# exist problem
+#   /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/web/snapshots/{snapshotId}: snapshots/{snapshotId}
+#   /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/web/snapshots/{snapshotId}: snapshots/{snapshotId}
+  /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/web: config/web
+  /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/migratemysql/status: migratemysql/status
+  /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/privateAccess/virtualNetworks: privateAccess/virtualNetworks
+  /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/basicPublishingCredentialsPolicies/ftp: basicPublishingCredentialsPolicies/ftp
+  /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/basicPublishingCredentialsPolicies/scm: basicPublishingCredentialsPolicies/scm
+  /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/web: config/web
+  /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/networkConfig/virtualNetwork: networkConfig/virtualNetwork
+  /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/slotConfigNames: config/slotConfigNames
 
 request-path-to-resource-name:
   /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/basicPublishingCredentialsPolicies/ftp: BasicPublishingCredentialsPolicyFtp
@@ -361,4 +377,108 @@ directive:
     transform: >
         $["x-nullable"] = true;
         
+#   - from: swagger-document
+#     where: $.definitions.SiteConfig.properties.defaultDocuments
+#     transform: >
+#         $["x-nullable"] = true;
+#   - from: swagger-document
+#     where: $.definitions.SiteConfig.properties.requestTracingEnabled
+#     transform: >
+#         $["x-nullable"] = true;
+#   - from: swagger-document
+#     where: $.definitions.SiteConfig.properties.remoteDebuggingEnabled
+#     transform: >
+#         $["x-nullable"] = true;
+#   - from: swagger-document
+#     where: $.definitions.SiteConfig.properties.logsDirectorySizeLimit
+#     transform: >
+#         $["x-nullable"] = true;
+#   - from: swagger-document
+#     where: $.definitions.SiteConfig.properties.httpLoggingEnabled
+#     transform: >
+#         $["x-nullable"] = true;
+#   - from: swagger-document
+#     where: $.definitions.SiteConfig.properties.detailedErrorLoggingEnabled
+#     transform: >
+#         $["x-nullable"] = true;
+#   - from: swagger-document
+#     where: $.definitions.SiteConfig.properties.appSettings
+#     transform: >
+#         $["x-nullable"] = true;
+#   - from: swagger-document
+#     where: $.definitions.SiteConfig.properties.connectionStrings
+#     transform: >
+#         $["x-nullable"] = true;
+#   - from: swagger-document
+#     where: $.definitions.SiteConfig.properties.machineKey
+#     transform: >
+#         $["x-nullable"] = true;
+#   - from: swagger-document
+#     where: $.definitions.SiteConfig.properties.handlerMappings
+#     transform: >
+#         $["x-nullable"] = true;
+#   - from: swagger-document
+#     where: $.definitions.SiteConfig.properties.scmType
+#     transform: >
+#         $["x-nullable"] = true;
+#   - from: swagger-document
+#     where: $.definitions.SiteConfig.properties.use32BitWorkerProcess
+#     transform: >
+#         $["x-nullable"] = true;
+#   - from: swagger-document
+#     where: $.definitions.SiteConfig.properties.webSocketsEnabled
+#     transform: >
+#         $["x-nullable"] = true;
+#   - from: swagger-document
+#     where: $.definitions.SiteConfig.properties.managedPipelineMode
+#     transform: >
+#         $["x-nullable"] = true;
+#   - from: swagger-document
+#     where: $.definitions.SiteConfig.properties.virtualApplications
+#     transform: >
+#         $["x-nullable"] = true;
+#   - from: swagger-document
+#     where: $.definitions.SiteConfig.properties.loadBalancing
+#     transform: >
+#         $["x-nullable"] = true;
+#   - from: swagger-document
+#     where: $.definitions.SiteConfig.properties.experiments
+#     transform: >
+#         $["x-nullable"] = true;
+#   - from: swagger-document
+#     where: $.definitions.SiteConfig.properties.limits
+#     transform: >
+#         $["x-nullable"] = true;
+#   - from: swagger-document
+#     where: $.definitions.SiteConfig.properties.autoHealEnabled
+#     transform: >
+#         $["x-nullable"] = true;
+#   - from: swagger-document
+#     where: $.definitions.SiteConfig.properties.autoHealRules
+#     transform: >
+#         $["x-nullable"] = true;
+#   - from: swagger-document
+#     where: $.definitions.SiteConfig.properties.vnetRouteAllEnabled
+#     transform: >
+#         $["x-nullable"] = true;
+#   - from: swagger-document
+#     where: $.definitions.SiteConfig.properties.vnetPrivatePortsCount
+#     transform: >
+#         $["x-nullable"] = true;
+#   - from: swagger-document
+#     where: $.definitions.SiteConfig.properties.cors
+#     transform: >
+#         $["x-nullable"] = true;
+#   - from: swagger-document
+#     where: $.definitions.SiteConfig.properties.push
+#     transform: >
+#         $["x-nullable"] = true;
+#   - from: swagger-document
+#     where: $.definitions.SiteConfig.properties.apiDefinition
+#     transform: >
+#         $["x-nullable"] = true;
+#   - from: swagger-document
+#     where: $.definitions.SiteConfig.properties.apiManagementConfig
+#     transform: >
+#         $["x-nullable"] = true;
 ```

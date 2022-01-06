@@ -11,7 +11,7 @@ using Azure.ResourceManager;
 
 namespace Azure.ResourceManager.AppService
 {
-    public partial class UserData : IUtf8JsonSerializable
+    public partial class AppServiceUserData : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
@@ -52,7 +52,7 @@ namespace Azure.ResourceManager.AppService
             writer.WriteEndObject();
         }
 
-        internal static UserData DeserializeUserData(JsonElement element)
+        internal static AppServiceUserData DeserializeAppServiceUserData(JsonElement element)
         {
             Optional<string> kind = default;
             ResourceIdentifier id = default;
@@ -123,7 +123,7 @@ namespace Azure.ResourceManager.AppService
                     continue;
                 }
             }
-            return new UserData(id, name, type, kind.Value, publishingUserName.Value, publishingPassword.Value, publishingPasswordHash.Value, publishingPasswordHashSalt.Value, scmUri.Value);
+            return new AppServiceUserData(id, name, type, kind.Value, publishingUserName.Value, publishingPassword.Value, publishingPasswordHash.Value, publishingPasswordHashSalt.Value, scmUri.Value);
         }
     }
 }

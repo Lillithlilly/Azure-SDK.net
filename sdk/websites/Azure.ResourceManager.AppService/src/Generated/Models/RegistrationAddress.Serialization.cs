@@ -10,7 +10,7 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.AppService.Models
 {
-    public partial class Address : IUtf8JsonSerializable
+    public partial class RegistrationAddress : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
@@ -33,7 +33,7 @@ namespace Azure.ResourceManager.AppService.Models
             writer.WriteEndObject();
         }
 
-        internal static Address DeserializeAddress(JsonElement element)
+        internal static RegistrationAddress DeserializeRegistrationAddress(JsonElement element)
         {
             string address1 = default;
             Optional<string> address2 = default;
@@ -74,7 +74,7 @@ namespace Azure.ResourceManager.AppService.Models
                     continue;
                 }
             }
-            return new Address(address1, address2.Value, city, country, postalCode, state);
+            return new RegistrationAddress(address1, address2.Value, city, country, postalCode, state);
         }
     }
 }

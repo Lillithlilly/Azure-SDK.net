@@ -11,7 +11,7 @@ using Azure.ResourceManager;
 
 namespace Azure.ResourceManager.AppService.Models
 {
-    public partial class Snapshot : IUtf8JsonSerializable
+    public partial class AppSnapshot : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
@@ -27,7 +27,7 @@ namespace Azure.ResourceManager.AppService.Models
             writer.WriteEndObject();
         }
 
-        internal static Snapshot DeserializeSnapshot(JsonElement element)
+        internal static AppSnapshot DeserializeAppSnapshot(JsonElement element)
         {
             Optional<string> kind = default;
             ResourceIdentifier id = default;
@@ -74,7 +74,7 @@ namespace Azure.ResourceManager.AppService.Models
                     continue;
                 }
             }
-            return new Snapshot(id, name, type, kind.Value, time.Value);
+            return new AppSnapshot(id, name, type, kind.Value, time.Value);
         }
     }
 }

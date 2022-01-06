@@ -18,7 +18,7 @@ namespace Azure.ResourceManager.AppService.Models
         /// <summary> Initializes a new instance of DiagnosticData. </summary>
         /// <param name="table"> Data in table form. </param>
         /// <param name="renderingProperties"> Properties that describe how the table should be rendered. </param>
-        internal DiagnosticData(DataTableResponseObject table, Rendering renderingProperties)
+        internal DiagnosticData(DataTableResponseObject table, DataRendering renderingProperties)
         {
             Table = table;
             RenderingProperties = renderingProperties;
@@ -27,6 +27,6 @@ namespace Azure.ResourceManager.AppService.Models
         /// <summary> Data in table form. </summary>
         public DataTableResponseObject Table { get; set; }
         /// <summary> Properties that describe how the table should be rendered. </summary>
-        public Rendering RenderingProperties { get; set; }
+        public DataRendering RenderingProperties { get; set; }
     }
 }

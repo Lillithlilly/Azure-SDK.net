@@ -24,7 +24,7 @@ namespace Azure.ResourceManager.AppService
     {
         private readonly ClientDiagnostics _clientDiagnostics;
         private readonly AppServiceEnvironmentsRestOperations _appServiceEnvironmentsRestClient;
-        private readonly WorkerPoolResourceData _data;
+        private readonly WorkerPoolData _data;
 
         /// <summary> Initializes a new instance of the <see cref="HostingEnvironmentWorkerPool"/> class for mocking. </summary>
         protected HostingEnvironmentWorkerPool()
@@ -34,7 +34,7 @@ namespace Azure.ResourceManager.AppService
         /// <summary> Initializes a new instance of the <see cref = "HostingEnvironmentWorkerPool"/> class. </summary>
         /// <param name="options"> The client parameters to use in these operations. </param>
         /// <param name="resource"> The resource that is the target of operations. </param>
-        internal HostingEnvironmentWorkerPool(ArmResource options, WorkerPoolResourceData resource) : base(options, resource.Id)
+        internal HostingEnvironmentWorkerPool(ArmResource options, WorkerPoolData resource) : base(options, resource.Id)
         {
             HasData = true;
             _data = resource;
@@ -74,7 +74,7 @@ namespace Azure.ResourceManager.AppService
 
         /// <summary> Gets the data representing this Feature. </summary>
         /// <exception cref="InvalidOperationException"> Throws if there is no data loaded in the current instance. </exception>
-        public virtual WorkerPoolResourceData Data
+        public virtual WorkerPoolData Data
         {
             get
             {
@@ -153,7 +153,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="workerPoolEnvelope"> Properties of the worker pool. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="workerPoolEnvelope"/> is null. </exception>
-        public async virtual Task<Response<HostingEnvironmentWorkerPool>> UpdateAsync(WorkerPoolResourceData workerPoolEnvelope, CancellationToken cancellationToken = default)
+        public async virtual Task<Response<HostingEnvironmentWorkerPool>> UpdateAsync(WorkerPoolData workerPoolEnvelope, CancellationToken cancellationToken = default)
         {
             if (workerPoolEnvelope == null)
             {
@@ -181,7 +181,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="workerPoolEnvelope"> Properties of the worker pool. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="workerPoolEnvelope"/> is null. </exception>
-        public virtual Response<HostingEnvironmentWorkerPool> Update(WorkerPoolResourceData workerPoolEnvelope, CancellationToken cancellationToken = default)
+        public virtual Response<HostingEnvironmentWorkerPool> Update(WorkerPoolData workerPoolEnvelope, CancellationToken cancellationToken = default)
         {
             if (workerPoolEnvelope == null)
             {
@@ -465,10 +465,10 @@ namespace Azure.ResourceManager.AppService
         /// OperationId: AppServiceEnvironments_ListWebWorkerUsages
         /// <summary> Description for Get usage metrics for a worker pool of an App Service Environment. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> An async collection of <see cref="Usage" /> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<Usage> GetWebWorkerUsagesAsync(CancellationToken cancellationToken = default)
+        /// <returns> An async collection of <see cref="ResourceUsage" /> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<ResourceUsage> GetWebWorkerUsagesAsync(CancellationToken cancellationToken = default)
         {
-            async Task<Page<Usage>> FirstPageFunc(int? pageSizeHint)
+            async Task<Page<ResourceUsage>> FirstPageFunc(int? pageSizeHint)
             {
                 using var scope = _clientDiagnostics.CreateScope("HostingEnvironmentWorkerPool.GetWebWorkerUsages");
                 scope.Start();
@@ -483,7 +483,7 @@ namespace Azure.ResourceManager.AppService
                     throw;
                 }
             }
-            async Task<Page<Usage>> NextPageFunc(string nextLink, int? pageSizeHint)
+            async Task<Page<ResourceUsage>> NextPageFunc(string nextLink, int? pageSizeHint)
             {
                 using var scope = _clientDiagnostics.CreateScope("HostingEnvironmentWorkerPool.GetWebWorkerUsages");
                 scope.Start();
@@ -506,10 +506,10 @@ namespace Azure.ResourceManager.AppService
         /// OperationId: AppServiceEnvironments_ListWebWorkerUsages
         /// <summary> Description for Get usage metrics for a worker pool of an App Service Environment. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="Usage" /> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<Usage> GetWebWorkerUsages(CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="ResourceUsage" /> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<ResourceUsage> GetWebWorkerUsages(CancellationToken cancellationToken = default)
         {
-            Page<Usage> FirstPageFunc(int? pageSizeHint)
+            Page<ResourceUsage> FirstPageFunc(int? pageSizeHint)
             {
                 using var scope = _clientDiagnostics.CreateScope("HostingEnvironmentWorkerPool.GetWebWorkerUsages");
                 scope.Start();
@@ -524,7 +524,7 @@ namespace Azure.ResourceManager.AppService
                     throw;
                 }
             }
-            Page<Usage> NextPageFunc(string nextLink, int? pageSizeHint)
+            Page<ResourceUsage> NextPageFunc(string nextLink, int? pageSizeHint)
             {
                 using var scope = _clientDiagnostics.CreateScope("HostingEnvironmentWorkerPool.GetWebWorkerUsages");
                 scope.Start();

@@ -11,7 +11,7 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.AppService.Models
 {
-    public partial class Experiments : IUtf8JsonSerializable
+    public partial class ProductionExperiments : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
@@ -29,7 +29,7 @@ namespace Azure.ResourceManager.AppService.Models
             writer.WriteEndObject();
         }
 
-        internal static Experiments DeserializeExperiments(JsonElement element)
+        internal static ProductionExperiments DeserializeProductionExperiments(JsonElement element)
         {
             Optional<IList<RampUpRule>> rampUpRules = default;
             foreach (var property in element.EnumerateObject())
@@ -50,7 +50,7 @@ namespace Azure.ResourceManager.AppService.Models
                     continue;
                 }
             }
-            return new Experiments(Optional.ToList(rampUpRules));
+            return new ProductionExperiments(Optional.ToList(rampUpRules));
         }
     }
 }

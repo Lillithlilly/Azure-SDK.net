@@ -1426,7 +1426,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="name"> Name of the App Service Environment. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, or <paramref name="name"/> is null. </exception>
-        public async Task<Response<WorkerPoolResourceData>> GetMultiRolePoolAsync(string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
+        public async Task<Response<WorkerPoolData>> GetMultiRolePoolAsync(string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -1447,13 +1447,13 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        WorkerPoolResourceData value = default;
+                        WorkerPoolData value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = WorkerPoolResourceData.DeserializeWorkerPoolResourceData(document.RootElement);
+                        value = WorkerPoolData.DeserializeWorkerPoolData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 case 404:
-                    return Response.FromValue((WorkerPoolResourceData)null, message.Response);
+                    return Response.FromValue((WorkerPoolData)null, message.Response);
                 default:
                     throw await _clientDiagnostics.CreateRequestFailedExceptionAsync(message.Response).ConfigureAwait(false);
             }
@@ -1465,7 +1465,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="name"> Name of the App Service Environment. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, or <paramref name="name"/> is null. </exception>
-        public Response<WorkerPoolResourceData> GetMultiRolePool(string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
+        public Response<WorkerPoolData> GetMultiRolePool(string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -1486,19 +1486,19 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        WorkerPoolResourceData value = default;
+                        WorkerPoolData value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = WorkerPoolResourceData.DeserializeWorkerPoolResourceData(document.RootElement);
+                        value = WorkerPoolData.DeserializeWorkerPoolData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 case 404:
-                    return Response.FromValue((WorkerPoolResourceData)null, message.Response);
+                    return Response.FromValue((WorkerPoolData)null, message.Response);
                 default:
                     throw _clientDiagnostics.CreateRequestFailedException(message.Response);
             }
         }
 
-        internal HttpMessage CreateCreateOrUpdateMultiRolePoolRequest(string subscriptionId, string resourceGroupName, string name, WorkerPoolResourceData multiRolePoolEnvelope)
+        internal HttpMessage CreateCreateOrUpdateMultiRolePoolRequest(string subscriptionId, string resourceGroupName, string name, WorkerPoolData multiRolePoolEnvelope)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -1530,7 +1530,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="multiRolePoolEnvelope"> Properties of the multi-role pool. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, or <paramref name="multiRolePoolEnvelope"/> is null. </exception>
-        public async Task<Response> CreateOrUpdateMultiRolePoolAsync(string subscriptionId, string resourceGroupName, string name, WorkerPoolResourceData multiRolePoolEnvelope, CancellationToken cancellationToken = default)
+        public async Task<Response> CreateOrUpdateMultiRolePoolAsync(string subscriptionId, string resourceGroupName, string name, WorkerPoolData multiRolePoolEnvelope, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -1568,7 +1568,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="multiRolePoolEnvelope"> Properties of the multi-role pool. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, or <paramref name="multiRolePoolEnvelope"/> is null. </exception>
-        public Response CreateOrUpdateMultiRolePool(string subscriptionId, string resourceGroupName, string name, WorkerPoolResourceData multiRolePoolEnvelope, CancellationToken cancellationToken = default)
+        public Response CreateOrUpdateMultiRolePool(string subscriptionId, string resourceGroupName, string name, WorkerPoolData multiRolePoolEnvelope, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -1599,7 +1599,7 @@ namespace Azure.ResourceManager.AppService
             }
         }
 
-        internal HttpMessage CreateUpdateMultiRolePoolRequest(string subscriptionId, string resourceGroupName, string name, WorkerPoolResourceData multiRolePoolEnvelope)
+        internal HttpMessage CreateUpdateMultiRolePoolRequest(string subscriptionId, string resourceGroupName, string name, WorkerPoolData multiRolePoolEnvelope)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -1631,7 +1631,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="multiRolePoolEnvelope"> Properties of the multi-role pool. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, or <paramref name="multiRolePoolEnvelope"/> is null. </exception>
-        public async Task<Response<WorkerPoolResourceData>> UpdateMultiRolePoolAsync(string subscriptionId, string resourceGroupName, string name, WorkerPoolResourceData multiRolePoolEnvelope, CancellationToken cancellationToken = default)
+        public async Task<Response<WorkerPoolData>> UpdateMultiRolePoolAsync(string subscriptionId, string resourceGroupName, string name, WorkerPoolData multiRolePoolEnvelope, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -1657,9 +1657,9 @@ namespace Azure.ResourceManager.AppService
                 case 200:
                 case 202:
                     {
-                        WorkerPoolResourceData value = default;
+                        WorkerPoolData value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = WorkerPoolResourceData.DeserializeWorkerPoolResourceData(document.RootElement);
+                        value = WorkerPoolData.DeserializeWorkerPoolData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -1674,7 +1674,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="multiRolePoolEnvelope"> Properties of the multi-role pool. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, or <paramref name="multiRolePoolEnvelope"/> is null. </exception>
-        public Response<WorkerPoolResourceData> UpdateMultiRolePool(string subscriptionId, string resourceGroupName, string name, WorkerPoolResourceData multiRolePoolEnvelope, CancellationToken cancellationToken = default)
+        public Response<WorkerPoolData> UpdateMultiRolePool(string subscriptionId, string resourceGroupName, string name, WorkerPoolData multiRolePoolEnvelope, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -1700,9 +1700,9 @@ namespace Azure.ResourceManager.AppService
                 case 200:
                 case 202:
                     {
-                        WorkerPoolResourceData value = default;
+                        WorkerPoolData value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = WorkerPoolResourceData.DeserializeWorkerPoolResourceData(document.RootElement);
+                        value = WorkerPoolData.DeserializeWorkerPoolData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -3320,7 +3320,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="workerPoolName"> Name of the worker pool. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, or <paramref name="workerPoolName"/> is null. </exception>
-        public async Task<Response<WorkerPoolResourceData>> GetWorkerPoolAsync(string subscriptionId, string resourceGroupName, string name, string workerPoolName, CancellationToken cancellationToken = default)
+        public async Task<Response<WorkerPoolData>> GetWorkerPoolAsync(string subscriptionId, string resourceGroupName, string name, string workerPoolName, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -3345,13 +3345,13 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        WorkerPoolResourceData value = default;
+                        WorkerPoolData value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = WorkerPoolResourceData.DeserializeWorkerPoolResourceData(document.RootElement);
+                        value = WorkerPoolData.DeserializeWorkerPoolData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 case 404:
-                    return Response.FromValue((WorkerPoolResourceData)null, message.Response);
+                    return Response.FromValue((WorkerPoolData)null, message.Response);
                 default:
                     throw await _clientDiagnostics.CreateRequestFailedExceptionAsync(message.Response).ConfigureAwait(false);
             }
@@ -3364,7 +3364,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="workerPoolName"> Name of the worker pool. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, or <paramref name="workerPoolName"/> is null. </exception>
-        public Response<WorkerPoolResourceData> GetWorkerPool(string subscriptionId, string resourceGroupName, string name, string workerPoolName, CancellationToken cancellationToken = default)
+        public Response<WorkerPoolData> GetWorkerPool(string subscriptionId, string resourceGroupName, string name, string workerPoolName, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -3389,19 +3389,19 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        WorkerPoolResourceData value = default;
+                        WorkerPoolData value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = WorkerPoolResourceData.DeserializeWorkerPoolResourceData(document.RootElement);
+                        value = WorkerPoolData.DeserializeWorkerPoolData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 case 404:
-                    return Response.FromValue((WorkerPoolResourceData)null, message.Response);
+                    return Response.FromValue((WorkerPoolData)null, message.Response);
                 default:
                     throw _clientDiagnostics.CreateRequestFailedException(message.Response);
             }
         }
 
-        internal HttpMessage CreateCreateOrUpdateWorkerPoolRequest(string subscriptionId, string resourceGroupName, string name, string workerPoolName, WorkerPoolResourceData workerPoolEnvelope)
+        internal HttpMessage CreateCreateOrUpdateWorkerPoolRequest(string subscriptionId, string resourceGroupName, string name, string workerPoolName, WorkerPoolData workerPoolEnvelope)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -3435,7 +3435,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="workerPoolEnvelope"> Properties of the worker pool. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, <paramref name="workerPoolName"/>, or <paramref name="workerPoolEnvelope"/> is null. </exception>
-        public async Task<Response> CreateOrUpdateWorkerPoolAsync(string subscriptionId, string resourceGroupName, string name, string workerPoolName, WorkerPoolResourceData workerPoolEnvelope, CancellationToken cancellationToken = default)
+        public async Task<Response> CreateOrUpdateWorkerPoolAsync(string subscriptionId, string resourceGroupName, string name, string workerPoolName, WorkerPoolData workerPoolEnvelope, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -3478,7 +3478,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="workerPoolEnvelope"> Properties of the worker pool. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, <paramref name="workerPoolName"/>, or <paramref name="workerPoolEnvelope"/> is null. </exception>
-        public Response CreateOrUpdateWorkerPool(string subscriptionId, string resourceGroupName, string name, string workerPoolName, WorkerPoolResourceData workerPoolEnvelope, CancellationToken cancellationToken = default)
+        public Response CreateOrUpdateWorkerPool(string subscriptionId, string resourceGroupName, string name, string workerPoolName, WorkerPoolData workerPoolEnvelope, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -3513,7 +3513,7 @@ namespace Azure.ResourceManager.AppService
             }
         }
 
-        internal HttpMessage CreateUpdateWorkerPoolRequest(string subscriptionId, string resourceGroupName, string name, string workerPoolName, WorkerPoolResourceData workerPoolEnvelope)
+        internal HttpMessage CreateUpdateWorkerPoolRequest(string subscriptionId, string resourceGroupName, string name, string workerPoolName, WorkerPoolData workerPoolEnvelope)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -3547,7 +3547,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="workerPoolEnvelope"> Properties of the worker pool. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, <paramref name="workerPoolName"/>, or <paramref name="workerPoolEnvelope"/> is null. </exception>
-        public async Task<Response<WorkerPoolResourceData>> UpdateWorkerPoolAsync(string subscriptionId, string resourceGroupName, string name, string workerPoolName, WorkerPoolResourceData workerPoolEnvelope, CancellationToken cancellationToken = default)
+        public async Task<Response<WorkerPoolData>> UpdateWorkerPoolAsync(string subscriptionId, string resourceGroupName, string name, string workerPoolName, WorkerPoolData workerPoolEnvelope, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -3577,9 +3577,9 @@ namespace Azure.ResourceManager.AppService
                 case 200:
                 case 202:
                     {
-                        WorkerPoolResourceData value = default;
+                        WorkerPoolData value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = WorkerPoolResourceData.DeserializeWorkerPoolResourceData(document.RootElement);
+                        value = WorkerPoolData.DeserializeWorkerPoolData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -3595,7 +3595,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="workerPoolEnvelope"> Properties of the worker pool. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, <paramref name="workerPoolName"/>, or <paramref name="workerPoolEnvelope"/> is null. </exception>
-        public Response<WorkerPoolResourceData> UpdateWorkerPool(string subscriptionId, string resourceGroupName, string name, string workerPoolName, WorkerPoolResourceData workerPoolEnvelope, CancellationToken cancellationToken = default)
+        public Response<WorkerPoolData> UpdateWorkerPool(string subscriptionId, string resourceGroupName, string name, string workerPoolName, WorkerPoolData workerPoolEnvelope, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -3625,9 +3625,9 @@ namespace Azure.ResourceManager.AppService
                 case 200:
                 case 202:
                     {
-                        WorkerPoolResourceData value = default;
+                        WorkerPoolData value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = WorkerPoolResourceData.DeserializeWorkerPoolResourceData(document.RootElement);
+                        value = WorkerPoolData.DeserializeWorkerPoolData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:

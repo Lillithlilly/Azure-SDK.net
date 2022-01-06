@@ -8,18 +8,18 @@
 namespace Azure.ResourceManager.AppService.Models
 {
     /// <summary> Instructions for rendering the data. </summary>
-    public partial class Rendering
+    public partial class DataRendering
     {
-        /// <summary> Initializes a new instance of Rendering. </summary>
-        public Rendering()
+        /// <summary> Initializes a new instance of DataRendering. </summary>
+        public DataRendering()
         {
         }
 
-        /// <summary> Initializes a new instance of Rendering. </summary>
+        /// <summary> Initializes a new instance of DataRendering. </summary>
         /// <param name="type"> Rendering Type. </param>
         /// <param name="title"> Title of data. </param>
         /// <param name="description"> Description of the data that will help it be interpreted. </param>
-        internal Rendering(RenderingType? type, string title, string description)
+        internal DataRendering(RenderingType? type, string title, string description)
         {
             Type = type;
             Title = title;

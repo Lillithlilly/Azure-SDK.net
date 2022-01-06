@@ -3192,10 +3192,10 @@ namespace Azure.ResourceManager.AppService
         /// OperationId: WebApps_ListSnapshotsSlot
         /// <summary> Description for Returns all Snapshots to the user. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> An async collection of <see cref="Snapshot" /> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<Snapshot> GetSnapshotsSlotAsync(CancellationToken cancellationToken = default)
+        /// <returns> An async collection of <see cref="AppSnapshot" /> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<AppSnapshot> GetSnapshotsSlotAsync(CancellationToken cancellationToken = default)
         {
-            async Task<Page<Snapshot>> FirstPageFunc(int? pageSizeHint)
+            async Task<Page<AppSnapshot>> FirstPageFunc(int? pageSizeHint)
             {
                 using var scope = _clientDiagnostics.CreateScope("SiteSlot.GetSnapshotsSlot");
                 scope.Start();
@@ -3210,7 +3210,7 @@ namespace Azure.ResourceManager.AppService
                     throw;
                 }
             }
-            async Task<Page<Snapshot>> NextPageFunc(string nextLink, int? pageSizeHint)
+            async Task<Page<AppSnapshot>> NextPageFunc(string nextLink, int? pageSizeHint)
             {
                 using var scope = _clientDiagnostics.CreateScope("SiteSlot.GetSnapshotsSlot");
                 scope.Start();
@@ -3233,10 +3233,10 @@ namespace Azure.ResourceManager.AppService
         /// OperationId: WebApps_ListSnapshotsSlot
         /// <summary> Description for Returns all Snapshots to the user. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="Snapshot" /> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<Snapshot> GetSnapshotsSlot(CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="AppSnapshot" /> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<AppSnapshot> GetSnapshotsSlot(CancellationToken cancellationToken = default)
         {
-            Page<Snapshot> FirstPageFunc(int? pageSizeHint)
+            Page<AppSnapshot> FirstPageFunc(int? pageSizeHint)
             {
                 using var scope = _clientDiagnostics.CreateScope("SiteSlot.GetSnapshotsSlot");
                 scope.Start();
@@ -3251,7 +3251,7 @@ namespace Azure.ResourceManager.AppService
                     throw;
                 }
             }
-            Page<Snapshot> NextPageFunc(string nextLink, int? pageSizeHint)
+            Page<AppSnapshot> NextPageFunc(string nextLink, int? pageSizeHint)
             {
                 using var scope = _clientDiagnostics.CreateScope("SiteSlot.GetSnapshotsSlot");
                 scope.Start();
@@ -3274,10 +3274,10 @@ namespace Azure.ResourceManager.AppService
         /// OperationId: WebApps_ListSnapshotsFromDRSecondarySlot
         /// <summary> Description for Returns all Snapshots to the user from DRSecondary endpoint. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> An async collection of <see cref="Snapshot" /> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<Snapshot> GetSnapshotsFromDRSecondarySlotAsync(CancellationToken cancellationToken = default)
+        /// <returns> An async collection of <see cref="AppSnapshot" /> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<AppSnapshot> GetSnapshotsFromDRSecondarySlotAsync(CancellationToken cancellationToken = default)
         {
-            async Task<Page<Snapshot>> FirstPageFunc(int? pageSizeHint)
+            async Task<Page<AppSnapshot>> FirstPageFunc(int? pageSizeHint)
             {
                 using var scope = _clientDiagnostics.CreateScope("SiteSlot.GetSnapshotsFromDRSecondarySlot");
                 scope.Start();
@@ -3292,7 +3292,7 @@ namespace Azure.ResourceManager.AppService
                     throw;
                 }
             }
-            async Task<Page<Snapshot>> NextPageFunc(string nextLink, int? pageSizeHint)
+            async Task<Page<AppSnapshot>> NextPageFunc(string nextLink, int? pageSizeHint)
             {
                 using var scope = _clientDiagnostics.CreateScope("SiteSlot.GetSnapshotsFromDRSecondarySlot");
                 scope.Start();
@@ -3315,10 +3315,10 @@ namespace Azure.ResourceManager.AppService
         /// OperationId: WebApps_ListSnapshotsFromDRSecondarySlot
         /// <summary> Description for Returns all Snapshots to the user from DRSecondary endpoint. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="Snapshot" /> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<Snapshot> GetSnapshotsFromDRSecondarySlot(CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="AppSnapshot" /> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<AppSnapshot> GetSnapshotsFromDRSecondarySlot(CancellationToken cancellationToken = default)
         {
-            Page<Snapshot> FirstPageFunc(int? pageSizeHint)
+            Page<AppSnapshot> FirstPageFunc(int? pageSizeHint)
             {
                 using var scope = _clientDiagnostics.CreateScope("SiteSlot.GetSnapshotsFromDRSecondarySlot");
                 scope.Start();
@@ -3333,7 +3333,7 @@ namespace Azure.ResourceManager.AppService
                     throw;
                 }
             }
-            Page<Snapshot> NextPageFunc(string nextLink, int? pageSizeHint)
+            Page<AppSnapshot> NextPageFunc(string nextLink, int? pageSizeHint)
             {
                 using var scope = _clientDiagnostics.CreateScope("SiteSlot.GetSnapshotsFromDRSecondarySlot");
                 scope.Start();

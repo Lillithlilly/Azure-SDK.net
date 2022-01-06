@@ -11,7 +11,7 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.AppService.Models
 {
-    public partial class Solution : IUtf8JsonSerializable
+    public partial class ClassSolution : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
@@ -74,7 +74,7 @@ namespace Azure.ResourceManager.AppService.Models
             writer.WriteEndObject();
         }
 
-        internal static Solution DeserializeSolution(JsonElement element)
+        internal static ClassSolution DeserializeClassSolution(JsonElement element)
         {
             Optional<double> id = default;
             Optional<string> displayName = default;
@@ -166,7 +166,7 @@ namespace Azure.ResourceManager.AppService.Models
                     continue;
                 }
             }
-            return new Solution(Optional.ToNullable(id), displayName.Value, Optional.ToNullable(order), description.Value, Optional.ToNullable(type), Optional.ToList(data), Optional.ToList(metadata));
+            return new ClassSolution(Optional.ToNullable(id), displayName.Value, Optional.ToNullable(order), description.Value, Optional.ToNullable(type), Optional.ToList(data), Optional.ToList(metadata));
         }
     }
 }

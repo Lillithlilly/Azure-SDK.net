@@ -10,7 +10,7 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.AppService.Models
 {
-    public partial class Nonce : IUtf8JsonSerializable
+    public partial class LoginNonce : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
@@ -28,7 +28,7 @@ namespace Azure.ResourceManager.AppService.Models
             writer.WriteEndObject();
         }
 
-        internal static Nonce DeserializeNonce(JsonElement element)
+        internal static LoginNonce DeserializeLoginNonce(JsonElement element)
         {
             Optional<bool> validateNonce = default;
             Optional<string> nonceExpirationInterval = default;
@@ -50,7 +50,7 @@ namespace Azure.ResourceManager.AppService.Models
                     continue;
                 }
             }
-            return new Nonce(Optional.ToNullable(validateNonce), nonceExpirationInterval.Value);
+            return new LoginNonce(Optional.ToNullable(validateNonce), nonceExpirationInterval.Value);
         }
     }
 }

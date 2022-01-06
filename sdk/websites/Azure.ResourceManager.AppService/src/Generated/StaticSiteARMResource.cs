@@ -1128,13 +1128,13 @@ namespace Azure.ResourceManager.AppService
         }
         #endregion
 
-        #region StaticSiteBuildARMResource
+        #region StaticSiteBuild
 
-        /// <summary> Gets a collection of StaticSiteBuildARMResources in the StaticSiteARMResource. </summary>
-        /// <returns> An object representing collection of StaticSiteBuildARMResources and their operations over a StaticSiteARMResource. </returns>
-        public StaticSiteBuildARMResourceCollection GetStaticSiteBuildARMResources()
+        /// <summary> Gets a collection of StaticSiteBuilds in the StaticSiteARMResource. </summary>
+        /// <returns> An object representing collection of StaticSiteBuilds and their operations over a StaticSiteARMResource. </returns>
+        public StaticSiteBuildCollection GetStaticSiteBuilds()
         {
-            return new StaticSiteBuildARMResourceCollection(this);
+            return new StaticSiteBuildCollection(this);
         }
         #endregion
 

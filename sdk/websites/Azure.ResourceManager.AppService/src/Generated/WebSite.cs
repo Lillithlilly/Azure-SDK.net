@@ -3688,10 +3688,10 @@ namespace Azure.ResourceManager.AppService
         /// OperationId: WebApps_ListSnapshots
         /// <summary> Description for Returns all Snapshots to the user. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> An async collection of <see cref="Snapshot" /> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<Snapshot> GetSnapshotsAsync(CancellationToken cancellationToken = default)
+        /// <returns> An async collection of <see cref="AppSnapshot" /> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<AppSnapshot> GetSnapshotsAsync(CancellationToken cancellationToken = default)
         {
-            async Task<Page<Snapshot>> FirstPageFunc(int? pageSizeHint)
+            async Task<Page<AppSnapshot>> FirstPageFunc(int? pageSizeHint)
             {
                 using var scope = _clientDiagnostics.CreateScope("WebSite.GetSnapshots");
                 scope.Start();
@@ -3706,7 +3706,7 @@ namespace Azure.ResourceManager.AppService
                     throw;
                 }
             }
-            async Task<Page<Snapshot>> NextPageFunc(string nextLink, int? pageSizeHint)
+            async Task<Page<AppSnapshot>> NextPageFunc(string nextLink, int? pageSizeHint)
             {
                 using var scope = _clientDiagnostics.CreateScope("WebSite.GetSnapshots");
                 scope.Start();
@@ -3729,10 +3729,10 @@ namespace Azure.ResourceManager.AppService
         /// OperationId: WebApps_ListSnapshots
         /// <summary> Description for Returns all Snapshots to the user. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="Snapshot" /> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<Snapshot> GetSnapshots(CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="AppSnapshot" /> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<AppSnapshot> GetSnapshots(CancellationToken cancellationToken = default)
         {
-            Page<Snapshot> FirstPageFunc(int? pageSizeHint)
+            Page<AppSnapshot> FirstPageFunc(int? pageSizeHint)
             {
                 using var scope = _clientDiagnostics.CreateScope("WebSite.GetSnapshots");
                 scope.Start();
@@ -3747,7 +3747,7 @@ namespace Azure.ResourceManager.AppService
                     throw;
                 }
             }
-            Page<Snapshot> NextPageFunc(string nextLink, int? pageSizeHint)
+            Page<AppSnapshot> NextPageFunc(string nextLink, int? pageSizeHint)
             {
                 using var scope = _clientDiagnostics.CreateScope("WebSite.GetSnapshots");
                 scope.Start();
@@ -3770,10 +3770,10 @@ namespace Azure.ResourceManager.AppService
         /// OperationId: WebApps_ListSnapshotsFromDRSecondary
         /// <summary> Description for Returns all Snapshots to the user from DRSecondary endpoint. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> An async collection of <see cref="Snapshot" /> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<Snapshot> GetSnapshotsFromDRSecondaryAsync(CancellationToken cancellationToken = default)
+        /// <returns> An async collection of <see cref="AppSnapshot" /> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<AppSnapshot> GetSnapshotsFromDRSecondaryAsync(CancellationToken cancellationToken = default)
         {
-            async Task<Page<Snapshot>> FirstPageFunc(int? pageSizeHint)
+            async Task<Page<AppSnapshot>> FirstPageFunc(int? pageSizeHint)
             {
                 using var scope = _clientDiagnostics.CreateScope("WebSite.GetSnapshotsFromDRSecondary");
                 scope.Start();
@@ -3788,7 +3788,7 @@ namespace Azure.ResourceManager.AppService
                     throw;
                 }
             }
-            async Task<Page<Snapshot>> NextPageFunc(string nextLink, int? pageSizeHint)
+            async Task<Page<AppSnapshot>> NextPageFunc(string nextLink, int? pageSizeHint)
             {
                 using var scope = _clientDiagnostics.CreateScope("WebSite.GetSnapshotsFromDRSecondary");
                 scope.Start();
@@ -3811,10 +3811,10 @@ namespace Azure.ResourceManager.AppService
         /// OperationId: WebApps_ListSnapshotsFromDRSecondary
         /// <summary> Description for Returns all Snapshots to the user from DRSecondary endpoint. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="Snapshot" /> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<Snapshot> GetSnapshotsFromDRSecondary(CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="AppSnapshot" /> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<AppSnapshot> GetSnapshotsFromDRSecondary(CancellationToken cancellationToken = default)
         {
-            Page<Snapshot> FirstPageFunc(int? pageSizeHint)
+            Page<AppSnapshot> FirstPageFunc(int? pageSizeHint)
             {
                 using var scope = _clientDiagnostics.CreateScope("WebSite.GetSnapshotsFromDRSecondary");
                 scope.Start();
@@ -3829,7 +3829,7 @@ namespace Azure.ResourceManager.AppService
                     throw;
                 }
             }
-            Page<Snapshot> NextPageFunc(string nextLink, int? pageSizeHint)
+            Page<AppSnapshot> NextPageFunc(string nextLink, int? pageSizeHint)
             {
                 using var scope = _clientDiagnostics.CreateScope("WebSite.GetSnapshotsFromDRSecondary");
                 scope.Start();

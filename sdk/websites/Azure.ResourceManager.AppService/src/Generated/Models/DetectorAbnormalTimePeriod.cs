@@ -18,7 +18,7 @@ namespace Azure.ResourceManager.AppService.Models
         public DetectorAbnormalTimePeriod()
         {
             MetaData = new ChangeTrackingList<IList<NameValuePair>>();
-            Solutions = new ChangeTrackingList<Solution>();
+            Solutions = new ChangeTrackingList<ClassSolution>();
         }
 
         /// <summary> Initializes a new instance of DetectorAbnormalTimePeriod. </summary>
@@ -30,7 +30,7 @@ namespace Azure.ResourceManager.AppService.Models
         /// <param name="metaData"> Downtime metadata. </param>
         /// <param name="type"> Represents the type of the Detector. </param>
         /// <param name="solutions"> List of proposed solutions. </param>
-        internal DetectorAbnormalTimePeriod(DateTimeOffset? startTime, DateTimeOffset? endTime, string message, string source, double? priority, IList<IList<NameValuePair>> metaData, IssueType? type, IList<Solution> solutions)
+        internal DetectorAbnormalTimePeriod(DateTimeOffset? startTime, DateTimeOffset? endTime, string message, string source, double? priority, IList<IList<NameValuePair>> metaData, IssueType? type, IList<ClassSolution> solutions)
         {
             StartTime = startTime;
             EndTime = endTime;
@@ -57,6 +57,6 @@ namespace Azure.ResourceManager.AppService.Models
         /// <summary> Represents the type of the Detector. </summary>
         public IssueType? Type { get; set; }
         /// <summary> List of proposed solutions. </summary>
-        public IList<Solution> Solutions { get; }
+        public IList<ClassSolution> Solutions { get; }
     }
 }

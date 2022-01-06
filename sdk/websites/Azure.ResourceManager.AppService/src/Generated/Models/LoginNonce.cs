@@ -8,17 +8,17 @@
 namespace Azure.ResourceManager.AppService.Models
 {
     /// <summary> The configuration settings of the nonce used in the login flow. </summary>
-    public partial class Nonce
+    public partial class LoginNonce
     {
-        /// <summary> Initializes a new instance of Nonce. </summary>
-        public Nonce()
+        /// <summary> Initializes a new instance of LoginNonce. </summary>
+        public LoginNonce()
         {
         }
 
-        /// <summary> Initializes a new instance of Nonce. </summary>
+        /// <summary> Initializes a new instance of LoginNonce. </summary>
         /// <param name="validateNonce"> &lt;code&gt;false&lt;/code&gt; if the nonce should not be validated while completing the login flow; otherwise, &lt;code&gt;true&lt;/code&gt;. </param>
         /// <param name="nonceExpirationInterval"> The time after the request is made when the nonce should expire. </param>
-        internal Nonce(bool? validateNonce, string nonceExpirationInterval)
+        internal LoginNonce(bool? validateNonce, string nonceExpirationInterval)
         {
             ValidateNonce = validateNonce;
             NonceExpirationInterval = nonceExpirationInterval;

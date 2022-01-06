@@ -17,9 +17,9 @@ using Azure.ResourceManager.AppService;
 namespace Azure.ResourceManager.AppService.Models
 {
     /// <summary> Description for Gets the Git/FTP publishing credentials of an app. </summary>
-    public partial class WebAppListPublishingCredentialsOperation : Operation<UserData>, IOperationSource<UserData>
+    public partial class WebAppListPublishingCredentialsOperation : Operation<AppServiceUserData>, IOperationSource<AppServiceUserData>
     {
-        private readonly OperationInternals<UserData> _operation;
+        private readonly OperationInternals<AppServiceUserData> _operation;
 
         /// <summary> Initializes a new instance of WebAppListPublishingCredentialsOperation for mocking. </summary>
         protected WebAppListPublishingCredentialsOperation()
@@ -28,14 +28,14 @@ namespace Azure.ResourceManager.AppService.Models
 
         internal WebAppListPublishingCredentialsOperation(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Request request, Response response)
         {
-            _operation = new OperationInternals<UserData>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.Location, "WebAppListPublishingCredentialsOperation");
+            _operation = new OperationInternals<AppServiceUserData>(this, clientDiagnostics, pipeline, request, response, OperationFinalStateVia.Location, "WebAppListPublishingCredentialsOperation");
         }
 
         /// <inheritdoc />
         public override string Id => _operation.Id;
 
         /// <inheritdoc />
-        public override UserData Value => _operation.Value;
+        public override AppServiceUserData Value => _operation.Value;
 
         /// <inheritdoc />
         public override bool HasCompleted => _operation.HasCompleted;
@@ -53,21 +53,21 @@ namespace Azure.ResourceManager.AppService.Models
         public override ValueTask<Response> UpdateStatusAsync(CancellationToken cancellationToken = default) => _operation.UpdateStatusAsync(cancellationToken);
 
         /// <inheritdoc />
-        public override ValueTask<Response<UserData>> WaitForCompletionAsync(CancellationToken cancellationToken = default) => _operation.WaitForCompletionAsync(cancellationToken);
+        public override ValueTask<Response<AppServiceUserData>> WaitForCompletionAsync(CancellationToken cancellationToken = default) => _operation.WaitForCompletionAsync(cancellationToken);
 
         /// <inheritdoc />
-        public override ValueTask<Response<UserData>> WaitForCompletionAsync(TimeSpan pollingInterval, CancellationToken cancellationToken = default) => _operation.WaitForCompletionAsync(pollingInterval, cancellationToken);
+        public override ValueTask<Response<AppServiceUserData>> WaitForCompletionAsync(TimeSpan pollingInterval, CancellationToken cancellationToken = default) => _operation.WaitForCompletionAsync(pollingInterval, cancellationToken);
 
-        UserData IOperationSource<UserData>.CreateResult(Response response, CancellationToken cancellationToken)
+        AppServiceUserData IOperationSource<AppServiceUserData>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            return UserData.DeserializeUserData(document.RootElement);
+            return AppServiceUserData.DeserializeAppServiceUserData(document.RootElement);
         }
 
-        async ValueTask<UserData> IOperationSource<UserData>.CreateResultAsync(Response response, CancellationToken cancellationToken)
+        async ValueTask<AppServiceUserData> IOperationSource<AppServiceUserData>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            return UserData.DeserializeUserData(document.RootElement);
+            return AppServiceUserData.DeserializeAppServiceUserData(document.RootElement);
         }
     }
 }

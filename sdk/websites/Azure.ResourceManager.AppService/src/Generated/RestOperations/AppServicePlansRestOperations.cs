@@ -629,7 +629,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="name"> Name of the App Service plan. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, or <paramref name="name"/> is null. </exception>
-        public async Task<Response<IReadOnlyList<Capability>>> ListCapabilitiesAsync(string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
+        public async Task<Response<IReadOnlyList<SKUCapability>>> ListCapabilitiesAsync(string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -650,12 +650,12 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        IReadOnlyList<Capability> value = default;
+                        IReadOnlyList<SKUCapability> value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        List<Capability> array = new List<Capability>();
+                        List<SKUCapability> array = new List<SKUCapability>();
                         foreach (var item in document.RootElement.EnumerateArray())
                         {
-                            array.Add(Capability.DeserializeCapability(item));
+                            array.Add(SKUCapability.DeserializeSKUCapability(item));
                         }
                         value = array;
                         return Response.FromValue(value, message.Response);
@@ -671,7 +671,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="name"> Name of the App Service plan. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, or <paramref name="name"/> is null. </exception>
-        public Response<IReadOnlyList<Capability>> ListCapabilities(string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
+        public Response<IReadOnlyList<SKUCapability>> ListCapabilities(string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -692,12 +692,12 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        IReadOnlyList<Capability> value = default;
+                        IReadOnlyList<SKUCapability> value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        List<Capability> array = new List<Capability>();
+                        List<SKUCapability> array = new List<SKUCapability>();
                         foreach (var item in document.RootElement.EnumerateArray())
                         {
-                            array.Add(Capability.DeserializeCapability(item));
+                            array.Add(SKUCapability.DeserializeSKUCapability(item));
                         }
                         value = array;
                         return Response.FromValue(value, message.Response);

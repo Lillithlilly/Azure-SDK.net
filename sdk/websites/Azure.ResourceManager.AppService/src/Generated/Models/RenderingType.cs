@@ -37,7 +37,7 @@ namespace Azure.ResourceManager.AppService.Models
         /// <summary> Card. </summary>
         Card,
         /// <summary> Solution. </summary>
-        Solution,
+        ClassSolution,
         /// <summary> Guage. </summary>
         Guage,
         /// <summary> Form. </summary>

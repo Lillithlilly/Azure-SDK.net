@@ -17,7 +17,7 @@ namespace Azure.ResourceManager.AppService.Models
         /// <summary> Relocation. </summary>
         Relocation,
         /// <summary> Snapshot. </summary>
-        Snapshot,
+        AppSnapshot,
         /// <summary> CloudFS. </summary>
         CloudFS
     }

@@ -257,7 +257,7 @@ namespace Azure.ResourceManager.AppService
         /// OperationId: AppServicePlans_ListCapabilities
         /// <summary> Description for List all capabilities of an App Service plan. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public async virtual Task<Response<IReadOnlyList<Capability>>> GetCapabilitiesAsync(CancellationToken cancellationToken = default)
+        public async virtual Task<Response<IReadOnlyList<SKUCapability>>> GetCapabilitiesAsync(CancellationToken cancellationToken = default)
         {
             using var scope = _clientDiagnostics.CreateScope("AppServicePlan.GetCapabilities");
             scope.Start();
@@ -278,7 +278,7 @@ namespace Azure.ResourceManager.AppService
         /// OperationId: AppServicePlans_ListCapabilities
         /// <summary> Description for List all capabilities of an App Service plan. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual Response<IReadOnlyList<Capability>> GetCapabilities(CancellationToken cancellationToken = default)
+        public virtual Response<IReadOnlyList<SKUCapability>> GetCapabilities(CancellationToken cancellationToken = default)
         {
             using var scope = _clientDiagnostics.CreateScope("AppServicePlan.GetCapabilities");
             scope.Start();

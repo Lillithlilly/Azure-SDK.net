@@ -142,7 +142,7 @@ namespace Azure.ResourceManager.AppService
 
         /// <summary> Description for Gets publishing user. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public async Task<Response<UserData>> GetPublishingUserAsync(CancellationToken cancellationToken = default)
+        public async Task<Response<AppServiceUserData>> GetPublishingUserAsync(CancellationToken cancellationToken = default)
         {
             using var message = CreateGetPublishingUserRequest();
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
@@ -150,13 +150,13 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        UserData value = default;
+                        AppServiceUserData value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = UserData.DeserializeUserData(document.RootElement);
+                        value = AppServiceUserData.DeserializeAppServiceUserData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 case 404:
-                    return Response.FromValue((UserData)null, message.Response);
+                    return Response.FromValue((AppServiceUserData)null, message.Response);
                 default:
                     throw await _clientDiagnostics.CreateRequestFailedExceptionAsync(message.Response).ConfigureAwait(false);
             }
@@ -164,7 +164,7 @@ namespace Azure.ResourceManager.AppService
 
         /// <summary> Description for Gets publishing user. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public Response<UserData> GetPublishingUser(CancellationToken cancellationToken = default)
+        public Response<AppServiceUserData> GetPublishingUser(CancellationToken cancellationToken = default)
         {
             using var message = CreateGetPublishingUserRequest();
             _pipeline.Send(message, cancellationToken);
@@ -172,19 +172,19 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        UserData value = default;
+                        AppServiceUserData value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = UserData.DeserializeUserData(document.RootElement);
+                        value = AppServiceUserData.DeserializeAppServiceUserData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 case 404:
-                    return Response.FromValue((UserData)null, message.Response);
+                    return Response.FromValue((AppServiceUserData)null, message.Response);
                 default:
                     throw _clientDiagnostics.CreateRequestFailedException(message.Response);
             }
         }
 
-        internal HttpMessage CreateUpdatePublishingUserRequest(UserData userDetails)
+        internal HttpMessage CreateUpdatePublishingUserRequest(AppServiceUserData userDetails)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -207,7 +207,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="userDetails"> Details of publishing user. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="userDetails"/> is null. </exception>
-        public async Task<Response<UserData>> UpdatePublishingUserAsync(UserData userDetails, CancellationToken cancellationToken = default)
+        public async Task<Response<AppServiceUserData>> UpdatePublishingUserAsync(AppServiceUserData userDetails, CancellationToken cancellationToken = default)
         {
             if (userDetails == null)
             {
@@ -220,9 +220,9 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        UserData value = default;
+                        AppServiceUserData value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = UserData.DeserializeUserData(document.RootElement);
+                        value = AppServiceUserData.DeserializeAppServiceUserData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -234,7 +234,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="userDetails"> Details of publishing user. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="userDetails"/> is null. </exception>
-        public Response<UserData> UpdatePublishingUser(UserData userDetails, CancellationToken cancellationToken = default)
+        public Response<AppServiceUserData> UpdatePublishingUser(AppServiceUserData userDetails, CancellationToken cancellationToken = default)
         {
             if (userDetails == null)
             {
@@ -247,9 +247,9 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        UserData value = default;
+                        AppServiceUserData value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = UserData.DeserializeUserData(document.RootElement);
+                        value = AppServiceUserData.DeserializeAppServiceUserData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:

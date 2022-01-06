@@ -26,7 +26,7 @@ namespace Azure.ResourceManager.AppService.Models
             RenderingType.Detector => "Detector",
             RenderingType.DropDown => "DropDown",
             RenderingType.Card => "Card",
-            RenderingType.Solution => "Solution",
+            RenderingType.ClassSolution => "Solution",
             RenderingType.Guage => "Guage",
             RenderingType.Form => "Form",
             RenderingType.ChangeSets => "ChangeSets",
@@ -56,7 +56,7 @@ namespace Azure.ResourceManager.AppService.Models
             if (string.Equals(value, "Detector", StringComparison.InvariantCultureIgnoreCase)) return RenderingType.Detector;
             if (string.Equals(value, "DropDown", StringComparison.InvariantCultureIgnoreCase)) return RenderingType.DropDown;
             if (string.Equals(value, "Card", StringComparison.InvariantCultureIgnoreCase)) return RenderingType.Card;
-            if (string.Equals(value, "Solution", StringComparison.InvariantCultureIgnoreCase)) return RenderingType.Solution;
+            if (string.Equals(value, "Solution", StringComparison.InvariantCultureIgnoreCase)) return RenderingType.ClassSolution;
             if (string.Equals(value, "Guage", StringComparison.InvariantCultureIgnoreCase)) return RenderingType.Guage;
             if (string.Equals(value, "Form", StringComparison.InvariantCultureIgnoreCase)) return RenderingType.Form;
             if (string.Equals(value, "ChangeSets", StringComparison.InvariantCultureIgnoreCase)) return RenderingType.ChangeSets;

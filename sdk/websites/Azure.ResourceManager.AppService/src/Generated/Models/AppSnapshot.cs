@@ -10,20 +10,20 @@ using Azure.ResourceManager;
 namespace Azure.ResourceManager.AppService.Models
 {
     /// <summary> A snapshot of an app. </summary>
-    public partial class Snapshot : ProxyOnlyResource
+    public partial class AppSnapshot : ProxyOnlyResource
     {
-        /// <summary> Initializes a new instance of Snapshot. </summary>
-        public Snapshot()
+        /// <summary> Initializes a new instance of AppSnapshot. </summary>
+        public AppSnapshot()
         {
         }
 
-        /// <summary> Initializes a new instance of Snapshot. </summary>
+        /// <summary> Initializes a new instance of AppSnapshot. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
         /// <param name="type"> The type. </param>
         /// <param name="kind"> Kind of resource. </param>
         /// <param name="time"> The time the snapshot was taken. </param>
-        internal Snapshot(ResourceIdentifier id, string name, ResourceType type, string kind, string time) : base(id, name, type, kind)
+        internal AppSnapshot(ResourceIdentifier id, string name, ResourceType type, string kind, string time) : base(id, name, type, kind)
         {
             Time = time;
         }

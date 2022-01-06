@@ -152,7 +152,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="deletedSiteId"> The numeric ID of the deleted app, e.g. 12345. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> or <paramref name="deletedSiteId"/> is null. </exception>
-        public async Task<Response<IReadOnlyList<Snapshot>>> GetDeletedWebAppSnapshotsAsync(string subscriptionId, string deletedSiteId, CancellationToken cancellationToken = default)
+        public async Task<Response<IReadOnlyList<AppSnapshot>>> GetDeletedWebAppSnapshotsAsync(string subscriptionId, string deletedSiteId, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -169,12 +169,12 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        IReadOnlyList<Snapshot> value = default;
+                        IReadOnlyList<AppSnapshot> value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        List<Snapshot> array = new List<Snapshot>();
+                        List<AppSnapshot> array = new List<AppSnapshot>();
                         foreach (var item in document.RootElement.EnumerateArray())
                         {
-                            array.Add(Snapshot.DeserializeSnapshot(item));
+                            array.Add(AppSnapshot.DeserializeAppSnapshot(item));
                         }
                         value = array;
                         return Response.FromValue(value, message.Response);
@@ -189,7 +189,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="deletedSiteId"> The numeric ID of the deleted app, e.g. 12345. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> or <paramref name="deletedSiteId"/> is null. </exception>
-        public Response<IReadOnlyList<Snapshot>> GetDeletedWebAppSnapshots(string subscriptionId, string deletedSiteId, CancellationToken cancellationToken = default)
+        public Response<IReadOnlyList<AppSnapshot>> GetDeletedWebAppSnapshots(string subscriptionId, string deletedSiteId, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -206,12 +206,12 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        IReadOnlyList<Snapshot> value = default;
+                        IReadOnlyList<AppSnapshot> value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        List<Snapshot> array = new List<Snapshot>();
+                        List<AppSnapshot> array = new List<AppSnapshot>();
                         foreach (var item in document.RootElement.EnumerateArray())
                         {
-                            array.Add(Snapshot.DeserializeSnapshot(item));
+                            array.Add(AppSnapshot.DeserializeAppSnapshot(item));
                         }
                         value = array;
                         return Response.FromValue(value, message.Response);

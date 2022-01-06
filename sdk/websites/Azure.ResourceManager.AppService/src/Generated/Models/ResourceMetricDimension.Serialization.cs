@@ -10,9 +10,9 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.AppService.Models
 {
-    public partial class Dimension
+    public partial class ResourceMetricDimension
     {
-        internal static Dimension DeserializeDimension(JsonElement element)
+        internal static ResourceMetricDimension DeserializeResourceMetricDimension(JsonElement element)
         {
             Optional<string> name = default;
             Optional<string> displayName = default;
@@ -46,7 +46,7 @@ namespace Azure.ResourceManager.AppService.Models
                     continue;
                 }
             }
-            return new Dimension(name.Value, displayName.Value, internalName.Value, Optional.ToNullable(toBeExportedForShoebox));
+            return new ResourceMetricDimension(name.Value, displayName.Value, internalName.Value, Optional.ToNullable(toBeExportedForShoebox));
         }
     }
 }

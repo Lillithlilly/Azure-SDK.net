@@ -151,7 +151,7 @@ namespace Azure.ResourceManager.AppService
         /// OperationId: Global_GetDeletedWebAppSnapshots
         /// <summary> Description for Get all deleted apps for a subscription. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public async virtual Task<Response<IReadOnlyList<Snapshot>>> GetDeletedWebAppSnapshotsAsync(CancellationToken cancellationToken = default)
+        public async virtual Task<Response<IReadOnlyList<AppSnapshot>>> GetDeletedWebAppSnapshotsAsync(CancellationToken cancellationToken = default)
         {
             using var scope = _clientDiagnostics.CreateScope("DeletedSite.GetDeletedWebAppSnapshots");
             scope.Start();
@@ -172,7 +172,7 @@ namespace Azure.ResourceManager.AppService
         /// OperationId: Global_GetDeletedWebAppSnapshots
         /// <summary> Description for Get all deleted apps for a subscription. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual Response<IReadOnlyList<Snapshot>> GetDeletedWebAppSnapshots(CancellationToken cancellationToken = default)
+        public virtual Response<IReadOnlyList<AppSnapshot>> GetDeletedWebAppSnapshots(CancellationToken cancellationToken = default)
         {
             using var scope = _clientDiagnostics.CreateScope("DeletedSite.GetDeletedWebAppSnapshots");
             scope.Start();

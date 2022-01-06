@@ -31,7 +31,7 @@ namespace Azure.ResourceManager.AppService.Models
         internal static DiagnosticData DeserializeDiagnosticData(JsonElement element)
         {
             Optional<DataTableResponseObject> table = default;
-            Optional<Rendering> renderingProperties = default;
+            Optional<DataRendering> renderingProperties = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("table"))
@@ -51,7 +51,7 @@ namespace Azure.ResourceManager.AppService.Models
                         property.ThrowNonNullablePropertyIsNull();
                         continue;
                     }
-                    renderingProperties = Rendering.DeserializeRendering(property.Value);
+                    renderingProperties = DataRendering.DeserializeDataRendering(property.Value);
                     continue;
                 }
             }

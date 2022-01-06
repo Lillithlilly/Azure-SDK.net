@@ -16,7 +16,7 @@ namespace Azure.ResourceManager.AppService.Models
             BackupRestoreOperationType.Default => "Default",
             BackupRestoreOperationType.Clone => "Clone",
             BackupRestoreOperationType.Relocation => "Relocation",
-            BackupRestoreOperationType.Snapshot => "Snapshot",
+            BackupRestoreOperationType.AppSnapshot => "Snapshot",
             BackupRestoreOperationType.CloudFS => "CloudFS",
             _ => throw new ArgumentOutOfRangeException(nameof(value), value, "Unknown BackupRestoreOperationType value.")
         };
@@ -26,7 +26,7 @@ namespace Azure.ResourceManager.AppService.Models
             if (string.Equals(value, "Default", StringComparison.InvariantCultureIgnoreCase)) return BackupRestoreOperationType.Default;
             if (string.Equals(value, "Clone", StringComparison.InvariantCultureIgnoreCase)) return BackupRestoreOperationType.Clone;
             if (string.Equals(value, "Relocation", StringComparison.InvariantCultureIgnoreCase)) return BackupRestoreOperationType.Relocation;
-            if (string.Equals(value, "Snapshot", StringComparison.InvariantCultureIgnoreCase)) return BackupRestoreOperationType.Snapshot;
+            if (string.Equals(value, "Snapshot", StringComparison.InvariantCultureIgnoreCase)) return BackupRestoreOperationType.AppSnapshot;
             if (string.Equals(value, "CloudFS", StringComparison.InvariantCultureIgnoreCase)) return BackupRestoreOperationType.CloudFS;
             throw new ArgumentOutOfRangeException(nameof(value), value, "Unknown BackupRestoreOperationType value.");
         }

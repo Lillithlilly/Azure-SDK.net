@@ -25,7 +25,7 @@ namespace Azure.ResourceManager.AppService.Models
         {
         }
 
-        internal AppServiceEnvironmentUpdateWorkerPoolOperation(ArmResource operationsBase, Response<WorkerPoolResourceData> response)
+        internal AppServiceEnvironmentUpdateWorkerPoolOperation(ArmResource operationsBase, Response<WorkerPoolData> response)
         {
             _operation = new OperationOrResponseInternals<HostingEnvironmentWorkerPool>(Response.FromValue(new HostingEnvironmentWorkerPool(operationsBase, response.Value), response.GetRawResponse()));
         }
