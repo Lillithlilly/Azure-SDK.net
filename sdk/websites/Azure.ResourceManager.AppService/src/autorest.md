@@ -147,10 +147,9 @@ directive:
   - rename-model:
       from: SiteConfigResource
       to: SiteConfig
-
-  - from: AppServiceEnvironments.json
-    where: $.definitions.AppServiceEnvironmentResource
-    transform: $["x-ms-client-name"] = "AppServiceEnvironment"
+#   - from: AppServiceEnvironments.json
+#     where: $.definitions.AppServiceEnvironmentResource
+#     transform: $["x-ms-client-name"] = "AppServiceEnvironment"
 
 # Enum rename
   - from: swagger-document
