@@ -29,6 +29,10 @@ steps:
             if (!$dir) {
               $dir = "./$($repository.Name)"
             }
+
+            echo "--- dir ---"
+            echo $dir
+
             New-Item $dir -ItemType Directory -Force
             Push-Location $dir
 
@@ -37,6 +41,9 @@ steps:
               Write-Host "Repository $($repository.Name) has already been initialized. Skipping this step."
             } else {
               Write-Host "Repository $($repository.Name) is being initialized."
+
+              echo "--- pwd ls git ---"
+              pwd
 
               Write-Host "git clone --no-checkout --filter=tree:0 https://github.com/$($repository.Name) ."
               git clone --no-checkout --filter=tree:0 https://github.com/$($repository.Name) .
@@ -68,6 +75,16 @@ steps:
             Pop-Location
         }
 
+        echo "BBP"
+        echo "--- dwd name ---"
+        echo $(System.DefaultWorkingDirectory)
+        echo "--- dwd ls ---"
+        ls $(System.DefaultWorkingDirectory)
+        echo "--- pwd name ---"
+        pwd
+        echo "--- cwd ls ---"
+        ls .
+
         # Paths may be sourced as a yaml object literal OR a dynamically generated variable json string.
         # If the latter, convertToJson will wrap the 'string' in quotes, so remove them.
         $paths = '${{ convertToJson(parameters.Paths) }}'.Trim('"') | ConvertFrom-Json
@@ -76,5 +93,8 @@ steps:
         foreach ($repo in $Repositories) {
           SparseCheckout $paths $repo
         }
+
+        echo "--- cwd ls post ---"
+        ls .
       pwsh: true
       workingDirectory: $(System.DefaultWorkingDirectory)
