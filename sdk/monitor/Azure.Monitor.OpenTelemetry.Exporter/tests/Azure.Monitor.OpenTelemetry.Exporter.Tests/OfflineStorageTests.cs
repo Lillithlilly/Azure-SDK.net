@@ -63,7 +63,7 @@ namespace Azure.Monitor.OpenTelemetry.Exporter
             Assert.Empty(transmitter.storage.GetBlobs());
         }
 
-        [Fact]
+        [Fact(Skip = "https://github.com/Azure/azure-sdk-for-net/issues/26783")]
         public void FailureResponseCode500()
         {
             var activity = CreateActivity("TestActivity");
@@ -122,7 +122,7 @@ namespace Azure.Monitor.OpenTelemetry.Exporter
             transmitter.storage.GetBlob().Lease(1000).Delete();
         }
 
-        [Fact]
+        [Fact(Skip = "https://github.com/Azure/azure-sdk-for-net/issues/26783")]
         public void FailureResponseCode206()
         {
             var activity1 = CreateActivity("TestActivity1");
