@@ -80,6 +80,7 @@ namespace Azure.AI.FormRecognizer.DocumentAnalysis.Tests
         }
 
         [RecordedTest]
+        [Ignore("Issue")]
         public async Task StartBuildModelWithNeuralBuildMode()
         {
             var client = CreateDocumentModelAdministrationClient();
