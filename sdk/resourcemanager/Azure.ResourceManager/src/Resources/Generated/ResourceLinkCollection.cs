@@ -39,7 +39,7 @@ namespace Azure.ResourceManager.Resources
         {
             _scope = scope;
             _resourceLinkClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Resources", ResourceLink.ResourceType.Namespace, DiagnosticOptions);
-            TryGetApiVersion(ResourceLink.ResourceType, out string resourceLinkApiVersion);
+            Client.TryGetApiVersion(ResourceLink.ResourceType, out string resourceLinkApiVersion);
             _resourceLinkRestClient = new ResourceLinksRestOperations(_resourceLinkClientDiagnostics, Pipeline, DiagnosticOptions.ApplicationId, BaseUri, resourceLinkApiVersion);
 #if DEBUG
 			ValidateResourceId(Id);

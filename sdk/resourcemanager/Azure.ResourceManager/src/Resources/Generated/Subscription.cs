@@ -61,19 +61,19 @@ namespace Azure.ResourceManager.Resources
         internal Subscription(ArmClient client, ResourceIdentifier id) : base(client, id)
         {
             _subscriptionClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Resources", ResourceType.Namespace, DiagnosticOptions);
-            TryGetApiVersion(ResourceType, out string subscriptionApiVersion);
+            Client.TryGetApiVersion(ResourceType, out string subscriptionApiVersion);
             _subscriptionRestClient = new SubscriptionsRestOperations(_subscriptionClientDiagnostics, Pipeline, DiagnosticOptions.ApplicationId, BaseUri, subscriptionApiVersion);
             _subscriptionResourcesClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Resources", ResourceType.Namespace, DiagnosticOptions);
-            TryGetApiVersion(ResourceType, out string subscriptionResourcesApiVersion);
+            Client.TryGetApiVersion(ResourceType, out string subscriptionResourcesApiVersion);
             _subscriptionResourcesRestClient = new ResourcesRestOperations(_subscriptionResourcesClientDiagnostics, Pipeline, DiagnosticOptions.ApplicationId, BaseUri, subscriptionResourcesApiVersion);
             _subscriptionTagsClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Resources", ResourceType.Namespace, DiagnosticOptions);
-            TryGetApiVersion(ResourceType, out string subscriptionTagsApiVersion);
+            Client.TryGetApiVersion(ResourceType, out string subscriptionTagsApiVersion);
             _subscriptionTagsRestClient = new TagsRestOperations(_subscriptionTagsClientDiagnostics, Pipeline, DiagnosticOptions.ApplicationId, BaseUri, subscriptionTagsApiVersion);
             _resourceLinkClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Resources", ResourceLink.ResourceType.Namespace, DiagnosticOptions);
-            TryGetApiVersion(ResourceLink.ResourceType, out string resourceLinkApiVersion);
+            Client.TryGetApiVersion(ResourceLink.ResourceType, out string resourceLinkApiVersion);
             _resourceLinkRestClient = new ResourceLinksRestOperations(_resourceLinkClientDiagnostics, Pipeline, DiagnosticOptions.ApplicationId, BaseUri, resourceLinkApiVersion);
             _featureClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Resources", Feature.ResourceType.Namespace, DiagnosticOptions);
-            TryGetApiVersion(Feature.ResourceType, out string featureApiVersion);
+            Client.TryGetApiVersion(Feature.ResourceType, out string featureApiVersion);
             _featureRestClient = new FeaturesRestOperations(_featureClientDiagnostics, Pipeline, DiagnosticOptions.ApplicationId, BaseUri, featureApiVersion);
 #if DEBUG
 			ValidateResourceId(Id);

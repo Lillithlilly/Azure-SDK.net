@@ -56,10 +56,10 @@ namespace Azure.ResourceManager.Resources
         internal ResourceGroup(ArmClient client, ResourceIdentifier id) : base(client, id)
         {
             _resourceGroupClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Resources", ResourceType.Namespace, DiagnosticOptions);
-            TryGetApiVersion(ResourceType, out string resourceGroupApiVersion);
+            Client.TryGetApiVersion(ResourceType, out string resourceGroupApiVersion);
             _resourceGroupRestClient = new ResourceGroupsRestOperations(_resourceGroupClientDiagnostics, Pipeline, DiagnosticOptions.ApplicationId, BaseUri, resourceGroupApiVersion);
             _resourceGroupResourcesClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Resources", ResourceType.Namespace, DiagnosticOptions);
-            TryGetApiVersion(ResourceType, out string resourceGroupResourcesApiVersion);
+            Client.TryGetApiVersion(ResourceType, out string resourceGroupResourcesApiVersion);
             _resourceGroupResourcesRestClient = new ResourcesRestOperations(_resourceGroupResourcesClientDiagnostics, Pipeline, DiagnosticOptions.ApplicationId, BaseUri, resourceGroupResourcesApiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
