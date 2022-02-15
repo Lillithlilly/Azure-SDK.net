@@ -9,7 +9,7 @@ namespace Azure.Monitor.OpenTelemetry.Exporter
 {
     internal class StorageTransmissionEvaluator
     {
-        private int _sampleSize;
+        private readonly int _sampleSize;
         private double[] _exportDurationsInSeconds;
         private double[] _exportIntervalsInSeconds;
         private int _exportDurationIndex = -1;
