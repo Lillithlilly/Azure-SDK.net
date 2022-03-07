@@ -18,7 +18,9 @@ This tutorial has following sections:
     - [Snippets](#snippets)
     - [README](#readme)
     - [Changelog](#changelog)
-    - [Customize](#customize)
+    - [Add Convenience APIs](#add-convenience-apis)
+  - [Service driven evolution](#service-driven-evolution)
+  - [Developer driven evolution](#developer-driven-evolution)
 
 <!-- /TOC -->
 
@@ -136,7 +138,7 @@ Update the CHANGELOG.md file which exists in `Azure.<group>.<service>/CHANGELOG.
 
 ### Add Convenience APIs
 
-Adding convenience APIs is not required for Azure SDK data plane generated libraries, but doing so can provide customers with a better experience when they develop code using your library.  You should consider adding convenience APIs to the generated client to make it easier to use for the most common customer scenarios, or based on customer feedback.  Any convenience APIs you add should be approved with the Azure SDK architecture board.
+Adding convenience APIs is not required for Azure SDK data plane generated libraries, but doing so can provide customers with a better experience when they develop code using your library.  You should consider adding convenience APIs to the generated client to make it easier to use for the most common customer scenarios, or based on customer feedback. One typical type of convenience APIs is the grow-up methods with models. Please see [Developer driven evolution](#developer-driven-evolution) for more details. Any convenience APIs you add should be approved with the Azure SDK architecture board.
 
 You can add convienice APIs by adding a customization layer on top of the generated code.  Please see the [autorest.csharp README](https://github.com/Azure/autorest.csharp#setup) for the details of adding the customization layer.  This is the preferred method for adding convenience APIs to your generated client.
 
@@ -149,3 +151,27 @@ e.g. Running the script for a project in `sdk\deviceupdate` would look like this
 ```powershell
 eng\scripts\Export-API.ps1 deviceupdate
 ```
+
+## Service driven evolution
+
+Some changes in Rest API are not breaking changes but could cause breaking changes in the generated SDK. In order to make the SDK backward compatible, we can add customized code such as overload methods. The following sections will show some examples of such scenarios and how to handle them.
+
+### A method gets a new optional parameter
+
+### A new method is added (new path)
+
+### A new method is added (path existed in the Swagger)
+
+### A new body type is added (was JSON, and now JSON + JPEG)
+
+## Developer driven evolution
+
+### Improve a GET method that returns raw JSON to return a model
+
+### Improve a PUT polling method that returns raw JSON to return a model
+
+### Improve a GET paging method that returns raw JSON to return a model
+
+### Improve a POST method that reads a raw JSON to accept a model
+
+### Breaking the glass / escape hatch. Call an API that has no Swagger definition
