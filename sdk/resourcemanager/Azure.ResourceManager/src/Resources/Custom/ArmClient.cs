@@ -23,14 +23,14 @@ namespace Azure.ResourceManager
         }
         #endregion
 
-        #region ResourceProvider
-        /// <summary> Gets an object representing a ResourceProvider along with the instance operations that can be performed on it but with no data. </summary>
+        #region ResourceProviderResource
+        /// <summary> Gets an object representing a ResourceProviderResource along with the instance operations that can be performed on it but with no data. </summary>
         /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="ResourceProvider" /> object. </returns>
-        public virtual ResourceProvider GetResourceProvider(ResourceIdentifier id)
+        /// <returns> Returns a <see cref="ResourceProviderResource" /> object. </returns>
+        public virtual ResourceProviderResource GetResourceProvider(ResourceIdentifier id)
         {
-            ResourceProvider.ValidateResourceId(id);
-            return new ResourceProvider(this, id);
+            ResourceProviderResource.ValidateResourceId(id);
+            return new ResourceProviderResource(this, id);
         }
         #endregion
 
