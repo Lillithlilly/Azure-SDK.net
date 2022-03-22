@@ -5,24 +5,60 @@
 
 #nullable disable
 
+using System;
 using System.Collections.Generic;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using Azure.Core;
+using Azure.ResourceManager.Core;
 using Azure.ResourceManager.Resources.Models;
 
 namespace Azure.ResourceManager.Resources
 {
-    /// <summary> A class representing the ResourceProvider data model. </summary>
+    /// <summary> A class representing the Provider data model. </summary>
+    [PropertyReferenceType]
+    [JsonConverter(typeof(ProviderDataConverter))]
     public partial class ResourceProviderData
     {
-        /// <summary> The namespace of the resource provider. </summary>
-        public string Namespace { get; }
-        /// <summary> The registration state of the resource provider. </summary>
-        public string RegistrationState { get; }
-        /// <summary> The registration policy of the resource provider. </summary>
-        public string RegistrationPolicy { get; }
-        /// <summary> The collection of provider resource types. </summary>
-        public IReadOnlyList<ProviderResourceType> ResourceTypes { get; }
-        /// <summary> The provider authorization consent state. </summary>
-        public ProviderAuthorizationConsentState? ProviderAuthorizationConsentState { get; }
+        /// <summary> Initializes a new instance of ProviderData. </summary>
+        [InitializationConstructor]
+        public ResourceProviderData()
+        {
+            ResourceTypes = new ChangeTrackingList<ProviderResourceType>();
+        }
+
+        /// <summary> Initializes a new instance of ProviderData. </summary>
+        /// <param name="id"> The provider ID. </param>
+        /// <param name="namespace"> The namespace of the resource provider. </param>
+        /// <param name="registrationState"> The registration state of the resource provider. </param>
+        /// <param name="registrationPolicy"> The registration policy of the resource provider. </param>
+        /// <param name="resourceTypes"> The collection of provider resource types. </param>
+        /// <param name="providerAuthorizationConsentState"> The provider authorization consent state. </param>
+        [SerializationConstructor]
+        internal ResourceProviderData(ResourceIdentifier id, string @namespace, string registrationState, string registrationPolicy, IReadOnlyList<ProviderResourceType> resourceTypes, ProviderAuthorizationConsentState? providerAuthorizationConsentState)
+        {
+            Id = id;
+            Namespace = @namespace;
+            RegistrationState = registrationState;
+            RegistrationPolicy = registrationPolicy;
+            ResourceTypes = resourceTypes;
+            ProviderAuthorizationConsentState = providerAuthorizationConsentState;
+        }
+
+        /// <summary> The provider ID. </summary>
+        public ResourceIdentifier Id { get; }
+
+        internal partial class ProviderDataConverter : JsonConverter<ResourceProviderData>
+        {
+            public override void Write(Utf8JsonWriter writer, ResourceProviderData providerData, JsonSerializerOptions options)
+            {
+                writer.WriteObjectValue(providerData);
+            }
+            public override ResourceProviderData Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+            {
+                using var document = JsonDocument.ParseValue(ref reader);
+                return DeserializeResourceProviderData(document.RootElement);
+            }
+        }
     }
 }

@@ -176,5 +176,15 @@ namespace Azure.ResourceManager
             return new FeatureResource(this, id);
         }
         #endregion
+        /// <summary>
+        /// Gets an object representing a <see cref="GenericResource" /> along with the instance operations that can be performed on it but with no data.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="GenericResource" /> object. </returns>
+        public virtual GenericResource GetGenericResource(ResourceIdentifier id)
+        {
+            GenericResource.ValidateResourceId(id);
+            return new GenericResource(this, id);
+        }
     }
 }

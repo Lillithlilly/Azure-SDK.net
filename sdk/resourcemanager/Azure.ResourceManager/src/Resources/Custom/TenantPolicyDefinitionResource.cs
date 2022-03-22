@@ -50,9 +50,9 @@ namespace Azure.ResourceManager.Resources
         /// <param name="id"> The identifier of the resource that is the target of operations. </param>
         internal TenantPolicyDefinitionResource(ArmClient client, ResourceIdentifier id) : base(client, id)
         {
-            _tenantPolicyDefinitionPolicyDefinitionsClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Resources", ResourceType.Namespace, DiagnosticOptions);
+            _tenantPolicyDefinitionPolicyDefinitionsClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Resources", ResourceType.Namespace, Diagnostics);
             TryGetApiVersion(ResourceType, out string tenantPolicyDefinitionPolicyDefinitionsApiVersion);
-            _tenantPolicyDefinitionPolicyDefinitionsRestClient = new PolicyDefinitionsRestOperations(Pipeline, DiagnosticOptions.ApplicationId, BaseUri, tenantPolicyDefinitionPolicyDefinitionsApiVersion);
+            _tenantPolicyDefinitionPolicyDefinitionsRestClient = new PolicyDefinitionsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, tenantPolicyDefinitionPolicyDefinitionsApiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
