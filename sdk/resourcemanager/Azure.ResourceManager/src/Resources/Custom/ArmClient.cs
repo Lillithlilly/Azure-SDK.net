@@ -23,14 +23,36 @@ namespace Azure.ResourceManager
         }
         #endregion
 
+        #region ResourceGroupResource
+        /// <summary> Gets an object representing a ResourceGroupResource along with the instance operations that can be performed on it but with no data. </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="ResourceGroupResource" /> object. </returns>
+        public virtual ResourceGroupResource GetResourceGroupResource(ResourceIdentifier id)
+        {
+            ResourceGroupResource.ValidateResourceId(id);
+            return new ResourceGroupResource(this, id);
+        }
+        #endregion
+
         #region ResourceProviderResource
         /// <summary> Gets an object representing a ResourceProviderResource along with the instance operations that can be performed on it but with no data. </summary>
         /// <param name="id"> The resource ID of the resource to get. </param>
         /// <returns> Returns a <see cref="ResourceProviderResource" /> object. </returns>
-        public virtual ResourceProviderResource GetResourceProvider(ResourceIdentifier id)
+        public virtual ResourceProviderResource GetResourceProviderResource(ResourceIdentifier id)
         {
             ResourceProviderResource.ValidateResourceId(id);
             return new ResourceProviderResource(this, id);
+        }
+        #endregion
+
+        #region ResourceLinkResource
+        /// <summary> Gets an object representing a ResourceLink along with the instance operations that can be performed on it but with no data. </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="ResourceLinkResource" /> object. </returns>
+        public virtual ResourceLinkResource GetResourceLinkResource(ResourceIdentifier id)
+        {
+            ResourceLinkResource.ValidateResourceId(id);
+            return new ResourceLinkResource(this, id);
         }
         #endregion
 
