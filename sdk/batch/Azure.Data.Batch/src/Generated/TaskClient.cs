@@ -41,11 +41,11 @@ namespace Azure.Data.Batch
         /// <param name="credential"> A credential used to authenticate to an Azure Service. </param>
         /// <param name="options"> The options for configuring the client. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="batchUrl"/> or <paramref name="credential"/> is null. </exception>
-        public TaskClient(string batchUrl, TokenCredential credential, BatchServiceClientOptions options = null)
+        public TaskClient(string batchUrl, TokenCredential credential, AzureBatchClientOptions options = null)
         {
             Argument.AssertNotNull(batchUrl, nameof(batchUrl));
             Argument.AssertNotNull(credential, nameof(credential));
-            options ??= new BatchServiceClientOptions();
+            options ??= new AzureBatchClientOptions();
 
             ClientDiagnostics = new ClientDiagnostics(options);
             _tokenCredential = credential;
@@ -67,22 +67,12 @@ namespace Azure.Data.Batch
         /// <remarks>
         /// Schema for <c>Request Body</c>:
         /// <code>{
-        ///   id: string (required),
+        ///   id: string,
         ///   displayName: string,
-        ///   commandLine: string (required),
-        ///   containerSettings: {
-        ///     containerRunOptions: string,
-        ///     imageName: string (required),
-        ///     registry: {
-        ///       username: string,
-        ///       password: string,
-        ///       registryServer: string,
-        ///       identityReference: {
-        ///         resourceId: string
-        ///       }
-        ///     },
-        ///     workingDirectory: ContainerWorkingDirectory
-        ///   },
+        ///   url: string,
+        ///   eTag: string,
+        ///   lastModified: string (ISO 8601 Format),
+        ///   creationTime: string (ISO 8601 Format),
         ///   exitConditions: {
         ///     exitCodes: [
         ///       {
@@ -103,6 +93,24 @@ namespace Azure.Data.Batch
         ///     preProcessingError: ExitOptions,
         ///     fileUploadError: ExitOptions,
         ///     default: ExitOptions
+        ///   },
+        ///   state: TaskState,
+        ///   stateTransitionTime: string (ISO 8601 Format),
+        ///   previousState: TaskState,
+        ///   previousStateTransitionTime: string (ISO 8601 Format),
+        ///   commandLine: string,
+        ///   containerSettings: {
+        ///     containerRunOptions: string,
+        ///     imageName: string (required),
+        ///     registry: {
+        ///       username: string,
+        ///       password: string,
+        ///       registryServer: string,
+        ///       identityReference: {
+        ///         resourceId: string
+        ///       }
+        ///     },
+        ///     workingDirectory: ContainerWorkingDirectory
         ///   },
         ///   resourceFiles: [
         ///     {
@@ -158,10 +166,57 @@ namespace Azure.Data.Batch
         ///       elevationLevel: ElevationLevel
         ///     }
         ///   },
+        ///   executionInfo: {
+        ///     startTime: string (ISO 8601 Format),
+        ///     endTime: string (ISO 8601 Format),
+        ///     exitCode: number,
+        ///     containerInfo: {
+        ///       containerId: string,
+        ///       state: string,
+        ///       error: string
+        ///     },
+        ///     failureInfo: {
+        ///       category: ErrorCategory (required),
+        ///       code: string,
+        ///       message: string,
+        ///       details: [
+        ///         {
+        ///           name: string,
+        ///           value: string
+        ///         }
+        ///       ]
+        ///     },
+        ///     retryCount: number (required),
+        ///     lastRetryTime: string (ISO 8601 Format),
+        ///     requeueCount: number (required),
+        ///     lastRequeueTime: string (ISO 8601 Format),
+        ///     result: TaskExecutionResult
+        ///   },
+        ///   nodeInfo: {
+        ///     affinityId: string,
+        ///     nodeUrl: string,
+        ///     poolId: string,
+        ///     nodeId: string,
+        ///     taskRootDirectory: string,
+        ///     taskRootDirectoryUrl: string
+        ///   },
         ///   multiInstanceSettings: {
         ///     numberOfInstances: number,
         ///     coordinationCommandLine: string (required),
         ///     commonResourceFiles: [ResourceFile]
+        ///   },
+        ///   stats: {
+        ///     url: string (required),
+        ///     startTime: string (ISO 8601 Format) (required),
+        ///     lastUpdateTime: string (ISO 8601 Format) (required),
+        ///     userCPUTime: TaskStatisticsUserCPUTime (required),
+        ///     kernelCPUTime: TaskStatisticsKernelCPUTime (required),
+        ///     wallClockTime: TaskStatisticsWallClockTime (required),
+        ///     readIOps: number (required),
+        ///     writeIOps: number (required),
+        ///     readIOGiB: number (required),
+        ///     writeIOGiB: number (required),
+        ///     waitTime: TaskStatisticsWaitTime (required)
         ///   },
         ///   dependsOn: {
         ///     taskIds: [string],
@@ -232,22 +287,12 @@ namespace Azure.Data.Batch
         /// <remarks>
         /// Schema for <c>Request Body</c>:
         /// <code>{
-        ///   id: string (required),
+        ///   id: string,
         ///   displayName: string,
-        ///   commandLine: string (required),
-        ///   containerSettings: {
-        ///     containerRunOptions: string,
-        ///     imageName: string (required),
-        ///     registry: {
-        ///       username: string,
-        ///       password: string,
-        ///       registryServer: string,
-        ///       identityReference: {
-        ///         resourceId: string
-        ///       }
-        ///     },
-        ///     workingDirectory: ContainerWorkingDirectory
-        ///   },
+        ///   url: string,
+        ///   eTag: string,
+        ///   lastModified: string (ISO 8601 Format),
+        ///   creationTime: string (ISO 8601 Format),
         ///   exitConditions: {
         ///     exitCodes: [
         ///       {
@@ -268,6 +313,24 @@ namespace Azure.Data.Batch
         ///     preProcessingError: ExitOptions,
         ///     fileUploadError: ExitOptions,
         ///     default: ExitOptions
+        ///   },
+        ///   state: TaskState,
+        ///   stateTransitionTime: string (ISO 8601 Format),
+        ///   previousState: TaskState,
+        ///   previousStateTransitionTime: string (ISO 8601 Format),
+        ///   commandLine: string,
+        ///   containerSettings: {
+        ///     containerRunOptions: string,
+        ///     imageName: string (required),
+        ///     registry: {
+        ///       username: string,
+        ///       password: string,
+        ///       registryServer: string,
+        ///       identityReference: {
+        ///         resourceId: string
+        ///       }
+        ///     },
+        ///     workingDirectory: ContainerWorkingDirectory
         ///   },
         ///   resourceFiles: [
         ///     {
@@ -323,10 +386,57 @@ namespace Azure.Data.Batch
         ///       elevationLevel: ElevationLevel
         ///     }
         ///   },
+        ///   executionInfo: {
+        ///     startTime: string (ISO 8601 Format),
+        ///     endTime: string (ISO 8601 Format),
+        ///     exitCode: number,
+        ///     containerInfo: {
+        ///       containerId: string,
+        ///       state: string,
+        ///       error: string
+        ///     },
+        ///     failureInfo: {
+        ///       category: ErrorCategory (required),
+        ///       code: string,
+        ///       message: string,
+        ///       details: [
+        ///         {
+        ///           name: string,
+        ///           value: string
+        ///         }
+        ///       ]
+        ///     },
+        ///     retryCount: number (required),
+        ///     lastRetryTime: string (ISO 8601 Format),
+        ///     requeueCount: number (required),
+        ///     lastRequeueTime: string (ISO 8601 Format),
+        ///     result: TaskExecutionResult
+        ///   },
+        ///   nodeInfo: {
+        ///     affinityId: string,
+        ///     nodeUrl: string,
+        ///     poolId: string,
+        ///     nodeId: string,
+        ///     taskRootDirectory: string,
+        ///     taskRootDirectoryUrl: string
+        ///   },
         ///   multiInstanceSettings: {
         ///     numberOfInstances: number,
         ///     coordinationCommandLine: string (required),
         ///     commonResourceFiles: [ResourceFile]
+        ///   },
+        ///   stats: {
+        ///     url: string (required),
+        ///     startTime: string (ISO 8601 Format) (required),
+        ///     lastUpdateTime: string (ISO 8601 Format) (required),
+        ///     userCPUTime: TaskStatisticsUserCPUTime (required),
+        ///     kernelCPUTime: TaskStatisticsKernelCPUTime (required),
+        ///     wallClockTime: TaskStatisticsWallClockTime (required),
+        ///     readIOps: number (required),
+        ///     writeIOps: number (required),
+        ///     readIOGiB: number (required),
+        ///     writeIOGiB: number (required),
+        ///     waitTime: TaskStatisticsWaitTime (required)
         ///   },
         ///   dependsOn: {
         ///     taskIds: [string],
@@ -399,22 +509,12 @@ namespace Azure.Data.Batch
         /// <code>{
         ///   value: [
         ///     {
-        ///       id: string (required),
+        ///       id: string,
         ///       displayName: string,
-        ///       commandLine: string (required),
-        ///       containerSettings: {
-        ///         containerRunOptions: string,
-        ///         imageName: string (required),
-        ///         registry: {
-        ///           username: string,
-        ///           password: string,
-        ///           registryServer: string,
-        ///           identityReference: {
-        ///             resourceId: string
-        ///           }
-        ///         },
-        ///         workingDirectory: ContainerWorkingDirectory
-        ///       },
+        ///       url: string,
+        ///       eTag: string,
+        ///       lastModified: string (ISO 8601 Format),
+        ///       creationTime: string (ISO 8601 Format),
         ///       exitConditions: {
         ///         exitCodes: [
         ///           {
@@ -435,6 +535,24 @@ namespace Azure.Data.Batch
         ///         preProcessingError: ExitOptions,
         ///         fileUploadError: ExitOptions,
         ///         default: ExitOptions
+        ///       },
+        ///       state: TaskState,
+        ///       stateTransitionTime: string (ISO 8601 Format),
+        ///       previousState: TaskState,
+        ///       previousStateTransitionTime: string (ISO 8601 Format),
+        ///       commandLine: string,
+        ///       containerSettings: {
+        ///         containerRunOptions: string,
+        ///         imageName: string (required),
+        ///         registry: {
+        ///           username: string,
+        ///           password: string,
+        ///           registryServer: string,
+        ///           identityReference: {
+        ///             resourceId: string
+        ///           }
+        ///         },
+        ///         workingDirectory: ContainerWorkingDirectory
         ///       },
         ///       resourceFiles: [
         ///         {
@@ -490,10 +608,57 @@ namespace Azure.Data.Batch
         ///           elevationLevel: ElevationLevel
         ///         }
         ///       },
+        ///       executionInfo: {
+        ///         startTime: string (ISO 8601 Format),
+        ///         endTime: string (ISO 8601 Format),
+        ///         exitCode: number,
+        ///         containerInfo: {
+        ///           containerId: string,
+        ///           state: string,
+        ///           error: string
+        ///         },
+        ///         failureInfo: {
+        ///           category: ErrorCategory (required),
+        ///           code: string,
+        ///           message: string,
+        ///           details: [
+        ///             {
+        ///               name: string,
+        ///               value: string
+        ///             }
+        ///           ]
+        ///         },
+        ///         retryCount: number (required),
+        ///         lastRetryTime: string (ISO 8601 Format),
+        ///         requeueCount: number (required),
+        ///         lastRequeueTime: string (ISO 8601 Format),
+        ///         result: TaskExecutionResult
+        ///       },
+        ///       nodeInfo: {
+        ///         affinityId: string,
+        ///         nodeUrl: string,
+        ///         poolId: string,
+        ///         nodeId: string,
+        ///         taskRootDirectory: string,
+        ///         taskRootDirectoryUrl: string
+        ///       },
         ///       multiInstanceSettings: {
         ///         numberOfInstances: number,
         ///         coordinationCommandLine: string (required),
         ///         commonResourceFiles: [ResourceFile]
+        ///       },
+        ///       stats: {
+        ///         url: string (required),
+        ///         startTime: string (ISO 8601 Format) (required),
+        ///         lastUpdateTime: string (ISO 8601 Format) (required),
+        ///         userCPUTime: TaskStatisticsUserCPUTime (required),
+        ///         kernelCPUTime: TaskStatisticsKernelCPUTime (required),
+        ///         wallClockTime: TaskStatisticsWallClockTime (required),
+        ///         readIOps: number (required),
+        ///         writeIOps: number (required),
+        ///         readIOGiB: number (required),
+        ///         writeIOGiB: number (required),
+        ///         waitTime: TaskStatisticsWaitTime (required)
         ///       },
         ///       dependsOn: {
         ///         taskIds: [string],
@@ -594,22 +759,12 @@ namespace Azure.Data.Batch
         /// <code>{
         ///   value: [
         ///     {
-        ///       id: string (required),
+        ///       id: string,
         ///       displayName: string,
-        ///       commandLine: string (required),
-        ///       containerSettings: {
-        ///         containerRunOptions: string,
-        ///         imageName: string (required),
-        ///         registry: {
-        ///           username: string,
-        ///           password: string,
-        ///           registryServer: string,
-        ///           identityReference: {
-        ///             resourceId: string
-        ///           }
-        ///         },
-        ///         workingDirectory: ContainerWorkingDirectory
-        ///       },
+        ///       url: string,
+        ///       eTag: string,
+        ///       lastModified: string (ISO 8601 Format),
+        ///       creationTime: string (ISO 8601 Format),
         ///       exitConditions: {
         ///         exitCodes: [
         ///           {
@@ -630,6 +785,24 @@ namespace Azure.Data.Batch
         ///         preProcessingError: ExitOptions,
         ///         fileUploadError: ExitOptions,
         ///         default: ExitOptions
+        ///       },
+        ///       state: TaskState,
+        ///       stateTransitionTime: string (ISO 8601 Format),
+        ///       previousState: TaskState,
+        ///       previousStateTransitionTime: string (ISO 8601 Format),
+        ///       commandLine: string,
+        ///       containerSettings: {
+        ///         containerRunOptions: string,
+        ///         imageName: string (required),
+        ///         registry: {
+        ///           username: string,
+        ///           password: string,
+        ///           registryServer: string,
+        ///           identityReference: {
+        ///             resourceId: string
+        ///           }
+        ///         },
+        ///         workingDirectory: ContainerWorkingDirectory
         ///       },
         ///       resourceFiles: [
         ///         {
@@ -685,10 +858,57 @@ namespace Azure.Data.Batch
         ///           elevationLevel: ElevationLevel
         ///         }
         ///       },
+        ///       executionInfo: {
+        ///         startTime: string (ISO 8601 Format),
+        ///         endTime: string (ISO 8601 Format),
+        ///         exitCode: number,
+        ///         containerInfo: {
+        ///           containerId: string,
+        ///           state: string,
+        ///           error: string
+        ///         },
+        ///         failureInfo: {
+        ///           category: ErrorCategory (required),
+        ///           code: string,
+        ///           message: string,
+        ///           details: [
+        ///             {
+        ///               name: string,
+        ///               value: string
+        ///             }
+        ///           ]
+        ///         },
+        ///         retryCount: number (required),
+        ///         lastRetryTime: string (ISO 8601 Format),
+        ///         requeueCount: number (required),
+        ///         lastRequeueTime: string (ISO 8601 Format),
+        ///         result: TaskExecutionResult
+        ///       },
+        ///       nodeInfo: {
+        ///         affinityId: string,
+        ///         nodeUrl: string,
+        ///         poolId: string,
+        ///         nodeId: string,
+        ///         taskRootDirectory: string,
+        ///         taskRootDirectoryUrl: string
+        ///       },
         ///       multiInstanceSettings: {
         ///         numberOfInstances: number,
         ///         coordinationCommandLine: string (required),
         ///         commonResourceFiles: [ResourceFile]
+        ///       },
+        ///       stats: {
+        ///         url: string (required),
+        ///         startTime: string (ISO 8601 Format) (required),
+        ///         lastUpdateTime: string (ISO 8601 Format) (required),
+        ///         userCPUTime: TaskStatisticsUserCPUTime (required),
+        ///         kernelCPUTime: TaskStatisticsKernelCPUTime (required),
+        ///         wallClockTime: TaskStatisticsWallClockTime (required),
+        ///         readIOps: number (required),
+        ///         writeIOps: number (required),
+        ///         readIOGiB: number (required),
+        ///         writeIOGiB: number (required),
+        ///         waitTime: TaskStatisticsWaitTime (required)
         ///       },
         ///       dependsOn: {
         ///         taskIds: [string],
@@ -1331,10 +1551,174 @@ namespace Azure.Data.Batch
         /// <remarks>
         /// Schema for <c>Request Body</c>:
         /// <code>{
+        ///   id: string,
+        ///   displayName: string,
+        ///   url: string,
+        ///   eTag: string,
+        ///   lastModified: string (ISO 8601 Format),
+        ///   creationTime: string (ISO 8601 Format),
+        ///   exitConditions: {
+        ///     exitCodes: [
+        ///       {
+        ///         code: number (required),
+        ///         exitOptions: {
+        ///           jobAction: JobAction,
+        ///           dependencyAction: DependencyAction
+        ///         } (required)
+        ///       }
+        ///     ],
+        ///     exitCodeRanges: [
+        ///       {
+        ///         start: number (required),
+        ///         end: number (required),
+        ///         exitOptions: ExitOptions (required)
+        ///       }
+        ///     ],
+        ///     preProcessingError: ExitOptions,
+        ///     fileUploadError: ExitOptions,
+        ///     default: ExitOptions
+        ///   },
+        ///   state: TaskState,
+        ///   stateTransitionTime: string (ISO 8601 Format),
+        ///   previousState: TaskState,
+        ///   previousStateTransitionTime: string (ISO 8601 Format),
+        ///   commandLine: string,
+        ///   containerSettings: {
+        ///     containerRunOptions: string,
+        ///     imageName: string (required),
+        ///     registry: {
+        ///       username: string,
+        ///       password: string,
+        ///       registryServer: string,
+        ///       identityReference: {
+        ///         resourceId: string
+        ///       }
+        ///     },
+        ///     workingDirectory: ContainerWorkingDirectory
+        ///   },
+        ///   resourceFiles: [
+        ///     {
+        ///       autoStorageContainerName: string,
+        ///       storageContainerUrl: string,
+        ///       httpUrl: string,
+        ///       blobPrefix: string,
+        ///       filePath: string,
+        ///       fileMode: string,
+        ///       identityReference: ComputeNodeIdentityReference
+        ///     }
+        ///   ],
+        ///   outputFiles: [
+        ///     {
+        ///       filePattern: string (required),
+        ///       destination: {
+        ///         container: {
+        ///           path: string,
+        ///           containerUrl: string (required),
+        ///           identityReference: ComputeNodeIdentityReference,
+        ///           uploadHeaders: [
+        ///             {
+        ///               name: string (required),
+        ///               value: string
+        ///             }
+        ///           ]
+        ///         }
+        ///       } (required),
+        ///       uploadOptions: {
+        ///         uploadCondition: OutputFileUploadCondition (required)
+        ///       } (required)
+        ///     }
+        ///   ],
+        ///   environmentSettings: [
+        ///     {
+        ///       name: string (required),
+        ///       value: string
+        ///     }
+        ///   ],
+        ///   affinityInfo: {
+        ///     affinityId: string (required)
+        ///   },
         ///   constraints: {
         ///     maxWallClockTime: TaskConstraintsMaxWallClockTime,
         ///     retentionTime: TaskConstraintsRetentionTime,
         ///     maxTaskRetryCount: number
+        ///   },
+        ///   requiredSlots: number,
+        ///   userIdentity: {
+        ///     username: string,
+        ///     autoUser: {
+        ///       scope: AutoUserScope,
+        ///       elevationLevel: ElevationLevel
+        ///     }
+        ///   },
+        ///   executionInfo: {
+        ///     startTime: string (ISO 8601 Format),
+        ///     endTime: string (ISO 8601 Format),
+        ///     exitCode: number,
+        ///     containerInfo: {
+        ///       containerId: string,
+        ///       state: string,
+        ///       error: string
+        ///     },
+        ///     failureInfo: {
+        ///       category: ErrorCategory (required),
+        ///       code: string,
+        ///       message: string,
+        ///       details: [
+        ///         {
+        ///           name: string,
+        ///           value: string
+        ///         }
+        ///       ]
+        ///     },
+        ///     retryCount: number (required),
+        ///     lastRetryTime: string (ISO 8601 Format),
+        ///     requeueCount: number (required),
+        ///     lastRequeueTime: string (ISO 8601 Format),
+        ///     result: TaskExecutionResult
+        ///   },
+        ///   nodeInfo: {
+        ///     affinityId: string,
+        ///     nodeUrl: string,
+        ///     poolId: string,
+        ///     nodeId: string,
+        ///     taskRootDirectory: string,
+        ///     taskRootDirectoryUrl: string
+        ///   },
+        ///   multiInstanceSettings: {
+        ///     numberOfInstances: number,
+        ///     coordinationCommandLine: string (required),
+        ///     commonResourceFiles: [ResourceFile]
+        ///   },
+        ///   stats: {
+        ///     url: string (required),
+        ///     startTime: string (ISO 8601 Format) (required),
+        ///     lastUpdateTime: string (ISO 8601 Format) (required),
+        ///     userCPUTime: TaskStatisticsUserCPUTime (required),
+        ///     kernelCPUTime: TaskStatisticsKernelCPUTime (required),
+        ///     wallClockTime: TaskStatisticsWallClockTime (required),
+        ///     readIOps: number (required),
+        ///     writeIOps: number (required),
+        ///     readIOGiB: number (required),
+        ///     writeIOGiB: number (required),
+        ///     waitTime: TaskStatisticsWaitTime (required)
+        ///   },
+        ///   dependsOn: {
+        ///     taskIds: [string],
+        ///     taskIdRanges: [
+        ///       {
+        ///         start: number (required),
+        ///         end: number (required)
+        ///       }
+        ///     ]
+        ///   },
+        ///   applicationPackageReferences: [
+        ///     {
+        ///       applicationId: string (required),
+        ///       version: string
+        ///     }
+        ///   ],
+        ///   authenticationTokenSettings: {
+        ///     access: [AccessScope]
         ///   }
         /// }
         /// </code>
@@ -1390,10 +1774,174 @@ namespace Azure.Data.Batch
         /// <remarks>
         /// Schema for <c>Request Body</c>:
         /// <code>{
+        ///   id: string,
+        ///   displayName: string,
+        ///   url: string,
+        ///   eTag: string,
+        ///   lastModified: string (ISO 8601 Format),
+        ///   creationTime: string (ISO 8601 Format),
+        ///   exitConditions: {
+        ///     exitCodes: [
+        ///       {
+        ///         code: number (required),
+        ///         exitOptions: {
+        ///           jobAction: JobAction,
+        ///           dependencyAction: DependencyAction
+        ///         } (required)
+        ///       }
+        ///     ],
+        ///     exitCodeRanges: [
+        ///       {
+        ///         start: number (required),
+        ///         end: number (required),
+        ///         exitOptions: ExitOptions (required)
+        ///       }
+        ///     ],
+        ///     preProcessingError: ExitOptions,
+        ///     fileUploadError: ExitOptions,
+        ///     default: ExitOptions
+        ///   },
+        ///   state: TaskState,
+        ///   stateTransitionTime: string (ISO 8601 Format),
+        ///   previousState: TaskState,
+        ///   previousStateTransitionTime: string (ISO 8601 Format),
+        ///   commandLine: string,
+        ///   containerSettings: {
+        ///     containerRunOptions: string,
+        ///     imageName: string (required),
+        ///     registry: {
+        ///       username: string,
+        ///       password: string,
+        ///       registryServer: string,
+        ///       identityReference: {
+        ///         resourceId: string
+        ///       }
+        ///     },
+        ///     workingDirectory: ContainerWorkingDirectory
+        ///   },
+        ///   resourceFiles: [
+        ///     {
+        ///       autoStorageContainerName: string,
+        ///       storageContainerUrl: string,
+        ///       httpUrl: string,
+        ///       blobPrefix: string,
+        ///       filePath: string,
+        ///       fileMode: string,
+        ///       identityReference: ComputeNodeIdentityReference
+        ///     }
+        ///   ],
+        ///   outputFiles: [
+        ///     {
+        ///       filePattern: string (required),
+        ///       destination: {
+        ///         container: {
+        ///           path: string,
+        ///           containerUrl: string (required),
+        ///           identityReference: ComputeNodeIdentityReference,
+        ///           uploadHeaders: [
+        ///             {
+        ///               name: string (required),
+        ///               value: string
+        ///             }
+        ///           ]
+        ///         }
+        ///       } (required),
+        ///       uploadOptions: {
+        ///         uploadCondition: OutputFileUploadCondition (required)
+        ///       } (required)
+        ///     }
+        ///   ],
+        ///   environmentSettings: [
+        ///     {
+        ///       name: string (required),
+        ///       value: string
+        ///     }
+        ///   ],
+        ///   affinityInfo: {
+        ///     affinityId: string (required)
+        ///   },
         ///   constraints: {
         ///     maxWallClockTime: TaskConstraintsMaxWallClockTime,
         ///     retentionTime: TaskConstraintsRetentionTime,
         ///     maxTaskRetryCount: number
+        ///   },
+        ///   requiredSlots: number,
+        ///   userIdentity: {
+        ///     username: string,
+        ///     autoUser: {
+        ///       scope: AutoUserScope,
+        ///       elevationLevel: ElevationLevel
+        ///     }
+        ///   },
+        ///   executionInfo: {
+        ///     startTime: string (ISO 8601 Format),
+        ///     endTime: string (ISO 8601 Format),
+        ///     exitCode: number,
+        ///     containerInfo: {
+        ///       containerId: string,
+        ///       state: string,
+        ///       error: string
+        ///     },
+        ///     failureInfo: {
+        ///       category: ErrorCategory (required),
+        ///       code: string,
+        ///       message: string,
+        ///       details: [
+        ///         {
+        ///           name: string,
+        ///           value: string
+        ///         }
+        ///       ]
+        ///     },
+        ///     retryCount: number (required),
+        ///     lastRetryTime: string (ISO 8601 Format),
+        ///     requeueCount: number (required),
+        ///     lastRequeueTime: string (ISO 8601 Format),
+        ///     result: TaskExecutionResult
+        ///   },
+        ///   nodeInfo: {
+        ///     affinityId: string,
+        ///     nodeUrl: string,
+        ///     poolId: string,
+        ///     nodeId: string,
+        ///     taskRootDirectory: string,
+        ///     taskRootDirectoryUrl: string
+        ///   },
+        ///   multiInstanceSettings: {
+        ///     numberOfInstances: number,
+        ///     coordinationCommandLine: string (required),
+        ///     commonResourceFiles: [ResourceFile]
+        ///   },
+        ///   stats: {
+        ///     url: string (required),
+        ///     startTime: string (ISO 8601 Format) (required),
+        ///     lastUpdateTime: string (ISO 8601 Format) (required),
+        ///     userCPUTime: TaskStatisticsUserCPUTime (required),
+        ///     kernelCPUTime: TaskStatisticsKernelCPUTime (required),
+        ///     wallClockTime: TaskStatisticsWallClockTime (required),
+        ///     readIOps: number (required),
+        ///     writeIOps: number (required),
+        ///     readIOGiB: number (required),
+        ///     writeIOGiB: number (required),
+        ///     waitTime: TaskStatisticsWaitTime (required)
+        ///   },
+        ///   dependsOn: {
+        ///     taskIds: [string],
+        ///     taskIdRanges: [
+        ///       {
+        ///         start: number (required),
+        ///         end: number (required)
+        ///       }
+        ///     ]
+        ///   },
+        ///   applicationPackageReferences: [
+        ///     {
+        ///       applicationId: string (required),
+        ///       version: string
+        ///     }
+        ///   ],
+        ///   authenticationTokenSettings: {
+        ///     access: [AccessScope]
         ///   }
         /// }
         /// </code>

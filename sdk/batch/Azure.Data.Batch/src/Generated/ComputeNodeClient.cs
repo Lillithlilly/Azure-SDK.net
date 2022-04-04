@@ -41,11 +41,11 @@ namespace Azure.Data.Batch
         /// <param name="credential"> A credential used to authenticate to an Azure Service. </param>
         /// <param name="options"> The options for configuring the client. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="batchUrl"/> or <paramref name="credential"/> is null. </exception>
-        public ComputeNodeClient(string batchUrl, TokenCredential credential, BatchServiceClientOptions options = null)
+        public ComputeNodeClient(string batchUrl, TokenCredential credential, AzureBatchClientOptions options = null)
         {
             Argument.AssertNotNull(batchUrl, nameof(batchUrl));
             Argument.AssertNotNull(credential, nameof(credential));
-            options ??= new BatchServiceClientOptions();
+            options ??= new AzureBatchClientOptions();
 
             ClientDiagnostics = new ClientDiagnostics(options);
             _tokenCredential = credential;

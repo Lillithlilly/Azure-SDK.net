@@ -41,11 +41,11 @@ namespace Azure.Data.Batch
         /// <param name="credential"> A credential used to authenticate to an Azure Service. </param>
         /// <param name="options"> The options for configuring the client. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="batchUrl"/> or <paramref name="credential"/> is null. </exception>
-        public JobClient(string batchUrl, TokenCredential credential, BatchServiceClientOptions options = null)
+        public JobClient(string batchUrl, TokenCredential credential, AzureBatchClientOptions options = null)
         {
             Argument.AssertNotNull(batchUrl, nameof(batchUrl));
             Argument.AssertNotNull(credential, nameof(credential));
-            options ??= new BatchServiceClientOptions();
+            options ??= new AzureBatchClientOptions();
 
             ClientDiagnostics = new ClientDiagnostics(options);
             _tokenCredential = credential;
@@ -1614,13 +1614,127 @@ namespace Azure.Data.Batch
         /// <remarks>
         /// Schema for <c>Request Body</c>:
         /// <code>{
+        ///   id: string,
+        ///   displayName: string,
+        ///   usesTaskDependencies: boolean,
+        ///   url: string,
+        ///   eTag: string,
+        ///   lastModified: string (ISO 8601 Format),
+        ///   creationTime: string (ISO 8601 Format),
+        ///   state: JobState,
+        ///   stateTransitionTime: string (ISO 8601 Format),
+        ///   previousState: JobState,
+        ///   previousStateTransitionTime: string (ISO 8601 Format),
         ///   priority: number,
-        ///   maxParallelTasks: number,
         ///   allowTaskPreemption: boolean,
+        ///   maxParallelTasks: number,
         ///   constraints: {
         ///     maxWallClockTime: JobConstraintsMaxWallClockTime,
         ///     maxTaskRetryCount: number
         ///   },
+        ///   jobManagerTask: {
+        ///     id: string (required),
+        ///     displayName: string,
+        ///     commandLine: string (required),
+        ///     containerSettings: {
+        ///       containerRunOptions: string,
+        ///       imageName: string (required),
+        ///       registry: {
+        ///         username: string,
+        ///         password: string,
+        ///         registryServer: string,
+        ///         identityReference: {
+        ///           resourceId: string
+        ///         }
+        ///       },
+        ///       workingDirectory: ContainerWorkingDirectory
+        ///     },
+        ///     resourceFiles: [
+        ///       {
+        ///         autoStorageContainerName: string,
+        ///         storageContainerUrl: string,
+        ///         httpUrl: string,
+        ///         blobPrefix: string,
+        ///         filePath: string,
+        ///         fileMode: string,
+        ///         identityReference: ComputeNodeIdentityReference
+        ///       }
+        ///     ],
+        ///     outputFiles: [
+        ///       {
+        ///         filePattern: string (required),
+        ///         destination: {
+        ///           container: {
+        ///             path: string,
+        ///             containerUrl: string (required),
+        ///             identityReference: ComputeNodeIdentityReference,
+        ///             uploadHeaders: [
+        ///               {
+        ///                 name: string (required),
+        ///                 value: string
+        ///               }
+        ///             ]
+        ///           }
+        ///         } (required),
+        ///         uploadOptions: {
+        ///           uploadCondition: OutputFileUploadCondition (required)
+        ///         } (required)
+        ///       }
+        ///     ],
+        ///     environmentSettings: [
+        ///       {
+        ///         name: string (required),
+        ///         value: string
+        ///       }
+        ///     ],
+        ///     constraints: {
+        ///       maxWallClockTime: TaskConstraintsMaxWallClockTime,
+        ///       retentionTime: TaskConstraintsRetentionTime,
+        ///       maxTaskRetryCount: number
+        ///     },
+        ///     requiredSlots: number,
+        ///     killJobOnCompletion: boolean,
+        ///     userIdentity: {
+        ///       username: string,
+        ///       autoUser: {
+        ///         scope: AutoUserScope,
+        ///         elevationLevel: ElevationLevel
+        ///       }
+        ///     },
+        ///     runExclusive: boolean,
+        ///     applicationPackageReferences: [
+        ///       {
+        ///         applicationId: string (required),
+        ///         version: string
+        ///       }
+        ///     ],
+        ///     authenticationTokenSettings: {
+        ///       access: [AccessScope]
+        ///     },
+        ///     allowLowPriorityNode: boolean
+        ///   },
+        ///   jobPreparationTask: {
+        ///     id: string,
+        ///     commandLine: string (required),
+        ///     containerSettings: TaskContainerSettings,
+        ///     resourceFiles: [ResourceFile],
+        ///     environmentSettings: [EnvironmentSetting],
+        ///     constraints: TaskConstraints,
+        ///     waitForSuccess: boolean,
+        ///     userIdentity: UserIdentity,
+        ///     rerunOnNodeRebootAfterSuccess: boolean
+        ///   },
+        ///   jobReleaseTask: {
+        ///     id: string,
+        ///     commandLine: string (required),
+        ///     containerSettings: TaskContainerSettings,
+        ///     resourceFiles: [ResourceFile],
+        ///     environmentSettings: [EnvironmentSetting],
+        ///     maxWallClockTime: JobReleaseTaskMaxWallClockTime,
+        ///     retentionTime: JobReleaseTaskRetentionTime,
+        ///     userIdentity: UserIdentity
+        ///   },
+        ///   commonEnvironmentSettings: [EnvironmentSetting],
         ///   poolInfo: {
         ///     poolId: string,
         ///     autoPoolSpecification: {
@@ -1659,16 +1773,7 @@ namespace Azure.Data.Batch
         ///           containerConfiguration: {
         ///             type: ContainerType (required),
         ///             containerImageNames: [string],
-        ///             containerRegistries: [
-        ///               {
-        ///                 username: string,
-        ///                 password: string,
-        ///                 registryServer: string,
-        ///                 identityReference: {
-        ///                   resourceId: string
-        ///                 }
-        ///               }
-        ///             ]
+        ///             containerRegistries: [ContainerRegistry]
         ///           },
         ///           diskEncryptionConfiguration: {
         ///             targets: [DiskEncryptionTarget]
@@ -1734,36 +1839,10 @@ namespace Azure.Data.Batch
         ///         },
         ///         startTask: {
         ///           commandLine: string (required),
-        ///           containerSettings: {
-        ///             containerRunOptions: string,
-        ///             imageName: string (required),
-        ///             registry: ContainerRegistry,
-        ///             workingDirectory: ContainerWorkingDirectory
-        ///           },
-        ///           resourceFiles: [
-        ///             {
-        ///               autoStorageContainerName: string,
-        ///               storageContainerUrl: string,
-        ///               httpUrl: string,
-        ///               blobPrefix: string,
-        ///               filePath: string,
-        ///               fileMode: string,
-        ///               identityReference: ComputeNodeIdentityReference
-        ///             }
-        ///           ],
-        ///           environmentSettings: [
-        ///             {
-        ///               name: string (required),
-        ///               value: string
-        ///             }
-        ///           ],
-        ///           userIdentity: {
-        ///             username: string,
-        ///             autoUser: {
-        ///               scope: AutoUserScope,
-        ///               elevationLevel: ElevationLevel
-        ///             }
-        ///           },
+        ///           containerSettings: TaskContainerSettings,
+        ///           resourceFiles: [ResourceFile],
+        ///           environmentSettings: [EnvironmentSetting],
+        ///           userIdentity: UserIdentity,
         ///           maxTaskRetryCount: number,
         ///           waitForSuccess: boolean
         ///         },
@@ -1776,12 +1855,7 @@ namespace Azure.Data.Batch
         ///             visibility: [CertificateVisibility]
         ///           }
         ///         ],
-        ///         applicationPackageReferences: [
-        ///           {
-        ///             applicationId: string (required),
-        ///             version: string
-        ///           }
-        ///         ],
+        ///         applicationPackageReferences: [ApplicationPackageReference],
         ///         applicationLicenses: [string],
         ///         userAccounts: [
         ///           {
@@ -1838,9 +1912,46 @@ namespace Azure.Data.Batch
         ///         ]
         ///       }
         ///     }
-        ///   } (required),
+        ///   },
+        ///   onAllTasksComplete: OnAllTasksComplete,
+        ///   onTaskFailure: OnTaskFailure,
+        ///   networkConfiguration: {
+        ///     subnetId: string (required)
+        ///   },
         ///   metadata: [MetadataItem],
-        ///   onAllTasksComplete: OnAllTasksComplete
+        ///   executionInfo: {
+        ///     startTime: string (ISO 8601 Format) (required),
+        ///     endTime: string (ISO 8601 Format),
+        ///     poolId: string,
+        ///     schedulingError: {
+        ///       category: ErrorCategory (required),
+        ///       code: string,
+        ///       message: string,
+        ///       details: [
+        ///         {
+        ///           name: string,
+        ///           value: string
+        ///         }
+        ///       ]
+        ///     },
+        ///     terminateReason: string
+        ///   },
+        ///   stats: {
+        ///     url: string (required),
+        ///     startTime: string (ISO 8601 Format) (required),
+        ///     lastUpdateTime: string (ISO 8601 Format) (required),
+        ///     userCPUTime: JobStatisticsUserCPUTime (required),
+        ///     kernelCPUTime: JobStatisticsKernelCPUTime (required),
+        ///     wallClockTime: JobStatisticsWallClockTime (required),
+        ///     readIOps: number (required),
+        ///     writeIOps: number (required),
+        ///     readIOGiB: number (required),
+        ///     writeIOGiB: number (required),
+        ///     numSucceededTasks: number (required),
+        ///     numFailedTasks: number (required),
+        ///     numTaskRetries: number (required),
+        ///     waitTime: JobStatisticsWaitTime (required)
+        ///   }
         /// }
         /// </code>
         /// Schema for <c>Response Error</c>:
@@ -1893,13 +2004,127 @@ namespace Azure.Data.Batch
         /// <remarks>
         /// Schema for <c>Request Body</c>:
         /// <code>{
+        ///   id: string,
+        ///   displayName: string,
+        ///   usesTaskDependencies: boolean,
+        ///   url: string,
+        ///   eTag: string,
+        ///   lastModified: string (ISO 8601 Format),
+        ///   creationTime: string (ISO 8601 Format),
+        ///   state: JobState,
+        ///   stateTransitionTime: string (ISO 8601 Format),
+        ///   previousState: JobState,
+        ///   previousStateTransitionTime: string (ISO 8601 Format),
         ///   priority: number,
-        ///   maxParallelTasks: number,
         ///   allowTaskPreemption: boolean,
+        ///   maxParallelTasks: number,
         ///   constraints: {
         ///     maxWallClockTime: JobConstraintsMaxWallClockTime,
         ///     maxTaskRetryCount: number
         ///   },
+        ///   jobManagerTask: {
+        ///     id: string (required),
+        ///     displayName: string,
+        ///     commandLine: string (required),
+        ///     containerSettings: {
+        ///       containerRunOptions: string,
+        ///       imageName: string (required),
+        ///       registry: {
+        ///         username: string,
+        ///         password: string,
+        ///         registryServer: string,
+        ///         identityReference: {
+        ///           resourceId: string
+        ///         }
+        ///       },
+        ///       workingDirectory: ContainerWorkingDirectory
+        ///     },
+        ///     resourceFiles: [
+        ///       {
+        ///         autoStorageContainerName: string,
+        ///         storageContainerUrl: string,
+        ///         httpUrl: string,
+        ///         blobPrefix: string,
+        ///         filePath: string,
+        ///         fileMode: string,
+        ///         identityReference: ComputeNodeIdentityReference
+        ///       }
+        ///     ],
+        ///     outputFiles: [
+        ///       {
+        ///         filePattern: string (required),
+        ///         destination: {
+        ///           container: {
+        ///             path: string,
+        ///             containerUrl: string (required),
+        ///             identityReference: ComputeNodeIdentityReference,
+        ///             uploadHeaders: [
+        ///               {
+        ///                 name: string (required),
+        ///                 value: string
+        ///               }
+        ///             ]
+        ///           }
+        ///         } (required),
+        ///         uploadOptions: {
+        ///           uploadCondition: OutputFileUploadCondition (required)
+        ///         } (required)
+        ///       }
+        ///     ],
+        ///     environmentSettings: [
+        ///       {
+        ///         name: string (required),
+        ///         value: string
+        ///       }
+        ///     ],
+        ///     constraints: {
+        ///       maxWallClockTime: TaskConstraintsMaxWallClockTime,
+        ///       retentionTime: TaskConstraintsRetentionTime,
+        ///       maxTaskRetryCount: number
+        ///     },
+        ///     requiredSlots: number,
+        ///     killJobOnCompletion: boolean,
+        ///     userIdentity: {
+        ///       username: string,
+        ///       autoUser: {
+        ///         scope: AutoUserScope,
+        ///         elevationLevel: ElevationLevel
+        ///       }
+        ///     },
+        ///     runExclusive: boolean,
+        ///     applicationPackageReferences: [
+        ///       {
+        ///         applicationId: string (required),
+        ///         version: string
+        ///       }
+        ///     ],
+        ///     authenticationTokenSettings: {
+        ///       access: [AccessScope]
+        ///     },
+        ///     allowLowPriorityNode: boolean
+        ///   },
+        ///   jobPreparationTask: {
+        ///     id: string,
+        ///     commandLine: string (required),
+        ///     containerSettings: TaskContainerSettings,
+        ///     resourceFiles: [ResourceFile],
+        ///     environmentSettings: [EnvironmentSetting],
+        ///     constraints: TaskConstraints,
+        ///     waitForSuccess: boolean,
+        ///     userIdentity: UserIdentity,
+        ///     rerunOnNodeRebootAfterSuccess: boolean
+        ///   },
+        ///   jobReleaseTask: {
+        ///     id: string,
+        ///     commandLine: string (required),
+        ///     containerSettings: TaskContainerSettings,
+        ///     resourceFiles: [ResourceFile],
+        ///     environmentSettings: [EnvironmentSetting],
+        ///     maxWallClockTime: JobReleaseTaskMaxWallClockTime,
+        ///     retentionTime: JobReleaseTaskRetentionTime,
+        ///     userIdentity: UserIdentity
+        ///   },
+        ///   commonEnvironmentSettings: [EnvironmentSetting],
         ///   poolInfo: {
         ///     poolId: string,
         ///     autoPoolSpecification: {
@@ -1938,16 +2163,7 @@ namespace Azure.Data.Batch
         ///           containerConfiguration: {
         ///             type: ContainerType (required),
         ///             containerImageNames: [string],
-        ///             containerRegistries: [
-        ///               {
-        ///                 username: string,
-        ///                 password: string,
-        ///                 registryServer: string,
-        ///                 identityReference: {
-        ///                   resourceId: string
-        ///                 }
-        ///               }
-        ///             ]
+        ///             containerRegistries: [ContainerRegistry]
         ///           },
         ///           diskEncryptionConfiguration: {
         ///             targets: [DiskEncryptionTarget]
@@ -2013,36 +2229,10 @@ namespace Azure.Data.Batch
         ///         },
         ///         startTask: {
         ///           commandLine: string (required),
-        ///           containerSettings: {
-        ///             containerRunOptions: string,
-        ///             imageName: string (required),
-        ///             registry: ContainerRegistry,
-        ///             workingDirectory: ContainerWorkingDirectory
-        ///           },
-        ///           resourceFiles: [
-        ///             {
-        ///               autoStorageContainerName: string,
-        ///               storageContainerUrl: string,
-        ///               httpUrl: string,
-        ///               blobPrefix: string,
-        ///               filePath: string,
-        ///               fileMode: string,
-        ///               identityReference: ComputeNodeIdentityReference
-        ///             }
-        ///           ],
-        ///           environmentSettings: [
-        ///             {
-        ///               name: string (required),
-        ///               value: string
-        ///             }
-        ///           ],
-        ///           userIdentity: {
-        ///             username: string,
-        ///             autoUser: {
-        ///               scope: AutoUserScope,
-        ///               elevationLevel: ElevationLevel
-        ///             }
-        ///           },
+        ///           containerSettings: TaskContainerSettings,
+        ///           resourceFiles: [ResourceFile],
+        ///           environmentSettings: [EnvironmentSetting],
+        ///           userIdentity: UserIdentity,
         ///           maxTaskRetryCount: number,
         ///           waitForSuccess: boolean
         ///         },
@@ -2055,12 +2245,7 @@ namespace Azure.Data.Batch
         ///             visibility: [CertificateVisibility]
         ///           }
         ///         ],
-        ///         applicationPackageReferences: [
-        ///           {
-        ///             applicationId: string (required),
-        ///             version: string
-        ///           }
-        ///         ],
+        ///         applicationPackageReferences: [ApplicationPackageReference],
         ///         applicationLicenses: [string],
         ///         userAccounts: [
         ///           {
@@ -2117,9 +2302,46 @@ namespace Azure.Data.Batch
         ///         ]
         ///       }
         ///     }
-        ///   } (required),
+        ///   },
+        ///   onAllTasksComplete: OnAllTasksComplete,
+        ///   onTaskFailure: OnTaskFailure,
+        ///   networkConfiguration: {
+        ///     subnetId: string (required)
+        ///   },
         ///   metadata: [MetadataItem],
-        ///   onAllTasksComplete: OnAllTasksComplete
+        ///   executionInfo: {
+        ///     startTime: string (ISO 8601 Format) (required),
+        ///     endTime: string (ISO 8601 Format),
+        ///     poolId: string,
+        ///     schedulingError: {
+        ///       category: ErrorCategory (required),
+        ///       code: string,
+        ///       message: string,
+        ///       details: [
+        ///         {
+        ///           name: string,
+        ///           value: string
+        ///         }
+        ///       ]
+        ///     },
+        ///     terminateReason: string
+        ///   },
+        ///   stats: {
+        ///     url: string (required),
+        ///     startTime: string (ISO 8601 Format) (required),
+        ///     lastUpdateTime: string (ISO 8601 Format) (required),
+        ///     userCPUTime: JobStatisticsUserCPUTime (required),
+        ///     kernelCPUTime: JobStatisticsKernelCPUTime (required),
+        ///     wallClockTime: JobStatisticsWallClockTime (required),
+        ///     readIOps: number (required),
+        ///     writeIOps: number (required),
+        ///     readIOGiB: number (required),
+        ///     writeIOGiB: number (required),
+        ///     numSucceededTasks: number (required),
+        ///     numFailedTasks: number (required),
+        ///     numTaskRetries: number (required),
+        ///     waitTime: JobStatisticsWaitTime (required)
+        ///   }
         /// }
         /// </code>
         /// Schema for <c>Response Error</c>:
@@ -2471,11 +2693,20 @@ namespace Azure.Data.Batch
         /// <remarks>
         /// Schema for <c>Request Body</c>:
         /// <code>{
-        ///   id: string (required),
+        ///   id: string,
         ///   displayName: string,
+        ///   usesTaskDependencies: boolean,
+        ///   url: string,
+        ///   eTag: string,
+        ///   lastModified: string (ISO 8601 Format),
+        ///   creationTime: string (ISO 8601 Format),
+        ///   state: JobState,
+        ///   stateTransitionTime: string (ISO 8601 Format),
+        ///   previousState: JobState,
+        ///   previousStateTransitionTime: string (ISO 8601 Format),
         ///   priority: number,
-        ///   maxParallelTasks: number,
         ///   allowTaskPreemption: boolean,
+        ///   maxParallelTasks: number,
         ///   constraints: {
         ///     maxWallClockTime: JobConstraintsMaxWallClockTime,
         ///     maxTaskRetryCount: number
@@ -2760,13 +2991,45 @@ namespace Azure.Data.Batch
         ///         ]
         ///       }
         ///     }
-        ///   } (required),
+        ///   },
         ///   onAllTasksComplete: OnAllTasksComplete,
         ///   onTaskFailure: OnTaskFailure,
-        ///   metadata: [MetadataItem],
-        ///   usesTaskDependencies: boolean,
         ///   networkConfiguration: {
         ///     subnetId: string (required)
+        ///   },
+        ///   metadata: [MetadataItem],
+        ///   executionInfo: {
+        ///     startTime: string (ISO 8601 Format) (required),
+        ///     endTime: string (ISO 8601 Format),
+        ///     poolId: string,
+        ///     schedulingError: {
+        ///       category: ErrorCategory (required),
+        ///       code: string,
+        ///       message: string,
+        ///       details: [
+        ///         {
+        ///           name: string,
+        ///           value: string
+        ///         }
+        ///       ]
+        ///     },
+        ///     terminateReason: string
+        ///   },
+        ///   stats: {
+        ///     url: string (required),
+        ///     startTime: string (ISO 8601 Format) (required),
+        ///     lastUpdateTime: string (ISO 8601 Format) (required),
+        ///     userCPUTime: JobStatisticsUserCPUTime (required),
+        ///     kernelCPUTime: JobStatisticsKernelCPUTime (required),
+        ///     wallClockTime: JobStatisticsWallClockTime (required),
+        ///     readIOps: number (required),
+        ///     writeIOps: number (required),
+        ///     readIOGiB: number (required),
+        ///     writeIOGiB: number (required),
+        ///     numSucceededTasks: number (required),
+        ///     numFailedTasks: number (required),
+        ///     numTaskRetries: number (required),
+        ///     waitTime: JobStatisticsWaitTime (required)
         ///   }
         /// }
         /// </code>
@@ -2816,11 +3079,20 @@ namespace Azure.Data.Batch
         /// <remarks>
         /// Schema for <c>Request Body</c>:
         /// <code>{
-        ///   id: string (required),
+        ///   id: string,
         ///   displayName: string,
+        ///   usesTaskDependencies: boolean,
+        ///   url: string,
+        ///   eTag: string,
+        ///   lastModified: string (ISO 8601 Format),
+        ///   creationTime: string (ISO 8601 Format),
+        ///   state: JobState,
+        ///   stateTransitionTime: string (ISO 8601 Format),
+        ///   previousState: JobState,
+        ///   previousStateTransitionTime: string (ISO 8601 Format),
         ///   priority: number,
-        ///   maxParallelTasks: number,
         ///   allowTaskPreemption: boolean,
+        ///   maxParallelTasks: number,
         ///   constraints: {
         ///     maxWallClockTime: JobConstraintsMaxWallClockTime,
         ///     maxTaskRetryCount: number
@@ -3105,13 +3377,45 @@ namespace Azure.Data.Batch
         ///         ]
         ///       }
         ///     }
-        ///   } (required),
+        ///   },
         ///   onAllTasksComplete: OnAllTasksComplete,
         ///   onTaskFailure: OnTaskFailure,
-        ///   metadata: [MetadataItem],
-        ///   usesTaskDependencies: boolean,
         ///   networkConfiguration: {
         ///     subnetId: string (required)
+        ///   },
+        ///   metadata: [MetadataItem],
+        ///   executionInfo: {
+        ///     startTime: string (ISO 8601 Format) (required),
+        ///     endTime: string (ISO 8601 Format),
+        ///     poolId: string,
+        ///     schedulingError: {
+        ///       category: ErrorCategory (required),
+        ///       code: string,
+        ///       message: string,
+        ///       details: [
+        ///         {
+        ///           name: string,
+        ///           value: string
+        ///         }
+        ///       ]
+        ///     },
+        ///     terminateReason: string
+        ///   },
+        ///   stats: {
+        ///     url: string (required),
+        ///     startTime: string (ISO 8601 Format) (required),
+        ///     lastUpdateTime: string (ISO 8601 Format) (required),
+        ///     userCPUTime: JobStatisticsUserCPUTime (required),
+        ///     kernelCPUTime: JobStatisticsKernelCPUTime (required),
+        ///     wallClockTime: JobStatisticsWallClockTime (required),
+        ///     readIOps: number (required),
+        ///     writeIOps: number (required),
+        ///     readIOGiB: number (required),
+        ///     writeIOGiB: number (required),
+        ///     numSucceededTasks: number (required),
+        ///     numFailedTasks: number (required),
+        ///     numTaskRetries: number (required),
+        ///     waitTime: JobStatisticsWaitTime (required)
         ///   }
         /// }
         /// </code>

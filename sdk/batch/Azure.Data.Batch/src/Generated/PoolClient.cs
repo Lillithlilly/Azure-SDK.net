@@ -41,11 +41,11 @@ namespace Azure.Data.Batch
         /// <param name="credential"> A credential used to authenticate to an Azure Service. </param>
         /// <param name="options"> The options for configuring the client. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="batchUrl"/> or <paramref name="credential"/> is null. </exception>
-        public PoolClient(string batchUrl, TokenCredential credential, BatchServiceClientOptions options = null)
+        public PoolClient(string batchUrl, TokenCredential credential, AzureBatchClientOptions options = null)
         {
             Argument.AssertNotNull(batchUrl, nameof(batchUrl));
             Argument.AssertNotNull(credential, nameof(credential));
-            options ??= new BatchServiceClientOptions();
+            options ??= new AzureBatchClientOptions();
 
             ClientDiagnostics = new ClientDiagnostics(options);
             _tokenCredential = credential;
@@ -199,9 +199,17 @@ namespace Azure.Data.Batch
         /// <remarks>
         /// Schema for <c>Request Body</c>:
         /// <code>{
-        ///   id: string (required),
+        ///   id: string,
         ///   displayName: string,
-        ///   vmSize: string (required),
+        ///   url: string,
+        ///   eTag: string,
+        ///   lastModified: string (ISO 8601 Format),
+        ///   creationTime: string (ISO 8601 Format),
+        ///   state: PoolState,
+        ///   stateTransitionTime: string (ISO 8601 Format),
+        ///   allocationState: AllocationState,
+        ///   allocationStateTransitionTime: string (ISO 8601 Format),
+        ///   vmSize: string,
         ///   cloudServiceConfiguration: {
         ///     osFamily: string (required),
         ///     osVersion: string
@@ -266,12 +274,35 @@ namespace Azure.Data.Batch
         ///       }
         ///     }
         ///   },
-        ///   resizeTimeout: PoolAddParameterResizeTimeout,
+        ///   resizeTimeout: PoolResizeTimeout,
+        ///   resizeErrors: [
+        ///     {
+        ///       code: string,
+        ///       message: string,
+        ///       values: [
+        ///         {
+        ///           name: string,
+        ///           value: string
+        ///         }
+        ///       ]
+        ///     }
+        ///   ],
+        ///   currentDedicatedNodes: number,
+        ///   currentLowPriorityNodes: number,
         ///   targetDedicatedNodes: number,
         ///   targetLowPriorityNodes: number,
         ///   enableAutoScale: boolean,
         ///   autoScaleFormula: string,
-        ///   autoScaleEvaluationInterval: PoolAddParameterAutoScaleEvaluationInterval,
+        ///   autoScaleEvaluationInterval: PoolAutoScaleEvaluationInterval,
+        ///   autoScaleRun: {
+        ///     timestamp: string (ISO 8601 Format) (required),
+        ///     results: string,
+        ///     error: {
+        ///       code: string,
+        ///       message: string,
+        ///       values: [NameValuePair]
+        ///     }
+        ///   },
         ///   enableInterNodeCommunication: boolean,
         ///   networkConfiguration: {
         ///     subnetId: string,
@@ -376,6 +407,31 @@ namespace Azure.Data.Batch
         ///       value: string (required)
         ///     }
         ///   ],
+        ///   stats: {
+        ///     url: string (required),
+        ///     startTime: string (ISO 8601 Format) (required),
+        ///     lastUpdateTime: string (ISO 8601 Format) (required),
+        ///     usageStats: {
+        ///       startTime: string (ISO 8601 Format) (required),
+        ///       lastUpdateTime: string (ISO 8601 Format) (required),
+        ///       dedicatedCoreTime: UsageStatisticsDedicatedCoreTime (required)
+        ///     },
+        ///     resourceStats: {
+        ///       startTime: string (ISO 8601 Format) (required),
+        ///       lastUpdateTime: string (ISO 8601 Format) (required),
+        ///       avgCPUPercentage: number (required),
+        ///       avgMemoryGiB: number (required),
+        ///       peakMemoryGiB: number (required),
+        ///       avgDiskGiB: number (required),
+        ///       peakDiskGiB: number (required),
+        ///       diskReadIOps: number (required),
+        ///       diskWriteIOps: number (required),
+        ///       diskReadGiB: number (required),
+        ///       diskWriteGiB: number (required),
+        ///       networkReadGiB: number (required),
+        ///       networkWriteGiB: number (required)
+        ///     }
+        ///   },
         ///   mountConfiguration: [
         ///     {
         ///       azureBlobFileSystemConfiguration: {
@@ -407,7 +463,17 @@ namespace Azure.Data.Batch
         ///         mountOptions: string
         ///       }
         ///     }
-        ///   ]
+        ///   ],
+        ///   identity: {
+        ///     type: PoolIdentityType (required),
+        ///     userAssignedIdentities: [
+        ///       {
+        ///         resourceId: string (required),
+        ///         clientId: string,
+        ///         principalId: string
+        ///       }
+        ///     ]
+        ///   }
         /// }
         /// </code>
         /// Schema for <c>Response Error</c>:
@@ -456,9 +522,17 @@ namespace Azure.Data.Batch
         /// <remarks>
         /// Schema for <c>Request Body</c>:
         /// <code>{
-        ///   id: string (required),
+        ///   id: string,
         ///   displayName: string,
-        ///   vmSize: string (required),
+        ///   url: string,
+        ///   eTag: string,
+        ///   lastModified: string (ISO 8601 Format),
+        ///   creationTime: string (ISO 8601 Format),
+        ///   state: PoolState,
+        ///   stateTransitionTime: string (ISO 8601 Format),
+        ///   allocationState: AllocationState,
+        ///   allocationStateTransitionTime: string (ISO 8601 Format),
+        ///   vmSize: string,
         ///   cloudServiceConfiguration: {
         ///     osFamily: string (required),
         ///     osVersion: string
@@ -523,12 +597,35 @@ namespace Azure.Data.Batch
         ///       }
         ///     }
         ///   },
-        ///   resizeTimeout: PoolAddParameterResizeTimeout,
+        ///   resizeTimeout: PoolResizeTimeout,
+        ///   resizeErrors: [
+        ///     {
+        ///       code: string,
+        ///       message: string,
+        ///       values: [
+        ///         {
+        ///           name: string,
+        ///           value: string
+        ///         }
+        ///       ]
+        ///     }
+        ///   ],
+        ///   currentDedicatedNodes: number,
+        ///   currentLowPriorityNodes: number,
         ///   targetDedicatedNodes: number,
         ///   targetLowPriorityNodes: number,
         ///   enableAutoScale: boolean,
         ///   autoScaleFormula: string,
-        ///   autoScaleEvaluationInterval: PoolAddParameterAutoScaleEvaluationInterval,
+        ///   autoScaleEvaluationInterval: PoolAutoScaleEvaluationInterval,
+        ///   autoScaleRun: {
+        ///     timestamp: string (ISO 8601 Format) (required),
+        ///     results: string,
+        ///     error: {
+        ///       code: string,
+        ///       message: string,
+        ///       values: [NameValuePair]
+        ///     }
+        ///   },
         ///   enableInterNodeCommunication: boolean,
         ///   networkConfiguration: {
         ///     subnetId: string,
@@ -633,6 +730,31 @@ namespace Azure.Data.Batch
         ///       value: string (required)
         ///     }
         ///   ],
+        ///   stats: {
+        ///     url: string (required),
+        ///     startTime: string (ISO 8601 Format) (required),
+        ///     lastUpdateTime: string (ISO 8601 Format) (required),
+        ///     usageStats: {
+        ///       startTime: string (ISO 8601 Format) (required),
+        ///       lastUpdateTime: string (ISO 8601 Format) (required),
+        ///       dedicatedCoreTime: UsageStatisticsDedicatedCoreTime (required)
+        ///     },
+        ///     resourceStats: {
+        ///       startTime: string (ISO 8601 Format) (required),
+        ///       lastUpdateTime: string (ISO 8601 Format) (required),
+        ///       avgCPUPercentage: number (required),
+        ///       avgMemoryGiB: number (required),
+        ///       peakMemoryGiB: number (required),
+        ///       avgDiskGiB: number (required),
+        ///       peakDiskGiB: number (required),
+        ///       diskReadIOps: number (required),
+        ///       diskWriteIOps: number (required),
+        ///       diskReadGiB: number (required),
+        ///       diskWriteGiB: number (required),
+        ///       networkReadGiB: number (required),
+        ///       networkWriteGiB: number (required)
+        ///     }
+        ///   },
         ///   mountConfiguration: [
         ///     {
         ///       azureBlobFileSystemConfiguration: {
@@ -664,7 +786,17 @@ namespace Azure.Data.Batch
         ///         mountOptions: string
         ///       }
         ///     }
-        ///   ]
+        ///   ],
+        ///   identity: {
+        ///     type: PoolIdentityType (required),
+        ///     userAssignedIdentities: [
+        ///       {
+        ///         resourceId: string (required),
+        ///         clientId: string,
+        ///         principalId: string
+        ///       }
+        ///     ]
+        ///   }
         /// }
         /// </code>
         /// Schema for <c>Response Error</c>:
@@ -976,7 +1108,7 @@ namespace Azure.Data.Batch
         ///       }
         ///     }
         ///   },
-        ///   resizeTimeout: CloudPoolResizeTimeout,
+        ///   resizeTimeout: PoolResizeTimeout,
         ///   resizeErrors: [
         ///     {
         ///       code: string,
@@ -995,7 +1127,7 @@ namespace Azure.Data.Batch
         ///   targetLowPriorityNodes: number,
         ///   enableAutoScale: boolean,
         ///   autoScaleFormula: string,
-        ///   autoScaleEvaluationInterval: CloudPoolAutoScaleEvaluationInterval,
+        ///   autoScaleEvaluationInterval: PoolAutoScaleEvaluationInterval,
         ///   autoScaleRun: {
         ///     timestamp: string (ISO 8601 Format),
         ///     results: string,
@@ -1303,7 +1435,7 @@ namespace Azure.Data.Batch
         ///       }
         ///     }
         ///   },
-        ///   resizeTimeout: CloudPoolResizeTimeout,
+        ///   resizeTimeout: PoolResizeTimeout,
         ///   resizeErrors: [
         ///     {
         ///       code: string,
@@ -1322,7 +1454,7 @@ namespace Azure.Data.Batch
         ///   targetLowPriorityNodes: number,
         ///   enableAutoScale: boolean,
         ///   autoScaleFormula: string,
-        ///   autoScaleEvaluationInterval: CloudPoolAutoScaleEvaluationInterval,
+        ///   autoScaleEvaluationInterval: PoolAutoScaleEvaluationInterval,
         ///   autoScaleRun: {
         ///     timestamp: string (ISO 8601 Format),
         ///     results: string,
@@ -2321,19 +2453,144 @@ namespace Azure.Data.Batch
         /// <remarks>
         /// Schema for <c>Request Body</c>:
         /// <code>{
+        ///   id: string,
+        ///   displayName: string,
+        ///   url: string,
+        ///   eTag: string,
+        ///   lastModified: string (ISO 8601 Format),
+        ///   creationTime: string (ISO 8601 Format),
+        ///   state: PoolState,
+        ///   stateTransitionTime: string (ISO 8601 Format),
+        ///   allocationState: AllocationState,
+        ///   allocationStateTransitionTime: string (ISO 8601 Format),
+        ///   vmSize: string,
+        ///   cloudServiceConfiguration: {
+        ///     osFamily: string (required),
+        ///     osVersion: string
+        ///   },
+        ///   virtualMachineConfiguration: {
+        ///     imageReference: {
+        ///       publisher: string,
+        ///       offer: string,
+        ///       sku: string,
+        ///       version: string,
+        ///       virtualMachineImageId: string,
+        ///       exactVersion: string
+        ///     } (required),
+        ///     nodeAgentSKUId: string (required),
+        ///     windowsConfiguration: {
+        ///       enableAutomaticUpdates: boolean
+        ///     },
+        ///     dataDisks: [
+        ///       {
+        ///         lun: number (required),
+        ///         caching: CachingType,
+        ///         diskSizeGB: number (required),
+        ///         storageAccountType: StorageAccountType
+        ///       }
+        ///     ],
+        ///     licenseType: string,
+        ///     containerConfiguration: {
+        ///       type: ContainerType (required),
+        ///       containerImageNames: [string],
+        ///       containerRegistries: [
+        ///         {
+        ///           username: string,
+        ///           password: string,
+        ///           registryServer: string,
+        ///           identityReference: {
+        ///             resourceId: string
+        ///           }
+        ///         }
+        ///       ]
+        ///     },
+        ///     diskEncryptionConfiguration: {
+        ///       targets: [DiskEncryptionTarget]
+        ///     },
+        ///     nodePlacementConfiguration: {
+        ///       policy: NodePlacementPolicyType
+        ///     },
+        ///     extensions: [
+        ///       {
+        ///         name: string (required),
+        ///         publisher: string (required),
+        ///         type: string (required),
+        ///         typeHandlerVersion: string,
+        ///         autoUpgradeMinorVersion: boolean,
+        ///         settings: AnyObject,
+        ///         protectedSettings: AnyObject,
+        ///         provisionAfterExtensions: [string]
+        ///       }
+        ///     ],
+        ///     osDisk: {
+        ///       ephemeralOSDiskSettings: {
+        ///         placement: DiffDiskPlacement
+        ///       }
+        ///     }
+        ///   },
+        ///   resizeTimeout: PoolResizeTimeout,
+        ///   resizeErrors: [
+        ///     {
+        ///       code: string,
+        ///       message: string,
+        ///       values: [
+        ///         {
+        ///           name: string,
+        ///           value: string
+        ///         }
+        ///       ]
+        ///     }
+        ///   ],
+        ///   currentDedicatedNodes: number,
+        ///   currentLowPriorityNodes: number,
+        ///   targetDedicatedNodes: number,
+        ///   targetLowPriorityNodes: number,
+        ///   enableAutoScale: boolean,
+        ///   autoScaleFormula: string,
+        ///   autoScaleEvaluationInterval: PoolAutoScaleEvaluationInterval,
+        ///   autoScaleRun: {
+        ///     timestamp: string (ISO 8601 Format) (required),
+        ///     results: string,
+        ///     error: {
+        ///       code: string,
+        ///       message: string,
+        ///       values: [NameValuePair]
+        ///     }
+        ///   },
+        ///   enableInterNodeCommunication: boolean,
+        ///   networkConfiguration: {
+        ///     subnetId: string,
+        ///     dynamicVNetAssignmentScope: DynamicVNetAssignmentScope,
+        ///     endpointConfiguration: {
+        ///       inboundNATPools: [
+        ///         {
+        ///           name: string (required),
+        ///           protocol: InboundEndpointProtocol (required),
+        ///           backendPort: number (required),
+        ///           frontendPortRangeStart: number (required),
+        ///           frontendPortRangeEnd: number (required),
+        ///           networkSecurityGroupRules: [
+        ///             {
+        ///               priority: number (required),
+        ///               access: NetworkSecurityGroupRuleAccess (required),
+        ///               sourceAddressPrefix: string (required),
+        ///               sourcePortRanges: [string]
+        ///             }
+        ///           ]
+        ///         }
+        ///       ] (required)
+        ///     },
+        ///     publicIPAddressConfiguration: {
+        ///       provision: IPAddressProvisioningType,
+        ///       ipAddressIds: [string]
+        ///     }
+        ///   },
         ///   startTask: {
         ///     commandLine: string (required),
         ///     containerSettings: {
         ///       containerRunOptions: string,
         ///       imageName: string (required),
-        ///       registry: {
-        ///         username: string,
-        ///         password: string,
-        ///         registryServer: string,
-        ///         identityReference: {
-        ///           resourceId: string
-        ///         }
-        ///       },
+        ///       registry: ContainerRegistry,
         ///       workingDirectory: ContainerWorkingDirectory
         ///     },
         ///     resourceFiles: [
@@ -2371,19 +2628,106 @@ namespace Azure.Data.Batch
         ///       storeName: string,
         ///       visibility: [CertificateVisibility]
         ///     }
-        ///   ] (required),
+        ///   ],
         ///   applicationPackageReferences: [
         ///     {
         ///       applicationId: string (required),
         ///       version: string
         ///     }
-        ///   ] (required),
+        ///   ],
+        ///   applicationLicenses: [string],
+        ///   taskSlotsPerNode: number,
+        ///   taskSchedulingPolicy: {
+        ///     nodeFillType: ComputeNodeFillType (required)
+        ///   },
+        ///   userAccounts: [
+        ///     {
+        ///       name: string (required),
+        ///       password: string (required),
+        ///       elevationLevel: ElevationLevel,
+        ///       linuxUserConfiguration: {
+        ///         uid: number,
+        ///         gid: number,
+        ///         sshPrivateKey: string
+        ///       },
+        ///       windowsUserConfiguration: {
+        ///         loginMode: LoginMode
+        ///       }
+        ///     }
+        ///   ],
         ///   metadata: [
         ///     {
         ///       name: string (required),
         ///       value: string (required)
         ///     }
-        ///   ] (required)
+        ///   ],
+        ///   stats: {
+        ///     url: string (required),
+        ///     startTime: string (ISO 8601 Format) (required),
+        ///     lastUpdateTime: string (ISO 8601 Format) (required),
+        ///     usageStats: {
+        ///       startTime: string (ISO 8601 Format) (required),
+        ///       lastUpdateTime: string (ISO 8601 Format) (required),
+        ///       dedicatedCoreTime: UsageStatisticsDedicatedCoreTime (required)
+        ///     },
+        ///     resourceStats: {
+        ///       startTime: string (ISO 8601 Format) (required),
+        ///       lastUpdateTime: string (ISO 8601 Format) (required),
+        ///       avgCPUPercentage: number (required),
+        ///       avgMemoryGiB: number (required),
+        ///       peakMemoryGiB: number (required),
+        ///       avgDiskGiB: number (required),
+        ///       peakDiskGiB: number (required),
+        ///       diskReadIOps: number (required),
+        ///       diskWriteIOps: number (required),
+        ///       diskReadGiB: number (required),
+        ///       diskWriteGiB: number (required),
+        ///       networkReadGiB: number (required),
+        ///       networkWriteGiB: number (required)
+        ///     }
+        ///   },
+        ///   mountConfiguration: [
+        ///     {
+        ///       azureBlobFileSystemConfiguration: {
+        ///         accountName: string (required),
+        ///         containerName: string (required),
+        ///         accountKey: string,
+        ///         sasKey: string,
+        ///         blobfuseOptions: string,
+        ///         relativeMountPath: string (required),
+        ///         identityReference: ComputeNodeIdentityReference
+        ///       },
+        ///       nfsMountConfiguration: {
+        ///         source: string (required),
+        ///         relativeMountPath: string (required),
+        ///         mountOptions: string
+        ///       },
+        ///       cifsMountConfiguration: {
+        ///         username: string (required),
+        ///         source: string (required),
+        ///         relativeMountPath: string (required),
+        ///         mountOptions: string,
+        ///         password: string (required)
+        ///       },
+        ///       azureFileShareConfiguration: {
+        ///         accountName: string (required),
+        ///         azureFileUrl: string (required),
+        ///         accountKey: string (required),
+        ///         relativeMountPath: string (required),
+        ///         mountOptions: string
+        ///       }
+        ///     }
+        ///   ],
+        ///   identity: {
+        ///     type: PoolIdentityType (required),
+        ///     userAssignedIdentities: [
+        ///       {
+        ///         resourceId: string (required),
+        ///         clientId: string,
+        ///         principalId: string
+        ///       }
+        ///     ]
+        ///   }
         /// }
         /// </code>
         /// Schema for <c>Response Error</c>:
@@ -2435,19 +2779,144 @@ namespace Azure.Data.Batch
         /// <remarks>
         /// Schema for <c>Request Body</c>:
         /// <code>{
+        ///   id: string,
+        ///   displayName: string,
+        ///   url: string,
+        ///   eTag: string,
+        ///   lastModified: string (ISO 8601 Format),
+        ///   creationTime: string (ISO 8601 Format),
+        ///   state: PoolState,
+        ///   stateTransitionTime: string (ISO 8601 Format),
+        ///   allocationState: AllocationState,
+        ///   allocationStateTransitionTime: string (ISO 8601 Format),
+        ///   vmSize: string,
+        ///   cloudServiceConfiguration: {
+        ///     osFamily: string (required),
+        ///     osVersion: string
+        ///   },
+        ///   virtualMachineConfiguration: {
+        ///     imageReference: {
+        ///       publisher: string,
+        ///       offer: string,
+        ///       sku: string,
+        ///       version: string,
+        ///       virtualMachineImageId: string,
+        ///       exactVersion: string
+        ///     } (required),
+        ///     nodeAgentSKUId: string (required),
+        ///     windowsConfiguration: {
+        ///       enableAutomaticUpdates: boolean
+        ///     },
+        ///     dataDisks: [
+        ///       {
+        ///         lun: number (required),
+        ///         caching: CachingType,
+        ///         diskSizeGB: number (required),
+        ///         storageAccountType: StorageAccountType
+        ///       }
+        ///     ],
+        ///     licenseType: string,
+        ///     containerConfiguration: {
+        ///       type: ContainerType (required),
+        ///       containerImageNames: [string],
+        ///       containerRegistries: [
+        ///         {
+        ///           username: string,
+        ///           password: string,
+        ///           registryServer: string,
+        ///           identityReference: {
+        ///             resourceId: string
+        ///           }
+        ///         }
+        ///       ]
+        ///     },
+        ///     diskEncryptionConfiguration: {
+        ///       targets: [DiskEncryptionTarget]
+        ///     },
+        ///     nodePlacementConfiguration: {
+        ///       policy: NodePlacementPolicyType
+        ///     },
+        ///     extensions: [
+        ///       {
+        ///         name: string (required),
+        ///         publisher: string (required),
+        ///         type: string (required),
+        ///         typeHandlerVersion: string,
+        ///         autoUpgradeMinorVersion: boolean,
+        ///         settings: AnyObject,
+        ///         protectedSettings: AnyObject,
+        ///         provisionAfterExtensions: [string]
+        ///       }
+        ///     ],
+        ///     osDisk: {
+        ///       ephemeralOSDiskSettings: {
+        ///         placement: DiffDiskPlacement
+        ///       }
+        ///     }
+        ///   },
+        ///   resizeTimeout: PoolResizeTimeout,
+        ///   resizeErrors: [
+        ///     {
+        ///       code: string,
+        ///       message: string,
+        ///       values: [
+        ///         {
+        ///           name: string,
+        ///           value: string
+        ///         }
+        ///       ]
+        ///     }
+        ///   ],
+        ///   currentDedicatedNodes: number,
+        ///   currentLowPriorityNodes: number,
+        ///   targetDedicatedNodes: number,
+        ///   targetLowPriorityNodes: number,
+        ///   enableAutoScale: boolean,
+        ///   autoScaleFormula: string,
+        ///   autoScaleEvaluationInterval: PoolAutoScaleEvaluationInterval,
+        ///   autoScaleRun: {
+        ///     timestamp: string (ISO 8601 Format) (required),
+        ///     results: string,
+        ///     error: {
+        ///       code: string,
+        ///       message: string,
+        ///       values: [NameValuePair]
+        ///     }
+        ///   },
+        ///   enableInterNodeCommunication: boolean,
+        ///   networkConfiguration: {
+        ///     subnetId: string,
+        ///     dynamicVNetAssignmentScope: DynamicVNetAssignmentScope,
+        ///     endpointConfiguration: {
+        ///       inboundNATPools: [
+        ///         {
+        ///           name: string (required),
+        ///           protocol: InboundEndpointProtocol (required),
+        ///           backendPort: number (required),
+        ///           frontendPortRangeStart: number (required),
+        ///           frontendPortRangeEnd: number (required),
+        ///           networkSecurityGroupRules: [
+        ///             {
+        ///               priority: number (required),
+        ///               access: NetworkSecurityGroupRuleAccess (required),
+        ///               sourceAddressPrefix: string (required),
+        ///               sourcePortRanges: [string]
+        ///             }
+        ///           ]
+        ///         }
+        ///       ] (required)
+        ///     },
+        ///     publicIPAddressConfiguration: {
+        ///       provision: IPAddressProvisioningType,
+        ///       ipAddressIds: [string]
+        ///     }
+        ///   },
         ///   startTask: {
         ///     commandLine: string (required),
         ///     containerSettings: {
         ///       containerRunOptions: string,
         ///       imageName: string (required),
-        ///       registry: {
-        ///         username: string,
-        ///         password: string,
-        ///         registryServer: string,
-        ///         identityReference: {
-        ///           resourceId: string
-        ///         }
-        ///       },
+        ///       registry: ContainerRegistry,
         ///       workingDirectory: ContainerWorkingDirectory
         ///     },
         ///     resourceFiles: [
@@ -2485,19 +2954,106 @@ namespace Azure.Data.Batch
         ///       storeName: string,
         ///       visibility: [CertificateVisibility]
         ///     }
-        ///   ] (required),
+        ///   ],
         ///   applicationPackageReferences: [
         ///     {
         ///       applicationId: string (required),
         ///       version: string
         ///     }
-        ///   ] (required),
+        ///   ],
+        ///   applicationLicenses: [string],
+        ///   taskSlotsPerNode: number,
+        ///   taskSchedulingPolicy: {
+        ///     nodeFillType: ComputeNodeFillType (required)
+        ///   },
+        ///   userAccounts: [
+        ///     {
+        ///       name: string (required),
+        ///       password: string (required),
+        ///       elevationLevel: ElevationLevel,
+        ///       linuxUserConfiguration: {
+        ///         uid: number,
+        ///         gid: number,
+        ///         sshPrivateKey: string
+        ///       },
+        ///       windowsUserConfiguration: {
+        ///         loginMode: LoginMode
+        ///       }
+        ///     }
+        ///   ],
         ///   metadata: [
         ///     {
         ///       name: string (required),
         ///       value: string (required)
         ///     }
-        ///   ] (required)
+        ///   ],
+        ///   stats: {
+        ///     url: string (required),
+        ///     startTime: string (ISO 8601 Format) (required),
+        ///     lastUpdateTime: string (ISO 8601 Format) (required),
+        ///     usageStats: {
+        ///       startTime: string (ISO 8601 Format) (required),
+        ///       lastUpdateTime: string (ISO 8601 Format) (required),
+        ///       dedicatedCoreTime: UsageStatisticsDedicatedCoreTime (required)
+        ///     },
+        ///     resourceStats: {
+        ///       startTime: string (ISO 8601 Format) (required),
+        ///       lastUpdateTime: string (ISO 8601 Format) (required),
+        ///       avgCPUPercentage: number (required),
+        ///       avgMemoryGiB: number (required),
+        ///       peakMemoryGiB: number (required),
+        ///       avgDiskGiB: number (required),
+        ///       peakDiskGiB: number (required),
+        ///       diskReadIOps: number (required),
+        ///       diskWriteIOps: number (required),
+        ///       diskReadGiB: number (required),
+        ///       diskWriteGiB: number (required),
+        ///       networkReadGiB: number (required),
+        ///       networkWriteGiB: number (required)
+        ///     }
+        ///   },
+        ///   mountConfiguration: [
+        ///     {
+        ///       azureBlobFileSystemConfiguration: {
+        ///         accountName: string (required),
+        ///         containerName: string (required),
+        ///         accountKey: string,
+        ///         sasKey: string,
+        ///         blobfuseOptions: string,
+        ///         relativeMountPath: string (required),
+        ///         identityReference: ComputeNodeIdentityReference
+        ///       },
+        ///       nfsMountConfiguration: {
+        ///         source: string (required),
+        ///         relativeMountPath: string (required),
+        ///         mountOptions: string
+        ///       },
+        ///       cifsMountConfiguration: {
+        ///         username: string (required),
+        ///         source: string (required),
+        ///         relativeMountPath: string (required),
+        ///         mountOptions: string,
+        ///         password: string (required)
+        ///       },
+        ///       azureFileShareConfiguration: {
+        ///         accountName: string (required),
+        ///         azureFileUrl: string (required),
+        ///         accountKey: string (required),
+        ///         relativeMountPath: string (required),
+        ///         mountOptions: string
+        ///       }
+        ///     }
+        ///   ],
+        ///   identity: {
+        ///     type: PoolIdentityType (required),
+        ///     userAssignedIdentities: [
+        ///       {
+        ///         resourceId: string (required),
+        ///         clientId: string,
+        ///         principalId: string
+        ///       }
+        ///     ]
+        ///   }
         /// }
         /// </code>
         /// Schema for <c>Response Error</c>:
@@ -2854,7 +3410,7 @@ namespace Azure.Data.Batch
         ///           }
         ///         }
         ///       },
-        ///       resizeTimeout: CloudPoolResizeTimeout,
+        ///       resizeTimeout: PoolResizeTimeout,
         ///       resizeErrors: [
         ///         {
         ///           code: string,
@@ -2873,7 +3429,7 @@ namespace Azure.Data.Batch
         ///       targetLowPriorityNodes: number,
         ///       enableAutoScale: boolean,
         ///       autoScaleFormula: string,
-        ///       autoScaleEvaluationInterval: CloudPoolAutoScaleEvaluationInterval,
+        ///       autoScaleEvaluationInterval: PoolAutoScaleEvaluationInterval,
         ///       autoScaleRun: {
         ///         timestamp: string (ISO 8601 Format),
         ///         results: string,
@@ -3183,7 +3739,7 @@ namespace Azure.Data.Batch
         ///           }
         ///         }
         ///       },
-        ///       resizeTimeout: CloudPoolResizeTimeout,
+        ///       resizeTimeout: PoolResizeTimeout,
         ///       resizeErrors: [
         ///         {
         ///           code: string,
@@ -3202,7 +3758,7 @@ namespace Azure.Data.Batch
         ///       targetLowPriorityNodes: number,
         ///       enableAutoScale: boolean,
         ///       autoScaleFormula: string,
-        ///       autoScaleEvaluationInterval: CloudPoolAutoScaleEvaluationInterval,
+        ///       autoScaleEvaluationInterval: PoolAutoScaleEvaluationInterval,
         ///       autoScaleRun: {
         ///         timestamp: string (ISO 8601 Format),
         ///         results: string,

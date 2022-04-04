@@ -10,8 +10,8 @@ using Azure.Core;
 
 namespace Azure.Data.Batch
 {
-    /// <summary> Client options for BatchServiceClient library clients. </summary>
-    public partial class BatchServiceClientOptions : ClientOptions
+    /// <summary> Client options for AzureBatch library clients. </summary>
+    public partial class AzureBatchClientOptions : ClientOptions
     {
         private const ServiceVersion LatestVersion = ServiceVersion.V2022_01_01_15_0;
 
@@ -24,8 +24,8 @@ namespace Azure.Data.Batch
 
         internal string Version { get; }
 
-        /// <summary> Initializes new instance of BatchServiceClientOptions. </summary>
-        public BatchServiceClientOptions(ServiceVersion version = LatestVersion)
+        /// <summary> Initializes new instance of AzureBatchClientOptions. </summary>
+        public AzureBatchClientOptions(ServiceVersion version = LatestVersion)
         {
             Version = version switch
             {

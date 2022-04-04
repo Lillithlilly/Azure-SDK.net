@@ -41,11 +41,11 @@ namespace Azure.Data.Batch
         /// <param name="credential"> A credential used to authenticate to an Azure Service. </param>
         /// <param name="options"> The options for configuring the client. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="batchUrl"/> or <paramref name="credential"/> is null. </exception>
-        public JobScheduleClient(string batchUrl, TokenCredential credential, BatchServiceClientOptions options = null)
+        public JobScheduleClient(string batchUrl, TokenCredential credential, AzureBatchClientOptions options = null)
         {
             Argument.AssertNotNull(batchUrl, nameof(batchUrl));
             Argument.AssertNotNull(credential, nameof(credential));
-            options ??= new BatchServiceClientOptions();
+            options ??= new AzureBatchClientOptions();
 
             ClientDiagnostics = new ClientDiagnostics(options);
             _tokenCredential = credential;
@@ -1748,12 +1748,22 @@ namespace Azure.Data.Batch
         /// <remarks>
         /// Schema for <c>Request Body</c>:
         /// <code>{
+        ///   id: string,
+        ///   displayName: string,
+        ///   url: string,
+        ///   eTag: string,
+        ///   lastModified: string (ISO 8601 Format),
+        ///   creationTime: string (ISO 8601 Format),
+        ///   state: JobScheduleState,
+        ///   stateTransitionTime: string (ISO 8601 Format),
+        ///   previousState: JobScheduleState,
+        ///   previousStateTransitionTime: string (ISO 8601 Format),
         ///   schedule: {
         ///     doNotRunUntil: string (ISO 8601 Format),
         ///     doNotRunAfter: string (ISO 8601 Format),
         ///     startWindow: ScheduleStartWindow,
         ///     recurrenceInterval: ScheduleRecurrenceInterval
-        ///   } (required),
+        ///   },
         ///   jobSpecification: {
         ///     priority: number,
         ///     allowTaskPreemption: boolean,
@@ -2051,8 +2061,32 @@ namespace Azure.Data.Batch
         ///       }
         ///     } (required),
         ///     metadata: [MetadataItem]
-        ///   } (required),
-        ///   metadata: [MetadataItem]
+        ///   },
+        ///   executionInfo: {
+        ///     nextRunTime: string (ISO 8601 Format),
+        ///     recentJob: {
+        ///       id: string,
+        ///       url: string
+        ///     },
+        ///     endTime: string (ISO 8601 Format)
+        ///   },
+        ///   metadata: [MetadataItem],
+        ///   stats: {
+        ///     url: string (required),
+        ///     startTime: string (ISO 8601 Format) (required),
+        ///     lastUpdateTime: string (ISO 8601 Format) (required),
+        ///     userCPUTime: JobScheduleStatisticsUserCPUTime (required),
+        ///     kernelCPUTime: JobScheduleStatisticsKernelCPUTime (required),
+        ///     wallClockTime: JobScheduleStatisticsWallClockTime (required),
+        ///     readIOps: number (required),
+        ///     writeIOps: number (required),
+        ///     readIOGiB: number (required),
+        ///     writeIOGiB: number (required),
+        ///     numSucceededTasks: number (required),
+        ///     numFailedTasks: number (required),
+        ///     numTaskRetries: number (required),
+        ///     waitTime: JobScheduleStatisticsWaitTime (required)
+        ///   }
         /// }
         /// </code>
         /// Schema for <c>Response Error</c>:
@@ -2105,12 +2139,22 @@ namespace Azure.Data.Batch
         /// <remarks>
         /// Schema for <c>Request Body</c>:
         /// <code>{
+        ///   id: string,
+        ///   displayName: string,
+        ///   url: string,
+        ///   eTag: string,
+        ///   lastModified: string (ISO 8601 Format),
+        ///   creationTime: string (ISO 8601 Format),
+        ///   state: JobScheduleState,
+        ///   stateTransitionTime: string (ISO 8601 Format),
+        ///   previousState: JobScheduleState,
+        ///   previousStateTransitionTime: string (ISO 8601 Format),
         ///   schedule: {
         ///     doNotRunUntil: string (ISO 8601 Format),
         ///     doNotRunAfter: string (ISO 8601 Format),
         ///     startWindow: ScheduleStartWindow,
         ///     recurrenceInterval: ScheduleRecurrenceInterval
-        ///   } (required),
+        ///   },
         ///   jobSpecification: {
         ///     priority: number,
         ///     allowTaskPreemption: boolean,
@@ -2408,8 +2452,32 @@ namespace Azure.Data.Batch
         ///       }
         ///     } (required),
         ///     metadata: [MetadataItem]
-        ///   } (required),
-        ///   metadata: [MetadataItem]
+        ///   },
+        ///   executionInfo: {
+        ///     nextRunTime: string (ISO 8601 Format),
+        ///     recentJob: {
+        ///       id: string,
+        ///       url: string
+        ///     },
+        ///     endTime: string (ISO 8601 Format)
+        ///   },
+        ///   metadata: [MetadataItem],
+        ///   stats: {
+        ///     url: string (required),
+        ///     startTime: string (ISO 8601 Format) (required),
+        ///     lastUpdateTime: string (ISO 8601 Format) (required),
+        ///     userCPUTime: JobScheduleStatisticsUserCPUTime (required),
+        ///     kernelCPUTime: JobScheduleStatisticsKernelCPUTime (required),
+        ///     wallClockTime: JobScheduleStatisticsWallClockTime (required),
+        ///     readIOps: number (required),
+        ///     writeIOps: number (required),
+        ///     readIOGiB: number (required),
+        ///     writeIOGiB: number (required),
+        ///     numSucceededTasks: number (required),
+        ///     numFailedTasks: number (required),
+        ///     numTaskRetries: number (required),
+        ///     waitTime: JobScheduleStatisticsWaitTime (required)
+        ///   }
         /// }
         /// </code>
         /// Schema for <c>Response Error</c>:
@@ -2735,14 +2803,22 @@ namespace Azure.Data.Batch
         /// <remarks>
         /// Schema for <c>Request Body</c>:
         /// <code>{
-        ///   id: string (required),
+        ///   id: string,
         ///   displayName: string,
+        ///   url: string,
+        ///   eTag: string,
+        ///   lastModified: string (ISO 8601 Format),
+        ///   creationTime: string (ISO 8601 Format),
+        ///   state: JobScheduleState,
+        ///   stateTransitionTime: string (ISO 8601 Format),
+        ///   previousState: JobScheduleState,
+        ///   previousStateTransitionTime: string (ISO 8601 Format),
         ///   schedule: {
         ///     doNotRunUntil: string (ISO 8601 Format),
         ///     doNotRunAfter: string (ISO 8601 Format),
         ///     startWindow: ScheduleStartWindow,
         ///     recurrenceInterval: ScheduleRecurrenceInterval
-        ///   } (required),
+        ///   },
         ///   jobSpecification: {
         ///     priority: number,
         ///     allowTaskPreemption: boolean,
@@ -3040,8 +3116,32 @@ namespace Azure.Data.Batch
         ///       }
         ///     } (required),
         ///     metadata: [MetadataItem]
-        ///   } (required),
-        ///   metadata: [MetadataItem]
+        ///   },
+        ///   executionInfo: {
+        ///     nextRunTime: string (ISO 8601 Format),
+        ///     recentJob: {
+        ///       id: string,
+        ///       url: string
+        ///     },
+        ///     endTime: string (ISO 8601 Format)
+        ///   },
+        ///   metadata: [MetadataItem],
+        ///   stats: {
+        ///     url: string (required),
+        ///     startTime: string (ISO 8601 Format) (required),
+        ///     lastUpdateTime: string (ISO 8601 Format) (required),
+        ///     userCPUTime: JobScheduleStatisticsUserCPUTime (required),
+        ///     kernelCPUTime: JobScheduleStatisticsKernelCPUTime (required),
+        ///     wallClockTime: JobScheduleStatisticsWallClockTime (required),
+        ///     readIOps: number (required),
+        ///     writeIOps: number (required),
+        ///     readIOGiB: number (required),
+        ///     writeIOGiB: number (required),
+        ///     numSucceededTasks: number (required),
+        ///     numFailedTasks: number (required),
+        ///     numTaskRetries: number (required),
+        ///     waitTime: JobScheduleStatisticsWaitTime (required)
+        ///   }
         /// }
         /// </code>
         /// Schema for <c>Response Error</c>:
@@ -3090,14 +3190,22 @@ namespace Azure.Data.Batch
         /// <remarks>
         /// Schema for <c>Request Body</c>:
         /// <code>{
-        ///   id: string (required),
+        ///   id: string,
         ///   displayName: string,
+        ///   url: string,
+        ///   eTag: string,
+        ///   lastModified: string (ISO 8601 Format),
+        ///   creationTime: string (ISO 8601 Format),
+        ///   state: JobScheduleState,
+        ///   stateTransitionTime: string (ISO 8601 Format),
+        ///   previousState: JobScheduleState,
+        ///   previousStateTransitionTime: string (ISO 8601 Format),
         ///   schedule: {
         ///     doNotRunUntil: string (ISO 8601 Format),
         ///     doNotRunAfter: string (ISO 8601 Format),
         ///     startWindow: ScheduleStartWindow,
         ///     recurrenceInterval: ScheduleRecurrenceInterval
-        ///   } (required),
+        ///   },
         ///   jobSpecification: {
         ///     priority: number,
         ///     allowTaskPreemption: boolean,
@@ -3395,8 +3503,32 @@ namespace Azure.Data.Batch
         ///       }
         ///     } (required),
         ///     metadata: [MetadataItem]
-        ///   } (required),
-        ///   metadata: [MetadataItem]
+        ///   },
+        ///   executionInfo: {
+        ///     nextRunTime: string (ISO 8601 Format),
+        ///     recentJob: {
+        ///       id: string,
+        ///       url: string
+        ///     },
+        ///     endTime: string (ISO 8601 Format)
+        ///   },
+        ///   metadata: [MetadataItem],
+        ///   stats: {
+        ///     url: string (required),
+        ///     startTime: string (ISO 8601 Format) (required),
+        ///     lastUpdateTime: string (ISO 8601 Format) (required),
+        ///     userCPUTime: JobScheduleStatisticsUserCPUTime (required),
+        ///     kernelCPUTime: JobScheduleStatisticsKernelCPUTime (required),
+        ///     wallClockTime: JobScheduleStatisticsWallClockTime (required),
+        ///     readIOps: number (required),
+        ///     writeIOps: number (required),
+        ///     readIOGiB: number (required),
+        ///     writeIOGiB: number (required),
+        ///     numSucceededTasks: number (required),
+        ///     numFailedTasks: number (required),
+        ///     numTaskRetries: number (required),
+        ///     waitTime: JobScheduleStatisticsWaitTime (required)
+        ///   }
         /// }
         /// </code>
         /// Schema for <c>Response Error</c>:
