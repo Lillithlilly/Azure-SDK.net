@@ -5,7 +5,7 @@
     <Version>1.0.0-beta.1</Version>
     <PackageTags>Azure Batch</PackageTags>
     <TargetFrameworks>$(RequiredTargetFrameworks)</TargetFrameworks>
-    <NoWarn>$(NoWarn);419;AZC0012;CS1591</NoWarn>
+    <NoWarn>$(NoWarn);419;AZC0012;CS1591;CA1822</NoWarn>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <DefineConstants>$(DefineConstants);EXPERIMENTAL</DefineConstants>
     <IncludeOperationsSharedSource>true</IncludeOperationsSharedSource>

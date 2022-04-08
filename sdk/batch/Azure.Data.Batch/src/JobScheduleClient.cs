@@ -10,49 +10,63 @@ using Azure.Data.Batch.Models;
 
 namespace Azure.Data.Batch
 {
-    public partial class JobScheduleClient
+    public partial class JobScheduleClient : BaseClient
     {
         public virtual Response<JobSchedule> GetJobSchedule(string jobScheduleId)
         {
-            Response response = GetJobSchedule(jobScheduleId, context: new RequestContext());
-            var j = JsonDocument.Parse(response.Content).RootElement;
-            JobSchedule jobSchedule = JobSchedule.DeserializeJobSchedule(j);
+            return HandleGet(jobScheduleId, GetJobSchedule, JobSchedule.DeserializeJobSchedule);
+        }
+
+        public virtual async System.Threading.Tasks.Task<Response<JobSchedule>> GetJobScheduleAsync(string jobScheduleId)
+        {
+            return await HandleGetAsync(jobScheduleId, GetJobScheduleAsync, JobSchedule.DeserializeJobSchedule).ConfigureAwait(false);
+        }
+
+        private static Response<JobSchedule> GetResponse(Response response)
+        {
+            JsonDocument json = JsonDocument.Parse(response.Content);
+            JobSchedule jobSchedule = JobSchedule.DeserializeJobSchedule(json.RootElement);
             return Response.FromValue(jobSchedule, response);
         }
 
         public virtual Response<JobScheduleHeaders> AddJobSchedule(JobSchedule jobSchedule)
         {
-            RequestContent content = ModelHelpers.ToRequestContent(jobSchedule);
-            Response response = Add(content);
-            JobScheduleHeaders headers = new JobScheduleHeaders(response);
-            return Response.FromValue(headers, response);
+            return HandleAdd<JobScheduleHeaders>(jobSchedule, Add);
+        }
+
+        public virtual async System.Threading.Tasks.Task<Response<JobScheduleHeaders>> AddJobScheduleAsync(JobSchedule jobSchedule)
+        {
+            return await HandleAddAsync<JobScheduleHeaders>(jobSchedule, AddAsync).ConfigureAwait(false);
         }
 
         public virtual Response<JobScheduleHeaders> UpdateJobSchedule(JobSchedule jobSchedule)
         {
-            RequestContent content = ModelHelpers.ToRequestContent(jobSchedule);
-            Response response = Update(jobSchedule.Id, content);
-            JobScheduleHeaders headers = new JobScheduleHeaders(response);
-            return Response.FromValue(headers, response);
+            return HandleUpdate<JobScheduleHeaders>(jobSchedule.Id, jobSchedule, Update);
         }
 
-        public virtual Response<JobScheduleHeaders> PatchJobSchedule(string jobScheduleId, Schedule schedule = null, JobSpecification specification = null)
+        public virtual async System.Threading.Tasks.Task<Response<JobScheduleHeaders>> UpdateJobScheduleAsync(JobSchedule jobSchedule)
         {
-            JobScheduleUpdate update = new JobScheduleUpdate();
-            update.Schedule = schedule;
-            update.JobSpecification = specification;
+            return await HandleUpdateAsync<JobScheduleHeaders>(jobSchedule.Id, jobSchedule, UpdateAsync).ConfigureAwait(false);
+        }
 
-            RequestContent content = ModelHelpers.ToRequestContent(update);
-            Response response = Patch(jobScheduleId, content);
-            JobScheduleHeaders headers = new JobScheduleHeaders(response);
-            return Response.FromValue(headers, response);
+        public virtual Response<JobScheduleHeaders> PatchJobSchedule(string jobScheduleId, JobScheduleUpdate updateContents)
+        {
+            return HandlePatch<JobScheduleHeaders>(jobScheduleId, updateContents, Patch);
+        }
+
+        public virtual async System.Threading.Tasks.Task<Response<JobScheduleHeaders>> PatchJobScheduleAsync(string jobScheduleId, JobScheduleUpdate updateContents)
+        {
+            return await HandlePatchAsync<JobScheduleHeaders>(jobScheduleId, updateContents, UpdateAsync).ConfigureAwait(false);
         }
 
         public virtual Response<JobScheduleHeaders> DeleteJobSchedule(string jobScheduleId)
         {
-            Response response = Delete(jobScheduleId);
-            JobScheduleHeaders headers = new JobScheduleHeaders(response);
-            return Response.FromValue(headers, response);
+            return HandleDelete<JobScheduleHeaders>(jobScheduleId, Delete);
+        }
+
+        public virtual async System.Threading.Tasks.Task<Response<JobScheduleHeaders>> DeleteJobScheduleAsync(string jobScheduleId)
+        {
+            return await HandleDeleteAsync<JobScheduleHeaders>(jobScheduleId, DeleteAsync).ConfigureAwait(false);
         }
     }
 }
